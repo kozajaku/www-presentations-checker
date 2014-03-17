@@ -1,0 +1,9 @@
+﻿* Diagram aktivit (UML) - dopsat popisy pro vygenerování textu!
+* Požadavky
+* Diagram Used Case + scénaře => automatická generace diagramů (pozor na chybu UML - je to jen základ)
+* Propojení Požadavků a UC - tabulkové zobrazení
+* Slovníček pojmů - jde automaticky definovat
+* Textové popisy jen vygenerované z EA!
+* Vygenerování dokumentace - vytvořit vlastní šablonu!
+* Verzování - zatím neřešíme
+* Doménový model bude až příště

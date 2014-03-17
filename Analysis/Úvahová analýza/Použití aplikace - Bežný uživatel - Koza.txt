@@ -1,0 +1,17 @@
+﻿Běžný uživatel
+otázkou je jaký bežný uživatel?
+    -nechávám si stránky vytvořit například pro firemní účely, ale nerozumím technologíím, které jsou na stránkách použity
+    -nerozumím ničemu a nenechávám si stránky vytvořit jen například testuju stránky společnosti, kterou nemám rád (otázka proč bych to testoval a co z toho budu mít?)
+    -trošku rozumím webovým technologíím nebo alespoň některým a stránky jsem si nechal udělat
+    -chci se naučit dělat webové stránky a nástroj použiji jako kontrolu jednoduchých stránek, které jsem si právě napsal jako otestování znalostí
+
+
+Závěr:
+Nástroj je pravděpodobně zbytečné vytvářet pro lidi, kteří nemají žádný vztah s testovanými stránkami. Pokud stránky vyvíjím, zřejmě nebudu běžný uživatel. V podstatě jediným možným případem tedy je, že jsem osoba, která si nechává stránky na zakázku vyrobit, ať již webovým technologiím rozumím více či méně.
+Proč použít nástroj?
+-abych si otestoval, jak moc jsou stránky, které si nechávám vyrobit, kvalitní
+
+
+Co očekávám jako výstup nástroje:
+Očekávám velice jednoduché ovládání, nič náročného, čemu bych nerozuměl.
+Nástroj by měl na nějaké grafické stupnici vyhodnotit, jak moc dobrá stránka je a nevypisovat zbytečný text, kterému nebudu rozumět. Popřípadě vypsat kolik je na stránce chyb, varování atd. ale bez nějakého hromadného zhodnocení mi to v podstatě nic neřekne. Pokud se chci o chybách alespoň trochu dozvědět (rozumím tomu), čekal bych, že je možné nástroj přepnout do režimu, který bude vypisovat trochu více informací (možná více režimů podle toho, jak moc zkušený jsem). Při použití stupnice by bylo možná dobré ukázat nějaké srovnání se znamými weby například Seznam.cz nebo něco podobného, ale samozřejmě upozornit, že jsou údaje pouze orientační a stránky jsou mnohem lepší než na seznamu, i když obsahují více chyb :D

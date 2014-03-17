@@ -1,0 +1,49 @@
+﻿* 1. iterace (1.- 5. týden) (#doplnil bych průzkum dostupných technologií)
+* převažuje analýza, zahájení práce na návrhu
+* odevzdávaná dokumentace
+   * analýza business procesů (#co je to business proces?)
+      * diagramy aktivit
+      * textové popisy procesů
+   * analýza požadavků - uc model (#uc model? Kdo co od toho bude požadovat (typy zákazníků)?)
+      * katalog požadavků
+      * diagramy případů užití
+      * popisy a scénáře „zajímavých“ případů užití
+      * seznam účastníků (#jakých učastníků, uživatelé?)
+      * mapování případů užití na požadavky
+   * analytický (doménový) model tříd (#model domény jako v OMO ontoUML?)
+      * diagram tříd - kardinality, názvy asociací
+      * popisy jednotlivých entit a jejich atributů
+      * stavový diagram pro vybrané entity
+* 2. iterace (6.-9. týden)
+* převažuje návrh, doplnění analýzy, zahájení implementace
+* odevzdávaná dokumentace
+   * návrh architektury
+      * zvolené technologie (frameworky, knihovny, principy) pro:
+         * uživatelské rozhraní
+         * persistenci dat
+         * provázání balíčků/komponent
+      * diagram balíčků/komponent v kontextu zvolené technologie
+      * návrh a popis rozhraní v kontextu zvolené technologie
+   * návrhový model tříd vycházející z doménového modelu a návrhu architektury (#asi UML diagram)
+      * doplněné datové typy
+      * doplněny směry asociací
+      * přiřazení zodpovědností (metod)
+      * vytvořeny nové třídy umožňující dodržet navrženou architekturu
+         * způsob persistentního ukládání objektů
+         * zobrazování dat uživateli
+         * způsob zpracování uživatelských vstupů
+         * atd.
+   * model komunikace - sekvenční diagramy nebo diagramy komunikace (#model komunikace?)
+      * popis komunikace softwarových tříd při realizaci scénářů případů užití
+   * databázový model - diagram tříd (#budeme mít databázový model?)
+      * primární klíče
+      * cizí klíče
+      * datové typy
+      * dekompozice m:n vazeb
+* 3. iterace (10.-13. týden)
+* převažuje implementace, dokončení návrhu
+   * instalační balíček obsahující spustitelný základ aplikace
+   * instalační příručka - diagram nasazení
+   * vygenerovaná dokumentace ze zdrojových kódů (např. JavaDoc)
+   * zdrojové kódy aplikace
+   * projektový plán pro příští semestr

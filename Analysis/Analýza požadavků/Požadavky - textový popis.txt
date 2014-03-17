@@ -1,0 +1,48 @@
+Funkční požadavky
+
+F1. HTML validace - nástroj bude umožňovat validaci značkovacího jazyka HTML na testovaných stránkách. Validace bude probíhat pomocí veřejně dostupných nástrojů.
+     
+F2. CSS validace - nástroj bude umožňovat validaci kaskádových stylů na testovaných stránkách. Validace bude probíhat pomocí veřejně dostupných nástrojů.
+    
+F3. Specifikace kontrol - nástroj umožní uživateli vybrat si, které kontroly chce při testování stránek provádět.
+    
+F4. Generování reportů - nástroj umožňuje uživateli export výpisu provedeného testu do externího souboru ve formátu TXT, HTML nebo XML. Nástroj bez rozšíření nebude umožňovat vyexportovat výpis do jiných formátů. Výpisy budou obsahovat informace o chybách, varováních a ostatních údajích, a dále informace o tom, kde se tyto artefakty nalézají.
+
+F5. Výsledná stupnice - nástroj umožní po dokončení testování zobrazit stupnici, na které bude ohodnocena celková kvalita webových stránek na grafické stupnici s krátkými textovými popisy.
+    
+F6. Výběr vstupu - nástroj umožní uživateli vybrat si způsob určení webových stránek k otestování. Jednou možností je přímé nastavení URL adresy. Druhou možností bude vložení stránek ve formátu ZIP a specifikace stránky, kterou se má proces testování zahájit. V druhém případě program umožní pouze zpracovávání statických stránek ve formátu HTML a nikoli stránek ve formátu ASP, PHP, atd.
+
+F7. Traverzace stránek - nástroj bude schopný procházet webové stránky pomocí odkazů, které se na ní vyskytují. Nástroj bude procházet pouze odkazy, které jsou ve stejné doméně, jako je výchozí bod.
+   
+F8. Hloubka zanoření - nástroj umožní uživateli specifikovat maximální hloubku zanoření odkazů, které bude nástroj traverzovat. Z technických důvodů nebude možné zde nastavit hodnotu na nekonečno.
+
+F9. Platnost odkazů - nástroj bude při testování schopný zkontrolovat, zda všechny odkazy umístěné na stránkách jsou platné. Nástroj zkontroluje i odkazy, které vedou mimo doménu testovaného webu. Funkcionalitu kontroly vnějších odkazů bude možné zakázat. 
+   
+F10. Nadbytečnost CSS - nástroj umožní lokalizovat selektory kaskádových stylů, které nejsou na webové stránce nikde použity.
+     
+F11. Překrývání CSS - nástroj umožní lokalizovat takové části kaskádových stylů, pro které existují komponenty využívajících těchto částí, avšak jsou vzápětí přepsány jinými částmi kaskádových stylů, takže ve výsledku nejsou využity vůbec.
+
+F12. Interpretace Javascriptu - nástroj bude při testování webových stránek používat některé JavaScriptové funkce a bude kontrolovat, zda se v JavaScriptu nevyskytují chyby.
+ 
+F13. Nastavení HTTP header - nástroj umožní uživateli specifikovat, jaké nastavení HTTP hlavičky má při procházení stránek používat. Tato funkcionalita je například vhodná při testování webových stránek s různými jazykovými lokalizacemi.
+
+F14. Frekvence požadavků - nástroj umožní nastavit časovou prodlevu mezi jednotlivými dotazy na testovaný server. Při použití příliš malé prodlevy by mohlo hrozit, že by server odmítl odeslat další stránku a vložil by adresu klienta do blacklistu.
+ 
+F15. Statistické údaje - nástroj umožní přidání statistických údajů do výsledného výpisu. Statistickými údaji se rozumí: celková velikost stažených dat, procentuální využití přiložených CSS kaskádových stylů, průměrná časová odezva serveru, celkový počet řádku projitých při testování a velikosti jednotlivých stánek, které nástroj ztraverzoval.
+        
+F16. Seznam výstupních odkazů - nástroj umožní uživateli vypsat seznam odkazů vedoucích z testované domény do internetu.
+
+F17. Graf průchodu - nástroj umožní uživateli graficky zobrazit orientovaný graf průchodu při traverzování webovými stránkami.
+
+Nefunkční požadavky (obecné)
+    Usability
+          N1. Aplikace bude běžet ve dvou režimech: Jednoduchý režim, Režim pro experty. Tyto režimy se budou lišit v množství nastavení a ve formě podání celkového výpisu.          
+          N2. Aplikace bude vyvíjena pro běh na klitentské straně.
+    Reliability
+          nic
+    Performance
+          nic
+    Supportability
+          N3. Architektura aplikace bude zvolena tak, aby její funkcionalitu bylo v budoucnu možné rozvíjet pomocí přídavných pluginů bez nutnosti zasahovat přímo do jádra aplikace.
+          
+          

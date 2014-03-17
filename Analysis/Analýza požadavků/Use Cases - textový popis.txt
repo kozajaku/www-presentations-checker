@@ -1,0 +1,63 @@
+Ucastnici:
+	- Developer
+	- Bezny uzivatel
+
+USE CASES:
+	- validace css (dev,bfu)
+		- provede validaci definic kaskádových stylů použitých v prezentaci. Validace se řídí standardem W3C a podporuje CSS až do verze 3.
+	
+	- validace html (dev,bfu)
+		- provede validaci html kódu webové prezentace. Validace se řídí standardem W3C, podporovány jsou formáty XHTML a HTML.
+		
+	- vypsani reportu txt (dev)
+		- vypíše uživateli přijatelným způsobem výsledek testování v prostém textu. Výsledky jednotlivých kontrol budou odděleny jednotným separátorem a formátovány individuálně.
+		
+	- vypsani reportu html (dev)
+		- zobrazí výsledky testování uživateli přehlednějším způsobem za použití technologie HTML. 
+		
+	- ulozeni reportu txt (dev)
+		- uloží výsledek testů do souboru.
+		
+	- ulozeni reportu html (dev)
+		- uloží do souboru výsledek testů ve formátu HTML pro lepší čitelnost.
+		
+	- ulozeni reportu xml (dev)
+		- uloží do souboru výsledek testů ve formátu XML dle předepsané struktury. Každý typ kontroly má pak předepsanou svoji individuální vnitřní strukturu.
+	
+	- zobrazeni srovnavaci stupnice (bfu)
+		- zobrazí uživateli orientační skóre prezentace vypočítané z výsledků různých testů. Skóre je pouze orientační a nelze jej brát jako směrodatný údaj.
+	
+	- zadani vstupu pomoci url (dev,bfu)
+		- určí URL - výchozí bod validátoru. V základu je podporovaný HTTP protokol.
+	
+	- zadani vstupu pomoci zip balicku (dev,bfu)
+		- zadá existujici soubor - zip balíček obsahující soubory ke kontrole. Balíček musí obsahovat soubor index.html, který validátor použije jako výchozí.
+		
+	- kontrola jedne stranky (dev)
+		- zkontroluje pouze stránku zadanou výchozím bodem, nebude následovat další odkazové prvky na stránce.
+		
+	- kontrola celku (dev,bfu)
+		- provede kontrolu celého webu. Seznam URL, které validátor navštíví, se řídí odkazy ve webové prezentaci (můžou být různých typů, závisí na externích modulech)
+			lze zadat hloubku zanoření.
+	
+	- kontrola linku (dev,bfu)
+		- provede kontrolu odkazů vedoucích na neplatné umístění (neplatný protokol, HTTP chyby, chyby jmenných služeb,...)
+	
+	- css prekryvani (dev)
+		- zkontroluje zda nedochází ve skriptu k hierarchickému přepisovaním kaskádových stylů. 
+	
+	- kontrola javascriptu (dev)
+		- upozorní na syntaktické chyby javascriptu, případně i runtime chyby v rámci inicializačních skriptů. 
+		
+	- kontrola webu s ruznymi hlavickami (dev)
+		- definuje HTTP hlavičky pro odesílání HTTP požadavků (např. nastavení jazyka, cookies)
+		
+	- zjisteni statistickych udaju (dev,bfu?)
+		- poskytuje uživateli různé statistické informace - např. podíl nepoužitých kaskádových stylů na stránce, velikost stránek, výpis objemných souborů, průměrnou odezvu,
+			celkový počet řádků, poměr komentářů a kódu,..
+	
+	- zjisteni odkazu vedoucich ven (dev)
+		- poskytuje seznam odkazů na externí zdroje. 
+		
+	- zjisteni stromu pruchodu
+		- vypíše všechny navštívené zdroje včetne znázornění průchodu

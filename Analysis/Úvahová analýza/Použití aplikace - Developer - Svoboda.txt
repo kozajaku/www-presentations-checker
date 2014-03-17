@@ -1,0 +1,25 @@
+﻿Pohled developera
+=================
+
+
+Developer nebo skupina developerů vyvíjí rozsáhlou webovou aplikaci,
+kde je hodně obsahu generováno dynamicky a obsahem přispívají hlavně uživatelé.
+Při vývoji developer na projekt aplikuje různé testy kontrolující validitu,
+přístupnost, funkčnost kódu apod. Jednoho krásného dne usoudí, že projekt
+je již dokonalý a rozhodne se ho naposledy validovat před ostrým spuštěním.
+Sáhne i po této utilitě, která mu poskytne informace o různých problémech,
+které by byly na ruční hledání velmi zdlouhavé nebo dokonce i nemožné.
+Dozví se např. různé připomínky k využití kaskádových stylů nebo 
+odkazy na neexistující stránky - většinou záležitosti, které nejsou
+kritické pro funkčnost systému, ale ani nejsou žádoucí. Developer zjistil,
+že má v projektu pár nepoužitých kaskádových stylů a že ve FAQ odkazuje 
+na 2 neexistující stránky. Chyby opravil a službu vítězoslavně spustil do provozu.
+
+
+Po 5 měsících mu píše zadavatel, celý nešťastný, že si uživatelé
+stále častěji stěžují, že se jim vrací chybová stránka 404.
+I zde použije developer k odhalení problému naší utilitu, která mu
+prozradí, že z vyhledávání vedou odkazy na stránky, které byly
+smazané nebo znepřístupněné. Dále si všimne, že se tato záležitost
+týká i katalogu stránek. To už mu napoví, že bude chyba v indexování obsahu a 
+řeší chybu dál. Ušetřila mu hodiny času strávených ručním hledaním původu chyby.

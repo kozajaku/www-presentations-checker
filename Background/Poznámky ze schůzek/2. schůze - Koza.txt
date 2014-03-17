@@ -1,0 +1,10 @@
+Poznámky z druhé schůze
+1) Nutné pořešit, jestli budeme chtít aplikaci specializovat na serverové nasazení, nebo na klientskou stranu, popřípadě zvolit takovou technologii, která v budoucnu umožní obojí.
+2) V případě nasazení na server je nutné taky uvažovat, že aplikace poběží na více serverech současně - možné paralelní výpočty?
+3) Nechat se inspirovat Googlebotem - umí Ajax i POST při procházení
+4) V aplikaci bude nutné použít prohlížečové jádro - Selenium vs. alternativy v použité technologii
+5) Při analýze se soustředit hlavně na to, co od aplikace chceme (popřípadě uživatel) a ne, jestli nám to již určitá technologie dovoluje.
+6) Po rozchození Redminu dávat krátké zprávy například o konkurenčních nástrojích, které jsme našli; Je to nutné, abychom si například za půl roku pamatovali, co to dělá a nemuseli to znovu hledat.
+7) Je lepší když aplikace bude umět méně technologií kontrolovat pořádně, než hodně technologií ale mělce.
+8) Připravit si, na co se máme zeptat z harmonogramu (neznámá terminologie, atd.).
+9) Připravit si "hrubý" harmonogram.

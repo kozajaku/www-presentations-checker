@@ -1,0 +1,11 @@
+﻿Poznámky ze třetí schůze
+1) Redmine by se měl rozjet v úterý nebo ve čtvrtek
+2) Ve třetí iteraci tohoto semestru řešit hlavně background - kostra, na které program poběží (rozjet servery atd…)
+3) V tomto semestru řešit zejména analýzu (hlavně) a návrh
+4) Rozhodnout se, jestli chceme program cílit podle principu objednávky pro zákazníka vs. open source
+5) Aplikaci tedy nejspíš udělat ve více režimech (laik vs. vývojář atd…)
+6) Do příště vymyslet scénáře
+7) Příští týden předat hrubý harmonogram na papíře nebo elektronicky - definováno kdy budeme předvádět iterace a co v nich budeme předvádět
+8) Příští týden předvést co máme, aby nám mohl říct, jestli něco děláme fakt špatně
+9) Až se rozjede Redmine - naházet do něj reporty, abychom si to s Hunkou mohli příští týden probrat
+10) Rozhodnout se o přijetí nového člena
