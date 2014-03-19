@@ -1,0 +1,19 @@
+Poznámky ze čtvrté schůze
+1) Vybrat si, zda diagramy v angličtině nebo v češtině
+2) Rozmyslet si, kde by se dala použít v projektu databáze - stále problém klient vs. server
+3) Přepsat harmonogram - přidat data, která nejsou vyplněna a přepsat diagram tříd na doménový model tříd
+4) Plánovat pokud možno tak, aby 13. týden nemusela býti schůze
+5) Obnovit Redmine do původního stavu a moc se v něm nešťourat co se nastavení týče
+6) Úkoly, které jsme udělali v minulosti nepřidávat na Redmine
+7) Čas ze schůzek rozmělnit do úkolů
+8) Schůzky zapisovat do Wiki na Redminu
+9) Do záložky Soubory přidávat pouze například fotky z tabule, nebo již hotové věci z repozitáře, které se nebudou upravovat.
+10) Na Redminu definovat verze - umožní nám to využívat checkpointy
+11) Vytvořit nový testovací projekt, na kterém si otestujeme funkcionalitu bez narušení našeho projektu
+12) Do aktivit na Redminu přidat "Tvorba dokumentace"
+13) Nejdůležitější požadavek na projekt - Link checker
+14) Přidat frekvenci požadavků také do nefunkčních požadavků
+15) Přidat nový požadavek na možnost nastavení domén, které budou nástrojem traverzovány
+16) V UC modelu přidat šipky na dědění práv mezi developerem a běžným uživatelem (jak se to dělá najít na Googlu)
+17) V EA si vyzkoušet šablony pro generování výstupu, ať víme, co to vyplivne.
+18) Scénáře udělat opravdu detailně!! 
