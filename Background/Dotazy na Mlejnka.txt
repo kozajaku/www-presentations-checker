@@ -1,0 +1,4 @@
+21. 3. 2014
+Zahrnovat v UC modelu panáčka pro Systém?
+Zeptat se, jak se dělají scénáře.
+Verzování v EA pomocí Gitu.
