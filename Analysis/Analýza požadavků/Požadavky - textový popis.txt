@@ -12,7 +12,7 @@ F5. Výsledná stupnice - nástroj umožní po dokončení testování zobrazit 
     
 F6. Výběr vstupu - nástroj umožní uživateli vybrat si způsob určení webových stránek k otestování. Jednou možností je přímé nastavení URL adresy. Druhou možností bude vložení stránek ve formátu ZIP a specifikace stránky, kterou se má proces testování zahájit. V druhém případě program umožní pouze zpracovávání statických stránek ve formátu HTML a nikoli stránek ve formátu ASP, PHP, atd.
 
-F7. Traverzace stránek - nástroj bude schopný procházet webové stránky pomocí odkazů, které se na ní vyskytují. Nástroj bude procházet pouze odkazy, které jsou ve stejné doméně, jako je výchozí bod.
+F7. Traverzace stránek - nástroj bude schopný procházet webové stránky pomocí odkazů, které se na ní vyskytují.
    
 F8. Hloubka zanoření - nástroj umožní uživateli specifikovat maximální hloubku zanoření odkazů, které bude nástroj traverzovat. Z technických důvodů nebude možné zde nastavit hodnotu na nekonečno.
 
@@ -34,15 +34,18 @@ F16. Seznam výstupních odkazů - nástroj umožní uživateli vypsat seznam od
 
 F17. Graf průchodu - nástroj umožní uživateli graficky zobrazit orientovaný graf průchodu při traverzování webovými stránkami.
 
+F18. Specifikace domén - nástroj umožní uživateli specifikovat domény, které bude při traverzování testovaným webem procházet. Stránky z nespecifikovaných domén, na které vedou odkazy, nebudou kontrolovány.
+
 Nefunkční požadavky (obecné)
     Usability
           N1. Aplikace bude běžet ve dvou režimech: Jednoduchý režim, Režim pro experty. Tyto režimy se budou lišit v množství nastavení a ve formě podání celkového výpisu.          
           N2. Aplikace bude vyvíjena pro běh na klitentské straně.
+          N3. Aplikace nebude příliš zatěžovat testovaný server díky možnosti nastavení prodlevy mezi požadavky.
     Reliability
           nic
     Performance
           nic
     Supportability
-          N3. Architektura aplikace bude zvolena tak, aby její funkcionalitu bylo v budoucnu možné rozvíjet pomocí přídavných pluginů bez nutnosti zasahovat přímo do jádra aplikace.
+          N4. Architektura aplikace bude zvolena tak, aby její funkcionalitu bylo v budoucnu možné rozvíjet pomocí přídavných pluginů bez nutnosti zasahovat přímo do jádra aplikace.
           
           
