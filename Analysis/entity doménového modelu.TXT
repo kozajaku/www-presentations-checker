@@ -1,0 +1,11 @@
+webova prezentace
+webova stranka (stavy: nalezena, zkontrolovana)
+odkaz (stavy: platny, neplatny, navstiveny, nenavstiveny)
+HTML kod (stavy: (ne)zvalidovany)
+CSS kod
+JavaScript
+HTML validator
+CSS validator
+JavaScript validator
+Link checker
+
