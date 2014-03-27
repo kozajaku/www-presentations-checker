@@ -13,15 +13,15 @@ Webová prezentace - množina webových stránek
                 +nějaká další, které by mohly něco linkovat (iframy atd...)
         -CSS
             -Selektory
-            -To druhý co nevím jak se jmenuje :D
+            -Atributy
         -JavaScript (snad není potřeba dělat podentity)
         (asi spíš ne complete)
-    -Ostatní soubory
+    -Ostatní soubory - nebudeme uvádět do modelu
         -Obrázky
         -Stažitelné soubory
         -atd..
 
-Odkaz - nějak napojit na tagy nahoře
+Odkaz - napojit na html vazbou asociace
 
 entity nástroje
 
