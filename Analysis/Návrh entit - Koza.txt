@@ -1,0 +1,52 @@
+entity toho co budem testovat
+Webová doména - buď doména typu URL nebo archív souborů
+Webová prezentace - množina webových stránek
+    -Webová stránka
+        -HTML
+            -Plaintext
+            -Tagy
+                (tady asi výběr těch co použijeme, takže ty kde se něco linkuje)
+                -<img src="neco" />
+                -<a href="neco" />
+                -<link href="neco" /> (na css, možná js nevím jestli se to tak dělá)
+                -<script src="neco" /> (na javascript - tohle se používá to vím)
+                +nějaká další, které by mohly něco linkovat (iframy atd...)
+        -CSS
+            -Selektory
+            -To druhý co nevím jak se jmenuje :D
+        -JavaScript (snad není potřeba dělat podentity)
+        (asi spíš ne complete)
+    -Ostatní soubory
+        -Obrázky
+        -Stažitelné soubory
+        -atd..
+
+Odkaz - nějak napojit na tagy nahoře
+
+entity nástroje
+
+Nástroj (žabant) - nejsem si jistý, jestli to má být samotná entita
+Validátor HTML
+Validátor CSS
+Kontrolor JavaScriptu
+Procházecí modul/traverzovač (nevím jak to nazvat)
+    -součástí asi Kontrolor odkazů
+    
+entity výstupu
+
+Výsledný export - globální entita (jakési mapování na webovou prezentaci) (asi stavy pdf, xml)
+    -graf průchodu
+    
+    -chybové hlášky
+    -varovné hlášky
+    -informativní hlášky
+    (tyto 3 entity navázat na jednotlivé uzly grafu průchodu (analogie k web. stránkám) 
+        a současně na celý export (některé hlášky jsou globálního charakteru))
+    -statistické údaje
+        -průměrná odezva
+        -celková velikost dat
+        -procentuální využití CSS
+        -velikosti jednotlivých stránek (zase svázat s uzly grafu)
+        -počet projitých řádků (možná vyhodit, ale v tom případě i z požadavku F15)    
+    
+    
