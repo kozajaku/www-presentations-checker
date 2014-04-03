@@ -1,0 +1,11 @@
+Poznámky z páté schůze
+1) Zaslat výsledek první iterace mailem a uložit do souborů na redminu
+2) Příště vyzkoušet prezentace dřív - předat někomu, kdo to nedělal, aby to zhodnotil
+    (př. špatné pozadí)
+3) V doménovém modelu příště dávat všude kardinality, i když nám přijdou jasné.
+4) Časem doladit doménový diagram (možné měnit i zpetně).
+5) Začít class diagram (nejdůležitější čast, takže to nepodcenit!!!) 
+6) Příští pondělí nebude schůze
+7) Následující týdny pracovat na class diagramu a za dva týdny předvést, jak jsme na tom (nemusí to být celé hotové)
+8) V příštím rozdělování bodů přerozdělit minimálně 4 body (max 8)
+9) Dodělat harmonogram (tak dpc už zase :D )
