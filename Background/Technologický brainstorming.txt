@@ -1,0 +1,39 @@
+Technologie - Java (zvoleno a Adam dostane přes hubu)
+
+
+
+Framework - zrejme OSGi - možná hybrid s Java EE
+Webový server - Glassfish/ Tomcat/ Jetty?
+Selenium + prohlížečový jádro
+Server (nejspíš)
+Persistence dat - Tuník říká že nebude (při nejhorším by se to dalo přidělat)
+Rozdělení na balíčky a komponenty - řeší framework
+
+
+
+
+Server vs. client
+    +server
+         Ing. Hunka nejspíše chce server
+         Zřejmě se z něj víc naučíme
+         Uživatel si nemusí nic stahovat
+         Okamžitá použitelnost v rámci uživatelského použití
+         Jednodušší aktualizace (vše na jednom místě)
+         
+    -server
+        Náročná údržba
+        Je potřeba hosting    
+        Další nefunkční požadavky (nutné zřejmě zpětně doplnit) 
+        Nebezpečné bany z vnějších serverů
+                   
+    +client
+        Možnost offline módu
+        Neřeší se globální banování.
+    
+    -client
+        Musí se stahovat.
+        Využívá výkon klientského počítače.
+
+Uživatelské rozhraní
+ -webové stránky
+
