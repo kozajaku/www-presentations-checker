@@ -1,0 +1,11 @@
+Poznámky z šesté schůze
+1) Postupně začít tvořit harmonogram na příští semestr
+    -je nutné přesně specifikovat co jsou odevzdávací části,
+        jaký bude jejich výstup, kdy se budou odevzdávat
+    -budeme hodnoceni zejména za kvalitu a dodržování termínů (to je snad logické)
+2) Ohledně dotazu na šipečky v class diagramu - mohou být oba dva způsoby podle potřeby
+    -u šipečkového diagramu je vhodné vyzkoušet export a ověřit si, zda správně chápeme sémantiku šipek v diagramech
+3) Nápady na použití databáze - pamatovat si předchozí kontroly daného uživatele a umožnit tak sledovat zlepšení v opravách chyb
+    -není to nutné dělat, ale máme se nad vytvořením databáze alespoň zamyslet (nástroj by byl pro nás dobrá reference)
+4) Vyzkoušet si pracovat samostatně a ne jen ve skupinách a výslednou práci pak zkusit spojit dohromady
+5) Do příště si promyslet přínos aplikace a její cílovou skupinu            
