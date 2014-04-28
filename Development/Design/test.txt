@@ -1,2 +1,0 @@
-﻿Testovací soubor
-Až do tohoto adresáře nahrajeme první oficiální výstupy, tak tento soubor smažeme.
