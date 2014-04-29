@@ -1,0 +1,13 @@
+Poznámky ze sedmé schůze
+1) Chybí nám model komunikace
+2) Pokud se předem nedomluvíme, že nemůžeme něco vypustit/nahradit za něco jiného, tak to nesmíme udělat
+3) 90% Class Diagramu by se mělo shodovat s výslednou implementací
+4) Technologicky to sesadit tj. seznámenit se s technologií a vyzkoušet si základy - do příští iterace
+    -založit nový projekt v OSGi frameworku
+    -napsat pár jednoduchých tříd např. Hello World
+5) Ohledně dotazu na server, tak můžeme používat server, kde nám běží Redmine, ale musíme si dát pozor na blacklisty
+6) Dodělat databázi do příštího semestru?
+7) Specifikovat měřitelný postup v harmonogramu na příští semestr
+    -vyspecifikovat metricky, co ten systém má v dané iteraci umět
+8) Příště přinést finální harmonogram
+9) Během týdne ukázat, že umíme pracovat jako tým
