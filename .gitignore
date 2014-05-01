@@ -222,3 +222,5 @@ pip-log.txt
 /Development/Implementation/www-presentations-checker/SinglePageController/target/
 /Development/Implementation/www-presentations-checker/WholePresentationController/target/
 /Development/Implementation/www-presentations-checker/ValidatorCSS/target/
+/Development/Implementation/www-presentations-checker/Model/target/
+/Development/Implementation/www-presentations-checker/Utils/target/
