@@ -213,3 +213,12 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+/Development/Implementation/www-presentations-checker/Presentation/target/
+/Development/Implementation/www-presentations-checker/ValidatorHTML/target/
+/Development/Implementation/www-presentations-checker/CSSRedundancyChecker/target/
+/Development/Implementation/www-presentations-checker/Parser/target/
+/Development/Implementation/www-presentations-checker/Kernel/target/
+/Development/Implementation/www-presentations-checker/WebCrawler/target/
+/Development/Implementation/www-presentations-checker/SinglePageController/target/
+/Development/Implementation/www-presentations-checker/WholePresentationController/target/
+/Development/Implementation/www-presentations-checker/ValidatorCSS/target/
