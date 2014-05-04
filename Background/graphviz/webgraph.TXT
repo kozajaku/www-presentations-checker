@@ -1,0 +1,32 @@
+digraph {
+   //velikost hranice uzlu zavisi (logaritmicky) na poctu hran vedouci do nej
+   "www.example.cz/home" [penwidth = 2, color = "green"] //starting link
+   "www.example.cz/a" [penwidth = 1]
+   "www.example.cz/b" [penwidth = 2.6]
+   "www.example.cz/c" [penwidth = 2]
+   "www.example.cz/d" [penwidth = 1]
+   "www.example.cz/e" [penwidth = 1]
+   "www.example.cz/css" [penwidth = 3.6]
+   "www.example.cz/picture" [penwidth = 1]
+   "www.example.cz/falsepicture" [penwidth = 1, style = "filled", fillcolor = "red"] //invalid link
+   "www.example.cz/f" [penwidth = 1, style = "filled", fillcolor = "red"] //invalid link
+   "www.example.cz/home" -> "www.example.cz/a" [label="go to a"]
+   "www.example.cz/home" -> "www.example.cz/b" [label="go to b"]
+   "www.example.cz/home" -> "www.example.cz/e" [label="go to b"]
+   "www.example.cz/home" -> "www.example.cz/b" [label="go to b2"]
+   "www.example.cz/a" -> "www.example.cz/home" [label="back to home"]
+   "www.example.cz/a" -> "www.example.cz/b" [label="turn to b"]
+   "www.example.cz/a" -> "www.example.cz/c" [label="go to c"]
+   "www.example.cz/c" -> "www.example.cz/d" [label="next"]
+   "www.example.cz/d" -> "www.example.cz/c" [label="previous"]
+   "www.example.cz/b" -> "www.example.cz/home" [label="back to home"]
+   "www.example.cz/b" -> "www.example.cz/picture" [label="parrot"]
+   "www.example.cz/e" -> "www.example.cz/falsepicture" [label="elephant"]
+   "www.example.cz/b" -> "www.example.cz/f" [label="brand new page"]
+   "www.example.cz/home" -> "www.example.cz/css" [label="style"]
+   "www.example.cz/a" -> "www.example.cz/css" [label="style"]
+   "www.example.cz/b" -> "www.example.cz/css" [label="style"]
+   "www.example.cz/c" -> "www.example.cz/css" [label="style"]
+   "www.example.cz/d" -> "www.example.cz/css" [label="style"]
+   "www.example.cz/e" -> "www.example.cz/css" [label="style"]
+}
