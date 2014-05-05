@@ -50,6 +50,7 @@ public class WebServer extends Server{
         ServletContextHandler servlets = new ServletContextHandler(ServletContextHandler.SESSIONS);
         servlets.setContextPath("/");
         servlets.addServlet(new ServletHolder(new BasicCheckingServlet()), "/*");
+        servlets.addServlet(new ServletHolder(new ShowResultsServlet()), "/results");
         //add additional servlets here
         HandlerList handlers = new HandlerList();
         handlers.addHandler(contextFileServer);

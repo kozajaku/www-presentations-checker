@@ -47,6 +47,11 @@ public class BasicCheckingServlet extends WebServlet {
         response.getWriter().println("session of this request: " + request.getSession().getId());
         response.getWriter().println("<h2>Test image</h2>");
         response.getWriter().println("<img src=\"/files/test.png\" />");
+        response.getWriter().println("<h2>Test graphviz</h2>");        
+        response.getWriter().println("<form action=\"/results\" method=\"post\">");
+        response.getWriter().println("<textarea name=\"zdrojak\" cols=\"40\" rows=\"30\"></textarea>");
+        response.getWriter().println("<input type=\"submit\" value=\"Generate svg\" />");
+        response.getWriter().println("</form>");
         response.getWriter().println("</body></html>");
     }
 
