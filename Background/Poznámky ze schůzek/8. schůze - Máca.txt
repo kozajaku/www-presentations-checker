@@ -1,0 +1,11 @@
+Poznámky z osmé schůze
+1) Všechni úkoly je potřeba plnit s prokazatelným výsledkem
+   - tj. když se např. zadá nastudovat nějaké téma, tak je třeba dobré naprogramovat nějaký příklad, aby se potvrdilo, že jsem opravdu nastudoval téma a rozumím mu
+2) Ještě bychom se měli zamyslet nad stylem našeho grafu
+3) Ve fázi optimalizace dbát na propustnost a cache dat
+   - cachování výsledků
+4) Finální úprava Harmonogramu
+   - "bude umět" místo "měl by umět"
+   - specifikovat zobrazování výsledků programu
+   - prodloužit 5. iteraci - aplikace musí být kompletní a finální
+5) Doposud by náš projekt stál cca. 150 000,-    
