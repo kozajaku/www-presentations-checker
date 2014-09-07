@@ -1,5 +1,12 @@
-SET FOREIGN_KEY_CHECKS=0;
+CREATE DATABASE IF NOT EXISTS `checker`
+    DEFAULT CHARACTER SET utf8
+    DEFAULT COLLATE SET utf8_czech_ci;
 
+USE `checker`;
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
 DROP TABLE IF EXISTS `check`;
@@ -24,7 +31,7 @@ CREATE TABLE `check`
 	`user` INTEGER NOT NULL,
 	PRIMARY KEY (`id_check`),
 	KEY (`user`)
-) ;
+) ENGINE = InnoDB;
 
 
 CREATE TABLE `domain`
@@ -35,7 +42,7 @@ CREATE TABLE `domain`
 	`checking` INTEGER NOT NULL,
 	PRIMARY KEY (`id_domain`),
 	KEY (`checking`)
-) ;
+) ENGINE = InnoDB;
 
 
 CREATE TABLE `login`
@@ -46,7 +53,7 @@ CREATE TABLE `login`
 	`user` INTEGER NOT NULL,
 	PRIMARY KEY (`id_login`),
 	KEY (`user`)
-) ;
+) ENGINE = InnoDB;
 
 
 CREATE TABLE `user`
@@ -59,12 +66,7 @@ CREATE TABLE `user`
 	`surname` VARCHAR(100) NOT NULL,
 	`registration_date` DATE NOT NULL,
 	PRIMARY KEY (`id_user`)
-) ;
-
-
-
-SET FOREIGN_KEY_CHECKS=1;
-
+) ENGINE = InnoDB;
 
 ALTER TABLE `check` ADD CONSTRAINT `FK_check_user` 
 	FOREIGN KEY (`user`) REFERENCES `user` (`id_user`)
@@ -77,3 +79,8 @@ ALTER TABLE `domain` ADD CONSTRAINT `FK_domain_check`
 ALTER TABLE `login` ADD CONSTRAINT `FK_login_user` 
 	FOREIGN KEY (`user`) REFERENCES `user` (`id_user`)
 	ON DELETE CASCADE ON UPDATE CASCADE;
+                    
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+                    
