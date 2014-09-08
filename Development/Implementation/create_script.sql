@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `checker`
-    DEFAULT CHARACTER SET utf8
-    DEFAULT COLLATE SET utf8_czech_ci;
+    CHARACTER SET utf8
+    COLLATE utf8_czech_ci;
 
 USE `checker`;
 
@@ -17,11 +17,11 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `check`
 (
 	`id_check` INTEGER NOT NULL AUTO_INCREMENT,
-	`checking_created` TIME NOT NULL,
+	`checking_created` DATETIME NOT NULL,
 	`state` VARCHAR(50) NOT NULL,
 	`result_log` MEDIUMTEXT,
 	`graph` MEDIUMTEXT,
-	`checking_finished` TIME,
+	`checking_finished` DATETIME,
 	`start_point` VARCHAR(255) NOT NULL,
 	`max_depth` INTEGER,
 	`check_HTML` BOOL NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE `login`
 (
 	`id_login` INTEGER NOT NULL AUTO_INCREMENT,
 	`address` VARCHAR(50) NOT NULL,
-	`time` TIME NOT NULL,
+	`time` DATETIME NOT NULL,
 	`user` INTEGER NOT NULL,
 	PRIMARY KEY (`id_login`),
 	KEY (`user`)
