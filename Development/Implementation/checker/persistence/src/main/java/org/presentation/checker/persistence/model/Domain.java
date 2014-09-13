@@ -25,7 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Domain.findAll", query = "SELECT d FROM Domain d"),
     @NamedQuery(name = "Domain.findByIdDomain", query = "SELECT d FROM Domain d WHERE d.idDomain = :idDomain"),
     @NamedQuery(name = "Domain.findByName", query = "SELECT d FROM Domain d WHERE d.name = :name"),
-    @NamedQuery(name = "Domain.findByRequestInterval", query = "SELECT d FROM Domain d WHERE d.requestInterval = :requestInterval")})
+    @NamedQuery(name = "Domain.findByRequestInterval", query = "SELECT d FROM Domain d WHERE d.requestInterval = :requestInterval"),
+    @NamedQuery(name = "Domain.findByCheckupId", query = "SELECT d FROM Domain d WHERE d.checking.idCheckup = :checkupId")})
 public class Domain implements Serializable {
 
     private static final long serialVersionUID = 1L;

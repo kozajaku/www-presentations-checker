@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Checkup.findByCheckHTML", query = "SELECT c FROM Checkup c WHERE c.checkHTML = :checkHTML"),
     @NamedQuery(name = "Checkup.findByCheckCSS", query = "SELECT c FROM Checkup c WHERE c.checkCSS = :checkCSS"),
     @NamedQuery(name = "Checkup.findByCheckCSSredundancy", query = "SELECT c FROM Checkup c WHERE c.checkCSSredundancy = :checkCSSredundancy"),
-    @NamedQuery(name = "Checkup.findByCheckLinks", query = "SELECT c FROM Checkup c WHERE c.checkLinks = :checkLinks")})
+    @NamedQuery(name = "Checkup.findByCheckLinks", query = "SELECT c FROM Checkup c WHERE c.checkLinks = :checkLinks"),
+    @NamedQuery(name = "Checkup.findByUserId", query = "SELECT c FROM Checkup c WHERE c.user.idUser = :userId ORDER BY c.checkingCreated DESC")})
 public class Checkup implements Serializable {
 
     private static final long serialVersionUID = 1L;
