@@ -9,14 +9,14 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
-DROP TABLE IF EXISTS `check`;
+DROP TABLE IF EXISTS `checkup`;
 DROP TABLE IF EXISTS `domain`;
 DROP TABLE IF EXISTS `login`;
 DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE `check`
+CREATE TABLE `checkup`
 (
-	`id_check` INTEGER NOT NULL AUTO_INCREMENT,
+	`id_checkup` INTEGER NOT NULL AUTO_INCREMENT,
 	`checking_created` DATETIME NOT NULL,
 	`state` VARCHAR(50) NOT NULL,
 	`result_log` MEDIUMTEXT,
@@ -29,7 +29,7 @@ CREATE TABLE `check`
 	`check_CSS_redundancy` BOOL NOT NULL,
 	`check_links` BOOL NOT NULL,
 	`user` INTEGER NOT NULL,
-	PRIMARY KEY (`id_check`),
+	PRIMARY KEY (`id_checkup`),
 	KEY (`user`)
 ) ENGINE = InnoDB;
 
@@ -68,12 +68,12 @@ CREATE TABLE `user`
 	PRIMARY KEY (`id_user`)
 ) ENGINE = InnoDB;
 
-ALTER TABLE `check` ADD CONSTRAINT `FK_check_user` 
+ALTER TABLE `checkup` ADD CONSTRAINT `FK_checkup_user` 
 	FOREIGN KEY (`user`) REFERENCES `user` (`id_user`)
 	ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `domain` ADD CONSTRAINT `FK_domain_check` 
-	FOREIGN KEY (`checking`) REFERENCES `check` (`id_check`)
+ALTER TABLE `domain` ADD CONSTRAINT `FK_domain_checkup` 
+	FOREIGN KEY (`checking`) REFERENCES `checkup` (`id_checkup`)
 	ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `login` ADD CONSTRAINT `FK_login_user` 
