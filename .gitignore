@@ -224,3 +224,7 @@ pip-log.txt
 /Development/Implementation/www-presentations-checker/ValidatorCSS/target/
 /Development/Implementation/www-presentations-checker/Model/target/
 /Development/Implementation/www-presentations-checker/Utils/target/
+
+/Development/Implementation/checker/checker-ear/target/
+/Development/Implementation/checker/persistence/target/
+/Development/Implementation/checker/presentation/target/
