@@ -10,5 +10,6 @@
     <module>checker-ear</module>
     <module>presentation</module>
     <module>persistence</module>
+    <module>testCreateNewUser</module>
   </modules>
 </project>

@@ -25,9 +25,9 @@ import org.presentation.checker.persistence.model.User;
  *
  * @author radio.koza
  */
-@Local(PersistentFacade.class)
+@Local(PersistenceFacade.class)
 @Stateless
-public class PersistentFacadeImpl implements PersistentFacade {
+public class PersistenceFacadeImpl implements PersistenceFacade {
 
     @Inject
     private UserDAO userDAO;
@@ -83,7 +83,7 @@ public class PersistentFacadeImpl implements PersistentFacade {
             }
             return true;
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PersistentFacadeImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PersistenceFacadeImpl.class.getName()).log(Level.SEVERE, null, ex);
             assert false;
             return false;//to have compiler happy
         }

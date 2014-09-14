@@ -9,7 +9,7 @@ import org.presentation.checker.persistence.model.User;
  *
  * @author radio.koza
  */
-public interface PersistentFacade {
+public interface PersistenceFacade {
 
     boolean createNewUser(String email, String pass, String name, String surname);
 
