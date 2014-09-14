@@ -1,8 +1,10 @@
 package org.presentation.testcreatenewuser;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.presentation.checker.persistence.business.PersistenceFacade;
 
@@ -14,7 +16,7 @@ import org.presentation.checker.persistence.business.PersistenceFacade;
 @RequestScoped
 public class CreateUserBean {
 
-    @Inject
+    @EJB
     private PersistenceFacade facade;
 
     private String email;
