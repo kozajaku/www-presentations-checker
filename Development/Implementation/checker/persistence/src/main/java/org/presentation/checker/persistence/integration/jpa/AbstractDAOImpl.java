@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class AbstractDAOImpl {
     
-    @PersistenceContext(name = "checkerDB")
+    @PersistenceContext
     private EntityManager entityManager;
 
     public EntityManager getEntityManager() {
