@@ -11,7 +11,7 @@ import org.presentation.checker.persistence.model.Domain;
  * @author radio.koza
  */
 @Dependent
-public class DomainDAOImpl extends AbstractDAOImpl implements DomainDAO{
+public class DomainDAOImpl extends AbstractDAOImpl implements DomainDAO {
 
     @Override
     public void create(Domain domain) {
@@ -25,5 +25,5 @@ public class DomainDAOImpl extends AbstractDAOImpl implements DomainDAO{
         q.setParameter("checkupId", checkupId);
         return q.getResultList();
     }
-    
+
 }

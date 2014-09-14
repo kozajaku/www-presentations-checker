@@ -35,5 +35,5 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         q.setParameter("userId", userId);
         return q.getResultList();
     }
-    
+
 }

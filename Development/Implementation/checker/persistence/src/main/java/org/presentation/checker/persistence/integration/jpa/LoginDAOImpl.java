@@ -39,5 +39,5 @@ public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {
         List<Login> res = q.getResultList();
         return res.isEmpty() ? null : res.get(0);
     }
-    
+
 }

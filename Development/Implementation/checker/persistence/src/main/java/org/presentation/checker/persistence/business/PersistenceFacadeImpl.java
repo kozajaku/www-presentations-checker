@@ -76,7 +76,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
             //try to persist new user
             try {
                 userDAO.create(user);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 //exception during creation
                 context.setRollbackOnly();//rollback transaction
                 return false;

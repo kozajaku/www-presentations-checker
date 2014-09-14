@@ -9,16 +9,16 @@
             <h:panelGrid columns="2" cellpadding="10" cellspacing="3">
                 <h:outputLabel value="email:" />
                 <h:inputText value="#{createUserBean.email}" />
-                
+
                 <h:outputLabel value="pass:" />
                 <h:inputText value="#{createUserBean.password}" />
-                
+
                 <h:outputLabel value="name:" />
                 <h:inputText value="#{createUserBean.name}" />
-                
+
                 <h:outputLabel value="surname:" />
                 <h:inputText value="#{createUserBean.surname}" />
-                
+
                 <h:commandButton value="Odeslat" action="#{createUserBean.createNewUser()}" />
             </h:panelGrid>
         </h:form>

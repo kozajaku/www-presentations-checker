@@ -41,5 +41,5 @@ public class UserDAOImpl extends AbstractDAOImpl implements UserDAO {
         List<User> res = q.getResultList();
         return res.isEmpty() ? null : res.get(0);//unique constraint must be set in order to work this
     }
-    
+
 }

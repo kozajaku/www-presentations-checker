@@ -6,7 +6,6 @@ import org.presentation.checker.persistence.model.User;
  *
  * @author radio.koza
  */
-
 public interface UserDAO {
 
     void create(User user);
