@@ -3,6 +3,7 @@ package org.presentation.checker.persistence.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.enterprise.inject.Vetoed;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author radio.koza
  */
 @Entity
+@Vetoed
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({

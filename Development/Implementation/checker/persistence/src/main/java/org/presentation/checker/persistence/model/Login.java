@@ -2,6 +2,7 @@ package org.presentation.checker.persistence.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.enterprise.inject.Vetoed;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author radio.koza
  */
 @Entity
+@Vetoed
 @Table(name = "login")
 @XmlRootElement
 @NamedQueries({
