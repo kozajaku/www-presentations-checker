@@ -1,0 +1,17 @@
+Poznámky z první schůze
+1) založit jednotlivé verze na Redmine
+  - příště to budeme ukazovat
+2) nevynechávat iterace
+  - vynechaná iterace znamená strhnutí bodů
+  - musíme splnit všechny iterace
+3) nic nepředělávat
+  - pokud nás napadne něco nového, správný postup je zařadit to do příští iterace
+  - "novoty" přidávat jako úkol do dalších iterací (nejlépe asi do té poslední) 
+4) na iteraci musí program vždy umět vše, co je napsané v harmonogramu      
+5) požadavky od Ing. Hunky
+  - kompletní výsledek iterace (verze programu + další dokumentace)
+  - kontrola kódu a dokumentace
+  - vysvětlení věcí v kódu
+  - každý by měl říct něco o tom, co dělal
+  - mít připravené přerozdělení bodů
+6) na Redmine udělat tabulku přerozdělení bodů
