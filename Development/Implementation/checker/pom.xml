@@ -14,5 +14,6 @@
         <module>kernel</module>
         <module>utils</module>
         <module>model</module>
-    </modules>
+    <module>webCrawler</module>
+  </modules>
 </project>
