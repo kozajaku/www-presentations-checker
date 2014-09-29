@@ -6,7 +6,7 @@ package org.presentation.webcrawler;
  * @version 1.0
  * @created 04-5-2014 20:56:25
  */
-public interface PageCrawlingObserver extends Stoppable, MessageProducer{
+public interface PageCrawlingObserver{
 	/**
 	 * 
 	 * @param pageUrl
