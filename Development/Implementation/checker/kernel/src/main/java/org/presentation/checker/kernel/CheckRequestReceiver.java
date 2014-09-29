@@ -24,17 +24,17 @@ public class CheckRequestReceiver {
     private CheckingExecutionQueue execQueue;
 
     @Inject
-    private Logger logger;
+    private Logger LOG;
 
     void addNewCheckingRequest(CheckingRequest checkingRequest) {
         //TODO not implemented
-        logger.log(Level.INFO, "addNewCheckingRequest called");
+        LOG.log(Level.INFO, "addNewCheckingRequest called");
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     void stopSpecificChecking(Integer checkupId) {
         //TODO not implemented
-        logger.log(Level.INFO, "stopSpecificChecking called");
+        LOG.log(Level.INFO, "stopSpecificChecking called");
         throw new UnsupportedOperationException("Not implemented yet");
     }
 }
