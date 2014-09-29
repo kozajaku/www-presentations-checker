@@ -11,11 +11,27 @@ public class CrawlingState {
 	private boolean done;
 
 	public CrawlingState(){
-
+            pagesCrawled = 0;
+            done = false;
 	}
 
-	public void finalize() throws Throwable {
-
-	}
+        public void done(){
+            done = true;
+        }
+        
+        public void incCount(){
+            pagesCrawled++;
+        }
+        
+        public boolean isDone(){
+            return done;
+        }
+        
+        public int getPagesCrawled(){
+            return pagesCrawled;
+        }
+//	public void finalize() throws Throwable {
+//
+//	}
 
 }
