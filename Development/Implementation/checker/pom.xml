@@ -11,5 +11,6 @@
     <module>presentation</module>
     <module>persistence</module>
     <module>testCreateNewUser</module>
+    <module>model</module>
   </modules>
 </project>
