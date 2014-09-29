@@ -1,5 +1,9 @@
 package org.presentation.webcrawler;
-//package org.presentation.model;
+
+import Model.org.presentation.checker.model.graph.TraversalGraph;
+import org.presentation.model.ContentType;
+import org.presentation.model.LinkURL;
+import org.presentation.model.PageContent;
 
 /**
  * @author radio.koza
