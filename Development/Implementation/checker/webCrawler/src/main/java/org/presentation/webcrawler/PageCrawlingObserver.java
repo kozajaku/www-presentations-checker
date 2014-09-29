@@ -1,6 +1,6 @@
 package org.presentation.webcrawler;
 
-import Model.org.presentation.checker.model.graph.TraversalGraph;
+import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
