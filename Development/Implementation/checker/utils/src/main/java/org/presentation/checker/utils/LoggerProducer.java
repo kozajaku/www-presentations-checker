@@ -10,12 +10,13 @@ import javax.enterprise.inject.spi.InjectionPoint;
  * @author radio.koza
  */
 public class LoggerProducer {
-   /**
-    * @param injectionPoint
-    * @return logger
-    */
+
+    /**
+     * @param injectionPoint
+     * @return logger
+     */
     @Produces
     public Logger produceLogger(InjectionPoint injectionPoint) {
-		return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
 }
