@@ -14,7 +14,9 @@ DROP TABLE IF EXISTS `checkup_has_option`;
 DROP TABLE IF EXISTS `domain`;
 DROP TABLE IF EXISTS `graph`;
 DROP TABLE IF EXISTS `login`;
+DROP TABLE IF EXISTS `message`;
 DROP TABLE IF EXISTS `option`;
+DROP TABLE IF EXISTS `resource`;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `checkup`
@@ -22,7 +24,6 @@ CREATE TABLE `checkup`
 	`id_checkup` INTEGER NOT NULL AUTO_INCREMENT,
 	`checking_created` DATETIME NOT NULL,
 	`state` VARCHAR(50) NOT NULL,
-	`result_log` MEDIUMTEXT,
 	`checking_finished` DATETIME,
 	`start_point` VARCHAR(255) NOT NULL,
 	`max_depth` INTEGER,
@@ -57,7 +58,7 @@ CREATE TABLE `graph`
 (
 	`id_graph` INTEGER NOT NULL,
 	`output` MEDIUMTEXT,
-	`checkup` INTEGER,
+	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id_graph`),
 	KEY (`checkup`)
 ) ENGINE = InnoDB;
@@ -74,10 +75,34 @@ CREATE TABLE `login`
 ) ENGINE = InnoDB;
 
 
+CREATE TABLE `message`
+(
+	`id` INTEGER NOT NULL AUTO_INCREMENT,
+	`discriminator` VARCHAR(50) NOT NULL,
+	`resource` VARCHAR(50) NOT NULL,
+	`message` TEXT NOT NULL,
+	`page` VARCHAR(255) NOT NULL,
+	`column` INTEGER NOT NULL,
+	`row` INTEGER NOT NULL,
+	`error_code` INTEGER,
+	PRIMARY KEY (`id`),
+	KEY (`resource`)
+) ENGINE = InnoDB;
+
+
 CREATE TABLE `option`
 (
-	`option_id` VARCHAR(50) NOT NULL,
-	PRIMARY KEY (`option_id`)
+	`id_option` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`id_option`)
+) ENGINE = InnoDB;
+
+
+CREATE TABLE `resource`
+(
+	`name` VARCHAR(50) NOT NULL,
+	`checkup` INTEGER NOT NULL,
+	PRIMARY KEY (`name`),
+	KEY (`checkup`)
 ) ENGINE = InnoDB;
 
 
@@ -95,30 +120,37 @@ CREATE TABLE `user`
 
 ALTER TABLE `checkup` ADD CONSTRAINT `FK_checkup_user` 
 	FOREIGN KEY (`user`) REFERENCES `user` (`email`)
-	ON DELETE CASCADE ON UPDATE CASCADE;
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `checkup_has_option` ADD CONSTRAINT `FK_checkup_has_option_checkup` 
 	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
-	ON DELETE CASCADE ON UPDATE CASCADE;
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `checkup_has_option` ADD CONSTRAINT `FK_checkup_has_option_option` 
-	FOREIGN KEY (`option`) REFERENCES `option` (`option_id`)
-	ON DELETE CASCADE ON UPDATE CASCADE;
+	FOREIGN KEY (`option`) REFERENCES `option` (`id_option`)
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `domain` ADD CONSTRAINT `FK_domain_checkup` 
 	FOREIGN KEY (`checking`) REFERENCES `checkup` (`id_checkup`)
-	ON DELETE CASCADE ON UPDATE CASCADE;
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `graph` ADD CONSTRAINT `FK_graph_checkup` 
 	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
-	ON DELETE CASCADE ON UPDATE CASCADE;
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `login` ADD CONSTRAINT `FK_login_user` 
 	FOREIGN KEY (`user`) REFERENCES `user` (`email`)
-	ON DELETE CASCADE ON UPDATE CASCADE;
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `message` ADD CONSTRAINT `FK_message_resource` 
+	FOREIGN KEY (`resource`) REFERENCES `resource` (`name`)
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `resource` ADD CONSTRAINT `FK_resource_checkup` 
+	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-                  
