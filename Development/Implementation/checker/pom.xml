@@ -13,5 +13,6 @@
     <module>testCreateNewUser</module>
     <module>kernel</module>
     <module>utils</module>
+    <module>model</module>
   </modules>
 </project>
