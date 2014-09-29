@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import org.presentation.model.LinkURL;
-import org.presentation.model.MessageLogger;
+import org.presentation.model.logging.MessageLogger;
 
 /**
  *

@@ -6,9 +6,8 @@ import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 
 /**
- * @author radio.koza
+ * @author Adam Kugler
  * @version 1.0
- * @created 04-5-2014 20:56:25
  */
 public interface PageCrawlingObserver{
 	/**
