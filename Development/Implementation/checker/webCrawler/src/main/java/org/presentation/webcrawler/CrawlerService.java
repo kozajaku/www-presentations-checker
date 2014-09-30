@@ -19,19 +19,9 @@ public interface CrawlerService extends MessageProducer, Stoppable {
 	 * @param maximalDepth
 	 * @param observer    Observer object, into which the CrawlerService
 	 * implementation will send its results.
-	 */
-	public abstract void startBrowsing(LinkURL url, int maximalDepth, PageCrawlingObserver observer);
-
-	/**
-	 * 
-	 * @param url
-	 * @param maximalDepth
-	 * @param observer    Observer object, into which the CrawlerService
-	 * implementation will send its results.
 	 * @param allowedDomains
-	 * @param requestTimeout
 	 */
-	public abstract void startBrowsing(LinkURL url, int maximalDepth, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout);
+	public abstract void startBrowsing(LinkURL url, int maximalDepth, PageCrawlingObserver observer, List<Domain> allowedDomains);
 
 	public CrawlingState getCrawlingState();
 
