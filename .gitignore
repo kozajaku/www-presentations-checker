@@ -228,6 +228,10 @@ pip-log.txt
 /Development/Implementation/checker/checker-ear/target/
 /Development/Implementation/checker/persistence/target/
 /Development/Implementation/checker/presentation/target/
+/Development/Implementation/checker/kernel/target/
+/Development/Implementation/checker/model/target/
+/Development/Implementation/checker/utils/target/
+/Development/Implementation/checker/webCrawler/target/
 
 /Development/Model.ldb
 /Development/Implementation/checker/testCreateNewUser/target/
