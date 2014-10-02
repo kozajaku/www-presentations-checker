@@ -44,7 +44,6 @@ public class CheckingExecutionQueue {
         //initialize singleton bean at startup
         //thanks to Startup annotation this is called during deployment
         LOG.info("Initializing CheckingExecutionQueue EJB Singleton bean");
-        checkingExecutorPrototype.get().startChecking();//debug only
     }
     
     

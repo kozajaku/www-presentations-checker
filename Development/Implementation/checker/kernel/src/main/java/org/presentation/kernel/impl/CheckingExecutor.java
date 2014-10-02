@@ -10,6 +10,7 @@ import org.presentation.model.PageContent;
 import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.persistence.business.PersistenceFacade;
+import org.presentation.persistence.model.Checkup;
 import org.presentation.utils.Stoppable;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
@@ -44,7 +45,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable{
 //    @EJB
 //    private GraphGeneratorQueue graphGenerator;
     
-    public void startChecking(){
+    public void startChecking(Checkup checkup){
         LOG.info("Starting new checking");
         //TODO implement
         throw new UnsupportedOperationException("Not implemented yet");
