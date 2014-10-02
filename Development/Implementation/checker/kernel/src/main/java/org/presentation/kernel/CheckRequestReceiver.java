@@ -17,8 +17,8 @@ import org.presentation.persistence.business.PersistenceFacade;
 @Stateless
 public class CheckRequestReceiver {
 
-    @EJB
-    private PersistenceFacade persistenceFacade;
+//    @EJB
+//    private PersistenceFacade persistenceFacade;
 
     @EJB
     private CheckingExecutionQueue execQueue;
@@ -27,13 +27,13 @@ public class CheckRequestReceiver {
     private Logger LOG;
 
     void addNewCheckingRequest(CheckingRequest checkingRequest) {
-        //TODO not implemented
+        //TODO not implemented yet
         LOG.log(Level.INFO, "addNewCheckingRequest called");
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     void stopSpecificChecking(Integer checkupId) {
-        //TODO not implemented
+        //TODO not implemented yet
         LOG.log(Level.INFO, "stopSpecificChecking called");
         throw new UnsupportedOperationException("Not implemented yet");
     }

@@ -3,6 +3,7 @@ package org.presentation.webcrawler;
 import java.util.List;
 import org.presentation.utils.Stoppable;
 import org.presentation.model.Domain;
+import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.logging.MessageProducer;
 
@@ -19,12 +20,15 @@ public interface CrawlerService extends MessageProducer, Stoppable {
      *
      * @param url
      * @param maximalDepth
+     * @param pageLimit
      * @param observer Observer object, into which the CrawlerService
      * implementation will send its results.
+     * @param addHeaders Additional headers which are going to be used during fetching
+     * pages from remote web server.
      * @param allowedDomains
      */
-    public abstract void startBrowsing(LinkURL url, int maximalDepth, PageCrawlingObserver observer, List<Domain> allowedDomains);
+    void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, List<Header> addHeaders);
 
-    public CrawlingState getCrawlingState();
+    CrawlingState getCrawlingState();
 
 }

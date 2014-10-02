@@ -3,7 +3,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Default;
 import org.presentation.model.Domain;
+import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.graph.TraversalGraph;
@@ -19,6 +22,8 @@ import org.presentation.webcrawler.PageReceiver;
  * @author Adam Kugler
  * @version 1.0
  */
+@Default
+@Dependent
 public class CrawlerServiceDefault implements CrawlerService {
 
 //	public class WebPage {
@@ -70,8 +75,8 @@ public class CrawlerServiceDefault implements CrawlerService {
 	 * @param allowedDomains
 	 */
         @Override
-	public void startBrowsing(LinkURL url, int maximalDepth, PageCrawlingObserver observer, List<Domain> allowedDomains){
-            
+	public void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, List<Header> addHeaders){
+            //TODO add support for pageLimit and headers - by radio.koza
             try {
                 pageReceiver.getPage(url);
             } catch (IOException ex) {

@@ -1,11 +1,13 @@
 package org.presentation.model.logging;
 
 import java.util.List;
+import javax.enterprise.context.Dependent;
 
 /**
  *
  * @author Jindřich Máca
  */
+@Dependent
 public class MessageLoggerContainer {
 
     private List<MessageLogger> loggers;

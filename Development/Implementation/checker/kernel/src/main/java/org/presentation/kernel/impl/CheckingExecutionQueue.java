@@ -28,8 +28,8 @@ public class CheckingExecutionQueue {
     @Inject
     private Instance<CheckingExecutor> checkingExecutorPrototype;
     
-    @EJB
-    private PersistenceFacade persistentFacade;
+//    @EJB
+//    private PersistenceFacade persistentFacade;
     
     private LinkedBlockingQueue<Checkup> queue;
     
@@ -42,6 +42,7 @@ public class CheckingExecutionQueue {
     protected void init(){
         //initialize singleton bean at startup
         //thanks to Startup annotation this is called during deployment
+        LOG.info("Initializing CheckingExecutionQueue EJB Singleton bean");
     }
     
     
