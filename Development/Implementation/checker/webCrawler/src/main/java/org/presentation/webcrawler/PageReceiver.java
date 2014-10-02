@@ -32,7 +32,11 @@ public class PageReceiver {
     public PageReceiver(MessageLogger messageLogger) {
         this.messageLogger = messageLogger;
     }
-
+    
+    public ReceiverResponse checkPage(LinkURL linkURL) throws MalformedURLException, IOException {
+        //TO DO Adam Kugler: stejna metoda jako getPage, akorat vraci telo stranky prazdne. Idealni pouzit head.
+        return null;
+    }
     public ReceiverResponse getPage(LinkURL linkURL) throws MalformedURLException, IOException {
         URL url = new URL(linkURL.getUrl());
         connection = (HttpsURLConnection) url.openConnection();

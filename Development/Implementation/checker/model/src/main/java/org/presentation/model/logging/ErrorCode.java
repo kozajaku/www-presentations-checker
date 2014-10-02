@@ -8,6 +8,10 @@ public class ErrorCode {
 
     private Integer code;
 
+    public ErrorCode(Integer code) {
+        this.code = code;
+    }
+    
     public Integer getCode() {
         return code;
     }
