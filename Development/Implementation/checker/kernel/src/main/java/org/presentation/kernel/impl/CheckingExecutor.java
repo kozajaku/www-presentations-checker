@@ -22,8 +22,8 @@ import org.presentation.webcrawler.PageCrawlingObserver;
 @Dependent
 public class CheckingExecutor implements PageCrawlingObserver, Stoppable{
 
-//    @EJB
-//    private PersistenceFacade persistenceFacade;
+    @EJB
+    private PersistenceFacade persistenceFacade;
     
     @Inject
     private MessageLoggerContainer messageLoggerContainer;
@@ -32,6 +32,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable{
     private CrawlerService crawlerService;
     
     @Inject
+    @SuppressWarnings("NonConstantLogger")
     private Logger LOG;//for debug purposes only
     
 //    @Inject
@@ -44,6 +45,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable{
 //    private GraphGeneratorQueue graphGenerator;
     
     public void startChecking(){
+        LOG.info("Starting new checking");
         //TODO implement
         throw new UnsupportedOperationException("Not implemented yet");
     }
