@@ -7,7 +7,9 @@ package org.presentation.persistence.model;
 public enum CheckState {
 
     CREATED,
-    STARTED,
-    FAILED,
+    PENDING,
+    STOPPED_BEFORE_START,
+    STOPPED_AFTER_START,
+    CHECKING,
     FINISHED
 }

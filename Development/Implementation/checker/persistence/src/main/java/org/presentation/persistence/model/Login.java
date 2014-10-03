@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Login.findByIdLogin", query = "SELECT l FROM Login l WHERE l.idLogin = :idLogin"),
     @NamedQuery(name = "Login.findByAddress", query = "SELECT l FROM Login l WHERE l.address = :address"),
     @NamedQuery(name = "Login.findByTime", query = "SELECT l FROM Login l WHERE l.time = :time"),
-    @NamedQuery(name = "Login.findByUserId", query = "SELECT l FROM Login l WHERE l.user.idUser = :userId ORDER BY l.time DESC")})
+    @NamedQuery(name = "Login.findByUserEmail", query = "SELECT l FROM Login l WHERE l.user.email = :email ORDER BY l.time DESC")})
 public class Login implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class Login implements Serializable {
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @JoinColumn(name = "user", referencedColumnName = "id_user")
+    @JoinColumn(name = "user", referencedColumnName = "email")
     @ManyToOne(optional = false)
     private User user;
 

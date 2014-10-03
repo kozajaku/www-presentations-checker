@@ -14,7 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,11 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Checkup.findByCheckingFinished", query = "SELECT c FROM Checkup c WHERE c.checkingFinished = :checkingFinished"),
     @NamedQuery(name = "Checkup.findByStartPoint", query = "SELECT c FROM Checkup c WHERE c.startPoint = :startPoint"),
     @NamedQuery(name = "Checkup.findByMaxDepth", query = "SELECT c FROM Checkup c WHERE c.maxDepth = :maxDepth"),
-    @NamedQuery(name = "Checkup.findByCheckHTML", query = "SELECT c FROM Checkup c WHERE c.checkHTML = :checkHTML"),
-    @NamedQuery(name = "Checkup.findByCheckCSS", query = "SELECT c FROM Checkup c WHERE c.checkCSS = :checkCSS"),
-    @NamedQuery(name = "Checkup.findByCheckCSSredundancy", query = "SELECT c FROM Checkup c WHERE c.checkCSSredundancy = :checkCSSredundancy"),
-    @NamedQuery(name = "Checkup.findByCheckLinks", query = "SELECT c FROM Checkup c WHERE c.checkLinks = :checkLinks"),
-    @NamedQuery(name = "Checkup.findByUserId", query = "SELECT c FROM Checkup c WHERE c.user.idUser = :userId ORDER BY c.checkingCreated DESC")})
+    @NamedQuery(name = "Checkup.findByUserEmail", query = "SELECT c FROM Checkup c WHERE c.user.email = :email ORDER BY c.checkingCreated DESC")})
 public class Checkup implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,12 +59,6 @@ public class Checkup implements Serializable {
     @Column(name = "state")
     @Enumerated(EnumType.STRING)
     private CheckState state;
-    @Lob
-    @Column(name = "result_log")
-    private String resultLog;
-    @Lob
-    @Column(name = "graph")
-    private String graph;
     @Column(name = "checking_finished")
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkingFinished;
@@ -76,23 +67,24 @@ public class Checkup implements Serializable {
     private String startPoint;
     @Column(name = "max_depth")
     private Integer maxDepth;
-    @Basic(optional = false)
-    @Column(name = "check_HTML")
-    private boolean checkHTML;
-    @Basic(optional = false)
-    @Column(name = "check_CSS")
-    private boolean checkCSS;
-    @Basic(optional = false)
-    @Column(name = "check_CSS_redundancy")
-    private boolean checkCSSredundancy;
-    @Basic(optional = false)
-    @Column(name = "check_links")
-    private boolean checkLinks;
+    @Column(name = "checking_interval")
+    private Integer checkingInterval;
+    @JoinTable(name = "checkup_has_option", joinColumns = {
+        @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")}, inverseJoinColumns = {
+        @JoinColumn(name = "option", referencedColumnName = "id_option")})
+    @ManyToMany
+    private List<ChosenOption> optionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
+    private List<Resource> resourceList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checking")
     private List<Domain> domainList;
-    @JoinColumn(name = "user", referencedColumnName = "id_user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
+    private List<HeaderEntity> headerList;
+    @JoinColumn(name = "user", referencedColumnName = "email")
     @ManyToOne(optional = false)
     private User user;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
+    private List<Graph> graphList;
 
     public Checkup() {
     }
@@ -125,22 +117,6 @@ public class Checkup implements Serializable {
         this.state = state;
     }
 
-    public String getResultLog() {
-        return resultLog;
-    }
-
-    public void setResultLog(String resultLog) {
-        this.resultLog = resultLog;
-    }
-
-    public String getGraph() {
-        return graph;
-    }
-
-    public void setGraph(String graph) {
-        this.graph = graph;
-    }
-
     public Date getCheckingFinished() {
         return checkingFinished;
     }
@@ -165,36 +141,30 @@ public class Checkup implements Serializable {
         this.maxDepth = maxDepth;
     }
 
-    public boolean getCheckHTML() {
-        return checkHTML;
+    public Integer getCheckingInterval() {
+        return checkingInterval;
     }
 
-    public void setCheckHTML(boolean checkHTML) {
-        this.checkHTML = checkHTML;
+    public void setCheckingInterval(Integer checkingInterval) {
+        this.checkingInterval = checkingInterval;
     }
 
-    public boolean getCheckCSS() {
-        return checkCSS;
+    @XmlTransient
+    public List<ChosenOption> getOptionList() {
+        return optionList;
     }
 
-    public void setCheckCSS(boolean checkCSS) {
-        this.checkCSS = checkCSS;
+    public void setOptionList(List<ChosenOption> optionList) {
+        this.optionList = optionList;
     }
 
-    public boolean getCheckCSSredundancy() {
-        return checkCSSredundancy;
+    @XmlTransient
+    public List<Resource> getResourceList() {
+        return resourceList;
     }
 
-    public void setCheckCSSredundancy(boolean checkCSSredundancy) {
-        this.checkCSSredundancy = checkCSSredundancy;
-    }
-
-    public boolean getCheckLinks() {
-        return checkLinks;
-    }
-
-    public void setCheckLinks(boolean checkLinks) {
-        this.checkLinks = checkLinks;
+    public void setResourceList(List<Resource> resourceList) {
+        this.resourceList = resourceList;
     }
 
     @XmlTransient
@@ -206,12 +176,30 @@ public class Checkup implements Serializable {
         this.domainList = domainList;
     }
 
+    @XmlTransient
+    public List<HeaderEntity> getHeaderList() {
+        return headerList;
+    }
+
+    public void setHeaderList(List<HeaderEntity> headerList) {
+        this.headerList = headerList;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @XmlTransient
+    public List<Graph> getGraphList() {
+        return graphList;
+    }
+
+    public void setGraphList(List<Graph> graphList) {
+        this.graphList = graphList;
     }
 
     @Override
@@ -223,6 +211,7 @@ public class Checkup implements Serializable {
 
     @Override
     public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Checkup)) {
             return false;
         }
@@ -232,7 +221,7 @@ public class Checkup implements Serializable {
 
     @Override
     public String toString() {
-        return "testicek.Checkup[ idCheckup=" + idCheckup + " ]";
+        return "test.Checkup[ idCheckup=" + idCheckup + " ]";
     }
 
 }

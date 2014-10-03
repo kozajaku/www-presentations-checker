@@ -27,7 +27,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Domain.findAll", query = "SELECT d FROM Domain d"),
     @NamedQuery(name = "Domain.findByIdDomain", query = "SELECT d FROM Domain d WHERE d.idDomain = :idDomain"),
     @NamedQuery(name = "Domain.findByName", query = "SELECT d FROM Domain d WHERE d.name = :name"),
-    @NamedQuery(name = "Domain.findByRequestInterval", query = "SELECT d FROM Domain d WHERE d.requestInterval = :requestInterval"),
     @NamedQuery(name = "Domain.findByCheckupId", query = "SELECT d FROM Domain d WHERE d.checking.idCheckup = :checkupId")})
 public class Domain implements Serializable {
 
@@ -40,8 +39,6 @@ public class Domain implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @Column(name = "request_interval")
-    private Integer requestInterval;
     @JoinColumn(name = "checking", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
     private Checkup checking;
@@ -72,14 +69,6 @@ public class Domain implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getRequestInterval() {
-        return requestInterval;
-    }
-
-    public void setRequestInterval(Integer requestInterval) {
-        this.requestInterval = requestInterval;
     }
 
     public Checkup getChecking() {
