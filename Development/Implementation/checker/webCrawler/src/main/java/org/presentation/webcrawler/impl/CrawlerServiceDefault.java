@@ -1,7 +1,11 @@
 package org.presentation.webcrawler.impl;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -10,6 +14,7 @@ import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import org.presentation.model.graph.Edge;
 import org.presentation.model.graph.InvalidNode;
 import org.presentation.model.graph.Node;
 import org.presentation.model.logging.MessageLogger;
@@ -36,23 +41,27 @@ import org.presentation.webcrawler.ReceiverResponse;
 public class CrawlerServiceDefault implements CrawlerService {
 
 	public class WebPage {
-                private Node previousNode;
+                private String label;
+                private LinkSourceType linkSourceType;
+                private ValidNode previousNode;
 		private LinkURL linkURL;
 		private int depthFromRoot;
 
-                public WebPage(Node previousNode, LinkURL linkURL, int depthFromRoot) {
+                public WebPage(String label, LinkSourceType linkSourceType, ValidNode previousNode, LinkURL linkURL, int depthFromRoot) {
+                    this.label = label;
+                    this.linkSourceType = linkSourceType;
                     this.previousNode = previousNode;
                     this.linkURL = linkURL;
                     this.depthFromRoot = depthFromRoot;
                 }
 
-                public Node getPreviousNode() {
-                    return previousNode;
-                }
-
-                public LinkURL getLinkURL() {
-                    return linkURL;
-                }
+//                public Node getPreviousNode() {
+//                    return previousNode;
+//                }
+//
+//                public LinkURL getLinkURL() {
+//                    return linkURL;
+//                }
                 
 		public List<WebPage> browseWebPage(){
                     List<WebPage> foundPages = new ArrayList<>();
@@ -60,8 +69,8 @@ public class CrawlerServiceDefault implements CrawlerService {
                     //podminky zastaveni
                     if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) return foundPages;
                     //stahni stranku
+                    crawlingState.incCount();
                     ReceiverResponse receiverResponse;
-                    Node node;
                     try {
                         receiverResponse = pageReceiver.getPage(linkURL);
                     } catch (IOException ex) {
@@ -71,9 +80,29 @@ public class CrawlerServiceDefault implements CrawlerService {
                     }
                     //vytvor node
                     if (receiverResponse.getStateCode() == 200) {
-                        node = new ValidNode(linkURL);
+                        ValidNode node = new ValidNode(linkURL);
+                        //spoj s grafem
+                        if (previousNode != null) previousNode.addEdge(new Edge(node, label, linkSourceType));
+                        visitedURLs.put(linkURL, node);
+                        //najdi dalsi odkazy
+                        List<ParsedLinkResponse> foundLinks;
+                        foundLinks = getLinksFromPage(receiverResponse);
+                        //over jestli stranka existuje
+                        for (ParsedLinkResponse foundLink : foundLinks) {
+                            LinkURL foundURL = foundLink.getDestination(); 
+                            if (visitedURLs.containsKey(foundURL)) {
+                                //pridej hranu
+                                Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.label, foundLink.sourceType);
+                                node.addEdge(newEdge);
+                            } else {
+                                //pridej do fronty
+                                foundPages.add(new WebPage(foundLink.label, foundLink.sourceType, node, foundURL, depthFromRoot+1));
+                            }
+                        }
                     } else {
-                        node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
+                        InvalidNode node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
+                        //spoj s grafem
+                        if (previousNode != null) previousNode.addEdge(new Edge(node, label, linkSourceType));
                     }
                     return foundPages;
                	}
@@ -93,7 +122,7 @@ public class CrawlerServiceDefault implements CrawlerService {
 	private TraversalGraph graph;
 	private Domain allowedDomainsList;
 	private int maximalDepth;
-	private WebPage linkQueue;
+	private Queue<WebPage> linkQueue;
 	private PageReceiver pageReceiver;
 	private CrawlingState crawlingState;
         private CSSParserService cssParserService;
@@ -104,6 +133,8 @@ public class CrawlerServiceDefault implements CrawlerService {
 	private int requestTimeout;
         private int pageLimit;
         private int pageCounter;
+        
+        private Map<LinkURL, Node> visitedURLs;
 
 	/**
 	 * 
@@ -128,39 +159,21 @@ public class CrawlerServiceDefault implements CrawlerService {
             this.pageLimit = pageLimit;
             this.requestTimeout = 3000;
             this.maximalDepth = maximalDepth;
-            /*
-            for (int i = 0; i < maximalDepth; i++) {
-                pageReceiver.getPage(url);
-            }    
-            */
-            if (isAllowedURL(url)) CrawlPage(url);
-            
+            visitedURLs = new HashMap<>();
+            linkQueue = new LinkedList<>();
+            WebPage page = new WebPage(null, null, null, url, 0);
+            linkQueue.add(page);
+            while (!linkQueue.isEmpty()) {
+               page = linkQueue.poll();
+               linkQueue.addAll(page.browseWebPage());
+            }
+            crawlingState.done();
             observer.crawlingDone(graph, CompleteCrawlingState.ENDED_BY_DEPTH);
 	}
-        private Node CreateNodeFromPage(LinkURL url) {
-            ReceiverResponse receiverResponse;
-            Node node;
-            try {
-                receiverResponse = pageReceiver.checkPage(url);
-            } catch (IOException ex) {
-                Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
-                Message message = new ErrorMsg();
-                message.setMessage("pageReceiver bad check");
-                message.setPage(url);
-                messageLogger.addMessage(message);
-                return null;
-            }
-            if (receiverResponse.getStateCode() == 200) {
-                node = new ValidNode(url);
-            } else {
-                node = new InvalidNode(url, new ErrorCode(receiverResponse.getStateCode()));
-            }
-           return node;       
-        }
         
         //dostan vsechny odkazy ze stranky
-        private List<ParsedLinkResponse> crawlPage(ReceiverResponse response) {
-            if (response.getContentType() == "text/css") return cssParserService.parseLinks(response.getSourceCode());
+        private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response) {
+            if (response.getContentType().getContentType().equals("text/css")) return cssParserService.parseLinks(response.getSourceCode());
             else return htmlParserService.parseLinks(response.getSourceCode());
         }
         
@@ -168,14 +181,15 @@ public class CrawlerServiceDefault implements CrawlerService {
            //TO DO
           return true;
         }
-        }
+
         @Override
 	public void stopChecking(){
 
 	}
 
+        @Override
 	public CrawlingState getCrawlingState(){
-		return null;
+		return crawlingState;
 	}
 
 }
