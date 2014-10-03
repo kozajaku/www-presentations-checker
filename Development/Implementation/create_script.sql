@@ -94,8 +94,8 @@ CREATE TABLE `message`
 	`resource` VARCHAR(50) NOT NULL,
 	`message` TEXT NOT NULL,
 	`page` VARCHAR(255) NOT NULL,
-	`column` INTEGER NOT NULL,
-	`row` INTEGER NOT NULL,
+	`column` INTEGER,
+	`row` INTEGER,
 	`error_code` INTEGER,
 	PRIMARY KEY (`id`),
 	KEY (`resource`)
