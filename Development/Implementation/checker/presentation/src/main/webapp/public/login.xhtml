@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+ 
+    	<ui:composition template="/commonLayout.xhtml">
+ 
+	    <ui:define name="content">
+		<form method='post' action='j_security_check'>
+		    
+		    <ui:include src="/helper/errorList.xhtml" />
+		    
+		    <h:outputLabel value="#{msg['login.email']}" />
+		    <input type="text" id="j_username" name="j_username" /><br />
+		    
+		    <h:outputLabel value="#{msg['login.password']}" />
+		    <input type="password" id="j_password" name="j_password" /><br />
+		  
+		   <input type="submit" name="submit" value="#{msg['login.submit']}" /><br />
+
+		</form>
+	    </ui:define>
+ 
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>

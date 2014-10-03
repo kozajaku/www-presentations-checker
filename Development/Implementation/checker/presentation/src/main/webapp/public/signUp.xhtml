@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+ 
+    	<ui:composition template="/commonLayout.xhtml">
+ 
+	    <ui:define name="content">
+		
+		<ui:include src="helper/errorList.xhtml" />
+		
+		<h:form>
+		    <h:outputLabel value="#{msg['signup.email']}" />
+		    <h:inputText value="#{SignupBean.email}">
+			<!--<f:ajax event="valueChange" execute="userNo" render="result" />-->
+		    </h:inputText>	
+		
+		    <h:outputLabel value="#{msg['signup.password']}" />
+		    <h:inputSecret value="#{signupBean.password}">
+		    
+		    <h:outputLabel value="#{msg['signup.name']}" />
+		    <h:inputText value="#{signupBean.name}">
+		    
+		    <h:outputLabel value="#{msg['signup.surname']}" />
+		    <h:inputText value="#{signupBean.surname}">
+		    
+		    <h:commandButton value="#{msg['signup.submit']}" action="#{shoppingCartBean.checkout}" />			
+			
+		</h:form>		
+		
+	    </ui:define>
+ 
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>
