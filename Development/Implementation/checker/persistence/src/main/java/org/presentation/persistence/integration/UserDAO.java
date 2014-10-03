@@ -12,9 +12,7 @@ public interface UserDAO {
 
     void update(User user);
 
-    void delete(Integer userId);
+    void delete(String email);
 
-    User find(Integer userId);
-
-    User findByEmail(String email);
+    User find(String email);
 }

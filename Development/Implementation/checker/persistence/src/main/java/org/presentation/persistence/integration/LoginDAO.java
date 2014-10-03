@@ -13,7 +13,7 @@ public interface LoginDAO {
 
     Login find(Integer loginId);
 
-    List<Login> findAllUserLogins(Integer userId);
+    List<Login> findAllUserLogins(String email);
 
-    Login findLastUserLogin(Integer userId);
+    Login findLastUserLogin(String email);
 }
