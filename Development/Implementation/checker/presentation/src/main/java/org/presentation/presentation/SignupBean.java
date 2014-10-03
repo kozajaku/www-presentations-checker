@@ -7,7 +7,6 @@ package org.presentation.presentation;
 
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.presentation.presentation.validation.ValidEmail;
@@ -44,8 +43,9 @@ public class SignupBean extends CommonBean {
 	
     }
     
-    public void signUp(){
-		
+    public void signUp(){		
+	
+	persistance.createNewUser(email, password, name, surname);
 	
     }
 

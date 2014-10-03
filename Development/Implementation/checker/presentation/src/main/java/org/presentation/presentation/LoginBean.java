@@ -7,20 +7,16 @@ package org.presentation.presentation;
 
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 
-import org.presentation.persistence.business.PersistenceFacadeImpl;
 
 /**
  *
  * @author petrof
  */
-@Named(value = "loginBean")
+@Named
 @Dependent
-public class LoginBean {
+public class LoginBean extends CommonBean {
 
-    @Inject
-    PersistenceFacadeImpl persistance;
     
     /**
      * Creates a new instance of LoginBean

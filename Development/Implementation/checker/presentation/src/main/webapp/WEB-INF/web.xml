@@ -20,7 +20,7 @@
     
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Restricted Area - ADMIN Only</web-resource-name>
+            <web-resource-name>For logged users</web-resource-name>
             <url-pattern>/pages/protected/user/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>

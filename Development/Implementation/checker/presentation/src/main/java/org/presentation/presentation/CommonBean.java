@@ -5,7 +5,7 @@
  */
 package org.presentation.presentation;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import org.presentation.persistence.business.PersistenceFacadeImpl;
 
 /**
@@ -14,7 +14,7 @@ import org.presentation.persistence.business.PersistenceFacadeImpl;
  */
 public abstract class CommonBean {
     
-    @Inject
+    @EJB
     PersistenceFacadeImpl persistance;
     
     /**

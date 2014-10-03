@@ -11,6 +11,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
+import javax.validation.Payload;
 
 /**
  *
@@ -21,5 +22,7 @@ import javax.validation.Constraint;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 public @interface ValidEmail {
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
     String message() default "{org.presentation.presentation.lang.validation.email_bf}";
 }
