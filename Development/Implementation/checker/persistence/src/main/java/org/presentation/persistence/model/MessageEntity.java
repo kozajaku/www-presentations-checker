@@ -56,9 +56,12 @@ public class MessageEntity implements Serializable {
     private Integer row;
     @Column(name = "error_code")
     private Integer errorCode;
-    @JoinColumn(name = "resource", referencedColumnName = "name")
+    @Basic(optional = false)
+    @Column(name = "resource", length = 50)
+    private String resource;
+    @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
-    private Resource resource;
+    private Checkup checkup;
 
     public MessageEntity() {
     }
@@ -132,12 +135,20 @@ public class MessageEntity implements Serializable {
         this.errorCode = errorCode;
     }
 
-    public Resource getResource() {
+    public String getResource() {
         return resource;
     }
 
-    public void setResource(Resource resource) {
+    public void setResource(String resource) {
         this.resource = resource;
+    }
+
+    public Checkup getCheckup() {
+        return checkup;
+    }
+
+    public void setCheckup(Checkup checkup) {
+        this.checkup = checkup;
     }
 
     @Override
@@ -161,4 +172,5 @@ public class MessageEntity implements Serializable {
     public String toString() {
         return "test.Message[ id=" + id + " ]";
     }
+
 }
