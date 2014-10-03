@@ -23,7 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HeaderEntity.findAll", query = "SELECT h FROM HeaderEntity h"),
     @NamedQuery(name = "HeaderEntity.findByIdHeader", query = "SELECT h FROM HeaderEntity h WHERE h.idHeader = :idHeader"),
     @NamedQuery(name = "HeaderEntity.findByKey", query = "SELECT h FROM HeaderEntity h WHERE h.key = :key"),
-    @NamedQuery(name = "HeaderEntity.findByValue", query = "SELECT h FROM HeaderEntity h WHERE h.value = :value")})
+    @NamedQuery(name = "HeaderEntity.findByValue", query = "SELECT h FROM HeaderEntity h WHERE h.value = :value"),
+    @NamedQuery(name = "HeaderEntity.findByCheckupId", query = "SELECT h FROM HeaderEntity h WHERE h.checkup.idCheckup = :checkupId")})
 public class HeaderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -30,26 +30,26 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Graph.findByCheckupId", query = "SELECT g FROM Graph g WHERE g.checkup.idCheckup = :checkupId")
 })
 public class Graph implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_graph")
     private Integer idGraph;
-    
+
     @Column(name = "output")
     @Lob
     private String output;
-    
+
     @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
     private Checkup checkup;
 
     public Graph() {
     }
-    
+
     public Graph(Integer idGraph) {
         this.idGraph = idGraph;
     }
@@ -106,7 +106,5 @@ public class Graph implements Serializable {
     public String toString() {
         return "Graph{" + "idGraph=" + idGraph + ", output=" + output + ", checkup=" + checkup + '}';
     }
-    
-    
-    
+
 }
