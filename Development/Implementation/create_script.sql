@@ -13,10 +13,10 @@ DROP TABLE IF EXISTS `checkup`;
 DROP TABLE IF EXISTS `checkup_has_option`;
 DROP TABLE IF EXISTS `domain`;
 DROP TABLE IF EXISTS `graph`;
+DROP TABLE IF EXISTS `header`;
 DROP TABLE IF EXISTS `login`;
 DROP TABLE IF EXISTS `message`;
 DROP TABLE IF EXISTS `option`;
-DROP TABLE IF EXISTS `resource`;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `checkup`
@@ -57,9 +57,20 @@ CREATE TABLE `domain`
 CREATE TABLE `graph`
 (
 	`id_graph` INTEGER NOT NULL,
-	`output` MEDIUMTEXT,
+	`output` MEDIUMTEXT NOT NULL,
 	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id_graph`),
+	KEY (`checkup`)
+) ENGINE = InnoDB;
+
+
+CREATE TABLE `header`
+(
+	`id_header` INTEGER NOT NULL,
+	`key` VARCHAR(100) NOT NULL,
+	`value` VARCHAR(255) NOT NULL,
+	`checkup` INTEGER NOT NULL,
+	PRIMARY KEY (`id_header`),
 	KEY (`checkup`)
 ) ENGINE = InnoDB;
 
@@ -79,14 +90,15 @@ CREATE TABLE `message`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT,
 	`discriminator` VARCHAR(50) NOT NULL,
-	`resource` VARCHAR(50) NOT NULL,
 	`message` TEXT NOT NULL,
 	`page` VARCHAR(255) NOT NULL,
-	`column` INTEGER NOT NULL,
-	`row` INTEGER NOT NULL,
+	`column` INTEGER,
+	`row` INTEGER,
 	`error_code` INTEGER,
+	`resource` VARCHAR(50) NOT NULL,
+	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id`),
-	KEY (`resource`)
+	KEY (`checkup`)
 ) ENGINE = InnoDB;
 
 
@@ -94,15 +106,6 @@ CREATE TABLE `option`
 (
 	`id_option` VARCHAR(50) NOT NULL,
 	PRIMARY KEY (`id_option`)
-) ENGINE = InnoDB;
-
-
-CREATE TABLE `resource`
-(
-	`name` VARCHAR(50) NOT NULL,
-	`checkup` INTEGER NOT NULL,
-	PRIMARY KEY (`name`),
-	KEY (`checkup`)
 ) ENGINE = InnoDB;
 
 
@@ -138,15 +141,15 @@ ALTER TABLE `graph` ADD CONSTRAINT `FK_graph_checkup`
 	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
 	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+ALTER TABLE `header` ADD CONSTRAINT `FK_header_checkup` 
+	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
+
 ALTER TABLE `login` ADD CONSTRAINT `FK_login_user` 
 	FOREIGN KEY (`user`) REFERENCES `user` (`email`)
 	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE `message` ADD CONSTRAINT `FK_message_resource` 
-	FOREIGN KEY (`resource`) REFERENCES `resource` (`name`)
-	ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-ALTER TABLE `resource` ADD CONSTRAINT `FK_resource_checkup` 
+ALTER TABLE `message` ADD CONSTRAINT `FK_message_checkup` 
 	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
 	ON DELETE NO ACTION ON UPDATE NO ACTION;
 

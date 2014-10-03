@@ -3,13 +3,12 @@ package org.presentation.persistence.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,8 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser"),
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),    
     @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt"),
@@ -41,10 +39,6 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_user")
-    private Integer idUser;
     @Basic(optional = false)
     @Column(name = "email", unique = true, length = 254)
     private String email;
@@ -72,16 +66,8 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(Integer idUser) {
-        this.idUser = idUser;
-    }
-
-    public Integer getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
+    public User(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
@@ -153,24 +139,34 @@ public class User implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "User{" + "email=" + email + ", name=" + name + ", surname=" + surname + ", registrationDate=" + registrationDate + '}';
+    }
+
+    
+
+    @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idUser != null ? idUser.hashCode() : 0);
+        int hash = 3;
+        hash = 83 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof User)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        User other = (User) object;
-        return !((this.idUser == null && other.idUser != null) || (this.idUser != null && !this.idUser.equals(other.idUser)));
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
     }
-
-    @Override
-    public String toString() {
-        return "testicek.User[ idUser=" + idUser + " ]";
-    }
+    
+    
 
 }
