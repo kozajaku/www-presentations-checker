@@ -17,13 +17,14 @@ import org.presentation.persistence.business.PersistenceFacade;
 @Stateless
 public class CheckRequestReceiver {
 
-//    @EJB
-//    private PersistenceFacade persistenceFacade;
+    @EJB
+    private PersistenceFacade persistenceFacade;
 
     @EJB
     private CheckingExecutionQueue execQueue;
 
     @Inject
+    @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
     void addNewCheckingRequest(CheckingRequest checkingRequest) {

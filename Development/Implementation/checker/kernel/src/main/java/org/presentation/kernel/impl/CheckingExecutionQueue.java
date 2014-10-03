@@ -28,14 +28,15 @@ public class CheckingExecutionQueue {
     @Inject
     private Instance<CheckingExecutor> checkingExecutorPrototype;
     
-//    @EJB
-//    private PersistenceFacade persistentFacade;
+    @EJB
+    private PersistenceFacade persistentFacade;
     
     private LinkedBlockingQueue<Checkup> queue;
     
     private ConcurrentHashMap<Integer, CheckingExecutor> runningCheckings;
     
     @Inject
+    @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
     
     @PostConstruct
