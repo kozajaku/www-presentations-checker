@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS `checkup`;
 DROP TABLE IF EXISTS `checkup_has_option`;
 DROP TABLE IF EXISTS `domain`;
 DROP TABLE IF EXISTS `graph`;
+DROP TABLE IF EXISTS `header`;
 DROP TABLE IF EXISTS `login`;
 DROP TABLE IF EXISTS `message`;
 DROP TABLE IF EXISTS `option`;
@@ -57,9 +58,20 @@ CREATE TABLE `domain`
 CREATE TABLE `graph`
 (
 	`id_graph` INTEGER NOT NULL,
-	`output` MEDIUMTEXT,
+	`output` MEDIUMTEXT NOT NULL,
 	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id_graph`),
+	KEY (`checkup`)
+) ENGINE = InnoDB;
+
+
+CREATE TABLE `header`
+(
+	`id_header` INTEGER NOT NULL,
+	`key` VARCHAR(100) NOT NULL,
+	`value` VARCHAR(255) NOT NULL,
+	`checkup` INTEGER NOT NULL,
+	PRIMARY KEY (`id_header`),
 	KEY (`checkup`)
 ) ENGINE = InnoDB;
 
@@ -135,6 +147,10 @@ ALTER TABLE `domain` ADD CONSTRAINT `FK_domain_checkup`
 	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 ALTER TABLE `graph` ADD CONSTRAINT `FK_graph_checkup` 
+	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
+	ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ALTER TABLE `header` ADD CONSTRAINT `FK_header_checkup` 
 	FOREIGN KEY (`checkup`) REFERENCES `checkup` (`id_checkup`)
 	ON DELETE NO ACTION ON UPDATE NO ACTION;
 
