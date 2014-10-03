@@ -17,20 +17,20 @@ public class TraversalGraph {
 	 * 
 	 * @param root
 	 */
-	public TraversalGraph(LinkURL root){
-            this.root = new ValidNode(root);
+	public TraversalGraph(Node root){
+            this.root = root;
 	}
 
-	/**
-	 * Returns if graph already contains target link.
-	 * 
-	 * @param destURL    Destination URL.
-	 * @param sourceURL
-	 * @param sourceType
-	 * @param stateCode
-	 */
-	public boolean addLink(LinkURL destURL, LinkURL sourceURL, LinkSourceType sourceType, int stateCode){
-		return false;
-	}
+//	/**
+//	 * Returns if graph already contains target link.
+//	 * 
+//	 * @param destURL    Destination URL.
+//	 * @param sourceURL
+//	 * @param sourceType
+//	 * @param stateCode
+//	 */
+//	public boolean addLink(LinkURL destURL, LinkURL sourceURL, LinkSourceType sourceType, int stateCode){
+//		return false;
+//	}
 
 }

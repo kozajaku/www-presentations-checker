@@ -22,6 +22,8 @@ import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.graph.ValidNode;
 import org.presentation.model.logging.ErrorCode;
 import org.presentation.model.logging.ErrorMsg;
+import org.presentation.model.logging.InfoMsg;
+import org.presentation.model.logging.InvalidLinkMsg;
 import org.presentation.model.logging.Message;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.webcrawler.CompleteCrawlingState;
@@ -66,24 +68,31 @@ public class CrawlerServiceDefault implements CrawlerService {
 		public List<WebPage> browseWebPage(){
                     List<WebPage> foundPages = new ArrayList<>();
                     foundPages.clear();
-                    //podminky zastaveni
-                    if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) return foundPages;
-                    //stahni stranku
-                    crawlingState.incCount();
                     ReceiverResponse receiverResponse;
-                    try {
-                        receiverResponse = pageReceiver.getPage(linkURL);
-                    } catch (IOException ex) {
-                        Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
-                        //posli zpravu o chybe
-                        return foundPages; 
+                    //podminky zastaveni
+                    if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) {
+                        //nestahuj stranku
+                        receiverResponse = pageReceiver.checkPage(linkURL);   
+                    } else {
+                        //stahni stranku
+                        crawlingState.incCount();                   
+                        try {
+                            receiverResponse = pageReceiver.getPage(linkURL);
+                        } catch (IOException ex) {
+                            Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                            //posli zpravu o chybe
+                            sendErrorMsg(linkURL, "Unable to get page.");
+                            return foundPages; 
+                        }
                     }
                     //vytvor node
                     if (receiverResponse.getStateCode() == 200) {
                         ValidNode node = new ValidNode(linkURL);
                         //spoj s grafem
                         if (previousNode != null) previousNode.addEdge(new Edge(node, label, linkSourceType));
+                        else graph = new TraversalGraph(node);
                         visitedURLs.put(linkURL, node);
+                        sendValidLinkMsg(linkURL);
                         //najdi dalsi odkazy
                         List<ParsedLinkResponse> foundLinks;
                         foundLinks = getLinksFromPage(receiverResponse);
@@ -103,6 +112,9 @@ public class CrawlerServiceDefault implements CrawlerService {
                         InvalidNode node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
                         //spoj s grafem
                         if (previousNode != null) previousNode.addEdge(new Edge(node, label, linkSourceType));
+                        else graph = new TraversalGraph(node);
+                        visitedURLs.put(linkURL, node);
+                        sendInvalidLinkMsg(linkURL, new ErrorCode(receiverResponse.getStateCode()));
                     }
                     return foundPages;
                	}
@@ -133,6 +145,7 @@ public class CrawlerServiceDefault implements CrawlerService {
 	private int requestTimeout;
         private int pageLimit;
         private int pageCounter;
+        private boolean stopped = false;
         
         private Map<LinkURL, Node> visitedURLs;
 
@@ -163,7 +176,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             linkQueue = new LinkedList<>();
             WebPage page = new WebPage(null, null, null, url, 0);
             linkQueue.add(page);
-            while (!linkQueue.isEmpty()) {
+            while (!linkQueue.isEmpty() && !stopped) {
                page = linkQueue.poll();
                linkQueue.addAll(page.browseWebPage());
             }
@@ -174,7 +187,30 @@ public class CrawlerServiceDefault implements CrawlerService {
         //dostan vsechny odkazy ze stranky
         private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response) {
             if (response.getContentType().getContentType().equals("text/css")) return cssParserService.parseLinks(response.getSourceCode());
-            else return htmlParserService.parseLinks(response.getSourceCode());
+            if (response.getContentType().getContentType().equals("text/html")) return htmlParserService.parseLinks(response.getSourceCode());
+            return new ArrayList<ParsedLinkResponse>();
+        }
+        
+        private void sendValidLinkMsg(LinkURL url){
+           InfoMsg infoMsg = new InfoMsg();
+           infoMsg.setMessage("valid link");
+           infoMsg.setPage(url);
+           messageLogger.addMessage(infoMsg);
+        }
+        
+        private void sendInvalidLinkMsg(LinkURL url, ErrorCode errorCode){
+           InvalidLinkMsg invalidLinkMsg = new InvalidLinkMsg();
+           invalidLinkMsg.setMessage("invalid link");
+           invalidLinkMsg.setPage(url);
+           invalidLinkMsg.setErrorCode(errorCode);
+           messageLogger.addMessage(invalidLinkMsg);
+        }
+        
+        private void sendErrorMsg(LinkURL url, String error){
+           ErrorMsg errorMsg = new ErrorMsg();
+           errorMsg.setMessage(error);
+           errorMsg.setPage(url);
+           messageLogger.addMessage(errorMsg);
         }
         
         private boolean isAllowedURL(LinkURL url) {
@@ -184,7 +220,7 @@ public class CrawlerServiceDefault implements CrawlerService {
 
         @Override
 	public void stopChecking(){
-
+            stopped = true;
 	}
 
         @Override
