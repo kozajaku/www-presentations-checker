@@ -6,6 +6,7 @@
 package org.presentation.presentation.helper.helper;
 
 import java.util.List;
+import java.util.ResourceBundle;
 import org.presentation.model.Domain;
 
 /**
@@ -16,7 +17,7 @@ public class Functions {
     
     private Functions () { }
     
-    public String getDomainsConcat(List<Domain> domains) {
+    public static String getDomainsConcat(List<Domain> domains) {
 	StringBuilder sb = new StringBuilder();
 	
 	if(domains.size() == 0) return "any";
@@ -26,6 +27,12 @@ public class Functions {
 	}
 	
 	return sb.toString();
+    }
+    
+    public static String getEnumHumanReadable(ResourceBundle msg, Enum<?> e) {
+	String str = msg.getString(e.getClass().getSimpleName() + '.' + e.name());
+        if(str == null) return e.name();
+	return str;
     }
     
 }

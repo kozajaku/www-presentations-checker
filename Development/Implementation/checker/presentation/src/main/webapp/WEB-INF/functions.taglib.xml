@@ -11,4 +11,11 @@
         <function-class>org.presentation.presentation.helper.Functions</function-class>
         <function-signature>String getDomainsConcat(List<org.presentation.model.Domain>)</function-signature>
     </function>
+    
+    <function>
+        <function-name>getEnumHumanReadable</function-name>
+        <function-class>org.presentation.presentation.helper.Functions</function-class>
+        <function-signature>String getEnumHumanReadable(ResourceBundle msg, Enum<?> e)</function-signature>
+    </function>
+
 </facelet-taglib>
