@@ -12,5 +12,11 @@ public class Domain {
     public Domain(String domain) {
         this.domain = domain;
     }
+
+    public String getDomain() {
+	return domain;
+    }
+    
+    
         
 }
