@@ -98,7 +98,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
             }
             //vytvor node
-            if (receiverResponse.getStateCode() == 200) {
+            if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
                 ValidNode node = new ValidNode(linkURL);
                 //spoj s grafem
                 if (previousNode != null) {
