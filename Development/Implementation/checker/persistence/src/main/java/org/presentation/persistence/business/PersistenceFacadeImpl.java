@@ -385,7 +385,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         Checkup res = checkups.get(0);
         res.setState(CheckState.PENDING);
         checkupDAO.update(res);
-        return findCheckupInitializedInputs(res.getIdCheckup());
+        return res;
     }
 
 }

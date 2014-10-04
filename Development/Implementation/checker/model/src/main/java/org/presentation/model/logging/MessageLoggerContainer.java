@@ -1,5 +1,6 @@
 package org.presentation.model.logging;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 
@@ -10,7 +11,7 @@ import javax.enterprise.context.Dependent;
 @Dependent
 public class MessageLoggerContainer {
 
-    private List<MessageLogger> loggers;
+    private final List<MessageLogger> loggers = new ArrayList<>();
 
     public MessageLogger createLogger(String resource) {
         MessageLogger logger = new MessageLogger(resource);
@@ -21,7 +22,7 @@ public class MessageLoggerContainer {
     public MsgReport generateMsgReport() {
         MsgReport report = new MsgReport();
         for (MessageLogger logger : loggers) {
-            logger.addMsgReport(report);
+            logger.pushToMsgReport(report);
         }
         return report;
     }

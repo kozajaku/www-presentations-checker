@@ -1,5 +1,6 @@
 package org.presentation.model.logging;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class MessageLogger {
 
-    private List<Message> messages;
+    private final List<Message> messages = new ArrayList<>();
     private final String resource;
 
     public MessageLogger(String resource) {
@@ -19,7 +20,7 @@ public class MessageLogger {
         this.messages.add(message);
     }
 
-    public void addMsgReport(MsgReport report) {
+    public void pushToMsgReport(MsgReport report) {
         report.addGroup(resource, messages);
     }
 
