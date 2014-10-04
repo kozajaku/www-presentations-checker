@@ -8,6 +8,12 @@ public class LinkURL {
 
     private String url;
 
+    public LinkURL(String url) {
+	this.url = url;
+    }
+    
+    
+
     public String getUrl() {
         return url;
     }
