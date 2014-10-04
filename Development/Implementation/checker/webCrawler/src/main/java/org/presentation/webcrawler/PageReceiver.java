@@ -1,71 +1,126 @@
 package org.presentation.webcrawler;
 
-//import java.io.BufferedReader;
-//import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
+import java.net.HttpURLConnection;
+import java.util.List;
+import org.presentation.model.ContentType;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
+import org.presentation.model.PageContent;
 import org.presentation.model.logging.MessageLogger;
 
 /**
+ * Default implementation of PageReciever
  *
  * @author Jindřich Máca
+ * @version 1.0
  */
 public class PageReceiver {
 
-    //TODO: Required parameters:
-    //Expiration time
-    //Text coding UTF-8, Windows-1250 atd.
-    //Accept-Language?
-    //Cookies?
-    //Content-Type to proced download content?
-    
-    private List<String> cookies;
-    private HttpsURLConnection connection;
-//    private final String USER_AGENT = "Mozilla/5.0";
+    private final MessageLogger messageLogger;
 
-    private MessageLogger messageLogger;
+    private static final String GET = "GET";
+    private static final String HEAD = "HEAD";
+    private static final String HTTP = "http";
+    private static final String HTTPS = "htpps";
 
     public PageReceiver(MessageLogger messageLogger) {
         this.messageLogger = messageLogger;
     }
-    
+
     public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
-        //TO DO Adam Kugler: stejna metoda jako getPage, akorat vraci telo stranky prazdne. Idealni pouzit head.
-        return null;
+        return connectToPage(linkURL, HEAD, false);
     }
+
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
+        return connectToPage(linkURL, GET, true);
+    }
+
+    private ReceiverResponse connectToPage(LinkURL linkURL, String method, Boolean getContent) throws IOException {
+        ReceiverResponse response = new ReceiverResponse();
         URL url = new URL(linkURL.getUrl());
-        connection = (HttpsURLConnection) url.openConnection();
-        connection.setRequestMethod("HEAD");
+        HttpURLConnection connection;
+        switch (url.getProtocol().toLowerCase()) {
+            case HTTP: {
+                connection = (HttpURLConnection) url.openConnection();
+                break;
+            }
+            case HTTPS: {
+                connection = (HttpsURLConnection) url.openConnection();
+                break;
+            }
+            default: {
+                throw new IOException("Protocol " + url.getProtocol() + " is not supported.");
+            }
+        }
+        connection.setRequestMethod(method);
         connection.setUseCaches(false);
-//        connection.setRequestProperty("User-Agent", USER_AGENT);
-//        connection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-//        connection.setRequestProperty("Accept-Language", "cs,en;q=0.8,en-US;q=0.6");
-        if (getCookies() != null) {
-            for (String cookie : this.cookies) {
-                connection.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
+        connection.connect();
+
+        response.setStateCode(connection.getResponseCode());
+        switch (connection.getResponseCode()) {
+            case 200: {
+                String contentType = connection.getHeaderField("Content-Type");
+                String[] split;
+                split = contentType.split(";\\s*(charset=)?");
+                response.setContentType(new ContentType(split[0]));
+
+                if (getContent && method.equals(GET)) {
+                    String coding;
+                    if (split.length == 2) {
+                        coding = split[1];
+                    } else {
+                        coding = "UTF-8";
+                    }
+                    response.setSourceCode(new PageContent(recievePageContent(new BufferedReader(new InputStreamReader(connection.getInputStream(), coding)))));
+                }
+                break;
+            }
+            case 301: {
+                String location = connection.getHeaderField("Location");
+                if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
+                    response = connectToPage(new LinkURL(location), method, getContent);
+                }
+                break;
+            }
+            case 302: {
+                String location = connection.getHeaderField("Location");
+                if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
+                    response = connectToPage(new LinkURL(location), method, getContent);
+                }
+                break;
+            }
+            case 405: {
+                if (method.equals(HEAD)) {
+                    response = connectToPage(linkURL, GET, false);
+                }
+                break;
             }
         }
 
-        if (connection.getResponseCode() != 200) {
-            return null;
+        if (response.getContentType().getContentType() == null) {
+            response.setContentType(new ContentType(""));
         }
 
-        setCookies(connection.getHeaderFields().get("Set-Cookie"));
-        return null;
+        if (response.getSourceCode().getContent() == null) {
+            response.setSourceCode(new PageContent(""));
+        }
+
+        return response;
     }
 
-    private void setCookies(List<String> cookies) {
-        this.cookies = cookies;
-    }
-
-    private List<String> getCookies() {
-        return cookies;
+    private String recievePageContent(BufferedReader in) throws IOException {
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        return response.toString();
     }
 
 }
