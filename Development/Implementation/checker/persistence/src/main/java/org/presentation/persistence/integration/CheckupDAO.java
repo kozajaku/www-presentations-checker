@@ -1,6 +1,7 @@
 package org.presentation.persistence.integration;
 
 import java.util.List;
+import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 
 /**
@@ -16,6 +17,8 @@ public interface CheckupDAO {
     Checkup find(Integer checkupId);
 
     List<Checkup> findAllUserChecks(String email);
+    
+    List<Checkup> findAllWithState(CheckState[] states);
     
     void flush();
 }

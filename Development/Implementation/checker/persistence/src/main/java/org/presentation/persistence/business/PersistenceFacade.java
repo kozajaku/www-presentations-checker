@@ -39,6 +39,10 @@ public interface PersistenceFacade {
 
     Checkup findCheckupInitializedInputs(Integer checkId);
 
+    List<Checkup> findNotEndedCheckupsStateOrdered();
+
+    public Checkup fetchNewlyCreatedCheckup();
+
     //headers
     void addHeadersToCheckup(Checkup checkup, List<Header> headers);
 
@@ -67,6 +71,7 @@ public interface PersistenceFacade {
     List<String> findCheckupMessageResources(Checkup checkup);
 
     List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource);
-    
+
     void flush();
+
 }

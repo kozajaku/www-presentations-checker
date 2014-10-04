@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ import org.presentation.persistence.integration.HeaderEntityDAO;
 import org.presentation.persistence.integration.LoginDAO;
 import org.presentation.persistence.integration.MessageEntityDAO;
 import org.presentation.persistence.integration.UserDAO;
+import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
 import org.presentation.persistence.model.Graph;
@@ -338,6 +341,51 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     @Override
     public void flush() {
         checkupDAO.flush();
+    }
+
+    @Override
+    public List<Checkup> findNotEndedCheckupsStateOrdered() {
+        CheckState[] notEndedStates = {CheckState.CREATED, CheckState.PENDING, CheckState.CHECKING};
+        List<Checkup> checkups = checkupDAO.findAllWithState(notEndedStates);
+        Collections.sort(checkups, new Comparator<Checkup>() {
+
+            private int toComparableValue(CheckState state) {
+                int res = 10;//initialization
+                switch (state) {
+                    case CHECKING:
+                        res = 0;
+                        break;
+                    case PENDING:
+                        res = 1;
+                        break;
+                    case CREATED:
+                        res = 2;
+                        break;
+                }
+                return res;
+            }
+
+            @Override
+            public int compare(Checkup o1, Checkup o2) {
+                int a, b;
+                a = toComparableValue(o1.getState());
+                b = toComparableValue(o2.getState());
+                return a - b;
+            }
+        });
+        return checkups;
+    }
+
+    @Override
+    public Checkup fetchNewlyCreatedCheckup() {
+        List<Checkup> checkups = checkupDAO.findAllWithState(new CheckState[]{CheckState.CREATED});
+        if (checkups.isEmpty()){
+            return null;
+        }
+        Checkup res = checkups.get(0);
+        res.setState(CheckState.PENDING);
+        checkupDAO.update(res);
+        return findCheckupInitializedInputs(res.getIdCheckup());
     }
 
 }

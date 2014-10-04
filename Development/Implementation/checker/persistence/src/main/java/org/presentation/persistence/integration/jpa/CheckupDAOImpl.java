@@ -1,9 +1,11 @@
 package org.presentation.persistence.integration.jpa;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.persistence.TypedQuery;
 import org.presentation.persistence.integration.CheckupDAO;
+import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 
 /**
@@ -39,5 +41,12 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
     @Override
     public void flush() {
         getEntityManager().flush();
+    }
+
+    @Override
+    public List<Checkup> findAllWithState(CheckState[] states) {
+        TypedQuery<Checkup> q = getEntityManager().createQuery("SELECT c FROM Checkup c WHERE c.state IN :states ORDER BY c.checkingCreated", Checkup.class);
+        q.setParameter("states", Arrays.asList(states));
+        return q.getResultList();
     }
 }
