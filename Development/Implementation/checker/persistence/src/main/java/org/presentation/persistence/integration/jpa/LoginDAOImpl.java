@@ -25,16 +25,16 @@ public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {
     }
 
     @Override
-    public List<Login> findAllUserLogins(Integer userId) {
-        TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserId", Login.class);
-        q.setParameter("userId", userId);
+    public List<Login> findAllUserLogins(String email) {
+        TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserEmail", Login.class);
+        q.setParameter("email", email);
         return q.getResultList();
     }
 
     @Override
-    public Login findLastUserLogin(Integer userId) {
-        TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserId", Login.class);
-        q.setParameter("userId", userId);
+    public Login findLastUserLogin(String email) {
+        TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserEmail", Login.class);
+        q.setParameter("email", email);
         q.setMaxResults(1);
         List<Login> res = q.getResultList();
         return res.isEmpty() ? null : res.get(0);

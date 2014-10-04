@@ -15,7 +15,6 @@ public class UserDAOImpl extends AbstractDAOImpl implements UserDAO {
 
     @Override
     public void create(User user) {
-        user.setIdUser(null);
         getEntityManager().persist(user);
     }
 
@@ -25,21 +24,13 @@ public class UserDAOImpl extends AbstractDAOImpl implements UserDAO {
     }
 
     @Override
-    public void delete(Integer userId) {
-        getEntityManager().remove(getEntityManager().getReference(User.class, userId));
+    public void delete(String email) {
+        getEntityManager().remove(getEntityManager().getReference(User.class, email));
     }
 
     @Override
-    public User find(Integer userId) {
-        return getEntityManager().find(User.class, userId);
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        TypedQuery<User> q = getEntityManager().createNamedQuery("User.findByEmail", User.class);
-        q.setParameter("email", email);
-        List<User> res = q.getResultList();
-        return res.isEmpty() ? null : res.get(0);//unique constraint must be set in order to work this
+    public User find(String email) {
+        return getEntityManager().find(User.class, email);
     }
 
 }

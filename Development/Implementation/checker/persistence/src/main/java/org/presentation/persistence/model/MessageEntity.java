@@ -31,7 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "MessageEntity.findByPage", query = "SELECT m FROM MessageEntity m WHERE m.page = :page"),
     @NamedQuery(name = "MessageEntity.findByColumn", query = "SELECT m FROM MessageEntity m WHERE m.column = :column"),
     @NamedQuery(name = "MessageEntity.findByRow", query = "SELECT m FROM MessageEntity m WHERE m.row = :row"),
-    @NamedQuery(name = "MessageEntity.findByErrorCode", query = "SELECT m FROM MessageEntity m WHERE m.errorCode = :errorCode")})
+    @NamedQuery(name = "MessageEntity.findByErrorCode", query = "SELECT m FROM MessageEntity m WHERE m.errorCode = :errorCode"),
+    @NamedQuery(name = "MessageEntity.findByCheckupId", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId ORDER BY m.discriminator"),
+    @NamedQuery(name = "MessageEntity.findAllResourcesInCheckup", query = "SELECT DISTINCT m.resource FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId"),
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByResource", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource = :resource ORDER BY m.discriminator")})
 public class MessageEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,9 +59,12 @@ public class MessageEntity implements Serializable {
     private Integer row;
     @Column(name = "error_code")
     private Integer errorCode;
-    @JoinColumn(name = "resource", referencedColumnName = "name")
+    @Basic(optional = false)
+    @Column(name = "resource", length = 50)
+    private String resource;
+    @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
-    private Resource resource;
+    private Checkup checkup;
 
     public MessageEntity() {
     }
@@ -132,12 +138,20 @@ public class MessageEntity implements Serializable {
         this.errorCode = errorCode;
     }
 
-    public Resource getResource() {
+    public String getResource() {
         return resource;
     }
 
-    public void setResource(Resource resource) {
+    public void setResource(String resource) {
         this.resource = resource;
+    }
+
+    public Checkup getCheckup() {
+        return checkup;
+    }
+
+    public void setCheckup(Checkup checkup) {
+        this.checkup = checkup;
     }
 
     @Override
@@ -161,4 +175,5 @@ public class MessageEntity implements Serializable {
     public String toString() {
         return "test.Message[ id=" + id + " ]";
     }
+
 }

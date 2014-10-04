@@ -15,5 +15,5 @@ public interface CheckupDAO {
 
     Checkup find(Integer checkupId);
 
-    List<Checkup> findAllUserChecks(Integer userId);
+    List<Checkup> findAllUserChecks(String email);
 }

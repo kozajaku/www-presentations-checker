@@ -75,7 +75,7 @@ public class Checkup implements Serializable {
     @ManyToMany
     private List<ChosenOption> optionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
-    private List<Resource> resourceList;
+    private List<MessageEntity> messageEntityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checking")
     private List<Domain> domainList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
@@ -159,12 +159,12 @@ public class Checkup implements Serializable {
     }
 
     @XmlTransient
-    public List<Resource> getResourceList() {
-        return resourceList;
+    public List<MessageEntity> getMessageEntityList() {
+        return messageEntityList;
     }
 
-    public void setResourceList(List<Resource> resourceList) {
-        this.resourceList = resourceList;
+    public void setResourceList(List<MessageEntity> messageEntityList) {
+        this.messageEntityList = messageEntityList;
     }
 
     @XmlTransient

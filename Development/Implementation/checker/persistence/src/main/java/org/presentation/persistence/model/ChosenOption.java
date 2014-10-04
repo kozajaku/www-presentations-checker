@@ -23,19 +23,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "option")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ChosenOption.findAll", query = "SELECT o FROM ChosenOption o")})
-public class ChosenOption implements Serializable{
-    
+    @NamedQuery(name = "ChosenOption.findAll", query = "SELECT o FROM ChosenOption o"),
+    @NamedQuery(name = "ChosenOption.findAllInCheckup", query = "SELECT o FROM ChosenOption o WHERE EXISTS (SELECT h FROM o.checkupList h WHERE h.idCheckup = :checkupId)")})
+public class ChosenOption implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Basic(optional = false)
     @Column(name = "id_option", length = 50)
     private String idOption;
-    
+
     @ManyToMany(mappedBy = "optionList")
     private List<Checkup> checkupList;
-    
+
     public ChosenOption() {
     }
 

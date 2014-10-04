@@ -30,9 +30,9 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
     }
 
     @Override
-    public List<Checkup> findAllUserChecks(Integer userId) {
-        TypedQuery<Checkup> q = getEntityManager().createNamedQuery("Checkup.findByUserId", Checkup.class);
-        q.setParameter("userId", userId);
+    public List<Checkup> findAllUserChecks(String email) {
+        TypedQuery<Checkup> q = getEntityManager().createNamedQuery("Checkup.findByUserEmail", Checkup.class);
+        q.setParameter("email", email);
         return q.getResultList();
     }
 

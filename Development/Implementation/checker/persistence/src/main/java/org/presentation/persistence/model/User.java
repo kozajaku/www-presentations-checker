@@ -28,8 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),    
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findBySalt", query = "SELECT u FROM User u WHERE u.salt = :salt"),
     @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
@@ -143,8 +142,6 @@ public class User implements Serializable {
         return "User{" + "email=" + email + ", name=" + name + ", surname=" + surname + ", registrationDate=" + registrationDate + '}';
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -166,7 +163,5 @@ public class User implements Serializable {
         }
         return true;
     }
-    
-    
 
 }
