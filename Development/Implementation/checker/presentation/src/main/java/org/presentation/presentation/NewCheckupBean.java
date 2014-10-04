@@ -165,10 +165,9 @@ public class NewCheckupBean extends ProtectedBean  {
 	//oc.addOption("...");
 	
 	
-	r.setAllowedDomains(this.domainsAllowed);
+	r.setAllowedDomains(domainsAllowed);
 	r.setMaxDepth(maxCrawlingDepth);
-	// todo - incorrect
-	r.setRequestInterval(maxRequestFrequency);
+	r.setRequestInterval((int) Math.round(((double)1 / maxRequestFrequency) * 1000));
 	r.setPageLimit(pageLimit);
 	r.setStartingPoint(new LinkURL(startingLink));
 	r.setHeaders(httpHeaders);

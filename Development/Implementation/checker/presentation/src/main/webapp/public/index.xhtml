@@ -16,8 +16,8 @@
 		<p>Blah blah blah, blah blah</p>
 		
 		<ul class="nav">
-		    <li><h:commandLink action="/public/login.xhtml" value="#{msg['navi.log_in']}"></li>
-		    <li><h:commandLink action="/public/signUp.xhtml" value="#{msg['navi.sign_up']}"></li>
+		    <li><h:link outcome="/public/login" value="#{msg['navi.log_in']}" /></li>
+		    <li><h:link outcome="/public/signUp" value="#{msg['navi.sign_up']}" /></li>
 		</ul>
 			
 	    </ui:define>
