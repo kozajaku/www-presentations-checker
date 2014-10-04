@@ -90,12 +90,7 @@ public class NewCheckupBean extends ProtectedBean  {
 	return checkupsAvailable;
     }    
     
-    /**
-     * Creates a new instance of NewCheckupBean
-     */
-    public NewCheckupBean() {
-    }
-    
+
     public String getStartingLink() {
 	return startingLink;	
     }
