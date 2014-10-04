@@ -27,13 +27,13 @@ public class CheckRequestReceiver {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
-    void addNewCheckingRequest(CheckingRequest checkingRequest) {
+    public void addNewCheckingRequest(CheckingRequest checkingRequest) {
         //TODO not implemented yet
         LOG.log(Level.INFO, "addNewCheckingRequest called");
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
-    void stopSpecificChecking(Integer checkupId) {
+    public void stopSpecificChecking(Integer checkupId) {
         //TODO not implemented yet
         LOG.log(Level.INFO, "stopSpecificChecking called");
         throw new UnsupportedOperationException("Not implemented yet");

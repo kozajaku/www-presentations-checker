@@ -1,9 +1,9 @@
 package org.presentation.kernel;
 
 import java.util.List;
+import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
-import org.presentation.persistence.model.Domain;
 import org.presentation.utils.OptionContainer;
 
 /**

@@ -14,8 +14,8 @@ public class Domain {
         this.domain = domain;
     }
 
-    public String getDomain(){
-        return this.domain;
+    public String getDomain() {
+        return domain;
     }
-    
+
 }

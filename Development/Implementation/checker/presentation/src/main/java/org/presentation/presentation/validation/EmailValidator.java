@@ -5,10 +5,8 @@
  */
 package org.presentation.presentation.validation;
 
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.faces.bean.ManagedProperty;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -19,10 +17,6 @@ import javax.validation.ConstraintValidatorContext;
  */
 
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
-
-    @ManagedProperty("#{msg}")
-    protected ResourceBundle msg;
-
 
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
 		    "[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*" +
