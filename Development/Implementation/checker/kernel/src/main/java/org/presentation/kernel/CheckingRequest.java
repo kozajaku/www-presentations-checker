@@ -14,9 +14,9 @@ public class CheckingRequest {
 
     private LinkURL startingPoint;
     private List<Domain> allowedDomains;
-    private int pageLimit;
-    private int maxDepth;
-    private int requestInterval;
+    private Integer pageLimit;
+    private Integer maxDepth;
+    private Integer requestInterval;
     private OptionContainer chosenOptions;
     private List<Header> headers;
 

@@ -69,6 +69,8 @@ public class Checkup implements Serializable {
     private Integer maxDepth;
     @Column(name = "checking_interval")
     private Integer checkingInterval;
+    @Column(name = "page_limit")
+    private Integer pageLimit;
     @JoinTable(name = "checkup_has_option", joinColumns = {
         @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")}, inverseJoinColumns = {
         @JoinColumn(name = "option", referencedColumnName = "id_option")})
@@ -222,6 +224,14 @@ public class Checkup implements Serializable {
     @Override
     public String toString() {
         return "test.Checkup[ idCheckup=" + idCheckup + " ]";
+    }
+
+    public Integer getPageLimit() {
+        return pageLimit;
+    }
+
+    public void setPageLimit(Integer pageLimit) {
+        this.pageLimit = pageLimit;
     }
 
 }

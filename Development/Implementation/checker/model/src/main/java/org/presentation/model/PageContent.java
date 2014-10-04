@@ -6,14 +6,14 @@ package org.presentation.model;
  */
 public class PageContent {
 
-    private String content;
+    private final String content;
 
+    public PageContent(String content){
+        this.content = content;
+    }
+    
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.Asynchronous;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.EJB;
@@ -46,5 +47,22 @@ public class CheckingExecutionQueue {
         LOG.info("Initializing CheckingExecutionQueue EJB Singleton bean");
     }
     
+    public void notifyNewRequests(){
+        LOG.info("Notify called - new checkup request in database");
+        //TODO implement
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
     
+    @Asynchronous
+    public void newThread(){
+        LOG.info("Creating new CheckingExecutionQueue thread");
+        //TODO implement
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+    
+    public void stopRunningChecking(Integer checkupId){
+        LOG.info("Called method to stop running checking");
+        //TODO implement
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
 }

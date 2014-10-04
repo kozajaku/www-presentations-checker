@@ -36,4 +36,8 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         return q.getResultList();
     }
 
+    @Override
+    public void flush() {
+        getEntityManager().flush();
+    }
 }

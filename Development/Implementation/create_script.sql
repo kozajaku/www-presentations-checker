@@ -29,6 +29,7 @@ CREATE TABLE `checkup`
 	`max_depth` INTEGER,
 	`user` VARCHAR(254) NOT NULL,
 	`checking_interval` INTEGER,
+    `page_limit` INTEGER,
 	PRIMARY KEY (`id_checkup`),
 	KEY (`user`)
 ) ENGINE = InnoDB;

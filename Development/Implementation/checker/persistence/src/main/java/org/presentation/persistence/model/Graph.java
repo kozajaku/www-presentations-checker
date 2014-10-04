@@ -107,4 +107,14 @@ public class Graph implements Serializable {
         return "Graph{" + "idGraph=" + idGraph + ", output=" + output + ", checkup=" + checkup + '}';
     }
 
+    public static String convert(Graph graph) {
+        return graph.getOutput();
+    }
+
+    public static Graph convert(String source) {
+        Graph g = new Graph();
+        g.setOutput(source);
+        return g;
+    }
+
 }

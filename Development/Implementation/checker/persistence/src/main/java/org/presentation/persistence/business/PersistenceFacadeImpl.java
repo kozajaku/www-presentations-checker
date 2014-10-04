@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,12 +14,23 @@ import javax.ejb.EJBContext;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.presentation.model.Domain;
+import org.presentation.model.Header;
+import org.presentation.model.logging.Message;
 import org.presentation.persistence.integration.CheckupDAO;
+import org.presentation.persistence.integration.ChosenOptionDAO;
 import org.presentation.persistence.integration.DomainDAO;
+import org.presentation.persistence.integration.GraphDAO;
+import org.presentation.persistence.integration.HeaderEntityDAO;
 import org.presentation.persistence.integration.LoginDAO;
+import org.presentation.persistence.integration.MessageEntityDAO;
 import org.presentation.persistence.integration.UserDAO;
 import org.presentation.persistence.model.Checkup;
+import org.presentation.persistence.model.ChosenOption;
+import org.presentation.persistence.model.Graph;
+import org.presentation.persistence.model.HeaderEntity;
 import org.presentation.persistence.model.Login;
+import org.presentation.persistence.model.MessageEntity;
 import org.presentation.persistence.model.User;
 
 /**
@@ -30,18 +42,39 @@ import org.presentation.persistence.model.User;
 public class PersistenceFacadeImpl implements PersistenceFacade {
 
     @Inject
-    private UserDAO userDAO;
-    @Inject
-    private LoginDAO loginDAO;
+    @SuppressWarnings("NonConstantLogger")
+    private Logger LOG;//only for debugging purposes
+
+    //injected necessary DAO objects
     @Inject
     private CheckupDAO checkupDAO;
     @Inject
+    private ChosenOptionDAO chosenOptionDAO;
+    @Inject
     private DomainDAO domainDAO;
+    @Inject
+    private GraphDAO graphDAO;
+    @Inject
+    private HeaderEntityDAO headerDAO;
+    @Inject
+    private LoginDAO loginDAO;
+    @Inject
+    private MessageEntityDAO messageDAO;
+    @Inject
+    private UserDAO userDAO;
+
+    //Context of EJB session bean to control transaction management - ability to rollback transactions
     @Resource
     private EJBContext context;
 
     final private static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
+    /**
+     * Method used for converting array of bytes to HEX representation in String
+     *
+     * @param bytes Array of bytes to be converted
+     * @return Representation of bytes in hex
+     */
     private static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
@@ -76,15 +109,17 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
             //try to persist new user
             try {
                 userDAO.create(user);
+                LOG.log(Level.INFO, "New user {0} created", user.getEmail());
             } catch (Exception ex) {
                 //exception during creation
+                LOG.log(Level.INFO, "Unable to create new user - exception", ex);
                 context.setRollbackOnly();//rollback transaction
                 return false;
             }
             return true;
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(PersistenceFacadeImpl.class.getName()).log(Level.SEVERE, null, ex);
-            assert false;
+            LOG.log(Level.SEVERE, null, ex);
+            assert false : "Hashing algorithm is not specified correctly";
             return false;//to have compiler happy
         }
     }
@@ -109,18 +144,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     }
 
     @Override
-    public User findUser(Integer userId) {
-        return userDAO.find(userId);
-    }
-
-    @Override
     public User findUser(String email) {
-        return userDAO.findByEmail(email);
+        return userDAO.find(email);
     }
 
     @Override
     public List<Checkup> findUserCheckings(User user) {
-        return checkupDAO.findAllUserChecks(user.getIdUser());
+        return checkupDAO.findAllUserChecks(user.getEmail());
     }
 
     @Override
@@ -135,12 +165,179 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
 
     @Override
     public List<Login> findUserLogins(User user) {
-        return loginDAO.findAllUserLogins(user.getIdUser());
+        return loginDAO.findAllUserLogins(user.getEmail());
     }
 
     @Override
     public Login findLastUserLogin(User user) {
-        return loginDAO.findLastUserLogin(user.getIdUser());
+        return loginDAO.findLastUserLogin(user.getEmail());
+    }
+
+    @Override
+    public Checkup findCheckupInitializedInputs(Integer checkId) {
+        Checkup checkup = checkupDAO.find(checkId);
+        if (checkup == null) {
+            return null;//checkup was not found
+        }
+        //initialize lazy loaded input lists by calling size method
+        checkup.getDomainList().size();
+        checkup.getHeaderList().size();
+        checkup.getOptionList().size();
+        //return resulting checkup
+        return checkup;
+    }
+
+    @Override
+    public void addHeadersToCheckup(Checkup checkup, List<Header> headers) {
+        //at first find managed version of checkup
+        Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
+        if (tmp == null) {
+            //persist new checkup
+            tmp = checkup;
+            checkupDAO.create(checkup);
+        }
+        //convert headers to entity versions and persist
+        //note that headers is owning side of jpa bidirectional relationship
+        HeaderEntity tmpHeader;
+        for (Header i : headers) {
+            tmpHeader = HeaderEntity.convert(i);
+            tmpHeader.setCheckup(tmp);
+            headerDAO.create(tmpHeader);
+        }
+    }
+
+    @Override
+    public List<Header> findCheckupHeaders(Checkup checkup) {
+        List<HeaderEntity> entityHeaders = headerDAO.findAllCheckHeaders(checkup.getIdCheckup());
+        List<Header> res = new ArrayList<>(entityHeaders.size());
+        for (HeaderEntity i : entityHeaders) {
+            res.add(HeaderEntity.convert(i));
+        }
+        return res;
+    }
+
+    @Override
+    public void addOptionsToCheckup(Checkup checkup, List<String> options) {
+        //at first find managed version of checkup
+        Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
+        if (tmp == null) {
+            //persist new checkup
+            tmp = checkup;
+            checkupDAO.create(checkup);
+        }
+        //convert options to entity alternatives and persist
+        for (String i : options) {
+            ChosenOption opt = ChosenOption.convert(i);
+            //important! in this ManyToMany bidirectional relationship the Checkup is owning side!
+            chosenOptionDAO.addOptionToCheckup(opt, tmp.getIdCheckup());
+        }
+    }
+
+    @Override
+    public List<ChosenOption> findCheckupOptions(Checkup checkup) {
+        return chosenOptionDAO.findAllCheckOptions(checkup.getIdCheckup());
+    }
+
+    @Override
+    public void addDomainsToCheckup(Checkup checkup, List<Domain> domains) {
+        //at first find managed version of checkup
+        Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
+        if (tmp == null) {
+            //persist new checkup
+            tmp = checkup;
+            checkupDAO.create(checkup);
+        }
+        //convert domain to its entity mapping alternative
+        for (Domain i : domains) {
+            org.presentation.persistence.model.Domain entity = org.presentation.persistence.model.Domain.convert(i);
+            entity.setChecking(tmp);
+            domainDAO.create(entity);
+        }
+    }
+
+    @Override
+    public List<Domain> findCheckupDomains(Checkup checkup) {
+        List<org.presentation.persistence.model.Domain> domains = domainDAO.findAllCheckDomains(checkup.getIdCheckup());
+        List<org.presentation.model.Domain> res = new ArrayList<>(domains.size());
+        for (org.presentation.persistence.model.Domain i : domains) {
+            res.add(org.presentation.persistence.model.Domain.convert(i));
+        }
+        return res;
+    }
+
+    @Override
+    public void addGraphsToDomain(Checkup checkup, List<String> graphSources) {
+        //at first find managed version of checkup
+        Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
+        if (tmp == null) {
+            //persist new checkup
+            tmp = checkup;
+            checkupDAO.create(checkup);
+        }
+        //convert graphs to its entity mapping alternative
+        for (String i : graphSources) {
+            Graph g = Graph.convert(i);
+            g.setCheckup(tmp);
+            graphDAO.create(g);
+        }
+    }
+
+    @Override
+    public List<String> findCheckupGraphs(Checkup checkup) {
+        List<Graph> graphs = graphDAO.findAllCheckGraphs(checkup.getIdCheckup());
+        List<String> sources = new ArrayList<>(graphs.size());
+        for (Graph i : graphs) {
+            sources.add(Graph.convert(i));
+        }
+        return sources;
+    }
+
+    @Override
+    public void addMessagesToDomain(Checkup checkup, List<Message> messages, String resource) {
+        //at first find managed version of checkup
+        Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
+        if (tmp == null) {
+            //persist new checkup
+            tmp = checkup;
+            checkupDAO.create(checkup);
+        }
+        //convert messages to its entity mapping alternative
+        for (Message i : messages) {
+            MessageEntity entity = MessageEntity.convert(i);
+            entity.setCheckup(tmp);
+            entity.setResource(resource);
+            messageDAO.create(entity);
+        }
+    }
+
+    @Override
+    public List<Message> findCheckupMessages(Checkup checkup) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessages(checkup.getIdCheckup());
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities) {
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public List<String> findCheckupMessageResources(Checkup checkup) {
+        return messageDAO.findAllCheckMessageResources(checkup.getIdCheckup());
+    }
+
+    @Override
+    public List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResource(checkup.getIdCheckup(), resource);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities) {
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public void flush() {
+        checkupDAO.flush();
     }
 
 }

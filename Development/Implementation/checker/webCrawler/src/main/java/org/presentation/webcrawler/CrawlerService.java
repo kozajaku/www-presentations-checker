@@ -25,9 +25,10 @@ public interface CrawlerService extends MessageProducer, Stoppable {
      * implementation will send its results.
      * @param addHeaders Additional headers which are going to be used during fetching
      * pages from remote web server.
+     * @param requestTimeout
      * @param allowedDomains
      */
-    void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, List<Header> addHeaders);
+    void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders);
 
     CrawlingState getCrawlingState();
 

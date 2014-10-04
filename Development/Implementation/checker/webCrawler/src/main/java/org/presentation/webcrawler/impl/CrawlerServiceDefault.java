@@ -26,6 +26,9 @@ import org.presentation.model.logging.InfoMsg;
 import org.presentation.model.logging.InvalidLinkMsg;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.graph.LinkSourceType;
+import org.presentation.parser.CSSParserService;
+import org.presentation.parser.HTMLParserService;
+import org.presentation.parser.ParsedLinkResponse;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
 import org.presentation.webcrawler.CrawlingState;
@@ -66,14 +69,21 @@ public class CrawlerServiceDefault implements CrawlerService {
 //                public LinkURL getLinkURL() {
 //                    return linkURL;
 //                }
-        public List<WebPage> browseWebPage() throws IOException {
+        public List<WebPage> browseWebPage() {
             List<WebPage> foundPages = new ArrayList<>();
             foundPages.clear();
             ReceiverResponse receiverResponse;
             //podminky zastaveni
             if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) {
-                //nestahuj stranku
-                receiverResponse = pageReceiver.checkPage(linkURL);
+                try {
+                    //nestahuj stranku
+                    receiverResponse = pageReceiver.checkPage(linkURL);
+                } catch (IOException ex) {
+                    Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                    //posli zpravu o chybe
+                    sendErrorMsg(linkURL, "Unable to get page.");
+                    return foundPages;
+                }
             } else {
                 //stahni stranku
                 crawlingState.incCount();
@@ -105,11 +115,11 @@ public class CrawlerServiceDefault implements CrawlerService {
                     LinkURL foundURL = foundLink.getDestination();
                     if (visitedURLs.containsKey(foundURL)) {
                         //pridej hranu
-                        Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.label, foundLink.sourceType);
+                        Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType());
                         node.addEdge(newEdge);
                     } else {
                         //pridej do fronty
-                        foundPages.add(new WebPage(foundLink.label, foundLink.sourceType, node, foundURL, depthFromRoot + 1));
+                        foundPages.add(new WebPage(foundLink.getLabel(), foundLink.getSourceType(), node, foundURL, depthFromRoot + 1));
                     }
                 }
             } else {
@@ -138,7 +148,7 @@ public class CrawlerServiceDefault implements CrawlerService {
     private MessageLogger messageLogger;
     private PageCrawlingObserver observer;
     private TraversalGraph graph;
-    private Domain allowedDomainsList;
+    private List<Domain> allowedDomains;
     private int maximalDepth;
     private Queue<WebPage> linkQueue;
     private PageReceiver pageReceiver;
@@ -173,22 +183,21 @@ public class CrawlerServiceDefault implements CrawlerService {
      * @param allowedDomains
      */
     @Override
-    public void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, List<Header> addHeaders) {
+    public void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders) {
         //TODO add support for pageLimit and headers - by radio.koza
-        this.pageLimit = pageLimit;
-        this.requestTimeout = 3000;
         this.maximalDepth = maximalDepth;
+        this.pageLimit = pageLimit;
+        this.observer = observer;
+        this.allowedDomains = allowedDomains;
+        this.requestTimeout = requestTimeout;
+        
         visitedURLs = new HashMap<>();
         linkQueue = new LinkedList<>();
         WebPage page = new WebPage(null, null, null, url, 0);
         linkQueue.add(page);
         while (!linkQueue.isEmpty() && !stopped) {
             page = linkQueue.poll();
-            try {
-                linkQueue.addAll(page.browseWebPage());
-            } catch (IOException ex) {
-                Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            linkQueue.addAll(page.browseWebPage());
             try {
                 Thread.sleep(requestTimeout);
             } catch (InterruptedException ex) {
@@ -207,7 +216,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         if (response.getContentType().getContentType().equals("text/html")) {
             return htmlParserService.parseLinks(response.getSourceCode());
         }
-        return new ArrayList<ParsedLinkResponse>();
+        return new ArrayList<>();
     }
 
     private void sendValidLinkMsg(LinkURL url) {
@@ -233,8 +242,17 @@ public class CrawlerServiceDefault implements CrawlerService {
     }
 
     private boolean isAllowedURL(LinkURL url) {
-        //TO DO
-        return true;
+        //vraci true pokud se zacatek URL shoduje s nekterou z povolenych domen
+        String link = url.getUrl();
+        for (Domain allowedDomain : allowedDomains) {
+            String domain = allowedDomain.getDomain();
+            if (link.length() >= domain.length()) {
+               if (domain.equals(link.substring(0,domain.length()))) {
+                   return true;
+               }
+            }
+        }
+        return false;
     }
 
     @Override

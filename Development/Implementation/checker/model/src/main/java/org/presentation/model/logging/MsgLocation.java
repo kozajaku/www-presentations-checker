@@ -6,23 +6,20 @@ package org.presentation.model.logging;
  */
 public class MsgLocation {
 
-    private Integer column;
-    private Integer row;
+    private final Integer row;
+    private final Integer column;
+
+    public MsgLocation(Integer row, Integer column) {
+        this.row = row;
+        this.column = column;
+    }
 
     public Integer getColumn() {
         return column;
     }
 
-    public void setColumn(Integer column) {
-        this.column = column;
-    }
-
     public Integer getRow() {
         return row;
-    }
-
-    public void setRow(Integer row) {
-        this.row = row;
     }
 
 }

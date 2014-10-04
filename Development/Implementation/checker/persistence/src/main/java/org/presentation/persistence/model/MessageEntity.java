@@ -1,6 +1,8 @@
 package org.presentation.persistence.model;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +17,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.presentation.model.logging.Message;
+import org.presentation.model.logging.MessageMapper;
+import org.presentation.persistence.utils.MessageMapperImpl;
 
 /**
  *
@@ -174,6 +179,26 @@ public class MessageEntity implements Serializable {
     @Override
     public String toString() {
         return "test.Message[ id=" + id + " ]";
+    }
+
+    public static Message convert(MessageEntity entity) {
+        MessageMapper mapper = new MessageMapperImpl(entity);
+        try {
+            Class<?> res = Class.forName(entity.getDiscriminator());
+            Message message = (Message) res.newInstance();
+            message.setFromMapper(mapper);
+            return message;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(MessageEntity.class.getName()).log(Level.SEVERE, "Unable to dynamically load Message class with specified discriminator", ex);
+            return null;
+        }
+    }
+
+    public static MessageEntity convert(Message message) {
+        MessageEntity res = new MessageEntity();
+        MessageMapper mapper = new MessageMapperImpl(res);
+        message.setIntoMapper(mapper);
+        return res;
     }
 
 }

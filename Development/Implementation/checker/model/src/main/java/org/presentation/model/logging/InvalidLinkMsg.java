@@ -16,4 +16,16 @@ public class InvalidLinkMsg extends ErrorMsg {
         this.errorCode = errorCode;
     }
 
+    @Override
+    public void setFromMapper(MessageMapper mapper) {
+        super.setFromMapper(mapper);
+        errorCode = mapper.getErrorCode();
+    }
+
+    @Override
+    public void setIntoMapper(MessageMapper mapper) {
+        super.setIntoMapper(mapper);
+        mapper.setErrorCode(errorCode);
+    }
+
 }

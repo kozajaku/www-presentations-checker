@@ -6,7 +6,7 @@ package org.presentation.model;
  */
 public class LinkURL {
 
-    private String url;
+    private final String url;
 
     public LinkURL(String url) {
         this.url = url;
@@ -14,10 +14,6 @@ public class LinkURL {
 
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
 }
