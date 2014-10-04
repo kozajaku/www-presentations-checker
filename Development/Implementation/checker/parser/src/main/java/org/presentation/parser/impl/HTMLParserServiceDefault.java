@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import org.presentation.model.PageContent;
 import org.presentation.parser.HTMLParserService;
@@ -19,6 +20,7 @@ import org.presentation.model.graph.LinkSourceType;
  * @author Adam Kugler
  * @version 1.0
  */
+@Dependent
 public class HTMLParserServiceDefault implements HTMLParserService {
 
         @Inject

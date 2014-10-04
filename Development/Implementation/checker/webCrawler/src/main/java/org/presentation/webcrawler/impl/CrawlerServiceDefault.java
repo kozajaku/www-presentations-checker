@@ -80,7 +80,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                     //nestahuj stranku
                     receiverResponse = pageReceiver.checkPage(linkURL);
                 } catch (IOException ex) {
-                    Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.log(Level.SEVERE, null, ex);
                     //posli zpravu o chybe
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
@@ -91,7 +91,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 try {
                     receiverResponse = pageReceiver.getPage(linkURL);
                 } catch (IOException ex) {
-                    Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.log(Level.SEVERE, null, ex);
                     //posli zpravu o chybe
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
@@ -146,6 +146,9 @@ public class CrawlerServiceDefault implements CrawlerService {
     /**
      * This object is instantiated by registering into MessageLoggerContainer.
      */
+    @Inject
+    @SuppressWarnings("NonConstantLogger")
+    private Logger LOG;
     private MessageLogger messageLogger;
     private PageCrawlingObserver observer;
     private TraversalGraph graph;
