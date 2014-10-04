@@ -11,6 +11,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.presentation.model.Header;
 
 /**
  *
@@ -107,6 +108,17 @@ public class HeaderEntity implements Serializable {
     @Override
     public String toString() {
         return "test.Header[ idHeader=" + idHeader + " ]";
+    }
+
+    public static Header convert(HeaderEntity headerEntity) {
+        return new Header(headerEntity.getKey(), headerEntity.getValue());
+    }
+
+    public static HeaderEntity convert(Header header) {
+        HeaderEntity ent = new HeaderEntity();
+        ent.setKey(header.getKey());
+        ent.setValue(header.getValue());
+        return ent;
     }
 
 }

@@ -1,7 +1,5 @@
 package org.presentation.model.logging;
 
-import org.presentation.model.logging.ErrorCode;
-
 /**
  *
  * @author Jindřich Máca
@@ -16,6 +14,18 @@ public class InvalidLinkMsg extends ErrorMsg {
 
     public void setErrorCode(ErrorCode errorCode) {
         this.errorCode = errorCode;
+    }
+
+    @Override
+    public void setFromMapper(MessageMapper mapper) {
+        super.setFromMapper(mapper);
+        errorCode = mapper.getErrorCode();
+    }
+
+    @Override
+    public void setIntoMapper(MessageMapper mapper) {
+        super.setIntoMapper(mapper);
+        mapper.setErrorCode(errorCode);
     }
 
 }

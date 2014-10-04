@@ -101,4 +101,14 @@ public class Domain implements Serializable {
         return "testicek.Domain[ idDomain=" + idDomain + " ]";
     }
 
+    public static Domain convert(org.presentation.model.Domain domain) {
+        Domain dom = new Domain();
+        dom.setName(domain.getDomain());
+        return dom;
+    }
+
+    public static org.presentation.model.Domain convert(Domain domain) {
+        return new org.presentation.model.Domain(domain.getName());
+    }
+
 }

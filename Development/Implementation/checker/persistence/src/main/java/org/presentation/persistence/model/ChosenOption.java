@@ -82,4 +82,12 @@ public class ChosenOption implements Serializable {
     public String toString() {
         return "test.Option[ idOption=" + idOption + " ]";
     }
+
+    public static ChosenOption convert(String option) {
+        return new ChosenOption(option);
+    }
+
+    public static String convert(ChosenOption chOption) {
+        return chOption.getIdOption();
+    }
 }

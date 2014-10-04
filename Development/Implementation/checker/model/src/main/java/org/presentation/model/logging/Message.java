@@ -35,5 +35,18 @@ public abstract class Message {
     public void setMsgLocation(MsgLocation msgLocation) {
         this.msgLocation = msgLocation;
     }
+    
+    public void setIntoMapper(MessageMapper mapper){
+        mapper.setMessage(message);
+        mapper.setPage(page);
+        mapper.setMsgLocation(msgLocation);
+        mapper.setDiscriminator(this.getClass().getName());
+    }
+    
+    public void setFromMapper(MessageMapper mapper){
+        this.message = mapper.getMessage();
+        this.page = mapper.getPage();
+        this.msgLocation = mapper.getMsgLocation();
+    }
 
 }

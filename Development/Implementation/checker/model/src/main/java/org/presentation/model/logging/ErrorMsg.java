@@ -6,4 +6,5 @@ package org.presentation.model.logging;
  */
 public class ErrorMsg extends Message {
 
+    
 }

@@ -6,14 +6,14 @@ package org.presentation.model;
  */
 public class ContentType {
 
-    private String contentType;
+    private final String contentType;
 
+    public ContentType(String contentType){
+        this.contentType = contentType;
+    }
+    
     public String getContentType() {
         return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
     }
 
 }
