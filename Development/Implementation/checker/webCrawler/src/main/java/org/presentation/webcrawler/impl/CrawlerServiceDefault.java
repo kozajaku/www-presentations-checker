@@ -34,8 +34,6 @@ import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
 import org.presentation.webcrawler.CrawlingState;
 import org.presentation.webcrawler.PageCrawlingObserver;
-import org.presentation.webcrawler.PageReceiver;
-import org.presentation.webcrawler.ReceiverResponse;
 
 /**
  * Default implementation of CrawlerService interface.
@@ -155,6 +153,7 @@ public class CrawlerServiceDefault implements CrawlerService {
     private List<Domain> allowedDomains;
     private int maximalDepth;
     private Queue<WebPage> linkQueue;
+    @Inject
     private PageReceiver pageReceiver;
     private CrawlingState crawlingState;
     @Inject
@@ -199,8 +198,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         this.requestTimeout = requestTimeout;
         this.headers = addHeaders;
         crawlingState = new CrawlingState();
-        pageReceiver = new PageReceiver(messageLogger);
-        
+
         visitedURLs = new HashMap<>();
         linkQueue = new LinkedList<>();
         WebPage page = new WebPage(null, null, null, url, 0);
@@ -257,9 +255,9 @@ public class CrawlerServiceDefault implements CrawlerService {
         for (Domain allowedDomain : allowedDomains) {
             String domain = allowedDomain.getDomain();
             if (link.length() >= domain.length()) {
-               if (domain.equals(link.substring(0,domain.length()))) {
-                   return true;
-               }
+                if (domain.equals(link.substring(0, domain.length()))) {
+                    return true;
+                }
             }
         }
         return false;
