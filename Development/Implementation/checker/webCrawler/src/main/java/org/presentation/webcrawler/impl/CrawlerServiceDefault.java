@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
@@ -77,9 +78,9 @@ public class CrawlerServiceDefault implements CrawlerService {
             if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) {
                 try {
                     //nestahuj stranku
-                    receiverResponse = pageReceiver.checkPage(linkURL);
+                    receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (IOException ex) {
-                    Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.log(Level.SEVERE, null, ex);
                     //posli zpravu o chybe
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
@@ -88,9 +89,9 @@ public class CrawlerServiceDefault implements CrawlerService {
                 //stahni stranku
                 crawlingState.incCount();
                 try {
-                    receiverResponse = pageReceiver.getPage(linkURL);
+                    receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (IOException ex) {
-                    Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                    LOG.log(Level.SEVERE, null, ex);
                     //posli zpravu o chybe
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
@@ -145,6 +146,9 @@ public class CrawlerServiceDefault implements CrawlerService {
     /**
      * This object is instantiated by registering into MessageLoggerContainer.
      */
+    @Inject
+    @SuppressWarnings("NonConstantLogger")
+    private Logger LOG;
     private MessageLogger messageLogger;
     private PageCrawlingObserver observer;
     private TraversalGraph graph;
@@ -153,12 +157,15 @@ public class CrawlerServiceDefault implements CrawlerService {
     private Queue<WebPage> linkQueue;
     private PageReceiver pageReceiver;
     private CrawlingState crawlingState;
+    @Inject
     private CSSParserService cssParserService;
+    @Inject
     private HTMLParserService htmlParserService;
     /**
      * Initial 3000 ms timeout between requests.
      */
     private int requestTimeout;
+    private List<Header> headers;
     private int pageLimit;
     private int pageCounter;
     private boolean stopped = false;
@@ -190,6 +197,9 @@ public class CrawlerServiceDefault implements CrawlerService {
         this.observer = observer;
         this.allowedDomains = allowedDomains;
         this.requestTimeout = requestTimeout;
+        this.headers = addHeaders;
+        crawlingState = new CrawlingState();
+        pageReceiver = new PageReceiver(messageLogger);
         
         visitedURLs = new HashMap<>();
         linkQueue = new LinkedList<>();

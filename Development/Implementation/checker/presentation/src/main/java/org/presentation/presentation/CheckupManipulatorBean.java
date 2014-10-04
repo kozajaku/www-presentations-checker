@@ -28,12 +28,6 @@ public class CheckupManipulatorBean extends ProtectedBean {
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
     
-    /**
-     * Creates a new instance of CheckupManipulatorBean
-     */
-    public CheckupManipulatorBean() {
-    }
-    
     public String stopCheckup() throws Exception{
 	Checkup checkup = persistance.findCheckup(checkupId);
 	User user = null;	

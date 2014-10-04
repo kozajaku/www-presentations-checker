@@ -14,12 +14,12 @@ public interface CSSParserService {
 	 * @param sourceCode
          * @return 
 	 */
-	public abstract List<ParsedLinkResponse> parseLinks(PageContent sourceCode);
+	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode);
 
 	/**
 	 * 
 	 * @param sourceCode
 	 */
-	//public abstract CSSSelectorTree parseWholeCSSPage(PageContent sourceCode);
+	//public CSSSelectorTree parseWholeCSSPage(PageContent sourceCode);
 
 }

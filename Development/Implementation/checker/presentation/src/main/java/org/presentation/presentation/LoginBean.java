@@ -34,15 +34,7 @@ public class LoginBean extends CommonBean {
     @NotNull
     @ValidPassword
     private String password;
-    
-   
-    /**
-     * Creates a new instance of LoginBean
-     */
-    public LoginBean() {
-        
-    }
-    
+         
     public String login() throws ServletException, Exception{
 	
 	FacesContext context = FacesContext.getCurrentInstance();

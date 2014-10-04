@@ -37,13 +37,6 @@ public class SignupBean extends CommonBean {
     @NotNull    
     private String surname;
     
-    /**
-     * Creates a new instance of SignupBean
-     */
-    public SignupBean() {
-	
-    }
-    
     public void signUp() throws Exception{		
 	
 	if(persistance.createNewUser(email, password, name, surname) == false) throw new Exception("FAIL");

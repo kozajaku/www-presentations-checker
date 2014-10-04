@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+ 
+    	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+     
+	    <ui:define name="content">
+		
+		<h2>#{msg['checkupList.caption']}</h2>
+		
+		<h:dataTable value="#{order.orderList}" var="o"
+    			styleClass="checkup-table"
+    			headerClass="checkup-table-hdr"
+    		>
+ 
+			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_id']}</f:facet>
+			    #{o.idCheckup}
+    			</h:column>
+		    
+    			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_start_point']}</f:facet>
+			    #{o.startPoint}
+    			</h:column>
+ 
+    			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_state']}</f:facet>
+			    #{func:getEnumHumanReadable(msg, o.state)}
+    			</h:column>
+		    
+    			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_date_created']}</f:facet>
+			    #{o.checkingCreated}
+    			</h:column>
+ 
+			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_options_selected']}</f:facet>
+			    <!-- todo -->
+    			</h:column>
+		    
+			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_max_depth']}</f:facet>
+			    #{o.maxDepth}
+    			</h:column>		    
+ 
+			<h:column>
+			    <f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
+			    #{func:getDomainsConcat(o.domainList)}
+    			</h:column>
+		    
+			
+    			
+ 
+    		</h:dataTable>
+			
+	    </ui:define>
+ 
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>

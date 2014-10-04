@@ -8,6 +8,7 @@ package org.presentation.presentation;
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import org.presentation.persistence.model.User;
+import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
  *
@@ -15,13 +16,13 @@ import org.presentation.persistence.model.User;
  */
 public class ProtectedBean extends CommonBean {
     
-    protected User getLoggedUser() throws Exception {
+    protected User getLoggedUser() throws UserAuthorizationException {
 	Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-	if(sessionMap == null) throw new Exception("Session data corruption");
+	if(sessionMap == null) throw new UserAuthorizationException("Session data corruption");
 	Object o = sessionMap.get("userId");
-	if(o == null) throw new Exception("Session data corruption");
+	if(o == null) throw new UserAuthorizationException("Session data corruption");
 	User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
-	if(user == null) throw new Exception("Session data corruption");
+	if(user == null) throw new UserAuthorizationException("Session data corruption");
 	return user;
     }
     
