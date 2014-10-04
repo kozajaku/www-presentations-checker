@@ -14,5 +14,6 @@
         <module>utils</module>
         <module>model</module>
         <module>webCrawler</module>
-    </modules>
+    <module>parser</module>
+  </modules>
 </project>

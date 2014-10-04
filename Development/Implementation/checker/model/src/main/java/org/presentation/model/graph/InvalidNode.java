@@ -1,4 +1,5 @@
 package org.presentation.model.graph;
+
 import org.presentation.model.LinkURL;
 import org.presentation.model.logging.ErrorCode;
 
@@ -8,13 +9,13 @@ import org.presentation.model.logging.ErrorCode;
  */
 public class InvalidNode extends Node {
 
-	/**
-	 * Reason why the link is invalid.
-	 */
-	private ErrorCode errorCode;
-        
     /**
-     * 
+     * Reason why the link is invalid.
+     */
+    private final ErrorCode errorCode;
+
+    /**
+     *
      * @param url
      * @param errorCode
      */
@@ -23,5 +24,5 @@ public class InvalidNode extends Node {
         this.inputDegree = 0;
         this.errorCode = errorCode;
     }
-    
+
 }

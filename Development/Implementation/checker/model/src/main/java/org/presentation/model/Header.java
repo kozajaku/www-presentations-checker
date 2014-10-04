@@ -1,4 +1,3 @@
-
 package org.presentation.model;
 
 /**
@@ -6,6 +5,7 @@ package org.presentation.model;
  * @author radio.koza
  */
 public class Header {
+
     private final String key;
     private final String value;
 
@@ -21,6 +21,5 @@ public class Header {
     public String getValue() {
         return value;
     }
-    
-    
+
 }

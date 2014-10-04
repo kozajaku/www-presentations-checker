@@ -10,20 +10,20 @@ import org.presentation.model.LinkURL;
  */
 public class ValidNode extends Node {
 
-	private List<Edge> orientedEdges;
+    private final List<Edge> orientedEdges;
 
-	public ValidNode(LinkURL url) {
+    public ValidNode(LinkURL url) {
         this.url = url;
         this.inputDegree = 0;
-        this.orientedEdges = new ArrayList<Edge>();
-	}
+        this.orientedEdges = new ArrayList<>();
+    }
 
-	/**
-	 * 
-	 * @param edge
-	 */
-	public void addEdge(Edge edge){
-            orientedEdges.add(edge);
-	}
+    /**
+     *
+     * @param edge
+     */
+    public void addEdge(Edge edge) {
+        orientedEdges.add(edge);
+    }
 
 }
