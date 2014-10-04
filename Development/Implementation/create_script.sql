@@ -57,7 +57,7 @@ CREATE TABLE `domain`
 
 CREATE TABLE `graph`
 (
-	`id_graph` INTEGER NOT NULL,
+	`id_graph` INTEGER NOT NULL AUTO_INCREMENT,
 	`output` MEDIUMTEXT NOT NULL,
 	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id_graph`),
@@ -67,7 +67,7 @@ CREATE TABLE `graph`
 
 CREATE TABLE `header`
 (
-	`id_header` INTEGER NOT NULL,
+	`id_header` INTEGER NOT NULL AUTO_INCREMENT,
 	`key` VARCHAR(100) NOT NULL,
 	`value` VARCHAR(255) NOT NULL,
 	`checkup` INTEGER NOT NULL,
