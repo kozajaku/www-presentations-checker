@@ -78,7 +78,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) {
                 try {
                     //nestahuj stranku
-                    receiverResponse = pageReceiver.checkPage(linkURL);
+                    receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
                     //posli zpravu o chybe
@@ -89,7 +89,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 //stahni stranku
                 crawlingState.incCount();
                 try {
-                    receiverResponse = pageReceiver.getPage(linkURL);
+                    receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
                     //posli zpravu o chybe
@@ -165,6 +165,7 @@ public class CrawlerServiceDefault implements CrawlerService {
      * Initial 3000 ms timeout between requests.
      */
     private int requestTimeout;
+    private List<Header> headers;
     private int pageLimit;
     private int pageCounter;
     private boolean stopped = false;
@@ -196,7 +197,9 @@ public class CrawlerServiceDefault implements CrawlerService {
         this.observer = observer;
         this.allowedDomains = allowedDomains;
         this.requestTimeout = requestTimeout;
+        this.headers = addHeaders;
         crawlingState = new CrawlingState();
+        pageReceiver = new PageReceiver(messageLogger);
         
         visitedURLs = new HashMap<>();
         linkQueue = new LinkedList<>();

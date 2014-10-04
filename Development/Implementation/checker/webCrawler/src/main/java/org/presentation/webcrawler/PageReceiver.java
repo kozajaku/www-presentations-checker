@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
+import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.logging.MessageLogger;
 
@@ -33,11 +34,11 @@ public class PageReceiver {
         this.messageLogger = messageLogger;
     }
     
-    public ReceiverResponse checkPage(LinkURL linkURL) throws MalformedURLException, IOException {
+    public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         //TO DO Adam Kugler: stejna metoda jako getPage, akorat vraci telo stranky prazdne. Idealni pouzit head.
         return null;
     }
-    public ReceiverResponse getPage(LinkURL linkURL) throws MalformedURLException, IOException {
+    public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         URL url = new URL(linkURL.getUrl());
         connection = (HttpsURLConnection) url.openConnection();
         connection.setRequestMethod("HEAD");
