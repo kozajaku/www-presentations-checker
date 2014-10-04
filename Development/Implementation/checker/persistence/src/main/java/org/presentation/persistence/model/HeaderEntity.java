@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,14 +32,15 @@ public class HeaderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_header")
     private Integer idHeader;
     @Basic(optional = false)
-    @Column(name = "key", length = 100)
+    @Column(name = "\"key\"", length = 100)
     private String key;
     @Basic(optional = false)
-    @Column(name = "value")
+    @Column(name = "\"value\"")
     private String value;
     @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)

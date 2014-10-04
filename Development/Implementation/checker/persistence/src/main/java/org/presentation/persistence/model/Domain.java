@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Vetoed
-@Table(name = "domain")
+@Table(name = "\"domain\"")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Domain.findAll", query = "SELECT d FROM Domain d"),

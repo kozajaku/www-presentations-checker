@@ -235,3 +235,5 @@ pip-log.txt
 
 /Development/Model.ldb
 /Development/Implementation/checker/testCreateNewUser/target/
+/Development/Implementation/checker/parser/target/
+/Development/Implementation/checker/tests/target/

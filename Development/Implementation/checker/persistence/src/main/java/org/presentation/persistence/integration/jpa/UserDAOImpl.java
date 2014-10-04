@@ -1,8 +1,6 @@
 package org.presentation.persistence.integration.jpa;
 
-import java.util.List;
 import javax.enterprise.context.Dependent;
-import javax.persistence.TypedQuery;
 import org.presentation.persistence.integration.UserDAO;
 import org.presentation.persistence.model.User;
 

@@ -58,9 +58,9 @@ public class MessageEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "page")
     private String page;
-    @Column(name = "column")
+    @Column(name = "\"column\"")
     private Integer column;
-    @Column(name = "row")
+    @Column(name = "\"row\"")
     private Integer row;
     @Column(name = "error_code")
     private Integer errorCode;

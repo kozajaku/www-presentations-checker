@@ -1,5 +1,6 @@
 package org.presentation.kernel;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.presentation.model.Domain;
 import org.presentation.model.Header;
@@ -13,12 +14,12 @@ import org.presentation.utils.OptionContainer;
 public class CheckingRequest {
 
     private LinkURL startingPoint;
-    private List<Domain> allowedDomains;
+    private List<Domain> allowedDomains = new ArrayList<>();
     private Integer pageLimit;
     private Integer maxDepth;
     private Integer requestInterval;
     private OptionContainer chosenOptions;
-    private List<Header> headers;
+    private List<Header> headers = new ArrayList<>();
 
     public LinkURL getStartingPoint() {
         return startingPoint;

@@ -1,6 +1,7 @@
 package org.presentation.persistence.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Vetoed
-@Table(name = "user")
+@Table(name = "\"user\"")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
@@ -58,9 +59,9 @@ public class User implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date registrationDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Login> loginList;
+    private List<Login> loginList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Checkup> checkupList;
+    private List<Checkup> checkupList = new ArrayList<>();
 
     public User() {
     }
@@ -158,10 +159,7 @@ public class User implements Serializable {
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.email, other.email);
     }
 
 }

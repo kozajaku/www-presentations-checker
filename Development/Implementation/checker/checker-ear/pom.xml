@@ -71,5 +71,23 @@
             <version>${project.version}</version>
             <type>war</type>
         </dependency>-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>webCrawler</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>parser</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>tests</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
     </dependencies>
 </project>

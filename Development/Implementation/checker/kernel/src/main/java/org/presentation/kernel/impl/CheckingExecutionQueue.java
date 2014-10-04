@@ -50,7 +50,7 @@ public class CheckingExecutionQueue {
     public void notifyNewRequests(){
         LOG.info("Notify called - new checkup request in database");
         //TODO implement
-        throw new UnsupportedOperationException("Not implemented yet");
+//        throw new UnsupportedOperationException("Not implemented yet");
     }
     
     @Asynchronous

@@ -1,5 +1,6 @@
 package org.presentation.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  */
 public class OptionContainer {
 
-    private List<String> chosenOptions;
+    private final List<String> chosenOptions = new ArrayList<>();
 
     public List<String> getChosenOptions() {
         return chosenOptions;

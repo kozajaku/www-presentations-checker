@@ -34,7 +34,6 @@ public class ChosenOptionDAOImpl extends AbstractDAOImpl implements ChosenOption
             tmp = option;
         }
         checkup.getOptionList().add(tmp);
-        tmp.getCheckupList().add(checkup);//not necessery for persisting to database - checking object corruption
     }
 
 }

@@ -1,6 +1,7 @@
 package org.presentation.persistence.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.inject.Vetoed;
@@ -56,7 +57,7 @@ public class Checkup implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkingCreated;
     @Basic(optional = false)
-    @Column(name = "state")
+    @Column(name = "\"state\"")
     @Enumerated(EnumType.STRING)
     private CheckState state;
     @Column(name = "checking_finished")
@@ -73,20 +74,20 @@ public class Checkup implements Serializable {
     private Integer pageLimit;
     @JoinTable(name = "checkup_has_option", joinColumns = {
         @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")}, inverseJoinColumns = {
-        @JoinColumn(name = "option", referencedColumnName = "id_option")})
+        @JoinColumn(name = "\"option\"", referencedColumnName = "id_option")})
     @ManyToMany
-    private List<ChosenOption> optionList;
+    private List<ChosenOption> optionList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
-    private List<MessageEntity> messageEntityList;
+    private List<MessageEntity> messageEntityList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checking")
-    private List<Domain> domainList;
+    private List<Domain> domainList = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
-    private List<HeaderEntity> headerList;
+    private List<HeaderEntity> headerList = new ArrayList<>();
     @JoinColumn(name = "user", referencedColumnName = "email")
     @ManyToOne(optional = false)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
-    private List<Graph> graphList;
+    private List<Graph> graphList = new ArrayList<>();
 
     public Checkup() {
     }

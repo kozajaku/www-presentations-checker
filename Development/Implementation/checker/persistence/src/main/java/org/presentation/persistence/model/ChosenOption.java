@@ -1,6 +1,7 @@
 package org.presentation.persistence.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.Basic;
@@ -20,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Vetoed
-@Table(name = "option")
+@Table(name = "\"option\"")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ChosenOption.findAll", query = "SELECT o FROM ChosenOption o"),
@@ -33,9 +34,8 @@ public class ChosenOption implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_option", length = 50)
     private String idOption;
-
     @ManyToMany(mappedBy = "optionList")
-    private List<Checkup> checkupList;
+    private List<Checkup> checkupList = new ArrayList<>();
 
     public ChosenOption() {
     }

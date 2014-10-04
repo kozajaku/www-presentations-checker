@@ -44,10 +44,10 @@ public class Login implements Serializable {
     @Column(name = "address", length = 50)
     private String address;
     @Basic(optional = false)
-    @Column(name = "time")
+    @Column(name = "\"time\"")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    @JoinColumn(name = "user", referencedColumnName = "email")
+    @JoinColumn(name = "\"user\"", referencedColumnName = "email")
     @ManyToOne(optional = false)
     private User user;
 

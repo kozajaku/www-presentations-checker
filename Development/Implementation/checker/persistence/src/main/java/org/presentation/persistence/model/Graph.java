@@ -38,11 +38,9 @@ public class Graph implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_graph")
     private Integer idGraph;
-
-    @Column(name = "output")
+    @Column(name = "\"output\"")
     @Lob
     private String output;
-
     @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
     private Checkup checkup;
