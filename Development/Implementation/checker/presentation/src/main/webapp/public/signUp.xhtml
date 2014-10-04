@@ -7,29 +7,30 @@
       >
     <h:body>
  
-    	<ui:composition template="/commonLayout.xhtml">
+    	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
  
 	    <ui:define name="content">
-		
-		<ui:include src="helper/errorList.xhtml" />
-		
+				
 		<h:form>
+		    
+		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
+				
 		    <h:outputLabel value="#{msg['signup.email']}" />
-		    <h:inputText value="#{SignupBean.email}">
+		    <h:inputText value="#{signupBean.email}">
 			<!--<f:ajax event="valueChange" execute="userNo" render="result" />-->
 		    </h:inputText>	
 		
 		    <h:outputLabel value="#{msg['signup.password']}" />
-		    <h:inputSecret value="#{signupBean.password}">
+		    <h:inputSecret value="#{signupBean.password}" />
 		    
 		    <h:outputLabel value="#{msg['signup.name']}" />
-		    <h:inputText value="#{signupBean.name}">
+		    <h:inputText value="#{signupBean.name}" />
 		    
 		    <h:outputLabel value="#{msg['signup.surname']}" />
-		    <h:inputText value="#{signupBean.surname}">
+		    <h:inputText value="#{signupBean.surname}" />
 		    
-		    <h:commandButton value="#{msg['signup.submit']}" action="#{shoppingCartBean.checkout}" />			
-			
+		    <h:commandButton value="#{msg['signup.submit']}" action="#{signupBean.signUp}" />			
+		    			
 		</h:form>		
 		
 	    </ui:define>

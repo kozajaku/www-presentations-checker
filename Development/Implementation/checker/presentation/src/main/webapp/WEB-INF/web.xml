@@ -15,7 +15,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>public/index.xhtml</welcome-file>
     </welcome-file-list>
     
     <security-constraint>
@@ -31,6 +31,7 @@
     <!-- Login page -->
     <login-config>
 	<auth-method>FORM</auth-method>
+	<realm-name>LoginWCRealm</realm-name>
 	<form-login-config>
 	    <form-login-page>/public/login.xhtml</form-login-page>
 	    <form-error-page>/public/loginError.xhtml</form-error-page>

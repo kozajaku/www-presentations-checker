@@ -7,22 +7,24 @@
       >
     <h:body>
  
-    	<ui:composition template="/commonLayout.xhtml">
+    	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
  
 	    <ui:define name="content">
-		<form method='post' action='j_security_check'>
+	
+		<h:form>		   
 		    
-		    <ui:include src="/helper/errorList.xhtml" />
+		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 		    
 		    <h:outputLabel value="#{msg['login.email']}" />
-		    <input type="text" id="j_username" name="j_username" /><br />
+		    <h:inputText value="#{loginBean.email}" />
 		    
 		    <h:outputLabel value="#{msg['login.password']}" />
-		    <input type="password" id="j_password" name="j_password" /><br />
+		    <h:inputSecret value="#{loginBean.password}" />
 		  
-		   <input type="submit" name="submit" value="#{msg['login.submit']}" /><br />
-
-		</form>
+		    <h:commandButton value="#{msg['login.submit']}" action="#{loginBean.login}" />			
+		    			
+		</h:form>
+			
 	    </ui:define>
  
     	</ui:composition>
