@@ -1,4 +1,5 @@
 package org.presentation.parser.impl;
+import java.util.ArrayList;
 import java.util.List;
 import org.presentation.model.PageContent;
 import org.presentation.parser.CSSParserService;
@@ -16,7 +17,7 @@ public class CSSParserServiceDefault implements CSSParserService {
 	 */
         @Override
 	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode){
-		return null;
+		return new ArrayList<>();
 	}
 
 //	/**

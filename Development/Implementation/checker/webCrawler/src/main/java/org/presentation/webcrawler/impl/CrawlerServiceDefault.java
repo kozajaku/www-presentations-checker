@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
@@ -153,7 +154,9 @@ public class CrawlerServiceDefault implements CrawlerService {
     private Queue<WebPage> linkQueue;
     private PageReceiver pageReceiver;
     private CrawlingState crawlingState;
+    @Inject
     private CSSParserService cssParserService;
+    @Inject
     private HTMLParserService htmlParserService;
     /**
      * Initial 3000 ms timeout between requests.
@@ -190,6 +193,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         this.observer = observer;
         this.allowedDomains = allowedDomains;
         this.requestTimeout = requestTimeout;
+        crawlingState = new CrawlingState();
         
         visitedURLs = new HashMap<>();
         linkQueue = new LinkedList<>();
