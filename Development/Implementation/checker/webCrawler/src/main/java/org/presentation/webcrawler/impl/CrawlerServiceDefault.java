@@ -189,6 +189,11 @@ public class CrawlerServiceDefault implements CrawlerService {
             } catch (IOException ex) {
                 Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+                Thread.sleep(requestTimeout);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         crawlingState.done();
         observer.crawlingDone(graph, CompleteCrawlingState.ENDED_BY_DEPTH);
