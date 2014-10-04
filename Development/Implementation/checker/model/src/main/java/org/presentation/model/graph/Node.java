@@ -1,4 +1,5 @@
 package org.presentation.model.graph;
+
 import org.presentation.model.LinkURL;
 
 /**
@@ -7,8 +8,8 @@ import org.presentation.model.LinkURL;
  */
 public abstract class Node {
 
-	protected LinkURL url;
-	protected int inputDegree;
+    protected LinkURL url;
+    protected int inputDegree;
 
     public void incInputDegree() {
         inputDegree++;

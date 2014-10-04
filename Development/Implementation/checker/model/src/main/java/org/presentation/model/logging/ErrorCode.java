@@ -11,7 +11,7 @@ public class ErrorCode {
     public ErrorCode(Integer code) {
         this.code = code;
     }
-    
+
     public Integer getCode() {
         return code;
     }

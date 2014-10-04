@@ -6,16 +6,16 @@ package org.presentation.model.graph;
  */
 public class Edge {
 
-	private Node node;
-	private String name;
-	private LinkSourceType sourceType;
+    private final Node node;
+    private final String name;
+    private final LinkSourceType sourceType;
 
-	public Edge(Node node, String name, LinkSourceType sourceType){
-            this.node = node;
-            this.node.incInputDegree(); //zvys vstupni stupen
-            this.name = name;
-            this.sourceType = sourceType;
-	}
+    public Edge(Node node, String name, LinkSourceType sourceType) {
+        this.node = node;
+        this.node.incInputDegree(); //zvys vstupni stupen
+        this.name = name;
+        this.sourceType = sourceType;
+    }
 
     public Node getNode() {
         return node;
@@ -28,6 +28,5 @@ public class Edge {
     public LinkSourceType getSourceType() {
         return sourceType;
     }
-        
-        
+
 }
