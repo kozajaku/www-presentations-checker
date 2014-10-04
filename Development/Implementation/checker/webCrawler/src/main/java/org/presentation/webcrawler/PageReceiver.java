@@ -34,14 +34,14 @@ public class PageReceiver {
     }
 
     public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
-        return connectToPage(linkURL, HEAD, false);
+        return connectToPage(linkURL, addHeaders, HEAD, false);
     }
 
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
-        return connectToPage(linkURL, GET, true);
+        return connectToPage(linkURL, addHeaders, GET, true);
     }
 
-    private ReceiverResponse connectToPage(LinkURL linkURL, String method, Boolean getContent) throws IOException {
+    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws IOException {
         ReceiverResponse response = new ReceiverResponse();
         URL url = new URL(linkURL.getUrl());
         HttpURLConnection connection;
@@ -60,6 +60,9 @@ public class PageReceiver {
         }
         connection.setRequestMethod(method);
         connection.setUseCaches(false);
+        for (Header addHeader : addHeaders) {
+            connection.setRequestProperty(addHeader.getKey(), addHeader.getValue());
+        }
         connection.connect();
 
         response.setStateCode(connection.getResponseCode());
@@ -84,20 +87,20 @@ public class PageReceiver {
             case 301: {
                 String location = connection.getHeaderField("Location");
                 if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
-                    response = connectToPage(new LinkURL(location), method, getContent);
+                    response = connectToPage(new LinkURL(location), addHeaders, method, getContent);
                 }
                 break;
             }
             case 302: {
                 String location = connection.getHeaderField("Location");
                 if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
-                    response = connectToPage(new LinkURL(location), method, getContent);
+                    response = connectToPage(new LinkURL(location), addHeaders, method, getContent);
                 }
                 break;
             }
             case 405: {
                 if (method.equals(HEAD)) {
-                    response = connectToPage(linkURL, GET, false);
+                    response = connectToPage(linkURL, addHeaders, GET, false);
                 }
                 break;
             }
