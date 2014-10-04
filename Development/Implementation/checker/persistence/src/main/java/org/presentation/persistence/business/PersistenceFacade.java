@@ -67,4 +67,6 @@ public interface PersistenceFacade {
     List<String> findCheckupMessageResources(Checkup checkup);
 
     List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource);
+    
+    void flush();
 }

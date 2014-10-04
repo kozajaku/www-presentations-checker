@@ -335,4 +335,9 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    @Override
+    public void flush() {
+        checkupDAO.flush();
+    }
+
 }

@@ -1,6 +1,6 @@
 package org.presentation.utils;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  *
@@ -8,9 +8,9 @@ import java.util.Set;
  */
 public class OptionContainer {
 
-    private Set<String> chosenOptions;
+    private List<String> chosenOptions;
 
-    public Set<String> getChosenOptions() {
+    public List<String> getChosenOptions() {
         return chosenOptions;
     }
 
