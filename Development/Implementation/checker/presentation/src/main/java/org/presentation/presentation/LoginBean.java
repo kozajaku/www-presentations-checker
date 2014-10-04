@@ -58,7 +58,7 @@ public class LoginBean extends CommonBean {
 	    	    
 	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 	} catch (ServletException e) {	
-	    context.addMessage(null, new FacesMessage(msg.getString("login.login_fail_message")));
+	    this.addMessage(new FacesMessage(msg.getString("login.login_fail_message")));
 	    return "";
 	}
 	
@@ -71,7 +71,7 @@ public class LoginBean extends CommonBean {
 	try {
 	    request.logout();
 	} catch (ServletException e) {
-	    context.addMessage(null, new FacesMessage(msg.getString("login.logout_fail_message")));
+	    this.addMessage(new FacesMessage(msg.getString("login.logout_fail_message")));
 	    return "";
 	}
 	return "public/index";
