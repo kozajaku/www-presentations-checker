@@ -90,7 +90,7 @@ CREATE TABLE `login`
 CREATE TABLE `message`
 (
 	`id` INTEGER NOT NULL AUTO_INCREMENT,
-	`discriminator` VARCHAR(50) NOT NULL,
+	`discriminator` VARCHAR(200) NOT NULL,
 	`message` TEXT NOT NULL,
 	`page` VARCHAR(255) NOT NULL,
 	`column` INTEGER,
