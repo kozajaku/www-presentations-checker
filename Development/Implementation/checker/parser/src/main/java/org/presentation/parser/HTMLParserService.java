@@ -14,12 +14,12 @@ public interface HTMLParserService {
 	 * @param sourceCode
          * @return 
 	 */
-	public abstract List<ParsedLinkResponse> parseLinks(PageContent sourceCode);
+	List<ParsedLinkResponse> parseLinks(PageContent sourceCode);
 
 	/**
 	 * 
 	 * @param sourceCode
 	 */
-	//public abstract HTMLTagTree parseWholeHTMLPage(PageContent sourceCode);
+	//HTMLTagTree parseWholeHTMLPage(PageContent sourceCode);
 
 }

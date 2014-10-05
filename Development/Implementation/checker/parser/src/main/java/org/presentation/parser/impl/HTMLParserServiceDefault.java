@@ -34,7 +34,10 @@ public class HTMLParserServiceDefault implements HTMLParserService {
 	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode){
             LOG.info("parsing started");
             List<ParsedLinkResponse> parsedLinks = new ArrayList<>();
-            if (sourceCode == null) return parsedLinks;
+            if (sourceCode == null) {
+                LOG.warning("sourceCode is null!");
+                return parsedLinks;
+            }
             Document doc = Jsoup.parse(sourceCode.getContent());
             Elements links = doc.select("a[href]");
             Elements images = doc.select("img[src]");
@@ -63,7 +66,8 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 //log
                 LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
                 parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "import"));
-            }           
+            }
+            LOG.info("parsing finished");
             return parsedLinks;
 	}
 
