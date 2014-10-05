@@ -6,8 +6,8 @@
 package org.presentation.presentation;
 
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.presentation.presentation.validation.ValidEmail;
@@ -37,10 +37,17 @@ public class SignupBean extends CommonBean {
     @NotNull    
     private String surname;
     
-    public void signUp() throws Exception{		
+    public String signUp() throws Exception{		
 	
-	if(persistance.createNewUser(email, password, name, surname) == false) throw new Exception("FAIL");
+	if(persistance.createNewUser(email, password, name, surname) == true) {
+	    // todo the login procedure automatically
+	    
+	    return "/protected/user/index.xhtml?faces-redirect=true";
+	} else {
+	    this.addMessage(new FacesMessage(this.msg.getString("signUp.fail_message")));
+	}
 	
+	return "";
     }
 
     public String getEmail() {

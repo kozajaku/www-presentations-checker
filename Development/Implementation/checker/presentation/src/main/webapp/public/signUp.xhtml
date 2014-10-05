@@ -15,21 +15,21 @@
 		    
 		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 				
-		    <h:outputLabel value="#{msg['signup.email']}" />
-		    <h:inputText value="#{signupBean.email}">
+		    <h:outputLabel value="#{msg['signUp.email']}:" />
+		    <h:inputText value="#{signupBean.email}" label="#{msg['signUp.email']}">
 			<!--<f:ajax event="valueChange" execute="userNo" render="result" />-->
 		    </h:inputText>	
 		
-		    <h:outputLabel value="#{msg['signup.password']}" />
-		    <h:inputSecret value="#{signupBean.password}" />
+		    <h:outputLabel value="#{msg['signUp.password']}:" />
+		    <h:inputSecret value="#{signupBean.password}" label="#{msg['signUp.password']}" />
 		    
-		    <h:outputLabel value="#{msg['signup.name']}" />
-		    <h:inputText value="#{signupBean.name}" />
+		    <h:outputLabel value="#{msg['signUp.name']}:" />
+		    <h:inputText value="#{signupBean.name}" label="#{msg['signUp.name']}" />
 		    
-		    <h:outputLabel value="#{msg['signup.surname']}" />
-		    <h:inputText value="#{signupBean.surname}" />
+		    <h:outputLabel value="#{msg['signUp.surname']}:" />
+		    <h:inputText value="#{signupBean.surname}" label="#{msg['signUp.surname']}" />
 		    
-		    <h:commandButton value="#{msg['signup.submit']}" action="#{signupBean.signUp}" />			
+		    <h:commandButton value="#{msg['signUp.submit']}" action="#{signupBean.signUp}" />			
 		    			
 		</h:form>		
 		

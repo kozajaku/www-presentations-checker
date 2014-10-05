@@ -17,13 +17,22 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 public class ProtectedBean extends CommonBean {
     
     protected User getLoggedUser() throws UserAuthorizationException {
+	
+	// real code
+	/*
 	Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 	if(sessionMap == null) throw new UserAuthorizationException("Session data corruption");
 	Object o = sessionMap.get("userId");
 	if(o == null) throw new UserAuthorizationException("Session data corruption");
 	User user = (User) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
 	if(user == null) throw new UserAuthorizationException("Session data corruption");
-	return user;
+	return user;*/
+	
+	// testing-purposes substitution
+	User user;
+	user = persistance.findUser("test@test.cz");
+	if(user == null) throw new UserAuthorizationException("User test@test.cz not found in the database");
+	return user; 
     }
     
 }

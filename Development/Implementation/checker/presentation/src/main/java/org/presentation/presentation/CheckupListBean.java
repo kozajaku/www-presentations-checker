@@ -5,11 +5,13 @@
  */
 package org.presentation.presentation;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.presentation.exception.UserAuthorizationException;
+import org.presentation.presentation.helper.CheckupEnvelope;
 
 /**
  *
@@ -18,26 +20,26 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 @Named
 @RequestScoped
 public class CheckupListBean extends ProtectedBean {
-
-    protected List<Checkup> checkupList;
-    
-    /**
-     * Creates a new instance of CheckupListBean
-     * @throws org.presentation.presentation.exception.UserAuthorizationException
-     */
-    public CheckupListBean() throws UserAuthorizationException {	
-	super();
-	checkupList = persistance.findUserCheckings(this.getLoggedUser());	
-    }
-
-    public List<Checkup> getCheckupList() {
+  
+ 
+    public List<CheckupEnvelope> getCheckupList() throws UserAuthorizationException {		
+	List<Checkup> checkups;	
+	List<CheckupEnvelope> checkupList = new ArrayList<>();
+		
+	checkups = persistance.findUserCheckings(this.getLoggedUser());			
+	
+	for(Checkup checkup: checkups) {
+	    checkup.setOptionList(persistance.findCheckupOptions(checkup));
+	    
+	    checkupList.add(new CheckupEnvelope(
+		checkup,
+		persistance.findCheckupDomains(checkup),
+		checkup.getOptionList()
+	    ));
+	}
+	
 	return checkupList;
 	
-	
-	// todo find how to convert Enum to string i18n java
-		
-		// optionList
-		// state
-    }
-                    
+    }                    
+    
 }

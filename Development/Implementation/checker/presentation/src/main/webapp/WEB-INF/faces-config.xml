@@ -11,5 +11,8 @@
 		<base-name>org.presentation.presentation.lang</base-name>
 		<var>msg</var>
 	   </resource-bundle>
+	   <message-bundle>
+	       org.presentation.presentation.messages
+	   </message-bundle>
      </application>
 </faces-config>

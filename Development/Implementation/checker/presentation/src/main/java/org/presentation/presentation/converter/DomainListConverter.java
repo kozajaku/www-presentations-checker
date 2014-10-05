@@ -29,7 +29,7 @@ public class DomainListConverter implements Converter {
 	String[] domainNames = value.split("\\n");
 	
 	for(String domainName : domainNames) {
-	    domains.add(new Domain(domainName));
+	    if(domainName.length() > 0) domains.add(new Domain(domainName));
 	}
 	
 	return domains;
@@ -42,7 +42,7 @@ public class DomainListConverter implements Converter {
 	
 	for(Domain domain : (List<Domain>)value) {
 	    sb.append(domain.getDomain());
-	    sb.append("\\n");
+	    sb.append("\n");
 	}
 	
 	return sb.toString();

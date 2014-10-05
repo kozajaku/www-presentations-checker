@@ -21,6 +21,7 @@ import org.presentation.kernel.CheckingRequest;
 import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
+import org.presentation.presentation.exception.UserAuthorizationException;
 import org.presentation.presentation.validation.ValidUrl;
 import org.presentation.utils.OptionContainer;
 
@@ -57,7 +58,7 @@ public class NewCheckupBean extends ProtectedBean  {
     protected int maxRequestFrequency = 3;
         
     @NotNull
-    @Min(1)
+    @Min(0)
     @Max(100000)
     protected int pageLimit = 0;
     
@@ -66,18 +67,6 @@ public class NewCheckupBean extends ProtectedBean  {
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
     
-    // 4 testing
-      private SelectItem[] checkBoxItems = {
-    new SelectItem("a", "1"),
-    new SelectItem("b", "2"),
-    new SelectItem("c", "3"),
-    new SelectItem("d", "4")
-  };
-
-    public SelectItem[] getCheckBoxItems() {
-	return checkBoxItems;
-    }
-
 
     // 4 testing
     //private final Map<String,Object> checkupsAvailable;
@@ -150,14 +139,14 @@ public class NewCheckupBean extends ProtectedBean  {
 
     
     
-    public String startValidation(){
+    public String startValidation() throws UserAuthorizationException{
 	
 	CheckingRequest r = new CheckingRequest();
 	OptionContainer oc = new OptionContainer();
 	
 
 	// checkboxes - to be tested - definition by array should be perfect
-	//oc.addOption("...");
+	for( String option : this.desiredCheckups ) oc.addOption(option);
 	
 	
 	r.setAllowedDomains(domainsAllowed);
@@ -168,9 +157,9 @@ public class NewCheckupBean extends ProtectedBean  {
 	r.setHeaders(httpHeaders);
 	r.setChosenOptions(oc);
 	
-	checkRequestReceiver.addNewCheckingRequest(r);
+	checkRequestReceiver.addNewCheckingRequest(this.getLoggedUser().getEmail(), r);
 	
-	return "protected/user/newCheckupAccepted";
+	return "newCheckupAccepted?faces-redirect=true";
 	
     }
     
