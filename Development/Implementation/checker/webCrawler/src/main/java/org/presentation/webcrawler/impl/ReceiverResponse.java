@@ -13,6 +13,11 @@ public class ReceiverResponse {
     private PageContent sourceCode;
     private Integer stateCode;
 
+    public ReceiverResponse() {
+        this.contentType = new ContentType(null);
+        this.sourceCode = new PageContent(null);
+    }
+
     public ContentType getContentType() {
         return contentType;
     }
