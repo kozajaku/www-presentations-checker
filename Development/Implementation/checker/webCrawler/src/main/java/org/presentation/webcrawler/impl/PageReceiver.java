@@ -71,7 +71,7 @@ public class PageReceiver {
             connection.setRequestProperty(addHeader.getKey(), addHeader.getValue());
         }
         connection.connect();
-        LOG.info("Request send.");
+        LOG.info("Request sent.");
 
         response.setStateCode(connection.getResponseCode());
         LOG.log(Level.INFO, "Response code is {0}", connection.getResponseCode());
