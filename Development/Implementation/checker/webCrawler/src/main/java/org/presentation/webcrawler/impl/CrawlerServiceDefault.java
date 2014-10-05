@@ -288,7 +288,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             String domain = allowedDomain.getDomain();
             if (domainURL.length() >= domain.length()) {
                 //domeny se musi shodovat od konce
-                if (domain.equals(link.substring(domainURL.length() - domain.length()))) {
+                if (domain.equals(domainURL.substring(domainURL.length() - domain.length()))) {
                     return true;
                 }
             }
