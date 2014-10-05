@@ -19,6 +19,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import org.presentation.persistence.business.PersistenceFacade;
@@ -52,14 +53,15 @@ public class CheckingExecutionQueue {
     private Logger LOG;
 
     @Resource
-    private SessionContext context;
-
+    private ManagedExecutorService mes;
+    
     public CheckingExecutionQueue() {
         queue = new LinkedBlockingQueue<>();
         runningCheckings = new ConcurrentHashMap<>();
     }
 
     @PostConstruct
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     protected void init() {
         //initialize singleton bean at startup
         //thanks to Startup annotation this is called during deployment
@@ -78,7 +80,13 @@ public class CheckingExecutionQueue {
         //create execution threads
         LOG.log(Level.INFO, "Preparing to create {0} execution threads", MAX_WORKING_THREADS);
         for (int i = 0; i < MAX_WORKING_THREADS; i++) {
-            context.getBusinessObject(CheckingExecutionQueue.class).newThread();
+            mes.submit(new Runnable() {
+
+                @Override
+                public void run() {
+                    newThread();
+                }
+            });
         }
         LOG.log(Level.INFO, "Execution threads created");
     }
@@ -86,12 +94,13 @@ public class CheckingExecutionQueue {
     private final Lock newRequestLock = new ReentrantLock();
 
     @Asynchronous
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void notifyNewRequests() {
         newRequestLock.lock();
         try {
             Checkup checkup = persistenceFacade.fetchNewlyCreatedCheckup();
-            queue.add(checkup);
             LOG.log(Level.INFO, "New checkup with id {0} added into execution queue", checkup.getIdCheckup());
+            queue.add(checkup);
         } finally {
             newRequestLock.unlock();
         }
@@ -100,7 +109,6 @@ public class CheckingExecutionQueue {
 
     private final Lock stoppingLock = new ReentrantLock();
 
-    @Asynchronous
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void newThread() {
         LOG.info("Creating new CheckingExecutionQueue thread");

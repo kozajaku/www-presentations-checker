@@ -209,7 +209,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             try {
                 Thread.sleep(requestTimeout);
             } catch (InterruptedException ex) {
-                Logger.getLogger(CrawlerServiceDefault.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.log(Level.SEVERE, null, ex);
             }
         }
         crawlingState.done();

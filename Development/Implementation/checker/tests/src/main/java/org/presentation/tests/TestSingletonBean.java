@@ -64,23 +64,21 @@ public class TestSingletonBean {
     
     private void test(){
         CheckingRequest req = new CheckingRequest();
-        req.setMaxDepth(20);
-        req.setPageLimit(1000);
+        req.setMaxDepth(10);
+        req.setPageLimit(20);
         req.setRequestInterval(2000);
-        req.setStartingPoint(new LinkURL("http://googleee.cz"));
+        req.setStartingPoint(new LinkURL("http://www.webzdarma.cz/"));
         OptionContainer optCon = new OptionContainer();
-        optCon.addOption("css");
-        optCon.addOption("html");
+//        optCon.addOption("css");
+//        optCon.addOption("html");
         req.setChosenOptions(optCon);
-        List<Header> headers = new ArrayList<>();
-        headers.add(new Header("neco", "roflmao"));
-        headers.add(new Header("neco2", "haf"));
-        headers.add(new Header("Cookie", "blem=3"));
-        req.setHeaders(headers);
+//        List<Header> headers = new ArrayList<>();
+//        headers.add(new Header("neco", "roflmao"));
+//        headers.add(new Header("neco2", "haf"));
+//        headers.add(new Header("Cookie", "blem=3"));
+//        req.setHeaders(headers);
         List<Domain> domains = new ArrayList<>();
-        domains.add(new Domain("seznam.cz"));
-        domains.add(new Domain("google.cz"));
-        domains.add(new Domain("centrum.cz"));
+        domains.add(new Domain("webzdarma.cz"));
         req.setAllowedDomains(domains);
         receiver.addNewCheckingRequest("guest@guest.cz", req);
     }
