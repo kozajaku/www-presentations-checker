@@ -138,8 +138,10 @@ public class CrawlerServiceDefault implements CrawlerService {
 
         public boolean isOverMaximalDepth() {
             LOG.info("is over maximal depth?");
-            if (depthFromRoot <= maximalDepth) {
-                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
+            if (depthFromRoot > maximalDepth) {
+                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
+                    completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
+                }
                 return true;
             }           
             return false;
@@ -147,8 +149,10 @@ public class CrawlerServiceDefault implements CrawlerService {
         
         public boolean isOverPageLimit() {
             LOG.info("is over page limit?");
-            if (pageCounter > pageLimit) {
-                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
+            if (crawlingState.getPagesCrawled() >= pageLimit) {
+                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
+                    completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
+                }
                 return true;
             }           
             return false;
@@ -177,7 +181,6 @@ public class CrawlerServiceDefault implements CrawlerService {
     //private int requestTimeout;
     private List<Header> headers;
     private int pageLimit;
-    private int pageCounter;
     private boolean stopped = false;
     CompleteCrawlingState completeCrawlingState;
 
