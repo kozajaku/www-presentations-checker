@@ -50,13 +50,13 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
             }
             for (Element link : images) {                
-                LinkURL destination = new LinkURL(link.attr("abs:href"));
+                LinkURL destination = new LinkURL(link.attr("abs:src"));
                 //log
                 LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
                 parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, link.attr("alt")));
             }
             for (Element link : scripts) {             
-                LinkURL destination = new LinkURL(link.attr("abs:href"));
+                LinkURL destination = new LinkURL(link.attr("abs:src"));
                 //log
                 LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
                 parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "script"));
