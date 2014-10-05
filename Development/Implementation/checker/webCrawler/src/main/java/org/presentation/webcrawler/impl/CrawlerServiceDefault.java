@@ -230,11 +230,14 @@ public class CrawlerServiceDefault implements CrawlerService {
     //dostan vsechny odkazy ze stranky
     private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response) {
         if (response.getContentType().getContentType().equals("text/css")) {
+            LOG.info("CSS parse");
             return cssParserService.parseLinks(response.getSourceCode());
         }
         if (response.getContentType().getContentType().equals("text/html")) {
+            LOG.info("HTML parse");
             return htmlParserService.parseLinks(response.getSourceCode());
         }
+        LOG.info("skip parsing");
         return new ArrayList<>();
     }
 
