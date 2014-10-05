@@ -66,6 +66,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             foundPages.clear();
             ReceiverResponse receiverResponse;
             //podminky zastaveni
+//            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
                 try {
                     //nestahuj stranku
@@ -80,7 +81,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             } else {
                 //stahni stranku
                 crawlingState.incCount();
-                LOG.info("get page " + crawlingState.getPagesCrawled() + "(GET)");
+                LOG.log(Level.INFO, "get page {0}(GET)", crawlingState.getPagesCrawled());
                 try {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (IOException ex) {
@@ -137,8 +138,10 @@ public class CrawlerServiceDefault implements CrawlerService {
 
         public boolean isOverMaximalDepth() {
             LOG.info("is over maximal depth?");
-            if (depthFromRoot <= maximalDepth) {
-                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
+            if (depthFromRoot > maximalDepth) {
+                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
+                    completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
+                }
                 return true;
             }           
             return false;
@@ -146,8 +149,10 @@ public class CrawlerServiceDefault implements CrawlerService {
         
         public boolean isOverPageLimit() {
             LOG.info("is over page limit?");
-            if (pageCounter > pageLimit) {
-                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
+            if (crawlingState.getPagesCrawled() >= pageLimit) {
+                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
+                    completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
+                }
                 return true;
             }           
             return false;
@@ -176,7 +181,6 @@ public class CrawlerServiceDefault implements CrawlerService {
     //private int requestTimeout;
     private List<Header> headers;
     private int pageLimit;
-    private int pageCounter;
     private boolean stopped = false;
     CompleteCrawlingState completeCrawlingState;
 
@@ -216,11 +220,11 @@ public class CrawlerServiceDefault implements CrawlerService {
         WebPage page = new WebPage(null, null, null, url, 0);
         linkQueue.add(page);
         while (!linkQueue.isEmpty() && !stopped) {
-            LOG.info("processing new Page");
+            LOG.log(Level.INFO, "Processing new Page {0}", page.linkURL.getUrl());
             page = linkQueue.poll();
             linkQueue.addAll(page.browseWebPage());
             try {
-                LOG.info("sleep for " + requestTimeout + "ms");
+                LOG.log(Level.INFO, "sleep for {0} ms", requestTimeout);
                 Thread.sleep(requestTimeout);
             } catch (InterruptedException ex) {
                 LOG.log(Level.SEVERE, null, ex);
@@ -276,15 +280,15 @@ public class CrawlerServiceDefault implements CrawlerService {
 
     private boolean isAllowedURL(LinkURL url) {
         //vraci true pokud domena URL spada pod nekterou z povolenych domen
-        LOG.info("is allowed URL?");
+        LOG.log(Level.INFO, "is allowed URL?{0}", url);
         String link = url.getUrl();
         String[] parts = link.split("/");
         String domainURL = parts[2];
-        for (Domain allowedDomain : allowedDomains) {
+        for (Domain allowedDomain : allowedDomains) {            
             String domain = allowedDomain.getDomain();
             if (domainURL.length() >= domain.length()) {
-                //domeny se musi schodovat od konce
-                if (domain.equals(link.substring(domainURL.length() - domain.length()))) {
+                //domeny se musi shodovat od konce
+                if (domain.equals(domainURL.substring(domainURL.length() - domain.length()))) {
                     return true;
                 }
             }

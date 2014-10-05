@@ -126,6 +126,12 @@ public class CheckingExecutionQueue {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void newThread() {
         LOG.info("Creating new CheckingExecutionQueue thread");
+        try {
+            //wait few seconds for end of initialization
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
         CheckingExecutor executor;
         while (!destroyed) {
             try {

@@ -19,6 +19,7 @@ import org.presentation.persistence.model.Checkup;
 import org.presentation.utils.Stoppable;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
+import org.presentation.webcrawler.CrawlingState;
 import org.presentation.webcrawler.PageCrawlingObserver;
 
 /**
@@ -59,7 +60,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
                     checkup.getCheckingInterval(),
                     persistenceFacade.findCheckupHeaders(checkup));
             //now crawling is done
-            LOG.log(Level.INFO, "Crawling of checkup with id {0} has ended", checkup.getIdCheckup());
+            CrawlingState state = crawlerService.getCrawlingState();
+            LOG.log(Level.INFO, "Crawling of checkup with id {0} has ended. Pages crawled: {1}", new Object[]{checkup.getIdCheckup(), state.getPagesCrawled()});            
         //TODO wait for controllers
             //TODO generate graphs
             //persist results to database
@@ -82,7 +84,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
 
     @Override
     public void crawlingDone(TraversalGraph traversalGraph, CompleteCrawlingState crawlingState) {
-        LOG.info("Called crawling done method");
+        LOG.log(Level.INFO, "Called crawling done method. State: {0}", crawlingState.name());
         //TODO implement
 
         //consider it done...
