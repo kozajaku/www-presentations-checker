@@ -76,6 +76,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) {
                 try {
                     //nestahuj stranku
+                    LOG.info("just check page (HEAD)");
                     receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
@@ -86,6 +87,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             } else {
                 //stahni stranku
                 crawlingState.incCount();
+                LOG.info("get page " + crawlingState.getPagesCrawled() + "(GET)");
                 try {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (IOException ex) {
@@ -97,6 +99,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             }
             //vytvor node
             if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
+                LOG.info("create valid node");
                 ValidNode node = new ValidNode(linkURL);
                 //spoj s grafem
                 if (previousNode != null) {
@@ -108,20 +111,24 @@ public class CrawlerServiceDefault implements CrawlerService {
                 sendValidLinkMsg(linkURL);
                 //najdi dalsi odkazy
                 List<ParsedLinkResponse> foundLinks;
+                LOG.info("get links from page");
                 foundLinks = getLinksFromPage(receiverResponse);
                 //over jestli stranka existuje
                 for (ParsedLinkResponse foundLink : foundLinks) {
                     LinkURL foundURL = foundLink.getDestination();
                     if (visitedURLs.containsKey(foundURL)) {
                         //pridej hranu
+                        LOG.info("add edge (existing link)");
                         Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType());
                         node.addEdge(newEdge);
                     } else {
                         //pridej do fronty
+                        LOG.info("add to queue (new link)");
                         foundPages.add(new WebPage(foundLink.getLabel(), foundLink.getSourceType(), node, foundURL, depthFromRoot + 1));
                     }
                 }
             } else {
+                LOG.info("create invalid node");
                 InvalidNode node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
                 //spoj s grafem
                 if (previousNode != null) {
@@ -136,6 +143,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
 
         public boolean isOverMaximalDepth() {
+            LOG.info("is over maximal depth?");
             return depthFromRoot <= maximalDepth;
         }
 
@@ -190,7 +198,7 @@ public class CrawlerServiceDefault implements CrawlerService {
      */
     @Override
     public void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders) {
-        //TODO add support for pageLimit and headers - by radio.koza
+        LOG.info("startBrowsing");
         this.maximalDepth = maximalDepth;
         this.pageLimit = pageLimit;
         this.observer = observer;
@@ -204,14 +212,17 @@ public class CrawlerServiceDefault implements CrawlerService {
         WebPage page = new WebPage(null, null, null, url, 0);
         linkQueue.add(page);
         while (!linkQueue.isEmpty() && !stopped) {
+            LOG.info("processing new Page");
             page = linkQueue.poll();
             linkQueue.addAll(page.browseWebPage());
             try {
+                LOG.info("sleep for " + requestTimeout + "ms");
                 Thread.sleep(requestTimeout);
             } catch (InterruptedException ex) {
                 LOG.log(Level.SEVERE, null, ex);
             }
         }
+        LOG.info("crawling done");
         crawlingState.done();
         observer.crawlingDone(graph, CompleteCrawlingState.ENDED_BY_DEPTH);
     }
@@ -250,12 +261,16 @@ public class CrawlerServiceDefault implements CrawlerService {
     }
 
     private boolean isAllowedURL(LinkURL url) {
-        //vraci true pokud se zacatek URL shoduje s nekterou z povolenych domen
+        //vraci true pokud domena URL spada pod nekterou z povolenych domen
+        LOG.info("is allowed URL?");
         String link = url.getUrl();
+        String[] parts = link.split("/");
+        String domainURL = parts[2];
         for (Domain allowedDomain : allowedDomains) {
             String domain = allowedDomain.getDomain();
-            if (link.length() >= domain.length()) {
-                if (domain.equals(link.substring(0, domain.length()))) {
+            if (domainURL.length() >= domain.length()) {
+                //domeny se musi schodovat od konce
+                if (domain.equals(link.substring(domainURL.length() - domain.length()))) {
                     return true;
                 }
             }
@@ -265,6 +280,7 @@ public class CrawlerServiceDefault implements CrawlerService {
 
     @Override
     public void stopChecking() {
+        LOG.info("stop checking");
         stopped = true;
     }
 
