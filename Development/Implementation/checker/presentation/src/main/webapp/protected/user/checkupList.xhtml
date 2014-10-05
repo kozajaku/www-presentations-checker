@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-	  
+      xmlns:func="http://example.com/functions"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
  
@@ -14,51 +14,64 @@
 		
 		<h2>#{msg['checkupList.caption']}</h2>
 		
-		<h:dataTable value="#{order.orderList}" var="o"
+		<!--<h3>j#{CheckupListBean.nsize}</h3>-->
+		
+		<h:dataTable value="#{checkupListBean.checkupList}" var="o"
     			styleClass="checkup-table"
     			headerClass="checkup-table-hdr"
     		>
  
-			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_id']}</f:facet>
-			    #{o.idCheckup}
-    			</h:column>
-		    
-    			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_start_point']}</f:facet>
-			    #{o.startPoint}
-    			</h:column>
- 
-    			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_state']}</f:facet>
-			    #{func:getEnumHumanReadable(msg, o.state)}
-    			</h:column>
-		    
-    			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_date_created']}</f:facet>
-			    #{o.checkingCreated}
-    			</h:column>
- 
-			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_options_selected']}</f:facet>
-			    <!-- todo -->
-    			</h:column>
-		    
-			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_max_depth']}</f:facet>
-			    #{o.maxDepth}
-    			</h:column>		    
- 
-			<h:column>
-			    <f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
-			    #{func:getDomainsConcat(o.domainList)}
-    			</h:column>
-		    
-			
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_id']}</f:facet>
+			#{o.ch.idCheckup}
+		    </h:column>
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_start_point']}</f:facet>
+			#{o.ch.startPoint}
+		    </h:column>
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_state']}</f:facet>
+			#{func:getEnumHumanReadable(msg, o.ch.state)}
+		    </h:column>
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_date_created']}</f:facet>
+			#{o.ch.checkingCreated}
+		    </h:column>
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_desired_checkups']}</f:facet>
+			#{func:getDesiredCheckupsConcat(msg, o.desiredCheckups)}
+		    </h:column>
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_max_depth']}</f:facet>
+			#{o.ch.maxDepth}
+		    </h:column>		    
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
+			#{func:getDomainsConcat(o.domainsAllowed)}
+		    </h:column>
+
+		    <h:column>
+			<f:facet name="header">#{msg['checkupList.col_actions']}</f:facet>
+			<h:commandLink rendered="#{o.ch.state == 'CHECKING'}" action="#{checkupManipulatorBean.stopCheckup}" value="#{msg['checkupList.act_stop']}">
+			    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+			</h:commandLink>
+			<h:link outcome="checkupResult" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_results']}">
+			    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+			</h:link>			
+			<h:link outcome="renderGraph" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_graph']}">
+			    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+			</h:link>			
+		    </h:column>
     			
  
     		</h:dataTable>
-			
+
 	    </ui:define>
  
     	</ui:composition>

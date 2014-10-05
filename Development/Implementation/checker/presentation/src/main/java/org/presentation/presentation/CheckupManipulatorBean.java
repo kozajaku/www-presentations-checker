@@ -11,6 +11,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.validation.constraints.NotNull;
 import org.presentation.kernel.CheckRequestReceiver;
+import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.User;
 
@@ -34,11 +35,18 @@ public class CheckupManipulatorBean extends ProtectedBean {
 	
 	if(checkup == null){
 	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_not_found")));
+	    return "";
 	}
 	
 	user = checkup.getUser();	
 	if(user == null || !user.equals(this.getLoggedUser())) {
 	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_not_yours")));
+	    return "";
+	}
+	
+	if(checkup.getState() == CheckState.FINISHED || checkup.getState() == CheckState.STOPPED_BEFORE_START || checkup.getState() == CheckState.STOPPED_AFTER_START) {
+	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_already_stopped")));
+	    return "";
 	}
 	
 	checkRequestReceiver.stopSpecificChecking(checkup.getIdCheckup());

@@ -32,6 +32,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
 	 */
         @Override
 	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode){
+            LOG.info("parsing started");
             List<ParsedLinkResponse> parsedLinks = new ArrayList<>();
             if (sourceCode == null) return parsedLinks;
             Document doc = Jsoup.parse(sourceCode.getContent());

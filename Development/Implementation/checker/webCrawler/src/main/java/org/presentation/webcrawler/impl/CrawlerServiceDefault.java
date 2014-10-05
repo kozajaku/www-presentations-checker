@@ -61,19 +61,12 @@ public class CrawlerServiceDefault implements CrawlerService {
             this.depthFromRoot = depthFromRoot;
         }
 
-//                public Node getPreviousNode() {
-//                    return previousNode;
-//                }
-//
-//                public LinkURL getLinkURL() {
-//                    return linkURL;
-//                }
         public List<WebPage> browseWebPage() {
             List<WebPage> foundPages = new ArrayList<>();
             foundPages.clear();
             ReceiverResponse receiverResponse;
             //podminky zastaveni
-            if (isOverMaximalDepth() || !isAllowedURL(linkURL) || pageCounter > pageLimit) {
+            if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
                 try {
                     //nestahuj stranku
                     LOG.info("just check page (HEAD)");
@@ -144,9 +137,21 @@ public class CrawlerServiceDefault implements CrawlerService {
 
         public boolean isOverMaximalDepth() {
             LOG.info("is over maximal depth?");
-            return depthFromRoot <= maximalDepth;
+            if (depthFromRoot <= maximalDepth) {
+                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
+                return true;
+            }           
+            return false;
         }
-
+        
+        public boolean isOverPageLimit() {
+            LOG.info("is over page limit?");
+            if (pageCounter > pageLimit) {
+                if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
+                return true;
+            }           
+            return false;
+        }
     }
 
     /**
@@ -156,7 +161,7 @@ public class CrawlerServiceDefault implements CrawlerService {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
     private MessageLogger messageLogger;
-    private PageCrawlingObserver observer;
+    //private PageCrawlingObserver observer;
     private TraversalGraph graph;
     private List<Domain> allowedDomains;
     private int maximalDepth;
@@ -168,14 +173,12 @@ public class CrawlerServiceDefault implements CrawlerService {
     private CSSParserService cssParserService;
     @Inject
     private HTMLParserService htmlParserService;
-    /**
-     * Initial 3000 ms timeout between requests.
-     */
-    private int requestTimeout;
+    //private int requestTimeout;
     private List<Header> headers;
     private int pageLimit;
     private int pageCounter;
     private boolean stopped = false;
+    CompleteCrawlingState completeCrawlingState;
 
     private Map<LinkURL, Node> visitedURLs;
 
@@ -201,11 +204,12 @@ public class CrawlerServiceDefault implements CrawlerService {
         LOG.info("startBrowsing");
         this.maximalDepth = maximalDepth;
         this.pageLimit = pageLimit;
-        this.observer = observer;
+        //this.observer = observer;
         this.allowedDomains = allowedDomains;
-        this.requestTimeout = requestTimeout;
+        //this.requestTimeout = requestTimeout;
         this.headers = addHeaders;
         crawlingState = new CrawlingState();
+        completeCrawlingState = CompleteCrawlingState.UNKNOWN;
 
         visitedURLs = new HashMap<>();
         linkQueue = new LinkedList<>();
@@ -224,17 +228,27 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
         LOG.info("crawling done");
         crawlingState.done();
-        observer.crawlingDone(graph, CompleteCrawlingState.ENDED_BY_DEPTH);
+        if (stopped) {
+            completeCrawlingState = CompleteCrawlingState.STOPPED_BY_USER;
+        } else {
+            if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
+                completeCrawlingState = CompleteCrawlingState.WEB_CRAWLED;
+            }
+        }
+        observer.crawlingDone(graph, completeCrawlingState);
     }
 
     //dostan vsechny odkazy ze stranky
     private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response) {
         if (response.getContentType().getContentType().equals("text/css")) {
+            LOG.info("CSS parse");
             return cssParserService.parseLinks(response.getSourceCode());
         }
         if (response.getContentType().getContentType().equals("text/html")) {
+            LOG.info("HTML parse");
             return htmlParserService.parseLinks(response.getSourceCode());
         }
+        LOG.info("skip parsing");
         return new ArrayList<>();
     }
 

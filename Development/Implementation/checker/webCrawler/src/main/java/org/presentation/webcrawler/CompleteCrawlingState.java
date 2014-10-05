@@ -16,5 +16,6 @@ public enum CompleteCrawlingState {
 	/**
 	 * Unknown web crawler completion state - should not be used.
 	 */
-	UNKNOWN
+	UNKNOWN,
+        WEB_CRAWLED
 }

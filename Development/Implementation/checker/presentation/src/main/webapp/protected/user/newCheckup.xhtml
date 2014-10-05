@@ -18,38 +18,31 @@
 		    
 		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 		    
-		    <h:outputLabel value="#{msg['newCheckup.starting_link']}" />
-		    <h:inputText value="#{newCheckupBean.startingLink}" />
+		    <h:outputLabel value="#{msg['newCheckup.starting_link']}:" />
+		    <h:inputText value="#{newCheckupBean.startingLink}" label="#{msg['newCheckup.starting_link']}" />
 		    
-		    <h:outputLabel value="#{msg['newCheckup.desired_checkups']}" />
-		    <h:selectManyCheckbox value="#{newCheckupBean.desiredCheckups}">
-		<!--  in testing  -->
-		<!--
-			<f:selectItem itemValue="CSS_REDUNDANCY" itemLabel="#{msg['common.ch_css_redundancy']}" />
-			<f:selectItem itemValue="CSS_VALIDATION" itemLabel="#{msg['common.ch_css_validation']}" />
-			<f:selectItem itemValue="HTML_VALIDATION" itemLabel="#{msg['common.ch_html_validation']}" />
-			<f:selectItem itemValue="DEAD_LINKS" itemLabel="#{msg['common.ch_dead_links']}" />
-		-->
-			<f:selectItems value="#{newCheckupBean.checkBoxItems}" />
+		    <h:outputLabel value="#{msg['newCheckup.desired_checkups']}:" />
+		    <h:selectManyCheckbox value="#{newCheckupBean.desiredCheckups}" label="#{msg['newCheckup.desired_checkups']}" >
+			<f:selectItems value="#{newCheckupBean.checkupsAvailable}" />
 		    </h:selectManyCheckbox>
 		    
-		    <h:outputLabel value="#{msg['newCheckup.allowed_domains']}" />
-		    <h:inputTextarea value="#{newCheckupBean.domainsAllowed}">		
+		    <h:outputLabel value="#{msg['newCheckup.allowed_domains']}:" />
+		    <h:inputTextarea value="#{newCheckupBean.domainsAllowed}" label="#{msg['newCheckup.allowed_domains']}">		
 			<f:converter converterId="DomainListConverter" />
 		    </h:inputTextarea>
 		    
-		    <h:outputLabel value="#{msg['newCheckup.max_crawling_depth']}" />
-		    <h:inputText value="#{newCheckupBean.maxCrawlingDepth}" />		
+		    <h:outputLabel value="#{msg['newCheckup.max_crawling_depth']}:" />
+		    <h:inputText value="#{newCheckupBean.maxCrawlingDepth}" label="#{msg['newCheckup.max_crawling_depth']}" />		
 		    
-		    <h:outputLabel value="#{msg['newCheckup.max_request_frequency']}" />
-		    <h:inputText value="#{newCheckupBean.maxRequestFrequency}" />		
+		    <h:outputLabel value="#{msg['newCheckup.max_request_frequency']}:" />
+		    <h:inputText value="#{newCheckupBean.maxRequestFrequency}" label="#{msg['newCheckup.max_request_frequency']}" />		
 
-		    <h:outputLabel value="#{msg['newCheckup.page_limit']}" />
-		    <h:inputText value="#{newCheckupBean.pageLimit}" />		
+		    <h:outputLabel value="#{msg['newCheckup.page_limit']}:" />
+		    <h:inputText value="#{newCheckupBean.pageLimit}" label="#{msg['newCheckup.page_limit']}" />		
 
 		    
-		    <h:outputLabel value="#{msg['newCheckup.http_headers']}" />
-		    <h:inputTextarea value="#{newCheckupBean.httpHeaders}">		
+		    <h:outputLabel value="#{msg['newCheckup.http_headers']}:" />
+		    <h:inputTextarea value="#{newCheckupBean.httpHeaders}" label="#{msg['newCheckup.http_headers']}" >		
 			<f:converter converterId="HttpHeadersConverter" />
 		    </h:inputTextarea>
 		    
