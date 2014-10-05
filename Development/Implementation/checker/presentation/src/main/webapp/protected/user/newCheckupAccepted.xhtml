@@ -12,7 +12,9 @@
  
 	    <ui:define name="content">
 		
-		<h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
+		<ui:define name="subheader">
+		    <h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
+		</ui:define>
 		
 		<p>
 		    #{msg['newCheckup.success_message']}

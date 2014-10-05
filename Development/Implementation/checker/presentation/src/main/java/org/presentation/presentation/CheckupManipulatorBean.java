@@ -26,6 +26,8 @@ public class CheckupManipulatorBean extends ProtectedBean {
     @NotNull
     protected int checkupId;
     
+    // todo
+    
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
     
@@ -34,13 +36,13 @@ public class CheckupManipulatorBean extends ProtectedBean {
 	User user = null;	
 	
 	if(checkup == null){
-	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_not_found")));
+	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
 	    return "";
 	}
 	
 	user = checkup.getUser();	
 	if(user == null || !user.equals(this.getLoggedUser())) {
-	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_not_yours")));
+	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
 	    return "";
 	}
 	

@@ -6,13 +6,18 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
 	  
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:metadata>
+	<f:viewAction action="#{checkupManipulator.stopCheckup}"/>
+    </f:metadata>
+    
     <h:body>
  
     	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
  
 	    <ui:define name="content">
 	
-		<h:link outcome="/protected/checkupList" value="#{msg['navi.back_checkup_list']}" />
+		<h:link outcome="checkupList" value="#{func:translate(msg['navi.back'], msg['navi.checkup_list'])}" />
 			
 	    </ui:define>
  

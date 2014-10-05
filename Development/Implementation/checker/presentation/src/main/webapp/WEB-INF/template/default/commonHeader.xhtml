@@ -2,13 +2,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-	  
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:ui="http://java.sun.com/jsf/facelets"	  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <body>
 	    <ui:composition>
 
 		<h1>#{msg['commonHeader.h1']}</h1>
+			
+		<c:choose>
+		    <c:when test="#{headerBean.loggedIn}">
+			<h:outputFormat value="#{msg['commonHeader.logged_in']}" >
+			    <f:param value="#{headerBean.user.email}" />
+			</h:outputFormat>
+		    </c:when>
+		    <c:otherwise>
+			<h:outputLabel value="#{msg['commonHeader.not_logged_in']}" />
+		    </c:otherwise>		    
+		</c:choose>
+		
+		<ul class="nav">
+		    <li><h:link outcome="checkupList" value="#{msg['navi.checkup_list']}" /></li>
+		    <li><h:link outcome="newCheckup" value="#{msg['navi.new_checkup']}" /></li>
+		</ul>
+		
+		<ui:insert name="subheader" />
 		
 		<div class="errors">
 		    <h:messages errorClass="error" infoClass="info" warnClass="warn" globalOnly="true" layout="list" />

@@ -1,12 +1,72 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-	Hello from Facelets
-    </h:body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"	  
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:func="http://example.com/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
+    <f:metadata>
+	<f:viewAction action="#{checkupResultBean.showResult}"/>
+	<f:viewParam name="checkupId" value="#{checkupResultBean.checkupId}"/>
+    </f:metadata>
+
+    <h:body>
+ 
+    	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+ 
+	    <c:if test="#{not empty checkupResultBean.checkup}">
+		<ui:define name="subheader">
+		    <h2>
+			<h:outputFormat value="#{msg['checkupResult.caption']}">
+			    <f:param value="#{checkupResultBean.checkupId}" />
+			</h:outputFormat>
+		    </h2>
+		</ui:define>
+	    </c:if>
+	        
+	    <ui:define name="content">	
+		<ui:fragment rendered="#{not empty checkupResultBean.checkup}">
+		    <c:choose>
+			<c:when test="#{empty checkupResultBean.messages}">
+			    <h:outputLabel value="#{msg['checkupResult.no_messages']}" />
+			</c:when>
+			<c:otherwise>
+			    <h:dataTable value="#{checkupResultBean.messages}" var="o"
+				styleClass="message-table"
+				headerClass="message-table-hdr"
+			    >
+
+				<h:column>
+				    <f:facet name="header">#{msg['checkupResult.col_url']}</f:facet>
+				    #{o.page.url}
+				</h:column>
+
+				<h:column>
+				    <f:facet name="header">#{msg['checkupResult.col_message']}</f:facet>
+				    #{o.message}
+				</h:column>
+
+				<h:column>
+				    <f:facet name="header">#{msg['checkupResult.col_location']}</f:facet>
+				    <h:outputFormat value="#{msg['checkupResult.msg_location']}">
+					<f:param value="#{o.msgLocation.row}" />
+					<f:param value="#{o.msgLocation.column}" />
+				    </h:outputFormat>				
+				</h:column>
+
+			    </h:dataTable>			    			    
+			</c:otherwise>
+		    </c:choose>
+		</ui:fragment>
+		
+		<h:link outcome="checkupList" value="#{func:translate(msg['navi.back'], msg['navi.checkup_list'])}" />
+	    </ui:define>
+ 
+    	</ui:composition>
+ 
+    </h:body>
+ 
+</html>

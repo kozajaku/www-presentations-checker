@@ -5,6 +5,7 @@
  */
 package org.presentation.presentation.helper;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -57,6 +58,10 @@ public final class Functions {
 	
 	if(sb.length()>=2) sb.delete(sb.length()-2, sb.length()-1);
 	return sb.toString();
+    }
+    
+    public static String translate(String msg, String p1) {	
+	return MessageFormat.format(msg, p1);
     }
     
 }

@@ -21,5 +21,11 @@
         <function-class>org.presentation.presentation.helper.Functions</function-class>
         <function-signature>String getDesiredCheckupsConcat(java.util.ResourceBundle, java.util.List)</function-signature>
     </function>    
-        
+
+    <function>
+        <function-name>translate</function-name>
+        <function-class>org.presentation.presentation.helper.Functions</function-class>
+        <function-signature>String translate(java.lang.String, java.lang.String)</function-signature>
+    </function>  	
+		        
 </facelet-taglib>

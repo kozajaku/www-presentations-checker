@@ -12,9 +12,9 @@
      
 	    <ui:define name="content">
 		
-		<h2>#{msg['checkupList.caption']}</h2>
-		
-		<!--<h3>j#{CheckupListBean.nsize}</h3>-->
+		<ui:define name="subheader">
+		    <h2>#{msg['checkupList.caption']}</h2>
+		</ui:define>				
 		
 		<h:dataTable value="#{checkupListBean.checkupList}" var="o"
     			styleClass="checkup-table"
@@ -58,9 +58,9 @@
 
 		    <h:column>
 			<f:facet name="header">#{msg['checkupList.col_actions']}</f:facet>
-			<h:commandLink rendered="#{o.ch.state == 'CHECKING'}" action="#{checkupManipulatorBean.stopCheckup}" value="#{msg['checkupList.act_stop']}">
+			<h:link outcome="checkupManipulator" rendered="#{o.ch.state == 'CHECKING'}" value="#{msg['checkupList.act_stop']}">
 			    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
-			</h:commandLink>
+			</h:link>				
 			<h:link outcome="checkupResult" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_results']}">
 			    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
 			</h:link>			

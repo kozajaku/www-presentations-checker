@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.model.SelectItem;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -144,6 +145,11 @@ public class NewCheckupBean extends ProtectedBean  {
 	CheckingRequest r = new CheckingRequest();
 	OptionContainer oc = new OptionContainer();
 	
+	
+	if(this.desiredCheckups.length == 0) {
+	    this.addMessage(new FacesMessage(this.msg.getString("newCheckup.no_test_selected")));
+	    return "";
+	}
 
 	// checkboxes - to be tested - definition by array should be perfect
 	for( String option : this.desiredCheckups ) oc.addOption(option);

@@ -44,15 +44,15 @@ public class LoginBean extends CommonBean {
 	    User user = persistance.findUser(email);
 	    if(user == null) throw new Exception(msg.getString("login.user_not_found"));
 	    
-	    request.login(email, password);
+	    /*request.login(email, password);	    	    
+	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);*/
 	    	    
-	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 	} catch (ServletException e) {	
 	    this.addMessage(new FacesMessage(msg.getString("login.login_fail_message")));
 	    return "";
 	}
 	
-	return "protected/user/index";
+	return "/protected/user/index?faces-redirect=true";
     }
     
     public String logout() {
@@ -64,7 +64,7 @@ public class LoginBean extends CommonBean {
 	    this.addMessage(new FacesMessage(msg.getString("login.logout_fail_message")));
 	    return "";
 	}
-	return "public/index";
+	return "/public/index?faces-redirect=true";
     }
 
     public String getEmail() {
