@@ -79,7 +79,7 @@ public class TestSingletonBean {
 //        headers.add(new Header("Cookie", "blem=3"));
 //        req.setHeaders(headers);
         List<Domain> domains = new ArrayList<>();
-        domains.add(new Domain("webzdarma.cz"));
+        domains.add(new Domain("http://www.webzdarma.cz"));
         req.setAllowedDomains(domains);
         receiver.addNewCheckingRequest("guest@guest.cz", req);
         //fetch message test
