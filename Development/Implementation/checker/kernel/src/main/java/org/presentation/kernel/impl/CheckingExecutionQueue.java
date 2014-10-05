@@ -1,20 +1,22 @@
 package org.presentation.kernel.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.ejb.Asynchronous;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.EJB;
-import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.TransactionAttribute;
@@ -54,11 +56,13 @@ public class CheckingExecutionQueue {
 
     @Resource
     private ManagedExecutorService mes;
-    
+
     public CheckingExecutionQueue() {
         queue = new LinkedBlockingQueue<>();
         runningCheckings = new ConcurrentHashMap<>();
     }
+
+    List<Future<?>> executionThreads = new ArrayList<>();
 
     @PostConstruct
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -80,15 +84,25 @@ public class CheckingExecutionQueue {
         //create execution threads
         LOG.log(Level.INFO, "Preparing to create {0} execution threads", MAX_WORKING_THREADS);
         for (int i = 0; i < MAX_WORKING_THREADS; i++) {
-            mes.submit(new Runnable() {
+            executionThreads.add(mes.submit(new Runnable() {
 
                 @Override
                 public void run() {
                     newThread();
                 }
-            });
+            }));
         }
         LOG.log(Level.INFO, "Execution threads created");
+    }
+
+    private boolean destroyed = false;
+    
+    @PreDestroy
+    protected void destroy() {
+        for (Future<?> i: executionThreads){
+            destroyed = true;
+            i.cancel(true);
+        }
     }
 
     private final Lock newRequestLock = new ReentrantLock();
@@ -113,7 +127,7 @@ public class CheckingExecutionQueue {
     public void newThread() {
         LOG.info("Creating new CheckingExecutionQueue thread");
         CheckingExecutor executor;
-        while (true) {
+        while (!destroyed) {
             try {
                 //infinite loop for this thread
                 Checkup checkup = queue.take();
@@ -139,7 +153,7 @@ public class CheckingExecutionQueue {
                 try {
                     stoppingLock.lock();
                     checkup = persistenceFacade.findCheckup(checkup.getIdCheckup());
-                    if (checkup.getState().equals(CheckState.CHECKING)){
+                    if (checkup.getState().equals(CheckState.CHECKING)) {
                         checkup.setState(CheckState.FINISHED);
                         checkup.setCheckingFinished(new Date());
                         persistenceFacade.updateCheckup(checkup);

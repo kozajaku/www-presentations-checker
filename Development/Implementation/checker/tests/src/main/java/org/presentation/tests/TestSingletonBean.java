@@ -18,9 +18,10 @@ import javax.ejb.TransactionManagementType;
 import org.presentation.kernel.CheckRequestReceiver;
 import org.presentation.kernel.CheckingRequest;
 import org.presentation.model.Domain;
-import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
+import org.presentation.model.logging.Message;
 import org.presentation.persistence.business.PersistenceFacade;
+import org.presentation.persistence.model.Checkup;
 import org.presentation.utils.OptionContainer;
 
 /**
@@ -81,6 +82,11 @@ public class TestSingletonBean {
         domains.add(new Domain("webzdarma.cz"));
         req.setAllowedDomains(domains);
         receiver.addNewCheckingRequest("guest@guest.cz", req);
+        //fetch message test
+//        List<Message> m = persistenceFacade.findCheckupMessages(new Checkup(22));
+//        for (Message i: m){
+//            LOG.log(Level.INFO, "Message: {0} data type: {1}", new Object[]{i.getMessage(), i.getClass().getName()});
+//        }
     }
     
 }

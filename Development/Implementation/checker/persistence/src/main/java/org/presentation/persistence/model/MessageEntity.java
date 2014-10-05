@@ -49,7 +49,7 @@ public class MessageEntity implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "discriminator", length = 50)
+    @Column(name = "discriminator", length = 200)
     private String discriminator;
     @Basic(optional = false)
     @Lob
