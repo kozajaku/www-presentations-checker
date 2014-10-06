@@ -1,6 +1,7 @@
 package org.presentation.parser;
 
 import java.util.List;
+import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 
 /**
@@ -12,9 +13,10 @@ public interface HTMLParserService {
 	/**
 	 * 
 	 * @param sourceCode
+         * @param baseURL
          * @return 
 	 */
-	List<ParsedLinkResponse> parseLinks(PageContent sourceCode);
+	List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL);
 
 	/**
 	 * 

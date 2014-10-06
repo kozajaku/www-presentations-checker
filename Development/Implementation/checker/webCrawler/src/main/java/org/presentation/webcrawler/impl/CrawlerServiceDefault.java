@@ -106,7 +106,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 //najdi dalsi odkazy
                 List<ParsedLinkResponse> foundLinks;
                 LOG.info("get links from page");
-                foundLinks = getLinksFromPage(receiverResponse);
+                foundLinks = getLinksFromPage(receiverResponse, linkURL);
                 //over jestli stranka existuje
                 for (ParsedLinkResponse foundLink : foundLinks) {
                     LinkURL foundURL = foundLink.getDestination();
@@ -243,14 +243,14 @@ public class CrawlerServiceDefault implements CrawlerService {
     }
 
     //dostan vsechny odkazy ze stranky
-    private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response) {
+    private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response, LinkURL baseURL) {
         if (response.getContentType().getContentType().equals("text/css")) {
             LOG.info("CSS parse");
-            return cssParserService.parseLinks(response.getSourceCode());
+            return cssParserService.parseLinks(response.getSourceCode(), baseURL);
         }
         if (response.getContentType().getContentType().equals("text/html")) {
             LOG.info("HTML parse");
-            return htmlParserService.parseLinks(response.getSourceCode());
+            return htmlParserService.parseLinks(response.getSourceCode(), baseURL);
         }
         LOG.info("skip parsing");
         return new ArrayList<>();
