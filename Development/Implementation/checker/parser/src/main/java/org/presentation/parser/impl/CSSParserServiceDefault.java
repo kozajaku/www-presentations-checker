@@ -2,6 +2,7 @@ package org.presentation.parser.impl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.Dependent;
+import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 import org.presentation.parser.CSSParserService;
 import org.presentation.parser.ParsedLinkResponse;
@@ -18,7 +19,7 @@ public class CSSParserServiceDefault implements CSSParserService {
 	 * @param sourceCode
 	 */
         @Override
-	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode){
+	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL){
 		return new ArrayList<>();
 	}
 

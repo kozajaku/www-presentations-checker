@@ -31,14 +31,14 @@ public class HTMLParserServiceDefault implements HTMLParserService {
 	 * @param sourceCode
 	 */
         @Override
-	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode){
+	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL){
             LOG.info("parsing started");
             List<ParsedLinkResponse> parsedLinks = new ArrayList<>();
             if (sourceCode == null) {
                 LOG.warning("sourceCode is null!");
                 return parsedLinks;
             }
-            Document doc = Jsoup.parse(sourceCode.getContent());
+            Document doc = Jsoup.parse(sourceCode.getContent(), baseURL.getUrl());
             Elements links = doc.select("a[href]");
             Elements images = doc.select("img[src]");
             Elements scripts = doc.select("script[src]");
