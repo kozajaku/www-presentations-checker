@@ -82,5 +82,5 @@ public class LoginBean extends CommonBean {
     public void setPassword(String password) {
 	this.password = password;
     }    
-    
+      
 }

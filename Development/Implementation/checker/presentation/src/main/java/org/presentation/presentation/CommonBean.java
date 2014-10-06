@@ -7,8 +7,8 @@ package org.presentation.presentation;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.presentation.persistence.business.PersistenceFacade;
@@ -17,7 +17,6 @@ import org.presentation.persistence.business.PersistenceFacade;
  *
  * @author petrof
  */
-@RequestScoped
 public abstract class CommonBean {   
     
     @EJB
@@ -26,7 +25,8 @@ public abstract class CommonBean {
     protected ResourceBundle msg;
     
 
-    public CommonBean() {
+    @PostConstruct
+    private void init() {
 	Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 	msg = ResourceBundle.getBundle("org.presentation.presentation.lang", locale);
 

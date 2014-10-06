@@ -112,7 +112,12 @@ public class CheckingExecutionQueue {
     public void notifyNewRequests() {
         newRequestLock.lock();
         try {
-            Checkup checkup = persistenceFacade.fetchNewlyCreatedCheckup();
+            Checkup checkup;
+            while ((checkup = persistenceFacade.fetchNewlyCreatedCheckup()) == null){
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {}
+            }
             LOG.log(Level.INFO, "New checkup with id {0} added into execution queue", checkup.getIdCheckup());
             queue.add(checkup);
         } finally {
