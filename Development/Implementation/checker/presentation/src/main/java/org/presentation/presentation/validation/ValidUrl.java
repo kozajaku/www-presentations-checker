@@ -47,6 +47,7 @@ public @interface ValidUrl {
         public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
 	    try {
 		URL url = new URL(s);
+		if(!url.getProtocol().equals("http") && !url.getProtocol().equals("https")) return false;
 	    } catch (MalformedURLException ex) {
 		return false;
 	    }
