@@ -74,9 +74,15 @@ public class CrawlerServiceDefault implements CrawlerService {
             //podminky zastaveni
 //            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
+                //nestahuj stranku
+                LOG.info("just check page (HEAD)");
                 try {
-                    //nestahuj stranku
-                    LOG.info("just check page (HEAD)");
+                    LOG.log(Level.INFO, "sleep for 100 ms");
+                    Thread.sleep(100);
+                } catch (InterruptedException ex) {
+                    LOG.log(Level.SEVERE, null, ex);
+                }
+                try {
                     receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
@@ -88,6 +94,12 @@ public class CrawlerServiceDefault implements CrawlerService {
                 //stahni stranku
                 crawlingState.incCount();
                 LOG.log(Level.INFO, "get page {0}(GET)", crawlingState.getPagesCrawled());
+                try {
+                    LOG.log(Level.INFO, "sleep for {0} ms", requestTimeout);
+                    Thread.sleep(requestTimeout);
+                } catch (InterruptedException ex) {
+                    LOG.log(Level.SEVERE, null, ex);
+                }
                 try {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (IOException ex) {
@@ -184,7 +196,7 @@ public class CrawlerServiceDefault implements CrawlerService {
     private CSSParserService cssParserService;
     @Inject
     private HTMLParserService htmlParserService;
-    //private int requestTimeout;
+    private int requestTimeout;
     private List<Header> headers;
     private int pageLimit;
     private boolean stopped = false;
@@ -216,7 +228,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         this.pageLimit = pageLimit;
         //this.observer = observer;
         this.allowedDomains = allowedDomains;
-        //this.requestTimeout = requestTimeout;
+        this.requestTimeout = requestTimeout;
         this.headers = addHeaders;
         crawlingState = new CrawlingState();
         completeCrawlingState = CompleteCrawlingState.UNKNOWN;
@@ -229,12 +241,6 @@ public class CrawlerServiceDefault implements CrawlerService {
             LOG.log(Level.INFO, "Processing new Page {0}", page.linkURL.getUrl());
             page = linkQueue.poll();
             linkQueue.addAll(page.browseWebPage());
-            try {
-                LOG.log(Level.INFO, "sleep for {0} ms", requestTimeout);
-                Thread.sleep(requestTimeout);
-            } catch (InterruptedException ex) {
-                LOG.log(Level.SEVERE, null, ex);
-            }
         }
         LOG.info("crawling done");
         crawlingState.done();
