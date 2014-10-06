@@ -83,9 +83,10 @@ public class PageReceiver {
      * @param addHeaders
      * @param method
      * @return ReceiverResponse
+     * @throws MalformedURLException
      * @throws IOException
      */
-    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method) throws IOException {
+    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method) throws MalformedURLException, IOException {
         return connectToPage(linkURL, addHeaders, method, method.equals(GET));
     }
 
@@ -97,9 +98,10 @@ public class PageReceiver {
      * @param method
      * @param getContent
      * @return ReceiverResponse
+     * @throws MalformedURLException
      * @throws IOException
      */
-    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws IOException {
+    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws MalformedURLException, IOException {
         ReceiverResponse response = new ReceiverResponse();
         URL url = new URL(linkURL.getUrl());
         HttpURLConnection connection;
