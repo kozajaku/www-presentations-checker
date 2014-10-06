@@ -64,6 +64,12 @@ public class CrawlerServiceDefault implements CrawlerService {
         public List<WebPage> browseWebPage() {
             List<WebPage> foundPages = new ArrayList<>();
             foundPages.clear();
+            //byl node uz vytvoren?
+            Node createdNode = visitedURLs.get(linkURL);
+            if (createdNode != null) {
+                previousNode.addEdge(new Edge(createdNode, label, linkSourceType));
+                return foundPages;
+            }
             ReceiverResponse receiverResponse;
             //podminky zastaveni
 //            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
@@ -115,7 +121,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                         LOG.info("add edge (existing link)");
                         Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType());
                         node.addEdge(newEdge);
-                    } else {
+                    } else { 
                         //pridej do fronty
                         LOG.info("add to queue (new link)");
                         foundPages.add(new WebPage(foundLink.getLabel(), foundLink.getSourceType(), node, foundURL, depthFromRoot + 1));
