@@ -26,26 +26,82 @@ import org.presentation.model.PageContent;
 @Dependent
 public class PageReceiver {
 
+    /**
+     * Inject logger.
+     */
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
+    /**
+     * Defining constants.
+     */
     private static final String GET = "GET";
     private static final String HEAD = "HEAD";
     private static final String HTTP = "http";
     private static final String HTTPS = "htpps";
 
+    /**
+     * Sending HEAD request on the page.
+     *
+     * @param linkURL
+     * @param addHeaders
+     * @return ReceiverResponse
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting checkPage(HEAD) on {0}", linkURL.getUrl());
-        return connectToPage(linkURL, addHeaders, HEAD, false);
+        return connectToPage(linkURL, addHeaders, HEAD);
     }
 
+    /**
+     * Sending HEAD request and if it is HTML or CSS, sending GET request and
+     * downloads page content.
+     *
+     * @param linkURL
+     * @param addHeaders
+     * @return ReceiverResponse
+     * @throws MalformedURLException
+     * @throws IOException
+     */
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
-        LOG.log(Level.INFO, "Starting getPage(GET) on {0}", linkURL.getUrl());
-        return connectToPage(linkURL, addHeaders, GET, true);
+        LOG.log(Level.INFO, "Starting getPage(HEAD) on {0}", linkURL.getUrl());
+        ReceiverResponse response = connectToPage(linkURL, addHeaders, HEAD);
+        if (response.getContentType().getContentType().equals("text/html") || response.getContentType().getContentType().equals("text/css")) {
+            LOG.log(Level.INFO, "Starting getPage(GET) on {0}", linkURL.getUrl());
+            return connectToPage(linkURL, addHeaders, GET);
+        }
+        return response;
     }
 
-    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws IOException {
+    /**
+     * Short version of connectToPage automaticly defining, if content should be
+     * downloaded.
+     *
+     * @param linkURL
+     * @param addHeaders
+     * @param method
+     * @return ReceiverResponse
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method) throws MalformedURLException, IOException {
+        return connectToPage(linkURL, addHeaders, method, method.equals(GET));
+    }
+
+    /**
+     * Sends request to server.
+     *
+     * @param linkURL
+     * @param addHeaders
+     * @param method
+     * @param getContent
+     * @return ReceiverResponse
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws MalformedURLException, IOException {
         ReceiverResponse response = new ReceiverResponse();
         URL url = new URL(linkURL.getUrl());
         HttpURLConnection connection;
@@ -132,6 +188,13 @@ public class PageReceiver {
         return response;
     }
 
+    /**
+     * Downloads page content.
+     *
+     * @param in
+     * @return String
+     * @throws IOException
+     */
     private String recievePageContent(BufferedReader in) throws IOException {
         String inputLine;
         StringBuilder response = new StringBuilder();
