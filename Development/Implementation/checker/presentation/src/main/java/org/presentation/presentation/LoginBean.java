@@ -30,7 +30,7 @@ public class LoginBean extends CommonBean {
     private String email;
     
     @NotNull
-    @ValidPassword
+    //@ValidPassword
     private String password;
          
     public String login() throws ServletException, Exception{
@@ -38,19 +38,22 @@ public class LoginBean extends CommonBean {
 	FacesContext context = FacesContext.getCurrentInstance();
 
 	HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+    
+	User user = persistance.findUser(email);
+	if(user == null) {
+	    this.addMessage(new FacesMessage(msg.getString("login.user_not_found")));
+	    return "";
+	}
 	
-	try {
-	    
-	    User user = persistance.findUser(email);
-	    if(user == null) throw new Exception(msg.getString("login.user_not_found"));
-	    
-	    /*request.login(email, password);	    	    
-	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);*/
+	/*
+	try {	   	    
+	    request.login(email, password);	    	    
+	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 	    	    
 	} catch (ServletException e) {	
 	    this.addMessage(new FacesMessage(msg.getString("login.login_fail_message")));
 	    return "";
-	}
+	}*/
 	
 	return "/protected/user/index?faces-redirect=true";
     }

@@ -49,7 +49,7 @@ public final class Functions {
 	for(ChosenOption o : opts) {
 	    try {
 		t = msg.getString("common.ch_" + o.getIdOption().toLowerCase());	    
-		sb.append(o.getIdOption());
+		sb.append(t);
 	    } catch(MissingResourceException ex) {
 		sb.append(o.getIdOption());
 	    }

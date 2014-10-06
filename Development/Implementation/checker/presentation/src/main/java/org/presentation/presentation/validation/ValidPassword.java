@@ -43,16 +43,18 @@ public @interface ValidPassword {
         public void initialize(ValidPassword password) {  }
         @Override
         public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-            if (s == null || s.length() < 8) {
+            if (s == null || s.length() < 6) {
                 return false;
             }
+	    /*
             boolean lower = false, upper = false, digit = false;
             for (char c : s.toCharArray()) {
                 lower = lower | Character.isLowerCase(c);
                 upper = upper | Character.isUpperCase(c);
                 digit = digit | Character.isDigit(c);
             }
-            return lower && upper && digit;
+            return lower && upper && digit;*/
+	    return true;
         }
 
     }

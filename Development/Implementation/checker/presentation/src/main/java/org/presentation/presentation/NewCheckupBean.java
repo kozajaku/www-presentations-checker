@@ -12,8 +12,10 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.faces.application.FacesMessage;
-import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -24,6 +26,7 @@ import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.presentation.exception.UserAuthorizationException;
 import org.presentation.presentation.validation.ValidUrl;
+import org.presentation.utils.AllowOptionService;
 import org.presentation.utils.OptionContainer;
 
 /**
@@ -54,9 +57,9 @@ public class NewCheckupBean extends ProtectedBean  {
     protected int maxCrawlingDepth = 5;
     
     @NotNull
-    @Min(1)
-    @Max(10)
-    protected int maxRequestFrequency = 3;
+    @Min(500)
+    @Max(10000)
+    protected int minRequestInterval = 2000;
         
     @NotNull
     @Min(0)
@@ -68,11 +71,17 @@ public class NewCheckupBean extends ProtectedBean  {
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
     
+    /*
+    @Inject
+    @Any
+    protected Instance<AllowOptionService> optionServicePrototype;
+    */
 
     // 4 testing
     //private final Map<String,Object> checkupsAvailable;
     public Map<String,Object> getCheckupsAvailable() {	
 	Map<String,Object> checkupsAvailable = new HashMap<>();	    
+		
 	checkupsAvailable.put(msg.getString("common.ch_css_redundancy"), CHK_CSS_REDUNDANCY);
 	checkupsAvailable.put(msg.getString("common.ch_css_validation"), CHK_CSS_VALIDATION);
 	checkupsAvailable.put(msg.getString("common.ch_html_validation"), CHK_HTML_VALIDATION);
@@ -122,13 +131,14 @@ public class NewCheckupBean extends ProtectedBean  {
 	this.maxCrawlingDepth = maxCrawlingDepth;
     }
 
-    public int getMaxRequestFrequency() {
-	return maxRequestFrequency;
+    public int getMinRequestInterval() {
+	return minRequestInterval;
     }
 
-    public void setMaxRequestFrequency(int maxRequestFrequency) {
-	this.maxRequestFrequency = maxRequestFrequency;
+    public void setMinRequestInterval(int minRequestInterval) {
+	this.minRequestInterval = minRequestInterval;
     }
+    
 
     public List<Header> getHttpHeaders() {
 	return httpHeaders;
@@ -145,11 +155,12 @@ public class NewCheckupBean extends ProtectedBean  {
 	CheckingRequest r = new CheckingRequest();
 	OptionContainer oc = new OptionContainer();
 	
-	
+	/*	
 	if(this.desiredCheckups.length == 0) {
 	    this.addMessage(new FacesMessage(this.msg.getString("newCheckup.no_test_selected")));
 	    return "";
 	}
+	*/
 
 	// checkboxes - to be tested - definition by array should be perfect
 	for( String option : this.desiredCheckups ) oc.addOption(option);
@@ -157,7 +168,7 @@ public class NewCheckupBean extends ProtectedBean  {
 	
 	r.setAllowedDomains(domainsAllowed);
 	r.setMaxDepth(maxCrawlingDepth);
-	r.setRequestInterval((int) Math.round(((double)1 / maxRequestFrequency) * 1000));
+	r.setRequestInterval(this.minRequestInterval);
 	r.setPageLimit(pageLimit);
 	r.setStartingPoint(new LinkURL(startingLink));
 	r.setHeaders(httpHeaders);

@@ -16,7 +16,7 @@
 		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 		    
 		    <h:outputLabel value="#{msg['login.email']}:" />
-		    <h:inputText value="#{loginBean.email}" label="#{msg['login.email']}" />
+		    <h:inputText value="#{loginBean.email}" label="#{msg['login.email']}" validatorMessage="#{msg['validation.email_bf']}"  />
 		    
 		    <h:outputLabel value="#{msg['login.password']}:" />
 		    <h:inputSecret value="#{loginBean.password}" label="#{msg['login.password']}" />

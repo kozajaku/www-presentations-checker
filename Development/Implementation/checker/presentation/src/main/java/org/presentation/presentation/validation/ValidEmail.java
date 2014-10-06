@@ -24,5 +24,5 @@ import javax.validation.Payload;
 public @interface ValidEmail {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-    String message() default "{org.presentation.presentation.lang.validation.email_bf}";
+    String message() default "";
 }

@@ -16,7 +16,7 @@
 		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 				
 		    <h:outputLabel value="#{msg['signUp.email']}:" />
-		    <h:inputText value="#{signupBean.email}" label="#{msg['signUp.email']}">
+		    <h:inputText value="#{signupBean.email}" label="#{msg['signUp.email']}" validatorMessage="#{msg['validation.email_bf']}">
 			<!--<f:ajax event="valueChange" execute="userNo" render="result" />-->
 		    </h:inputText>	
 		
