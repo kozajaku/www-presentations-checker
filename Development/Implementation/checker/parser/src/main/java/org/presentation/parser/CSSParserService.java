@@ -10,17 +10,17 @@ import org.presentation.model.PageContent;
  */
 public interface CSSParserService {
 
-	/**
-	 * 
-	 * @param sourceCode
-         * @return 
-	 */
-	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL);
+    /**
+     *
+     * @param sourceCode
+     * @param baseURL
+     * @return
+     */
+    public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL);
 
-	/**
-	 * 
-	 * @param sourceCode
-	 */
+    /**
+     *
+     * @param sourceCode
+     */
 	//public CSSSelectorTree parseWholeCSSPage(PageContent sourceCode);
-
 }
