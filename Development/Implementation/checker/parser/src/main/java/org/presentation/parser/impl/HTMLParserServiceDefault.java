@@ -46,7 +46,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             for (Element link : links) {
                 LinkURL destination = new LinkURL(link.attr("abs:href"));
                 //log
-                LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
+                //LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
                 if (destination.checkURL()) {
                     parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
                 }
@@ -54,7 +54,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             for (Element link : images) {                
                 LinkURL destination = new LinkURL(link.attr("abs:src"));
                 //log
-                LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
+                //LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
                 if (destination.checkURL()) {
                     parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, link.attr("alt")));
                 }
@@ -62,7 +62,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             for (Element link : scripts) {             
                 LinkURL destination = new LinkURL(link.attr("abs:src"));
                 //log
-                LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
+                //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
                 if (destination.checkURL()) {
                     parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "script"));
                 }
@@ -70,7 +70,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             for (Element link : imports) {              
                 LinkURL destination = new LinkURL(link.attr("abs:href"));
                 //log
-                LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
+                //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
                 if (destination.checkURL()) {
                     parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "import"));
                 }

@@ -130,12 +130,12 @@ public class CrawlerServiceDefault implements CrawlerService {
                     LinkURL foundURL = foundLink.getDestination();
                     if (visitedURLs.containsKey(foundURL)) {
                         //pridej hranu
-                        LOG.info("add edge (existing link)");
+                        //LOG.info("add edge (existing link)");
                         Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType());
                         node.addEdge(newEdge);
                     } else { 
                         //pridej do fronty
-                        LOG.info("add to queue (new link)");
+                        //LOG.info("add to queue (new link)");
                         foundPages.add(new WebPage(foundLink.getLabel(), foundLink.getSourceType(), node, foundURL, depthFromRoot + 1));
                     }
                 }
@@ -155,7 +155,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
 
         public boolean isOverMaximalDepth() {
-            LOG.info("is over maximal depth?");
+            //LOG.info("is over maximal depth?");
             if (depthFromRoot > maximalDepth) {
                 if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
                     completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
@@ -166,7 +166,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
         
         public boolean isOverPageLimit() {
-            LOG.info("is over page limit?");
+            //LOG.info("is over page limit?");
             if (crawlingState.getPagesCrawled() >= pageLimit) {
                 if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
                     completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
@@ -238,7 +238,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         WebPage page = new WebPage(null, null, null, url, 0);
         linkQueue.add(page);
         while (!linkQueue.isEmpty() && !stopped) {
-            LOG.log(Level.INFO, "Processing new Page {0}", page.linkURL.getUrl());
+            //LOG.log(Level.INFO, "Processing new Page {0}", page.linkURL.getUrl());
             page = linkQueue.poll();
             linkQueue.addAll(page.browseWebPage());
         }
@@ -292,7 +292,7 @@ public class CrawlerServiceDefault implements CrawlerService {
 
     private boolean isAllowedURL(LinkURL url) {
         //vraci true pokud domena URL spada pod nekterou z povolenych domen
-        LOG.log(Level.INFO, "is allowed URL? {0}", url.getUrl());
+        //LOG.log(Level.INFO, "is allowed URL? {0}", url.getUrl());
         String link = url.getUrl();
         String[] parts = link.split("/");
         String domainURL = parts[2];
