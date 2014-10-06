@@ -39,7 +39,7 @@ public class PageReceiver {
     private static final String GET = "GET";
     private static final String HEAD = "HEAD";
     private static final String HTTP = "http";
-    private static final String HTTPS = "htpps";
+    private static final String HTTPS = "https";
 
     /**
      * Sending HEAD request on the page.
