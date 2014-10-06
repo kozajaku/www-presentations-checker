@@ -47,25 +47,33 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 LinkURL destination = new LinkURL(link.attr("abs:href"));
                 //log
                 LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
+                if (destination.checkURL()) {
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
+                }
             }
             for (Element link : images) {                
                 LinkURL destination = new LinkURL(link.attr("abs:src"));
                 //log
                 LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, link.attr("alt")));
+                if (destination.checkURL()) {
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, link.attr("alt")));
+                }
             }
             for (Element link : scripts) {             
                 LinkURL destination = new LinkURL(link.attr("abs:src"));
                 //log
                 LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "script"));
+                if (destination.checkURL()) {
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "script"));
+                }
             }
             for (Element link : imports) {              
                 LinkURL destination = new LinkURL(link.attr("abs:href"));
                 //log
                 LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "import"));
+                if (destination.checkURL()) {
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "import"));
+                }
             }
             LOG.info("parsing finished");
             return parsedLinks;

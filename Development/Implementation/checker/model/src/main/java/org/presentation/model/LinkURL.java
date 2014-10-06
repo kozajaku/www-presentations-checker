@@ -17,6 +17,15 @@ public class LinkURL {
     public String getUrl() {
         return url;
     }
+    
+    public boolean checkURL() {
+        if (url.length() > 7) {
+           if (url.substring(0,7).equals("http://") || url.substring(0,8).equals("https://")) {
+               return true;
+           }
+        }
+        return false;
+    }
 
     @Override
     public int hashCode() {
