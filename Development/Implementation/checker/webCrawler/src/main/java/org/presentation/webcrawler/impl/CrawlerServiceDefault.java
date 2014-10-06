@@ -280,7 +280,7 @@ public class CrawlerServiceDefault implements CrawlerService {
 
     private boolean isAllowedURL(LinkURL url) {
         //vraci true pokud domena URL spada pod nekterou z povolenych domen
-        LOG.log(Level.INFO, "is allowed URL?{0}", url);
+        LOG.log(Level.INFO, "is allowed URL? {0}", url.getUrl());
         String link = url.getUrl();
         String[] parts = link.split("/");
         String domainURL = parts[2];
