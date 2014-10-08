@@ -96,10 +96,10 @@ public class CheckingExecutionQueue {
     }
 
     private boolean destroyed = false;
-    
+
     @PreDestroy
     protected void destroy() {
-        for (Future<?> i: executionThreads){
+        for (Future<?> i : executionThreads) {
             destroyed = true;
             i.cancel(true);
         }
@@ -109,14 +109,16 @@ public class CheckingExecutionQueue {
 
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    @SuppressWarnings("SleepWhileInLoop")
     public void notifyNewRequests() {
         newRequestLock.lock();
         try {
             Checkup checkup;
-            while ((checkup = persistenceFacade.fetchNewlyCreatedCheckup()) == null){
+            while ((checkup = persistenceFacade.fetchNewlyCreatedCheckup()) == null) {
                 try {
                     Thread.sleep(2000);
-                } catch (InterruptedException ex) {}
+                } catch (InterruptedException ex) {
+                }
             }
             LOG.log(Level.INFO, "New checkup with id {0} added into execution queue", checkup.getIdCheckup());
             queue.add(checkup);
@@ -135,7 +137,9 @@ public class CheckingExecutionQueue {
             //wait few seconds for end of initialization
             Thread.sleep(5000);
         } catch (InterruptedException ex) {
-            LOG.log(Level.SEVERE, null, ex);
+            if (!destroyed) {
+                LOG.log(Level.SEVERE, null, ex);
+            }
         }
         CheckingExecutor executor;
         while (!destroyed) {
@@ -175,7 +179,9 @@ public class CheckingExecutionQueue {
                 }
                 LOG.log(Level.INFO, "Checking of checkup with id {0} finished", checkup.getIdCheckup());
             } catch (InterruptedException ex) {
-                LOG.log(Level.SEVERE, "Execution queue thread interrupted", ex);
+                if (!destroyed) {
+                    LOG.log(Level.SEVERE, "Execution queue thread interrupted", ex);
+                }
             }
         }
     }

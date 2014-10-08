@@ -64,7 +64,7 @@ public class NewCheckupBean extends ProtectedBean  {
     @NotNull
     @Min(0)
     @Max(100000)
-    protected int pageLimit = 0;
+    protected int pageLimit = 10;
     
     protected List<Header> httpHeaders = new ArrayList<>();
     

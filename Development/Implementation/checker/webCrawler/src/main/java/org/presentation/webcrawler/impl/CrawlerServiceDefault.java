@@ -72,7 +72,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             }
             ReceiverResponse receiverResponse;
             //podminky zastaveni
-//            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
+            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
                 //nestahuj stranku
                 LOG.info("just check page (HEAD)");
@@ -296,7 +296,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         String link = url.getUrl();
         String[] parts = link.split("/");
         String domainURL = parts[2];
-        for (Domain allowedDomain : allowedDomains) {            
+        for (Domain allowedDomain : allowedDomains) {
             String domain = allowedDomain.getDomain();
             if (domainURL.length() >= domain.length()) {
                 //domeny se musi shodovat od konce

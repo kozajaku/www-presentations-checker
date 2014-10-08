@@ -26,10 +26,10 @@ public class DomainListConverter implements Converter {
 	
 	List<Domain> domains = new ArrayList<>();
 	
-	String[] domainNames = value.split("\\n");
+	String[] domainNames = value.split("\\r?\\n");
 	
 	for(String domainName : domainNames) {
-	    if(domainName.length() > 0) domains.add(new Domain(domainName));
+	    if(domainName.trim().length() > 0) domains.add(new Domain(domainName.trim()));
 	}
 	
 	return domains;
