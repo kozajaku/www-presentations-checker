@@ -26,4 +26,8 @@ public class ValidNode extends Node {
         orientedEdges.add(edge);
     }
 
+    public List<Edge> getOrientedEdges() {
+        return orientedEdges;
+    }
+
 }

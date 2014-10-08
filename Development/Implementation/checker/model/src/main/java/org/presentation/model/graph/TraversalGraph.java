@@ -20,15 +20,8 @@ public class TraversalGraph {
         this.root = root;
     }
 
-//	/**
-//	 * Returns if graph already contains target link.
-//	 * 
-//	 * @param destURL    Destination URL.
-//	 * @param sourceURL
-//	 * @param sourceType
-//	 * @param stateCode
-//	 */
-//	public boolean addLink(LinkURL destURL, LinkURL sourceURL, LinkSourceType sourceType, int stateCode){
-//		return false;
-//	}
+    public Node getRoot() {
+        return root;
+    }
+    
 }
