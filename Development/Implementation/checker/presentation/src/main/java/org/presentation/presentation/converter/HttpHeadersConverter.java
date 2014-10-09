@@ -26,12 +26,12 @@ public class HttpHeadersConverter implements Converter {
 	
 	List<Header> headers = new ArrayList<>();
 	
-	String[] lines = value.split("\\n");
+	String[] lines = value.split("\\r?\\n");
 	
 	for(String line : lines) {
-	    String[] splitted = line.split(": ", 2);
+	    String[] splitted = line.split(":", 2);
 	    if(splitted.length == 2) {
-		headers.add(new Header(splitted[0], splitted[1]));		
+		headers.add(new Header(splitted[0].trim(), splitted[1].trim()));		
 	    }
 	}
 	
