@@ -1,61 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-	  
+
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
- 
-    	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
- 
-	    <ui:define name="content">
-	
-		<ui:define name="subheader">
-		    <h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
-		</ui:define>
-		
-		<h:form>		   
-		    
-		    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
-		    
-		    <h:outputLabel value="#{msg['newCheckup.starting_link']}:" />
-		    <h:inputText value="#{newCheckupBean.startingLink}" label="#{msg['newCheckup.starting_link']}" />
-		    
-		    <h:outputLabel value="#{msg['newCheckup.desired_checkups']}:" />
-		    <h:selectManyCheckbox value="#{newCheckupBean.desiredCheckups}" label="#{msg['newCheckup.desired_checkups']}" >
-			<f:selectItems value="#{newCheckupBean.checkupsAvailable}" />
-		    </h:selectManyCheckbox>
-		    
-		    <h:outputLabel value="#{msg['newCheckup.allowed_domains']}:" />
-		    <h:inputTextarea value="#{newCheckupBean.domainsAllowed}" label="#{msg['newCheckup.allowed_domains']}">		
-			<f:converter converterId="DomainListConverter" />
-		    </h:inputTextarea>
-		    
-		    <h:outputLabel value="#{msg['newCheckup.max_crawling_depth']}:" />
-		    <h:inputText value="#{newCheckupBean.maxCrawlingDepth}" label="#{msg['newCheckup.max_crawling_depth']}" />		
-		    
-		    <h:outputLabel value="#{msg['newCheckup.min_request_interval']}:" />
-		    <h:inputText value="#{newCheckupBean.minRequestInterval}" label="#{msg['newCheckup.min_request_interval']}" />		
 
-		    <h:outputLabel value="#{msg['newCheckup.page_limit']}:" />
-		    <h:inputText value="#{newCheckupBean.pageLimit}" label="#{msg['newCheckup.page_limit']}" />		
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
 
-		    
-		    <h:outputLabel value="#{msg['newCheckup.http_headers']}:" />
-		    <h:inputTextarea value="#{newCheckupBean.httpHeaders}" label="#{msg['newCheckup.http_headers']}" >		
-			<f:converter converterId="HttpHeadersConverter" />
-		    </h:inputTextarea>
-		    
-		    <h:commandButton value="#{msg['newCheckup.submit']}" action="#{newCheckupBean.startValidation}" />			
-		    			
-		</h:form>
-			
-	    </ui:define>
- 
-    	</ui:composition>
- 
+            <ui:define name="content">
+
+                <ui:define name="subheader">
+                    <h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
+                </ui:define>
+
+                <hr />
+                <h:form class="form-horizontal" role="form">		   
+
+                    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.starting_link']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText class="form-control" value="#{newCheckupBean.startingLink}" label="#{msg['newCheckup.starting_link']}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.desired_checkups']}:" />
+                        <div class="col-sm-8 checkbox">
+                            <h:selectManyCheckbox value="#{newCheckupBean.desiredCheckups}" label="#{msg['newCheckup.desired_checkups']}" >
+                                <f:selectItems value="#{newCheckupBean.checkupsAvailable}" />
+                            </h:selectManyCheckbox>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.allowed_domains']}:" />
+                        <div class="col-sm-8">
+                            <h:inputTextarea class="form-control" value="#{newCheckupBean.domainsAllowed}" label="#{msg['newCheckup.allowed_domains']}">		
+                                <f:converter converterId="DomainListConverter" />
+                            </h:inputTextarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.max_crawling_depth']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText class="form-control" value="#{newCheckupBean.maxCrawlingDepth}" label="#{msg['newCheckup.max_crawling_depth']}" />	
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.min_request_interval']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText class="form-control" value="#{newCheckupBean.minRequestInterval}" label="#{msg['newCheckup.min_request_interval']}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.page_limit']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText class="form-control" value="#{newCheckupBean.pageLimit}" label="#{msg['newCheckup.page_limit']}" />	
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <h:outputLabel class="col-sm-4 control-label" value="#{msg['newCheckup.http_headers']}:" />
+                        <div class="col-sm-8">
+                            <h:inputTextarea class="form-control" value="#{newCheckupBean.httpHeaders}" label="#{msg['newCheckup.http_headers']}" >		
+                                <f:converter converterId="HttpHeadersConverter" />
+                            </h:inputTextarea>
+                        </div>
+                    </div>
+
+                    <h:commandButton class="btn btn-primary" value="#{msg['newCheckup.submit']}" action="#{newCheckupBean.startValidation}" />			
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
     </h:body>
- 
+
 </html>

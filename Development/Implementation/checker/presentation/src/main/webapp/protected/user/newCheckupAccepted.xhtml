@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-	  
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
- 
-    	<ui:composition template="/WEB-INF/template/commonLayout.xhtml">
- 
-	    <ui:define name="content">
-		
-		<ui:define name="subheader">
-		    <h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
-		</ui:define>
-		
-		<p>
-		    #{msg['newCheckup.success_message']}
-		</p>
-		<h:link outcome="index.html" value="#{msg['newCheckup.back_link']}" />
-			
-	    </ui:define>
- 
-    	</ui:composition>
- 
-    </h:body>
- 
-</html>
 
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+
+            <ui:define name="content">
+
+                <ui:define name="subheader">
+                    <h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
+                </ui:define>
+
+                <p class="alert alert-success center-block bold">
+                    #{msg['newCheckup.success_message']}
+                </p>
+                <h:link outcome="index.html" value="#{msg['newCheckup.back_link']}" />
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+
+</html>

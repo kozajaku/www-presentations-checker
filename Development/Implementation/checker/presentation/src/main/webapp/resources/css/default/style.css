@@ -1,10 +1,55 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
 /* 
     Created on : 3.10.2014, 11:29:07
-    Author     : petrof
+    Author     : Jindřich Máca
 */
-
+ul {
+    list-style-type: none;
+}
+#page {
+    max-width: 960px;
+    margin: 0 auto;
+}
+#header h1 {
+    text-align: center;
+    font-size: 36pt;
+}
+#content, #header h2 {
+    text-align: center;
+}
+.alert {
+    padding: 5px;
+    text-align: center;
+}
+.nav-stacked li {
+    margin: 10px 0;
+}
+.btn-group {
+    padding: 0;
+}
+.btn-group a {
+    color: white;
+    text-decoration: none;
+}
+.form-group {
+    margin-right: 20px;
+}
+.info, .error, #header span {
+    font-weight: 700;
+}
+.checkbox input[type=checkbox] {
+    margin-left: 0;
+}
+.checkbox td {
+    margin-right: 20px;
+    display: inline-block;
+}
+.bold {
+    font-weight: 700;
+}
+.message-table tr td:first-child {
+    max-width: 730px;
+    word-wrap: break-word;
+}
+.alert-info {
+    display: block;
+}
