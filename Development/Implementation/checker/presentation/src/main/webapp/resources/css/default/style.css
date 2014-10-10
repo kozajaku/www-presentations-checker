@@ -53,3 +53,6 @@ ul {
 .alert-info {
     display: block;
 }
+.checkup-table tr td:last-child {
+    width: 200px;
+}
