@@ -44,7 +44,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             Elements scripts = doc.select("script[src]");
             Elements imports = doc.select("link[href]");
             for (Element link : links) {
-                LinkURL destination = new LinkURL(link.attr("abs:href"));
+                LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:href")));
                 //log
                 //LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
                 if (destination.checkURL()) {
@@ -52,7 +52,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 }
             }
             for (Element link : images) {                
-                LinkURL destination = new LinkURL(link.attr("abs:src"));
+                LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:src")));
                 //log
                 //LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
                 if (destination.checkURL()) {
@@ -60,7 +60,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 }
             }
             for (Element link : scripts) {             
-                LinkURL destination = new LinkURL(link.attr("abs:src"));
+                LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:src")));
                 //log
                 //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
                 if (destination.checkURL()) {
@@ -68,7 +68,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 }
             }
             for (Element link : imports) {              
-                LinkURL destination = new LinkURL(link.attr("abs:href"));
+                LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:href")));
                 //log
                 //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
                 if (destination.checkURL()) {
@@ -78,7 +78,9 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             LOG.info("parsing finished");
             return parsedLinks;
 	}
-
+        private String removeHashFromURL(String url) {
+            return url.split("#")[0];
+        }
 //	/**
 //	 * 
 //	 * @param sourceCode

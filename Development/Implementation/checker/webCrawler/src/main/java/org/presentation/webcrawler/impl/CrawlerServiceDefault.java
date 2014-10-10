@@ -296,6 +296,8 @@ public class CrawlerServiceDefault implements CrawlerService {
         String link = url.getUrl();
         String[] parts = link.split("/");
         String domainURL = parts[2];
+        //odsekni port
+        domainURL = domainURL.split(":")[0];
         for (Domain allowedDomain : allowedDomains) {
             String domain = allowedDomain.getDomain();
             if (domainURL.length() >= domain.length()) {
