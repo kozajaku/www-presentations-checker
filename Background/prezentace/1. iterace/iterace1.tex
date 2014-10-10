@@ -17,7 +17,13 @@
 \begin{frame}[allowframebreaks]\frametitle{Co jsme dělali}
    \begin{itemize}
    %vyplníme dohromady hlavně podle harmonogramu
-    \item Práce v této iteraci
+    \item Kernel
+		\item Model
+		\item Parser
+		\item Persistence
+		\item Presentaion
+		\item Utils
+		\item WebCrawler
    \end{itemize}
 \end{frame}
 
@@ -42,7 +48,12 @@
     \item Jindřich Máca
       \begin{itemize}
       %vyplní Tuník 
-       \item Jindrova práce (počet hodin)
+       \item Implementace Modelu (1 hodinu)
+			 \item Implementace Utils (0.25 hodiny)
+			 \item Nastylování webového rozhraní (1.5 hodiny)
+			 \item Implementace třídy PageReciever v rámci WebCrawleru (6 hodin)
+			 \item Refaktoring názvů balíčků (0.5 hodiny)
+			 \item Implementace CSS Parseru v rámci Parseru (2 hodiny)
      \end{itemize}
 
     \item Petr Svoboda
@@ -56,7 +67,9 @@
 \begin{frame}[allowframebreaks]\frametitle{Důležité fragmenty naší práce}
   \begin{itemize}
     %vylpníme dohromady
-    \item Duležitá věc %následuje ukázka
+    \item Web Crawler
+		\item Prezentační vrstva
+		\item Perzistentní vrstva
   \end{itemize}
 \end{frame}
 
@@ -78,7 +91,7 @@
     \item Jindřich Máca
       \begin{itemize}
       %vyplní Tuník 
-       \item Jindrova hrdost
+       \item I když každý vyvíjel svou část, tak když se to nakonec dalo dohromady a poprvé spustilo, tak to fungovalo
       \end{itemize}  
    
     \item Petr Svoboda
@@ -132,17 +145,17 @@
      %vyplní Tuník 
       \begin{block}{Špatně} %co nešlo
        \begin{itemize}
-        \item Těžké věci
+        \item Page Receiver
        \end{itemize}
      \end{block}
      \begin{block}{Průměrně} %co šlo
         \begin{itemize}
-        \item Střední věci
+        \item CSS Parser
        \end{itemize}
      \end{block}
      \begin{block}{Dobře} %co šlo dobře
        \begin{itemize}
-        \item Lehké věci
+        \item Nastylování webového rozhraní
        \end{itemize}
      \end{block}
    
@@ -169,7 +182,10 @@
 \begin{frame}[allowframebreaks]\frametitle{Plán do příští iterace}
   \begin{itemize}
     %vylpní vedoucí podle harmonogramu + se mohou věci přidat
-    \item Plán
+    \item Výpis TraversalGraphu v prezentační vrstvě
+		\item Validace HTML pomocí w3c validátoru
+		\item Validace CSS pomocí w3c validátoru
+		\item Výpis validačních výsledků v prezentační vrstvě
   \end{itemize}
 \end{frame}
 
@@ -181,7 +197,7 @@
      J.~Koza & A.~Kugler & J.~Máca & P.~Svoboda \\
     \hline
     %vylpní vedoucí
-     body & body & body & body \\
+     3 & -2 & -2 & 1 \\
     \hline
   \end{tabular}     
    \end{center}
