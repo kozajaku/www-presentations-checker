@@ -11,25 +11,25 @@
 
             <c:choose>
                 <c:when test="#{headerBean.loggedIn}">
-                    <h:outputFormat class="alert alert-success center-block" value="#{msg['commonHeader.logged_in']}" >
+                    <h:outputFormat styleClass="alert alert-success center-block" value="#{msg['commonHeader.logged_in']}" >
                         <f:param value="#{headerBean.user.email}" />
                     </h:outputFormat>
                 </c:when>
                 <c:otherwise>
-                    <h:outputLabel class="alert alert-danger center-block" value="#{msg['commonHeader.not_logged_in']}" />
+                    <h:outputLabel styleClass="alert alert-danger center-block" value="#{msg['commonHeader.not_logged_in']}" />
                 </c:otherwise>		    
             </c:choose>
 
             <ul class="nav-stacked">
-                <li><h:link class="btn btn-primary" outcome="/protected/user/checkupList" value="#{msg['navi.checkup_list']}" /></li>
-                <li><h:link class="btn btn-primary" outcome="/protected/user/newCheckup" value="#{msg['navi.new_checkup']}" /></li>
+                <li><h:link styleClass="btn btn-primary" outcome="/protected/user/checkupList" value="#{msg['navi.checkup_list']}" /></li>
+                <li><h:link styleClass="btn btn-primary" outcome="/protected/user/newCheckup" value="#{msg['navi.new_checkup']}" /></li>
             </ul>
 
             <ui:insert name="subheader" />
 
-            <!--<div class="errors">
-                <h:messages errorClass="error" infoClass="info" warnClass="warn" globalOnly="true" layout="list" />
-            </div>-->
+            <div class="errors">
+                <h:messages rendered="false" errorClass="error" infoClass="info" warnClass="warn" globalOnly="true" layout="list" />
+            </div>
 
         </ui:composition>
     </body>

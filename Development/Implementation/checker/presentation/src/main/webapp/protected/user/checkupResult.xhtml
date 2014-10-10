@@ -29,7 +29,7 @@
                 <ui:fragment rendered="#{not empty checkupResultBean.checkup}">
                     <c:choose>
                         <c:when test="#{empty checkupResultBean.messages}">
-                            <h:outputLabel class="alert alert-info" value="#{msg['checkupResult.no_messages']}" />
+                            <h:outputLabel styleClass="alert alert-info" value="#{msg['checkupResult.no_messages']}" />
                         </c:when>
                         <c:otherwise>
                             <hr />

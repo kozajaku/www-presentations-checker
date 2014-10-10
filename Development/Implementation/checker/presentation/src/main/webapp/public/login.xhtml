@@ -9,25 +9,25 @@
 
             <ui:define name="content">
                 <hr />
-                <h:form class="form-horizontal col-sm-6" role="form">		   
+                <h:form styleClass="form-horizontal col-sm-6" role="form">		   
 
                     <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                     <div class="form-group">
-                        <h:outputLabel class="col-sm-2 control-label" value="#{msg['login.email']}:" />
+                        <h:outputLabel styleClass="col-sm-2 control-label" value="#{msg['login.email']}:" />
                         <div class="col-sm-10">
-                            <h:inputText class="form-control" value="#{loginBean.email}" label="#{msg['login.email']}" validatorMessage="#{msg['validation.email_bf']}" />
+                            <h:inputText styleClass="form-control" value="#{loginBean.email}" label="#{msg['login.email']}" validatorMessage="#{msg['validation.email_bf']}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel class="col-sm-2 control-label" value="#{msg['login.password']}:" />
+                        <h:outputLabel styleClass="col-sm-2 control-label" value="#{msg['login.password']}:" />
                         <div class="col-sm-10">
-                            <h:inputSecret class="form-control" value="#{loginBean.password}" label="#{msg['login.password']}" />
+                            <h:inputSecret styleClass="form-control" value="#{loginBean.password}" label="#{msg['login.password']}" />
                         </div>
                     </div>
 
-                    <h:commandButton class="btn btn-primary" value="#{msg['login.submit']}" action="#{loginBean.login}" />			
+                    <h:commandButton styleClass="btn btn-primary" value="#{msg['login.submit']}" action="#{loginBean.login}" />			
 
                 </h:form>
 
