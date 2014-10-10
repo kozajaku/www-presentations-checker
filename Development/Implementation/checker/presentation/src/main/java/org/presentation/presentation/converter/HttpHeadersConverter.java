@@ -2,6 +2,7 @@ package org.presentation.presentation.converter;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,9 +44,13 @@ public class HttpHeadersConverter implements Converter {
 	
 	StringBuilder sb = new StringBuilder();
 	
-	for(Header h : (List<Header>) value) {
-	    sb.append(h.getKey()).append(": ").append(value).append("\\n");
-	}
+        for (Iterator it = ((List) value).iterator(); it.hasNext();) {
+            Header h = (Header)it.next();
+            sb.append(h.getKey()).append(": ").append(value);
+            if (it.hasNext()){
+                sb.append(", ");
+            }
+        }
 	
 	return sb.toString();	
     }

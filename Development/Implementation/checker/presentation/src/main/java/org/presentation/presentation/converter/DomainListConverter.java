@@ -6,6 +6,7 @@
 package org.presentation.presentation.converter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,10 +41,13 @@ public class DomainListConverter implements Converter {
 	
 	StringBuilder sb = new StringBuilder();
 	
-	for(Domain domain : (List<Domain>)value) {
-	    sb.append(domain.getDomain());
-	    sb.append("\n");
-	}
+        for (Iterator it = ((List)value).iterator(); it.hasNext();) {
+            Domain domain = (Domain)it.next();
+            sb.append(domain.getDomain());
+            if (it.hasNext()){
+                sb.append(", ");
+            }
+        }
 	
 	return sb.toString();
     }
