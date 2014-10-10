@@ -64,7 +64,7 @@ public class Checkup implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date checkingFinished;
     @Basic(optional = false)
-    @Column(name = "start_point", length = 255)
+    @Column(name = "start_point", length = 2048)
     private String startPoint;
     @Column(name = "max_depth")
     private Integer maxDepth;

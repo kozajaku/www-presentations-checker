@@ -56,7 +56,7 @@ public class MessageEntity implements Serializable {
     @Column(name = "message")
     private String message;
     @Basic(optional = false)
-    @Column(name = "page")
+    @Column(name = "page", length = 2048)
     private String page;
     @Column(name = "\"column\"")
     private Integer column;
@@ -116,6 +116,9 @@ public class MessageEntity implements Serializable {
     }
 
     public void setPage(String page) {
+        if (page.length() > 2048){
+            page = page.substring(0, 2048);
+        }
         this.page = page;
     }
 
