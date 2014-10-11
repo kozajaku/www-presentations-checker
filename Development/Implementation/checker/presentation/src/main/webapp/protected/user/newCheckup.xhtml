@@ -4,6 +4,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
 
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:metadata>
+         <f:event type="preRenderView" listener="#{newCheckupBean.loadPreviousCheckup}" />
+        <f:viewParam name="checkupId" value="#{newCheckupBean.previousCheckupId}"/>
+    </f:metadata>
+    
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">

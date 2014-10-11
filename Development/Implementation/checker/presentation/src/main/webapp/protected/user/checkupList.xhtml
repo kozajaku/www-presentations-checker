@@ -48,7 +48,12 @@
                     <h:column>
                         <f:facet name="header">#{msg['checkupList.col_max_depth']}</f:facet>
                             #{o.ch.maxDepth}
-                    </h:column>		    
+                    </h:column>	
+
+                    <h:column>
+                        <f:facet name="header">#{msg['checkupList.col_page_limit']}</f:facet>
+                            #{o.ch.pageLimit}
+                    </h:column>			    
 
                     <h:column>
                         <f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
@@ -65,6 +70,9 @@
                                 <f:param name="checkupId" value="#{o.ch.idCheckup}" />
                             </h:link>			
                             <h:link styleClass="btn btn-info disabled" outcome="renderGraph" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_graph']}">
+                                <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+                            </h:link>	
+                            <h:link styleClass="btn btn-info" outcome="newCheckup" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_retry_checkup']}">
                                 <f:param name="checkupId" value="#{o.ch.idCheckup}" />
                             </h:link>	
                         </div>

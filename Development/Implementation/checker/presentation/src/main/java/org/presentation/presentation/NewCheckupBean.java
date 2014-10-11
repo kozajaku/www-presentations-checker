@@ -24,6 +24,9 @@ import org.presentation.kernel.CheckingRequest;
 import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
+import org.presentation.persistence.model.Checkup;
+import org.presentation.persistence.model.ChosenOption;
+import org.presentation.persistence.model.HeaderEntity;
 import org.presentation.presentation.exception.UserAuthorizationException;
 import org.presentation.presentation.validation.ValidUrl;
 import org.presentation.utils.AllowOptionService;
@@ -62,14 +65,18 @@ public class NewCheckupBean extends ProtectedBean  {
     protected int minRequestInterval = 2000;
         
     @NotNull
-    @Min(0)
+    @Min(1)
     @Max(100000)
-    protected int pageLimit = 10;
+    protected int pageLimit = 50;
     
     protected List<Header> httpHeaders = new ArrayList<>();
     
+    @Min(0)
+    protected int previousCheckupId = 0;
+    
+    
     @EJB
-    protected CheckRequestReceiver checkRequestReceiver;
+    protected CheckRequestReceiver checkRequestReceiver;        
     
     /*
     @Inject
@@ -148,6 +155,14 @@ public class NewCheckupBean extends ProtectedBean  {
 	this.httpHeaders = httpHeaders;
     }
 
+    public int getPreviousCheckupId() {
+	return previousCheckupId;
+    }
+    
+    
+    public void setPreviousCheckupId(int previousCheckupId) {
+	this.previousCheckupId = previousCheckupId;
+    }
     
     
     public String startValidation() throws UserAuthorizationException{
@@ -178,6 +193,40 @@ public class NewCheckupBean extends ProtectedBean  {
 	
 	return "newCheckupAccepted?faces-redirect=true";
 	
+    }
+    
+    
+    
+    public void loadPreviousCheckup() throws UserAuthorizationException {
+	if(this.previousCheckupId > 0) {
+	    Checkup c = this.persistance.findCheckup(this.previousCheckupId);
+	    if(c != null) {
+		if(c.getUser() == null || !c.getUser().equals(this.getLoggedUser())) {
+		    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
+		    return;
+		}
+		
+		this.setStartingLink(c.getStartPoint());
+		this.setPageLimit(c.getPageLimit());
+		this.setMinRequestInterval(c.getCheckingInterval());
+		this.setMaxCrawlingDepth(c.getMaxDepth());
+		
+		
+		List<Domain> domainList = this.persistance.findCheckupDomains(c);
+		if(domainList != null) this.setDomainsAllowed(domainList);
+		
+		List<Header> headerList = this.persistance.findCheckupHeaders(c);
+		if(headerList != null) this.setHttpHeaders(headerList);
+		
+		List<String> desiredCheckupIdList = new ArrayList<>();
+		List<ChosenOption> optionList = this.persistance.findCheckupOptions(c);		
+		if(optionList != null) {
+		    for(ChosenOption chosenOption : optionList) desiredCheckupIdList.add(chosenOption.getIdOption());
+		    if(desiredCheckupIdList.size() > 0) this.setDesiredCheckups((String[]) desiredCheckupIdList.toArray(new String[0]));
+		}
+		
+	    }
+	}
     }
     
 }
