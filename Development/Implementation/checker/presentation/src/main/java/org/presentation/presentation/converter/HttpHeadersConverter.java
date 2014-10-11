@@ -46,9 +46,9 @@ public class HttpHeadersConverter implements Converter {
 	
         for (Iterator it = ((List) value).iterator(); it.hasNext();) {
             Header h = (Header)it.next();
-            sb.append(h.getKey()).append(": ").append(value);
+            sb.append(h.getKey()).append(": ").append(h.getValue());
             if (it.hasNext()){
-                sb.append(", ");
+                sb.append("\n");
             }
         }
 	

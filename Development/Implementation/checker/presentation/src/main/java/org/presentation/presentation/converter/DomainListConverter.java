@@ -45,7 +45,7 @@ public class DomainListConverter implements Converter {
             Domain domain = (Domain)it.next();
             sb.append(domain.getDomain());
             if (it.hasNext()){
-                sb.append(", ");
+                sb.append("\n");
             }
         }
 	
