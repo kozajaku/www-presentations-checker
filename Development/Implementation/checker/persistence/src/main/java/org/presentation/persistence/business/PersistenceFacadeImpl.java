@@ -388,4 +388,29 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return res;
     }
 
+    @Override
+    public List<Checkup> findUserCheckings(User user, int offset, int count) {
+        return checkupDAO.findAllUserChecks(user.getEmail(), offset, count);
+    }
+
+    @Override
+    public List<Message> findCheckupMessages(Checkup checkup, int offset, int count) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessages(checkup.getIdCheckup(), offset, count);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities) {
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource, int offset, int count) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResource(checkup.getIdCheckup(), resource, offset, count);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities) {
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
 }

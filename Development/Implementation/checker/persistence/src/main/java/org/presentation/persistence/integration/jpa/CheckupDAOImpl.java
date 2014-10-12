@@ -49,4 +49,16 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         q.setParameter("states", Arrays.asList(states));
         return q.getResultList();
     }
+
+    @Override
+    public List<Checkup> findAllUserChecks(String email, int offset, int count) {
+        if (offset < 0 || count <= 0){
+            throw new IllegalArgumentException("offset negative or count not positive");
+        }
+        TypedQuery<Checkup> q = getEntityManager().createNamedQuery("Checkup.findByUserEmail", Checkup.class);
+        q.setParameter("email", email);
+        q.setFirstResult(offset);
+        q.setMaxResults(count);
+        return q.getResultList();
+    }
 }

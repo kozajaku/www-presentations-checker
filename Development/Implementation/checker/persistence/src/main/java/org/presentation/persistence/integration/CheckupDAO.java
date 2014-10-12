@@ -18,6 +18,8 @@ public interface CheckupDAO {
 
     List<Checkup> findAllUserChecks(String email);
     
+    List<Checkup> findAllUserChecks(String email, int offset, int count);
+    
     List<Checkup> findAllWithState(CheckState[] states);
     
     void flush();

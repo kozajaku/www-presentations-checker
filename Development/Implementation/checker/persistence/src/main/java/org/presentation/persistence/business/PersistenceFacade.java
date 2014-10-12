@@ -34,6 +34,8 @@ public interface PersistenceFacade {
     void updateCheckup(Checkup checkup);
 
     List<Checkup> findUserCheckings(User user);
+    
+    List<Checkup> findUserCheckings(User user, int offset, int count);
 
     Checkup findCheckup(Integer checkId);
 
@@ -67,10 +69,14 @@ public interface PersistenceFacade {
     void addMessagesToDomain(Checkup checkup, List<Message> messages, String resource);
 
     List<Message> findCheckupMessages(Checkup checkup);
+    
+    List<Message> findCheckupMessages(Checkup checkup, int offset, int count);
 
     List<String> findCheckupMessageResources(Checkup checkup);
 
     List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource);
+    
+    List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource, int offset, int count);
 
     void flush();
 
