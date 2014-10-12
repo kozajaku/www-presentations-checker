@@ -186,10 +186,18 @@ public class CheckingExecutionQueue {
         }
     }
 
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void stopRunningChecking(Integer checkupId) {
         LOG.info("Called method to stop running checking");
-        //TODO implement
-        //TODO must use stoppingLock
-        throw new UnsupportedOperationException("Not implemented yet");
+        stoppingLock.lock();
+        try {
+            CheckingExecutor exec = runningCheckings.get(checkupId);
+            if (exec == null){
+                return;//checking already ended
+            }
+            exec.stopChecking();
+        } finally {
+            stoppingLock.unlock();
+        }
     }
 }

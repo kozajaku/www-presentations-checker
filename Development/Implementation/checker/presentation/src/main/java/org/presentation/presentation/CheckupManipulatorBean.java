@@ -11,7 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.validation.constraints.NotNull;
 import org.presentation.kernel.CheckRequestReceiver;
-import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.User;
 
@@ -46,7 +45,7 @@ public class CheckupManipulatorBean extends ProtectedBean {
 	    return "";
 	}
 	
-	if(checkup.getState() == CheckState.FINISHED || checkup.getState() == CheckState.STOPPED_BEFORE_START || checkup.getState() == CheckState.STOPPED_AFTER_START) {
+	if(checkup.getState().isEnded()) {
 	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_already_stopped")));
 	    return "";
 	}

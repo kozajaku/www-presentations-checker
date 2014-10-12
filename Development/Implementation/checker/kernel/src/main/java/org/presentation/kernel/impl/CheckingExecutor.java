@@ -15,6 +15,7 @@ import org.presentation.model.logging.Message;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgReport;
 import org.presentation.persistence.business.PersistenceFacade;
+import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.utils.Stoppable;
 import org.presentation.webcrawler.CompleteCrawlingState;
@@ -42,6 +43,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;//for debug purposes only
 
+    private Checkup checkup;
+    
 //    @Inject
 //    private SinglePageController singlePageController;
 //    @Inject
@@ -49,6 +52,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
 //    @EJB
 //    private GraphGeneratorQueue graphGenerator;
     public void startChecking(Checkup checkup) {
+        this.checkup = checkup;
         try {
             LOG.info("Starting new checking");
             //fetch initialized checkup
@@ -61,8 +65,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
                     persistenceFacade.findCheckupHeaders(checkup));
             //now crawling is done
             CrawlingState state = crawlerService.getCrawlingState();
-            LOG.log(Level.INFO, "Crawling of checkup with id {0} has ended. Pages crawled: {1}", new Object[]{checkup.getIdCheckup(), state.getPagesCrawled()});            
-        //TODO wait for controllers
+            LOG.log(Level.INFO, "Crawling of checkup with id {0} has ended. Pages crawled: {1}", new Object[]{checkup.getIdCheckup(), state.getPagesCrawled()});
+            //TODO wait for controllers
             //TODO generate graphs
             //persist results to database
             MsgReport report = messageLoggerContainer.generateMsgReport();
@@ -92,8 +96,9 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
 
     @Override
     public void stopChecking() {
-        //TODO implement
-        throw new UnsupportedOperationException("Not implemented yet");
+        //this method must be non blocking 
+        checkup.setState(CheckState.STOPPED_AFTER_START);
+        crawlerService.stopChecking();
     }
 
 }
