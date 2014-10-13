@@ -5,6 +5,8 @@
  */
 package org.presentation.presentation;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -14,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import org.presentation.persistence.model.User;
 import org.presentation.presentation.validation.ValidEmail;
-import org.presentation.presentation.validation.ValidPassword;
 
 
 /**
@@ -45,15 +46,16 @@ public class LoginBean extends CommonBean {
 	    return "";
 	}
 	
-	/*
+	
 	try {	   	    
 	    request.login(email, password);	    	    
 	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
 	    	    
 	} catch (ServletException e) {	
 	    this.addMessage(new FacesMessage(msg.getString("login.login_fail_message")));
+//            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, e);
 	    return "";
-	}*/
+	}
 	
 	return "/protected/user/index?faces-redirect=true";
     }

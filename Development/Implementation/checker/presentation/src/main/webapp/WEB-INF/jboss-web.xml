@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-    <!-- Links with JBoss the Realm to use -->
-    <!--<security-domain>java:/jaas/LoginWCRealm</security-domain>-->
+    <security-domain>PresentationCheckerSecurityDomain</security-domain>
 </jboss-web>
