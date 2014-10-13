@@ -21,6 +21,9 @@ public class MessageLogger {
     }
 
     public void pushToMsgReport(MsgReport report) {
+        if (messages.isEmpty()){
+            return;
+        }
         report.addGroup(resource, messages);
     }
 
