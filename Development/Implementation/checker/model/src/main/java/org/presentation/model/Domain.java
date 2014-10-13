@@ -1,8 +1,7 @@
 package org.presentation.model;
 
 /**
- * Model class for web domain description.
- *
+ * This class represents web domain.
  * @author Adam Kugler
  * @version 1.0
  */

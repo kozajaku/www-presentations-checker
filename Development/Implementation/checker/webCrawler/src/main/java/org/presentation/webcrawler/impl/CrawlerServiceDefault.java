@@ -127,7 +127,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 foundLinks = getLinksFromPage(receiverResponse, linkURL);
                 //over jestli stranka existuje
                 for (ParsedLinkResponse foundLink : foundLinks) {
-                    LinkURL foundURL = foundLink.getDestination();
+                    LinkURL foundURL = foundLink.getLink();
                     if (visitedURLs.containsKey(foundURL)) {
                         //pridej hranu
                         //LOG.info("add edge (existing link)");
