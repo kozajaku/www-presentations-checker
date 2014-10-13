@@ -23,18 +23,16 @@
         <welcome-file>public/index.xhtml</welcome-file>
     </welcome-file-list>
     
-    <!-- to be enabled later -->
-    <!--
+    <!-- to be enabled later -->    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>For logged users</web-resource-name>
             <url-pattern>/protected/user/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>USER</role-name>
+            <role-name>user</role-name>
         </auth-constraint>
-    </security-constraint>
-    -->
+    </security-constraint>    
 
     <!-- Login page -->
     <login-config>
@@ -48,10 +46,7 @@
 
     <!-- System roles -->
     <security-role>
-	<role-name>USER</role-name>
-    </security-role>
-    <security-role>
-	<role-name>ADMIN</role-name>
-    </security-role>    
+	<role-name>user</role-name>
+    </security-role>  
     
 </web-app>

@@ -14,6 +14,10 @@
                     <h:outputFormat styleClass="alert alert-success center-block" value="#{msg['commonHeader.logged_in']}" >
                         <f:param value="#{headerBean.user.email}" />
                     </h:outputFormat>
+		    <h:form>
+			<h:commandLink styleClass="btn btn-primary" action="#{loginBean.logout}" value="#{msg['login.logout']}" >
+			</h:commandLink>						 
+		    </h:form>
                 </c:when>
                 <c:otherwise>
                     <h:outputLabel styleClass="alert alert-danger center-block" value="#{msg['commonHeader.not_logged_in']}" />

@@ -4,15 +4,16 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
      <application>
-     	   <locale-config>
+	    <view-handler>org.presentation.presentation.helper.CustomViewHandler</view-handler>
+	    <locale-config>
      	        <default-locale>en</default-locale>
-     	   </locale-config>
-	   <resource-bundle>
+	    </locale-config>
+	    <resource-bundle>
 		<base-name>org.presentation.presentation.lang</base-name>
 		<var>msg</var>
-	   </resource-bundle>
-	   <message-bundle>
+	    </resource-bundle>
+	    <message-bundle>
 	       org.presentation.presentation.messages
-	   </message-bundle>
+	    </message-bundle>
      </application>
 </faces-config>

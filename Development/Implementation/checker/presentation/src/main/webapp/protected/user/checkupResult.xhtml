@@ -6,16 +6,18 @@
       xmlns:func="http://example.com/functions"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
+    
     <f:metadata>
         <f:viewAction action="#{checkupResultBean.showResult}"/>
         <f:viewParam name="checkupId" value="#{checkupResultBean.checkupId}"/>
     </f:metadata>
     
+    
 
     <h:body>
 
-        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
-
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">	    
+	    
             <c:if test="#{not empty checkupResultBean.checkup}">
                 <ui:define name="subheader">
                     <h2>
@@ -27,12 +29,38 @@
             </c:if>
 
             <ui:define name="content">	
-                <ui:fragment rendered="#{not empty checkupResultBean.checkup}">
+		
+		<h:outputLabel value="#{checkupResultBean.checkupId2}" />
+		
+		<ui:include src="/WEB-INF/helper/errorList.xhtml" />
+		
+				    			    <h:form styleClass="form-horizontal" role="form">		   
+
+				<div class="form-group">
+				    <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['checkupResult.inp_resource_filter']}" />
+				    <div class="col-sm-8 checkbox">
+					<h:selectManyCheckbox value="#{checkupResultBean.messageResourcesAllowed}" label="#{msg['checkupResult.inp_resource_filter']}" >
+					    <f:selectItems value="#{checkupResultBean.messageResourcesAvailable}" />
+					</h:selectManyCheckbox>
+				    </div>
+				</div>
+				
+				<!--<h:inputText styleClass="form-control" value="#{checkupResultBean.checkupId}" label="chupid" />-->
+				
+				<h:commandButton styleClass="btn btn-primary" value="#{msg['checkupResult.submit_filter']}" action="#{checkupResultBean.showResult}">			
+				    <f:param name="checkupId" value="${checkupResultBean.checkupId}"/>
+				</h:commandButton>
+
+			    </h:form>
+		
+                <ui:fragment rendered="#{not empty checkupResultBean.checkup}">		    		    		    		    
+		    		    
                     <c:choose>
                         <c:when test="#{empty checkupResultBean.messages}">
                             <h:outputLabel styleClass="alert alert-info" value="#{msg['checkupResult.no_messages']}" />
                         </c:when>
-                        <c:otherwise>
+                        <c:otherwise>			    			   
+			    
                             <hr />
                             <h:dataTable value="#{checkupResultBean.messages}" var="o"
                                          styleClass="table table-hover message-table"
