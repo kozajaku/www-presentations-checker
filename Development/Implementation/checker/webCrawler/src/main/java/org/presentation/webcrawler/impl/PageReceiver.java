@@ -24,6 +24,10 @@ import org.presentation.model.ContentType;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import org.presentation.model.logging.MessageLogger;
+import org.presentation.model.logging.MessageLoggerContainer;
+import org.presentation.model.logging.MessageProducer;
+import org.presentation.model.logging.WarningMsg;
 
 /**
  * Default implementation of PageReciever
@@ -32,7 +36,7 @@ import org.presentation.model.PageContent;
  * @version 1.0
  */
 @Dependent
-public class PageReceiver {
+public class PageReceiver implements MessageProducer {
 
     /**
      * Inject logger.
@@ -40,6 +44,7 @@ public class PageReceiver {
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
+    private MessageLogger messageLogger;
 
     /**
      * Defining constants.
@@ -48,6 +53,11 @@ public class PageReceiver {
     private static final String HEAD = "HEAD";
     private static final String HTTP = "http";
     private static final String HTTPS = "https";
+
+    @Override
+    public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
+        messageLogger = messageLoggerContainer.createLogger("Page Receiver");
+    }
 
     /**
      * Constructor, where is certificate handling redifined
@@ -76,9 +86,16 @@ public class PageReceiver {
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
             // Create all-trusting host name verifier
+            final HostnameVerifier ver = HttpsURLConnection.getDefaultHostnameVerifier();
             HostnameVerifier allHostsValid = new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
+                    if (!ver.verify(hostname, session)) {
+                        LOG.warning("Wrong or Invalid certificate!");
+                        WarningMsg mes = new WarningMsg();
+                        mes.setMessage("Wrong or Invalid certificate!");
+                        messageLogger.addMessage(mes);
+                    }
                     return true;
                 }
             };

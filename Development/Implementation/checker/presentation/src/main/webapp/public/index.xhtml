@@ -14,10 +14,10 @@
                 <!--<p>Blah blah blah, blah blah</p>-->
 
                 <hr />
-                <ul class="btn-group">
-                    <li class="btn btn-primary"><h:link outcome="/public/login" value="#{msg['navi.log_in']}" /></li>
-                    <li class="btn btn-primary"><h:link outcome="/public/signUp" value="#{msg['navi.sign_up']}" /></li>
-                </ul>
+                <div class="btn-group">
+                    <h:link styleClass="btn btn-primary" outcome="/public/login" value="#{msg['navi.log_in']}" />
+                    <h:link styleClass="btn btn-primary" outcome="/public/signUp" value="#{msg['navi.sign_up']}" />
+                </div>
 
             </ui:define>
 

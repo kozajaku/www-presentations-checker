@@ -133,7 +133,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                         //LOG.info("add edge (existing link)");
                         Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType());
                         node.addEdge(newEdge);
-                    } else { 
+                    } else {
                         //pridej do fronty
                         //LOG.info("add to queue (new link)");
                         foundPages.add(new WebPage(foundLink.getLabel(), foundLink.getSourceType(), node, foundURL, depthFromRoot + 1));
@@ -161,10 +161,10 @@ public class CrawlerServiceDefault implements CrawlerService {
                     completeCrawlingState = CompleteCrawlingState.ENDED_BY_DEPTH;
                 }
                 return true;
-            }           
+            }
             return false;
         }
-        
+
         public boolean isOverPageLimit() {
             //LOG.info("is over page limit?");
             if (crawlingState.getPagesCrawled() >= pageLimit) {
@@ -172,7 +172,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                     completeCrawlingState = CompleteCrawlingState.ENDED_BY_PAGE_LIMIT;
                 }
                 return true;
-            }           
+            }
             return false;
         }
     }
@@ -211,6 +211,7 @@ public class CrawlerServiceDefault implements CrawlerService {
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer container) {
         messageLogger = container.createLogger("Web crawler");
+        pageReceiver.offerMsgLoggerContainer(container);
     }
 
     /**
