@@ -91,9 +91,10 @@ public class PageReceiver implements MessageProducer {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
                     if (!ver.verify(hostname, session)) {
-                        LOG.warning("Wrong or Invalid certificate!");
+                        LOG.warning("Invalid certificate");
                         WarningMsg mes = new WarningMsg();
-                        mes.setMessage("Wrong or Invalid certificate!");
+                        mes.setMessage("Invalid certificate");
+                        mes.setPage(new LinkURL("https://" + hostname));
                         messageLogger.addMessage(mes);
                     }
                     return true;
@@ -103,7 +104,7 @@ public class PageReceiver implements MessageProducer {
             // Install the all-trusting host verifier
             HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
         } catch (NoSuchAlgorithmException | KeyManagementException ex) {
-            LOG.log(Level.WARNING, "Redifining of handling certificates failed: {0}", ex.getMessage());
+            LOG.log(Level.WARNING, "Redefining of handling certificates failed: {0}", ex.getMessage());
         }
     }
 
