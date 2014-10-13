@@ -29,4 +29,9 @@ public class InvalidNode extends Node {
         return errorCode;
     }
 
+    @Override
+    public boolean isValid() {
+        return false;
+    }
+
 }

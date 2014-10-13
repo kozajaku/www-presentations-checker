@@ -10,6 +10,8 @@ public abstract class Node {
 
     protected LinkURL url;
     protected int inputDegree;
+    
+    public abstract boolean isValid();
 
     public void incInputDegree() {
         inputDegree++;
