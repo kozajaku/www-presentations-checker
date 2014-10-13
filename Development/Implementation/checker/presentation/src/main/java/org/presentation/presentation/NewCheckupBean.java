@@ -5,6 +5,8 @@
  */
 package org.presentation.presentation;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -165,7 +167,7 @@ public class NewCheckupBean extends ProtectedBean  {
     }
     
     
-    public String startValidation() throws UserAuthorizationException{
+    public String startValidation() throws UserAuthorizationException, MalformedURLException {
 	
 	CheckingRequest r = new CheckingRequest();
 	OptionContainer oc = new OptionContainer();
@@ -180,8 +182,13 @@ public class NewCheckupBean extends ProtectedBean  {
 	// checkboxes - to be tested - definition by array should be perfect
 	for( String option : this.desiredCheckups ) oc.addOption(option);
 	
-	
+
+	if(domainsAllowed.isEmpty()) {
+	    URL url = new URL(startingLink);
+	    domainsAllowed.add(new Domain(url.getHost()));
+	}
 	r.setAllowedDomains(domainsAllowed);
+	
 	r.setMaxDepth(maxCrawlingDepth);
 	r.setRequestInterval(this.minRequestInterval);
 	r.setPageLimit(pageLimit);

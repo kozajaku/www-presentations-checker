@@ -51,12 +51,19 @@ public class CheckupManipulatorBean extends ProtectedBean {
 	}
 	
 	checkRequestReceiver.stopSpecificChecking(checkup.getIdCheckup());
-	
-	//this.addMessage(new FacesMessage(msg.getString("checkupManipulator.stopping_checkup_failed")));
-	//}
-	
+		
 	this.addMessage(new FacesMessage(msg.getString("checkupManipulator.stopping_checkup_successful")));
 	return "";
     }
+
+    public int getCheckupId() {
+	return checkupId;
+    }
+
+    public void setCheckupId(int checkupId) {
+	this.checkupId = checkupId;
+    }
+    
+    
     
 }

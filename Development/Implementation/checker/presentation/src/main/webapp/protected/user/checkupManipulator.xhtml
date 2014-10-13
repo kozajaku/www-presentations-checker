@@ -7,13 +7,16 @@
 
     <f:metadata>
         <f:viewAction action="#{checkupManipulatorBean.stopCheckup}"/>
+	<f:viewParam name="checkupId" value="#{checkupManipulatorBean.checkupId}"/>
     </f:metadata>
 
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
-
+    
             <ui:define name="content">
+		
+		<ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                 <h:link outcome="checkupList" value="#{func:translate(msg['navi.back'], msg['navi.checkup_list'])}" />
 

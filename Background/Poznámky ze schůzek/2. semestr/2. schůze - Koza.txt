@@ -1,0 +1,12 @@
+Poznámky z druhé schůze
+1) tvořit kvalitní dokumentaci
+  - špatný příklad JSF
+2) vytvořit konvence pro programování
+  - cílem je psát kvalitní, strukturovaný a komentovaný kód, který bude vypadat od všech členů stejně
+  - před koncem každé iterace by se to mělo zkontrolovat
+3) vypsat si přehled bodového hodnocení
+  - 1. iterace - 9 bodů
+4) vybrat kód, který budeme příště předvádět
+5) začít postupně tvořit dokumentaci
+  - nenechávat to na poslední chvíli
+  - zkusit si to alespoň průběžně vygenerovat z komentářů kódu
