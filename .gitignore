@@ -238,3 +238,4 @@ pip-log.txt
 /Development/Implementation/checker/tests/target/
 
 /Development/Model.ldb
+/Development/Implementation/checker/securityDomain/target/

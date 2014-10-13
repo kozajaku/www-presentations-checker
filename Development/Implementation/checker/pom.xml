@@ -36,7 +36,8 @@
         <module>webCrawler</module>
     <module>parser</module>
     <module>graphGenerator</module>
-  </modules>
+        <module>securityDomain</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
