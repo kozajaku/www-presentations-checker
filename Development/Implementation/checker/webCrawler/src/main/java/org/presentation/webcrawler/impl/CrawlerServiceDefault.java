@@ -67,7 +67,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             //byl node uz vytvoren?
             Node createdNode = visitedURLs.get(linkURL);
             if (createdNode != null) {
-                previousNode.addEdge(new Edge(createdNode, label, linkSourceType));
+                previousNode.addEdge(new Edge(createdNode, label, linkSourceType, false));
                 return foundPages;
             }
             ReceiverResponse receiverResponse;
@@ -115,7 +115,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 ValidNode node = new ValidNode(linkURL);
                 //spoj s grafem
                 if (previousNode != null) {
-                    previousNode.addEdge(new Edge(node, label, linkSourceType));
+                    previousNode.addEdge(new Edge(node, label, linkSourceType, true));
                 } else {
                     graph = new TraversalGraph(node);
                 }
@@ -131,7 +131,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                     if (visitedURLs.containsKey(foundURL)) {
                         //pridej hranu
                         //LOG.info("add edge (existing link)");
-                        Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType());
+                        Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType(), false);
                         node.addEdge(newEdge);
                     } else {
                         //pridej do fronty
@@ -144,7 +144,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 InvalidNode node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
                 //spoj s grafem
                 if (previousNode != null) {
-                    previousNode.addEdge(new Edge(node, label, linkSourceType));
+                    previousNode.addEdge(new Edge(node, label, linkSourceType, true));
                 } else {
                     graph = new TraversalGraph(node);
                 }

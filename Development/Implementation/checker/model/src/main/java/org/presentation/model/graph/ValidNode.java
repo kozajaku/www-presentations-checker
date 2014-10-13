@@ -30,4 +30,7 @@ public class ValidNode extends Node {
         return orientedEdges;
     }
 
+    public boolean isValid() {
+        return true;
+    }
 }
