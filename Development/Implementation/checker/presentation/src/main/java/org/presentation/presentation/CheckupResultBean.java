@@ -11,11 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.validation.constraints.NotNull;
 import org.presentation.model.logging.Message;
 import org.presentation.persistence.model.Checkup;
@@ -30,26 +32,24 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 @RequestScoped
 public class CheckupResultBean extends ProtectedBean {
 
-    @NotNull
-    protected int checkupId;
-    protected int checkupId2;
+    protected int checkupId = 0;
     
     protected List<String> messageResourcesAvailable;
     protected String[] messageResourcesAllowed;
     
     protected Checkup checkup;
     
-
-    public int getCheckupId() {
-	return checkupId;
-    }       
     
-    
-    public void showResult() throws UserAuthorizationException{
-	Checkup c = this.persistance.findCheckup(checkupId);		
-	User user;		
+    @PostConstruct
+    public void init() {
+	if(checkupId == 0) {
+	    Map<String, String> params =FacesContext.getCurrentInstance().
+                   getExternalContext().getRequestParameterMap();
+	    String pCheckupId = params.get("checkupId");
+	    if(pCheckupId != null) checkupId = Integer.parseInt(pCheckupId);
+	}
 	
-	this.checkupId2 = checkupId;
+	Checkup c = this.persistance.findCheckup(checkupId);		
 	
 	this.checkup = c;
 	
@@ -57,19 +57,28 @@ public class CheckupResultBean extends ProtectedBean {
 	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
 	    return;
 	}
-	
-	user = c.getUser();	
-	if(user == null || !user.equals(this.getLoggedUser())) {
-	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
-	    return;
-	}
-	
-	this.messageResourcesAvailable = this.persistance.findCheckupMessageResources(c);
-	
-	if(this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0 && !this.messageResourcesAvailable.containsAll(Arrays.asList(messageResourcesAllowed))) {
-	    this.messageResourcesAllowed = null;
-	    this.addMessage(new FacesMessage(msg.getString("checkupResult.resource_not_available")));
-	    return;	    
+		
+	this.messageResourcesAvailable = this.persistance.findCheckupMessageResources(c);	
+    }
+    
+    public int getCheckupId() {
+	return checkupId;
+    }          
+    
+    
+    public void showResult() throws UserAuthorizationException{	
+	if(this.checkup != null) {
+	    User user = this.checkup.getUser();	
+	    if(user == null || !user.equals(this.getLoggedUser())) {
+		this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
+		return;
+	    }
+
+	    if(this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0 && !this.messageResourcesAvailable.containsAll(Arrays.asList(messageResourcesAllowed))) {
+		this.messageResourcesAllowed = null;
+		this.addMessage(new FacesMessage(msg.getString("checkupResult.resource_not_available")));
+		return;	    
+	    }		
 	}
     }
 
@@ -105,7 +114,7 @@ public class CheckupResultBean extends ProtectedBean {
 		    resourcesAvailable.put(s, s);
 		}
 	    }
-	}
+	}	
 	
 	return resourcesAvailable;
     }    
@@ -116,14 +125,6 @@ public class CheckupResultBean extends ProtectedBean {
 
     public void setMessageResourcesAllowed(String[] messageResourcesAllowed) {
 	this.messageResourcesAllowed = messageResourcesAllowed;
-    }
-
-    public int getCheckupId2() {
-	return checkupId2;
-    }
-
-    public void setCheckupId2(int checkupId2) {
-	this.checkupId2 = checkupId2;
     }
     
     
