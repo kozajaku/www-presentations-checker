@@ -26,7 +26,11 @@
 				
                 <ui:fragment rendered="#{not empty checkupResultBean.checkup}">		    		    		    		    				    
 		    
-                    <c:choose>
+		    <h:link styleClass="btn btn-info" outcome="newCheckup" rendered="#{checkupResultBean.checkup.state.ended}" value="#{msg['checkupResult.act_retry_checkup']}">
+			<f:param name="checkupId" value="#{checkupResultBean.checkup.idCheckup}" />
+		    </h:link>	
+		    
+		    <c:choose>
                         <c:when test="#{empty checkupResultBean.messages}">
                             <h:outputLabel styleClass="alert alert-info" value="#{msg['checkupResult.no_messages']}" />
                         </c:when>

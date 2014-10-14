@@ -67,6 +67,7 @@ public class CheckupResultBean extends ProtectedBean {
 	    User user = this.checkup.getUser();	
 	    if(user == null || !user.equals(this.getLoggedUser())) {
 		this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
+		this.checkup = null;
 		return;
 	    }
 
