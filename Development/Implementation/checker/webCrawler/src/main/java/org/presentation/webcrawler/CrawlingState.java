@@ -1,6 +1,7 @@
 package org.presentation.webcrawler;
 
 /**
+ * This class represents state of crawling.
  * @author Adam Kugler
  * @version 1.0
  * @created 04-5-2014 20:56:23
@@ -14,12 +15,16 @@ public class CrawlingState {
             pagesCrawled = 0;
             done = false;
 	}
-
+        /**
+         * Sets done as true.
+         */
         public void done(){
             done = true;
         }
-        
-        public void incCount(){
+        /**
+         * Increase count of crawled pages.
+         */
+        public void incPagesCrawled(){
             pagesCrawled++;
         }
         

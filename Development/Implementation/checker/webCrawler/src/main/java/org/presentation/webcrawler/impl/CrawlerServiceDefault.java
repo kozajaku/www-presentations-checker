@@ -53,6 +53,17 @@ public class CrawlerServiceDefault implements CrawlerService {
         private final LinkURL linkURL;
         private final int depthFromRoot;
 
+        /**
+         * This class helps crawled to crawl the web and to create traversal
+         * graph.
+         *
+         * @param label Name of link that points to page
+         * @param linkSourceType Type of link source
+         * @param previousNode Node from which was the page found.
+         * @param linkURL URL of page
+         * @param depthFromRoot How long is link connection (number of links)
+         * between root page and this page
+         */
         public WebPage(String label, LinkSourceType linkSourceType, ValidNode previousNode, LinkURL linkURL, int depthFromRoot) {
             this.label = label;
             this.linkSourceType = linkSourceType;
@@ -61,6 +72,12 @@ public class CrawlerServiceDefault implements CrawlerService {
             this.depthFromRoot = depthFromRoot;
         }
 
+        /**
+         * This method checks if page is available, sends it to further process
+         * and gets new links from it.
+         *
+         * @return List of newly found web pages (links).
+         */
         public List<WebPage> browseWebPage() {
             List<WebPage> foundPages = new ArrayList<>();
             foundPages.clear();
@@ -71,10 +88,10 @@ public class CrawlerServiceDefault implements CrawlerService {
                 return foundPages;
             }
             ReceiverResponse receiverResponse;
-            //podminky zastaveni
+            //stop conditions
 //            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
-                //nestahuj stranku
+                //check page
                 LOG.info("just check page (HEAD)");
                 try {
                     LOG.log(Level.INFO, "sleep for 100 ms");
@@ -86,13 +103,12 @@ public class CrawlerServiceDefault implements CrawlerService {
                     receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
-                    //posli zpravu o chybe
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
                 }
             } else {
-                //stahni stranku
-                crawlingState.incCount();
+                //receive page
+                crawlingState.incPagesCrawled();
                 LOG.log(Level.INFO, "get page {0}(GET)", crawlingState.getPagesCrawled());
                 try {
                     LOG.log(Level.INFO, "sleep for {0} ms", requestTimeout);
@@ -104,16 +120,15 @@ public class CrawlerServiceDefault implements CrawlerService {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
-                    //posli zpravu o chybe
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
                 }
             }
-            //vytvor node
+            //create node
             if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
                 LOG.info("create valid node");
                 ValidNode node = new ValidNode(linkURL);
-                //spoj s grafem
+                //connect with graph
                 if (previousNode != null) {
                     previousNode.addEdge(new Edge(node, label, linkSourceType, true));
                 } else {
@@ -121,20 +136,22 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
                 visitedURLs.put(linkURL, node);
                 sendValidLinkMsg(linkURL);
-                //najdi dalsi odkazy
+                //send page to further process
+                observer.processOnePage(linkURL, receiverResponse.getSourceCode(), receiverResponse.getContentType());
+                //find links in page
                 List<ParsedLinkResponse> foundLinks;
                 LOG.info("get links from page");
                 foundLinks = getLinksFromPage(receiverResponse, linkURL);
-                //over jestli stranka existuje
+                //check if link was already found
                 for (ParsedLinkResponse foundLink : foundLinks) {
                     LinkURL foundURL = foundLink.getLink();
                     if (visitedURLs.containsKey(foundURL)) {
-                        //pridej hranu
+                        //add edge
                         //LOG.info("add edge (existing link)");
                         Edge newEdge = new Edge(visitedURLs.get(foundURL), foundLink.getLabel(), foundLink.getSourceType(), false);
                         node.addEdge(newEdge);
                     } else {
-                        //pridej do fronty
+                        //add to queue
                         //LOG.info("add to queue (new link)");
                         foundPages.add(new WebPage(foundLink.getLabel(), foundLink.getSourceType(), node, foundURL, depthFromRoot + 1));
                     }
@@ -142,7 +159,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             } else {
                 LOG.info("create invalid node");
                 InvalidNode node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
-                //spoj s grafem
+                //connect with graph
                 if (previousNode != null) {
                     previousNode.addEdge(new Edge(node, label, linkSourceType, true));
                 } else {
@@ -154,6 +171,11 @@ public class CrawlerServiceDefault implements CrawlerService {
             return foundPages;
         }
 
+        /**
+         * Decides if page is over allowed depth.
+         *
+         * @return True if page is over allowed depth.
+         */
         public boolean isOverMaximalDepth() {
             //LOG.info("is over maximal depth?");
             if (depthFromRoot > maximalDepth) {
@@ -165,6 +187,11 @@ public class CrawlerServiceDefault implements CrawlerService {
             return false;
         }
 
+        /**
+         * Decides if page limit has been reached.
+         *
+         * @return True if page limit has been reached.
+         */
         public boolean isOverPageLimit() {
             //LOG.info("is over page limit?");
             if (crawlingState.getPagesCrawled() >= pageLimit) {
@@ -184,7 +211,7 @@ public class CrawlerServiceDefault implements CrawlerService {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
     private MessageLogger messageLogger;
-    //private PageCrawlingObserver observer;
+    private PageCrawlingObserver observer;
     private TraversalGraph graph;
     private List<Domain> allowedDomains;
     private int maximalDepth;
@@ -204,30 +231,18 @@ public class CrawlerServiceDefault implements CrawlerService {
 
     private Map<LinkURL, Node> visitedURLs;
 
-    /**
-     *
-     * @param container
-     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer container) {
         messageLogger = container.createLogger("Web crawler");
         pageReceiver.offerMsgLoggerContainer(container);
     }
 
-    /**
-     *
-     * @param url
-     * @param maximalDepth
-     * @param observer Observer object, into which the CrawlerService
-     * implementation will send its results.
-     * @param allowedDomains
-     */
     @Override
     public void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders) {
         LOG.info("startBrowsing");
         this.maximalDepth = maximalDepth;
         this.pageLimit = pageLimit;
-        //this.observer = observer;
+        this.observer = observer;
         this.allowedDomains = allowedDomains;
         this.requestTimeout = requestTimeout;
         this.headers = addHeaders;
@@ -255,7 +270,13 @@ public class CrawlerServiceDefault implements CrawlerService {
         observer.crawlingDone(graph, completeCrawlingState);
     }
 
-    //dostan vsechny odkazy ze stranky
+    /**
+     * Gets all links from page using HTML and CSS parsers.
+     *
+     * @param response A result from page receiver
+     * @param baseURL An absolute URL of page
+     * @return
+     */
     private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response, LinkURL baseURL) {
         if (response.getContentType().getContentType().equals("text/css")) {
             LOG.info("CSS parse");
@@ -269,6 +290,11 @@ public class CrawlerServiceDefault implements CrawlerService {
         return new ArrayList<>();
     }
 
+    /**
+     * Sends message about valid link to message logger.
+     *
+     * @param url Location of valid link
+     */
     private void sendValidLinkMsg(LinkURL url) {
         InfoMsg infoMsg = new InfoMsg();
         infoMsg.setMessage("valid link");
@@ -276,6 +302,12 @@ public class CrawlerServiceDefault implements CrawlerService {
         messageLogger.addMessage(infoMsg);
     }
 
+    /**
+     * Sends message about invalid link to message logger.
+     *
+     * @param url Location of invalid link
+     * @param errorCode Code of error (HTTP)
+     */
     private void sendInvalidLinkMsg(LinkURL url, ErrorCode errorCode) {
         InvalidLinkMsg invalidLinkMsg = new InvalidLinkMsg();
         invalidLinkMsg.setMessage("invalid link");
@@ -284,6 +316,12 @@ public class CrawlerServiceDefault implements CrawlerService {
         messageLogger.addMessage(invalidLinkMsg);
     }
 
+    /**
+     * Sends error message to message logger.
+     *
+     * @param url Location of error
+     * @param error Message about error
+     */
     private void sendErrorMsg(LinkURL url, String error) {
         ErrorMsg errorMsg = new ErrorMsg();
         errorMsg.setMessage(error);
@@ -291,13 +329,18 @@ public class CrawlerServiceDefault implements CrawlerService {
         messageLogger.addMessage(errorMsg);
     }
 
+    /**
+     * Decides if URL is included in allowed domain list.
+     *
+     * @param url URL that is checked
+     * @return True if url is allowed.
+     */
     private boolean isAllowedURL(LinkURL url) {
-        //vraci true pokud domena URL spada pod nekterou z povolenych domen
         //LOG.log(Level.INFO, "is allowed URL? {0}", url.getUrl());
         String link = url.getUrl();
         String[] parts = link.split("/");
         String domainURL = parts[2];
-        //odsekni port
+        //cut port
         domainURL = domainURL.split(":")[0];
         for (Domain allowedDomain : allowedDomains) {
             String domain = allowedDomain.getDomain();

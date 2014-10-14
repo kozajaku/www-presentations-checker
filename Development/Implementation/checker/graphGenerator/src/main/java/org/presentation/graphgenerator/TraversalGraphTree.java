@@ -12,6 +12,10 @@ package org.presentation.graphgenerator;
 public class TraversalGraphTree extends GraphResult{
     private final String tagTree;
 
+    /**
+     *
+     * @param tagTree Tag tree created by graph text generator
+     */
     public TraversalGraphTree(String tagTree) {
         this.tagTree = tagTree;
     }

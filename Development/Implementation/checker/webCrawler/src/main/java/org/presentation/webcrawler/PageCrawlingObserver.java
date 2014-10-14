@@ -11,16 +11,16 @@ import org.presentation.model.PageContent;
  */
 public interface PageCrawlingObserver{
 	/**
-	 * 
-	 * @param pageUrl
-	 * @param pageSourceCode    Source code of the received document.
+	 * This method schould be called when crawled finds new page to process.
+	 * @param pageUrl an absolute URL of page
+	 * @param pageSourceCode    Source code of the received document
 	 * @param contentType    For example: text/css, text/html, ...
 	 */
 	public abstract void processOnePage(LinkURL pageUrl, PageContent pageSourceCode, ContentType contentType);
 
 	/**
-	 * 
-	 * @param traversalGraph
+	 * This method schould be called when web crawler is done with crawling. 
+	 * @param traversalGraph Graph created by crawler
 	 * @param crawlingState    State of the finished web crawler (error occured, ended
 	 * by page depth, ...)
 	 */
