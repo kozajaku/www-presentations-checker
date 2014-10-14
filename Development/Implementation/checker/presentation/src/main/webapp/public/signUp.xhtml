@@ -9,13 +9,13 @@
 
             <ui:define name="content">
                 <hr />
-                <h:form styleClass="form-horizontal col-sm-6" role="form">
+                <h:form styleClass="form-horizontal col-sm-8" role="form">
 
                     <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-2 control-label" value="#{msg['signUp.email']}:" />
-                        <div class="col-sm-10">
+                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.email']}:" />
+                        <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{signupBean.email}" label="#{msg['signUp.email']}" validatorMessage="#{msg['validation.email_bf']}">
                                 <f:ajax rendered="false" event="valueChange" execute="userNo" render="result" />
                             </h:inputText>	
@@ -23,22 +23,29 @@
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-2 control-label" value="#{msg['signUp.password']}:" />
-                        <div class="col-sm-10">
+                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.password']}:" />
+                        <div class="col-sm-8">
                             <h:inputSecret styleClass="form-control" value="#{signupBean.password}" label="#{msg['signUp.password']}" />
+                        </div>
+                    </div>
+		    
+		    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.password_verify']}:" />
+                        <div class="col-sm-8">
+                            <h:inputSecret styleClass="form-control" value="#{signupBean.passwordVerification}" label="#{msg['signUp.password_verify']}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-2 control-label" value="#{msg['signUp.name']}:" />
-                        <div class="col-sm-10">
+                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.name']}:" />
+                        <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{signupBean.name}" label="#{msg['signUp.name']}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-2 control-label" value="#{msg['signUp.surname']}:" />
-                        <div class="col-sm-10">
+                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.surname']}:" />
+                        <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{signupBean.surname}" label="#{msg['signUp.surname']}" />
                         </div>
                     </div>

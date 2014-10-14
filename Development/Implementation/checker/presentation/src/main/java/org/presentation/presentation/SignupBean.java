@@ -5,6 +5,7 @@
  */
 package org.presentation.presentation;
 
+import java.text.MessageFormat;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -29,6 +30,10 @@ public class SignupBean extends CommonBean {
     @ValidPassword
     private String password;
     
+    @NotNull
+    @ValidPassword
+    private String passwordVerification;
+    
     @Size(min=2)
     @NotNull
     private String name;
@@ -38,6 +43,16 @@ public class SignupBean extends CommonBean {
     private String surname;
     
     public String signUp() throws Exception{		
+	
+	if(persistance.findUser(email) != null) {
+	    this.addMessage(new FacesMessage(MessageFormat.format(this.msg.getString("signUp.account_already_exists"), email)));
+	    return "";	    
+	}
+	
+	if(!this.password.equals(this.passwordVerification)) {
+	    this.addMessage(new FacesMessage(this.msg.getString("signUp.password_verification_mismatch")));
+	    return "";
+	}
 	
 	if(persistance.createNewUser(email, password, name, surname) == true) {
 	    // todo the login procedure automatically
@@ -80,6 +95,14 @@ public class SignupBean extends CommonBean {
 
     public void setSurname(String surname) {
 	this.surname = surname;
+    }
+
+    public String getPasswordVerification() {
+	return passwordVerification;
+    }
+
+    public void setPasswordVerification(String passwordVerification) {
+	this.passwordVerification = passwordVerification;
     }
     
     
