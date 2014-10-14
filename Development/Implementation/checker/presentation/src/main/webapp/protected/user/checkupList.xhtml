@@ -62,7 +62,7 @@
 
                     <h:column>
                         <f:facet name="header">#{msg['checkupList.col_actions']}</f:facet>
-                        <div class="btn-group btn-group-sm">
+                        <div class="buttons btn-group-sm">
                             <h:link styleClass="btn btn-danger" outcome="checkupManipulator" rendered="#{o.ch.state == 'CHECKING'}" value="#{msg['checkupList.act_stop']}">
                                 <f:param name="checkupId" value="#{o.ch.idCheckup}" />
                             </h:link>				

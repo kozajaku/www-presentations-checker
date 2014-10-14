@@ -1,7 +1,6 @@
 package org.presentation.parser.impl;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -26,10 +25,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
         @Inject
         @SuppressWarnings("NonConstantLogger")
         private Logger LOG;
-	/**
-	 * 
-	 * @param sourceCode
-	 */
+        
         @Override
 	public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL){
             LOG.info("parsing started");
@@ -78,6 +74,11 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             LOG.info("parsing finished");
             return parsedLinks;
 	}
+        /**
+         * Removes # and everything behing it in URL.
+         * @param url an URL with #...
+         * @return an URL without #...
+         */
         private String removeHashFromURL(String url) {
             return url.split("#")[0];
         }

@@ -3,23 +3,30 @@ import org.presentation.model.LinkURL;
 import org.presentation.model.graph.LinkSourceType;
 
 /**
+ * This class represents response from link parsers.
  * @author Adam Kugler
  * @version 1.0
  */
 public class ParsedLinkResponse {
 
-	private final LinkURL destination;
+	private final LinkURL link;
 	private final LinkSourceType sourceType;
 	private final String label;
 
-    public ParsedLinkResponse(LinkURL destination, LinkSourceType sourceType, String label) {
-        this.destination = destination;
+    /**
+     * 
+     * @param link URL
+     * @param sourceType type of link source
+     * @param label label which represents link
+     */
+    public ParsedLinkResponse(LinkURL link, LinkSourceType sourceType, String label) {
+        this.link = link;
         this.sourceType = sourceType;
         this.label = label;
     }
 
-    public LinkURL getDestination() {
-        return destination;
+    public LinkURL getLink() {
+        return link;
     }
 
     public LinkSourceType getSourceType() {

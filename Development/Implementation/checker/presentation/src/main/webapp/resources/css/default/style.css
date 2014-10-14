@@ -53,6 +53,16 @@ ul {
 .alert-info {
     display: block;
 }
-.checkup-table tr td:last-child {
-    width: 300px;
+.padding {
+    padding-left: 40px;
+}
+.buttons {
+    text-align: left;
+}
+.buttons a {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.buttons a:last-child {
+    margin-bottom: 0;
 }

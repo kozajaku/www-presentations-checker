@@ -17,16 +17,16 @@ import org.presentation.model.logging.MessageProducer;
 public interface CrawlerService extends MessageProducer, Stoppable {
 
     /**
-     *
-     * @param url
-     * @param maximalDepth
-     * @param pageLimit
+     * Starts browsing. Sends messages about valid/invalid links. Modifies crawling state. 
+     * @param url starting URL
+     * @param maximalDepth Crawling depth which schould not be overrun.
+     * @param pageLimit Number of fully crawled pages which schould not be overrun.
      * @param observer Observer object, into which the CrawlerService
      * implementation will send its results.
      * @param addHeaders Additional headers which are going to be used during fetching
      * pages from remote web server.
-     * @param requestTimeout
-     * @param allowedDomains
+     * @param requestTimeout Time between individual get requests.
+     * @param allowedDomains List of allowed domains on that can crawler continue in his job. Link from other domain will be just checked.
      */
     void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders);
 

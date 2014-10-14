@@ -6,16 +6,28 @@ package org.presentation.webcrawler;
  * @created 04-5-2014 20:56:23
  */
 public enum CompleteCrawlingState {
-	ENDED_BY_DEPTH,
+	/**
+         * Maximal depth reached.
+         */
+        ENDED_BY_DEPTH,
+        /**
+         * Page limit reached.
+         */
 	ENDED_BY_PAGE_LIMIT,
+        /**
+         * User stopped control.
+         */
 	STOPPED_BY_USER,
 	/**
-	 * Error in web crawling (server disconnected, etc...)
+	 * Error in web crawling (server disconnected, etc...).
 	 */
 	ERROR,
 	/**
 	 * Unknown web crawler completion state - should not be used.
 	 */
 	UNKNOWN,
+        /**
+         * Web was completely crawled.
+         */
         WEB_CRAWLED
 }
