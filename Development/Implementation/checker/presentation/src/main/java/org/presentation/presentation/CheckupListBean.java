@@ -30,7 +30,7 @@ public class CheckupListBean extends ProtectedBean {
 	
 	for(Checkup checkup: checkups) {
 	    checkup.setOptionList(persistance.findCheckupOptions(checkup));
-	    
+
 	    checkupList.add(new CheckupEnvelope(
 		checkup,
 		persistance.findCheckupDomains(checkup),

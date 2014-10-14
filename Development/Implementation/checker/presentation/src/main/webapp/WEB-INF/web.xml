@@ -20,7 +20,8 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>public/index.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
+	<welcome-file>public/index.xhtml</welcome-file>
     </welcome-file-list>
     
     <!-- to be enabled later -->    

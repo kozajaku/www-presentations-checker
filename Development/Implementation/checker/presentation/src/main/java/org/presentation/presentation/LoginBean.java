@@ -66,10 +66,12 @@ public class LoginBean extends CommonBean {
 	HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 	try {
 	    request.logout();
-	    Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+	    context.getExternalContext().invalidateSession();
+	    /*
+	    Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();	   
 	    if(sessionMap != null) {
 		sessionMap.clear();
-	    }
+	    }*/
 	} catch (ServletException e) {
 	    this.addMessage(new FacesMessage(msg.getString("login.logout_fail_message")));
 	    return "";

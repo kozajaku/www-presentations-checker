@@ -5,20 +5,16 @@
  */
 package org.presentation.presentation;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ConversationScoped;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.validation.constraints.NotNull;
 import org.presentation.model.logging.Message;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.User;
@@ -84,12 +80,15 @@ public class CheckupResultBean extends ProtectedBean {
 
     
     public List<Message> getMessages() throws UserAuthorizationException {
+	if(this.checkup == null) return null;
+	
 	if(this.messageResourcesAllowed == null || this.messageResourcesAllowed.length == 0) {
-	    return this.checkup == null ? null : this.persistance.findCheckupMessages(this.checkup);
+	    return this.persistance.findCheckupMessages(this.checkup);
 	} else {
-	    return this.checkup == null ? null : this.persistance.findCheckupMessages(this.checkup);
+	   // return this.checkup == null ? null : this.persistance.findCheckupMessages(this.checkup);
+	    
 	    // todo - fetch only checkups with desired resources
-	    //this.persistance.findCheckupMessagesWithResource(checkup, null)
+	    return this.persistance.findCheckupMessagesWithResource(checkup, this.messageResourcesAllowed[0]);
 	}
     }
 

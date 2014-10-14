@@ -7,18 +7,10 @@
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
 
-            <ui:define name="content">
-
-                <!-- TODO navigation -->
-
-                <!--<p>Blah blah blah, blah blah</p>-->
-
-                <hr />
-                <div class="btn-group">
-                    <h:link styleClass="btn btn-primary" outcome="/public/login" value="#{msg['navi.log_in']}" />
-                    <h:link styleClass="btn btn-primary" outcome="/public/signUp" value="#{msg['navi.sign_up']}" />
-                </div>
-
+	    <ui:define name="subheader">
+                <h2>
+                    <h:outputLabel value="#{msg['index.caption']}" />
+                </h2>
             </ui:define>
 
         </ui:composition>
