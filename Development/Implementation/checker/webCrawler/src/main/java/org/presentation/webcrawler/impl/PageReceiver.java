@@ -7,19 +7,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import java.net.HttpURLConnection;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import org.presentation.model.ContentType;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
@@ -45,6 +41,7 @@ public class PageReceiver implements MessageProducer {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
     private MessageLogger messageLogger;
+    private final Set<String> hostnames = new HashSet<>();
 
     /**
      * Defining constants.
@@ -57,55 +54,6 @@ public class PageReceiver implements MessageProducer {
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         messageLogger = messageLoggerContainer.createLogger("Page Receiver");
-    }
-
-    /**
-     * Constructor, where is certificate handling redifined
-     */
-    public PageReceiver() {
-        try {
-            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-                @Override
-                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                    return null;
-                }
-
-                @Override
-                public void checkClientTrusted(X509Certificate[] certs, String authType) {
-                }
-
-                @Override
-                public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                }
-            }
-            };
-
-            // Install the all-trusting trust manager
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-
-            // Create all-trusting host name verifier
-            final HostnameVerifier ver = HttpsURLConnection.getDefaultHostnameVerifier();
-            HostnameVerifier allHostsValid = new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    if (!ver.verify(hostname, session)) {
-                        LOG.warning("Invalid certificate");
-                        WarningMsg mes = new WarningMsg();
-                        mes.setMessage("Invalid certificate");
-                        mes.setPage(new LinkURL("https://" + hostname));
-                        messageLogger.addMessage(mes);
-                    }
-                    return true;
-                }
-            };
-
-            // Install the all-trusting host verifier
-            HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-        } catch (NoSuchAlgorithmException | KeyManagementException ex) {
-            LOG.log(Level.WARNING, "Redefining of handling certificates failed: {0}", ex.getMessage());
-        }
     }
 
     /**
@@ -158,6 +106,33 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
+     * Sets our own certificate verification, which allows to go through any
+     * certificate, but invalid certificate sends warning message.
+     *
+     * @param connection
+     */
+    private void setHostnameVerifier(HttpsURLConnection connection) {
+        final HostnameVerifier ver = connection.getHostnameVerifier();
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                if (!ver.verify(hostname, session)) {
+                    if (!hostnames.contains(hostname)) {
+                        LOG.log(Level.WARNING, "Invalid SSL certificate on domain https://{0}", hostname);
+                        WarningMsg mes = new WarningMsg();
+                        mes.setMessage("Invalid certificate");
+                        mes.setPage(new LinkURL("https://" + hostname));
+                        messageLogger.addMessage(mes);
+                        hostnames.add(hostname);
+                    }
+                }
+                return true;
+            }
+        };
+        connection.setHostnameVerifier(allHostsValid);
+    }
+
+    /**
      * Sends request to server.
      *
      * @param linkURL
@@ -180,6 +155,7 @@ public class PageReceiver implements MessageProducer {
             }
             case HTTPS: {
                 connection = (HttpsURLConnection) url.openConnection();
+                setHostnameVerifier((HttpsURLConnection) connection);
                 LOG.info("Created HTTPS connection.");
                 break;
             }
