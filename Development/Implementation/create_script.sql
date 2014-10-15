@@ -59,7 +59,7 @@ CREATE TABLE `graph`
 (
 	`id_graph` INTEGER NOT NULL AUTO_INCREMENT,
 	`output` MEDIUMTEXT NOT NULL,
-    `graph_type` VARCHAR(20) NOT NULL,
+    `graph_type` VARCHAR(50) NOT NULL,
 	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id_graph`),
 	KEY (`checkup`)

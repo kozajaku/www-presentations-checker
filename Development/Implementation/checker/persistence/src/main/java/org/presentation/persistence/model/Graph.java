@@ -42,7 +42,7 @@ public class Graph implements Serializable {
     @Column(name = "\"output\"")
     @Lob
     private String output;
-    @Column(name = "graph_type", length = 20)
+    @Column(name = "graph_type", length = 50)
     @Basic(optional = false)
     private String graphType;
     @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
