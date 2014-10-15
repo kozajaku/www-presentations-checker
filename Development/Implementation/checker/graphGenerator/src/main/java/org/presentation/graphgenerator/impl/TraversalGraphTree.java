@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.presentation.graphgenerator;
+package org.presentation.graphgenerator.impl;
+
+import org.presentation.graphgenerator.GraphResult;
 
 /**
  * This class represents traversal graph tree by using HTML tags as nested

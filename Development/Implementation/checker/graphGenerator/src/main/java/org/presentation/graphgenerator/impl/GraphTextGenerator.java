@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.presentation.graphgenerator;
+package org.presentation.graphgenerator.impl;
 
+import javax.enterprise.context.Dependent;
+import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.graph.Edge;
 import org.presentation.model.graph.InvalidNode;
 import org.presentation.model.graph.Node;
@@ -16,6 +18,7 @@ import org.presentation.model.graph.ValidNode;
  *
  * @author Adam Kugler
  */
+@Dependent
 public class GraphTextGenerator extends GraphGenerator {
 
     @Override

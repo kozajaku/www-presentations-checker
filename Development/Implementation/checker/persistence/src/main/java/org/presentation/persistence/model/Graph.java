@@ -27,8 +27,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Graph.findAll", query = "SELECT g FROM Graph g"),
-    @NamedQuery(name = "Graph.findByCheckupId", query = "SELECT g FROM Graph g WHERE g.checkup.idCheckup = :checkupId")
-})
+    @NamedQuery(name = "Graph.findByCheckupId", query = "SELECT g FROM Graph g WHERE g.checkup.idCheckup = :checkupId"),
+    @NamedQuery(name = "Graph.listGraphTypes", query = "SELECT DISTINCT g.graphType FROM Graph g WHERE g.checkup.idCheckup = :checkupId"),
+    @NamedQuery(name = "Graph.findGraphByGraphType", query = "SELECT g FROM Graph g WHERE g.checkup.idCheckup = :checkupId AND g.graphType = :graphType")})
 public class Graph implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +42,9 @@ public class Graph implements Serializable {
     @Column(name = "\"output\"")
     @Lob
     private String output;
+    @Column(name = "graph_type", length = 20)
+    @Basic(optional = false)
+    private String graphType;
     @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
     private Checkup checkup;
@@ -81,6 +85,14 @@ public class Graph implements Serializable {
         this.checkup = checkup;
     }
 
+    public String getGraphType() {
+        return graphType;
+    }
+
+    public void setGraphType(String graphType) {
+        this.graphType = graphType;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -103,16 +115,6 @@ public class Graph implements Serializable {
     @Override
     public String toString() {
         return "Graph{" + "idGraph=" + idGraph + ", output=" + output + ", checkup=" + checkup + '}';
-    }
-
-    public static String convert(Graph graph) {
-        return graph.getOutput();
-    }
-
-    public static Graph convert(String source) {
-        Graph g = new Graph();
-        g.setOutput(source);
-        return g;
     }
 
 }

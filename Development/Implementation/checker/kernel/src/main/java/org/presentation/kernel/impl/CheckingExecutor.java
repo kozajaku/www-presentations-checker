@@ -71,7 +71,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             //persist results to database
             MsgReport report = messageLoggerContainer.generateMsgReport();
             for (Map.Entry<String, List<Message>> i : report.getMsgGroups().entrySet()) {
-                persistenceFacade.addMessagesToDomain(checkup, i.getValue(), i.getKey());
+                persistenceFacade.addMessagesToCheckup(checkup, i.getValue(), i.getKey());
             }
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, null, ex);

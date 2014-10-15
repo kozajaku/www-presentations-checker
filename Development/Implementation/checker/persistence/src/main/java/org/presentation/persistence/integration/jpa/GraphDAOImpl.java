@@ -26,4 +26,23 @@ public class GraphDAOImpl extends AbstractDAOImpl implements GraphDAO {
         return q.getResultList();
     }
 
+    @Override
+    public List<String> listGraphTypes(Integer checkupId) {
+        TypedQuery<String> q = getEntityManager().createNamedQuery("Graph.listGraphTypes", String.class);
+        q.setParameter("checkupId", checkupId);
+        return q.getResultList();
+    }
+
+    @Override
+    public Graph findGraphByGraphType(Integer checkupId, String graphTypeId) {
+        TypedQuery<Graph> q = getEntityManager().createNamedQuery("Graph.findGraphByGraphType", Graph.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("graphType", graphTypeId);
+        List<Graph> results = q.getResultList();
+        if (results == null || results.isEmpty()){
+            return null;
+        }
+        return results.get(0);
+    }
+
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.presentation.graphgenerator;
+package org.presentation.graphgenerator.impl;
 
 /**
  *
  * @author Adam Kugler
  */
-public class GraphvizUtils {
+public class SVGImage {
     
 }

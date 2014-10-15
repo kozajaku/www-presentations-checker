@@ -8,6 +8,7 @@ import org.presentation.persistence.model.User;
 import org.presentation.model.Header;
 import org.presentation.model.logging.Message;
 import org.presentation.persistence.model.ChosenOption;
+import org.presentation.persistence.model.Graph;
 
 /**
  *
@@ -61,12 +62,16 @@ public interface PersistenceFacade {
     List<Domain> findCheckupDomains(Checkup checkup);
 
     //graph
-    void addGraphsToDomain(Checkup checkup, List<String> graphSources);
+    void addGraphsToCheckup(Checkup checkup, List<Graph> graphs);
 
-    List<String> findCheckupGraphs(Checkup checkup);
+    List<Graph> findCheckupGraphs(Checkup checkup);
+    
+    List<String> listGraphTypes(Checkup checkup);
+    
+    Graph findGraphByGraphType(Checkup checkup, String graphType);
 
     //message
-    void addMessagesToDomain(Checkup checkup, List<Message> messages, String resource);
+    void addMessagesToCheckup(Checkup checkup, List<Message> messages, String resource);
 
     List<Message> findCheckupMessages(Checkup checkup);
     

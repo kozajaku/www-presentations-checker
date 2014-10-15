@@ -269,7 +269,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     }
 
     @Override
-    public void addGraphsToDomain(Checkup checkup, List<String> graphSources) {
+    public void addGraphsToCheckup(Checkup checkup, List<Graph> graphs) {
         //at first find managed version of checkup
         Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
         if (tmp == null) {
@@ -277,26 +277,30 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
             tmp = checkup;
             checkupDAO.create(checkup);
         }
-        //convert graphs to its entity mapping alternative
-        for (String i : graphSources) {
-            Graph g = Graph.convert(i);
-            g.setCheckup(tmp);
-            graphDAO.create(g);
-        }
-    }
-
-    @Override
-    public List<String> findCheckupGraphs(Checkup checkup) {
-        List<Graph> graphs = graphDAO.findAllCheckGraphs(checkup.getIdCheckup());
-        List<String> sources = new ArrayList<>(graphs.size());
+        //persist graphs to database
         for (Graph i : graphs) {
-            sources.add(Graph.convert(i));
+            i.setCheckup(checkup);
+            graphDAO.create(i);
         }
-        return sources;
     }
 
     @Override
-    public void addMessagesToDomain(Checkup checkup, List<Message> messages, String resource) {
+    public List<Graph> findCheckupGraphs(Checkup checkup) {
+        return graphDAO.findAllCheckGraphs(checkup.getIdCheckup());
+    }
+
+    @Override
+    public List<String> listGraphTypes(Checkup checkup){
+        return graphDAO.listGraphTypes(checkup.getIdCheckup());
+    }
+    
+    @Override
+    public Graph findGraphByGraphType(Checkup checkup, String graphType){
+        return graphDAO.findGraphByGraphType(checkup.getIdCheckup(), graphType);
+    }
+    
+    @Override
+    public void addMessagesToCheckup(Checkup checkup, List<Message> messages, String resource) {
         //at first find managed version of checkup
         Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
         if (tmp == null) {

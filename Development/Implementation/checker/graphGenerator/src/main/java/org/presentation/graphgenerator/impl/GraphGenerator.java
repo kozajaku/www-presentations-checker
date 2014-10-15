@@ -1,5 +1,6 @@
-package org.presentation.graphgenerator;
+package org.presentation.graphgenerator.impl;
 
+import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
