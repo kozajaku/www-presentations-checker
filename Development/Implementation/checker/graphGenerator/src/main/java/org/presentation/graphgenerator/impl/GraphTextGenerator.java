@@ -64,12 +64,14 @@ public class GraphTextGenerator extends GraphGenerator {
      */
     private void writeValidNode(StringBuilder tree, ValidNode node) {
         tree.append("V ").append(node.getUrl().getUrl());
-        tree.append("<ul>");
-        for (Edge orientedEdge : node.getOrientedEdges()) {
-            if (orientedEdge.isTreeEdge()) {
-                writeNode(tree, orientedEdge.getNode());
+        if (node.getOrientedEdges().size() > 0) {
+            tree.append("<ul>");
+            for (Edge orientedEdge : node.getOrientedEdges()) {
+                if (orientedEdge.isTreeEdge()) {
+                    writeNode(tree, orientedEdge.getNode());
+                }
             }
+            tree.append("<\\ul>");
         }
-        tree.append("<\\ul>");
     }
 }
