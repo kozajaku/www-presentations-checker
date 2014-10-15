@@ -13,9 +13,10 @@ import org.presentation.model.graph.ValidNode;
 
 /**
  * This class generates graph as text.
+ *
  * @author Adam Kugler
  */
-public class GraphTextGenerator extends GraphGenerator{
+public class GraphTextGenerator extends GraphGenerator {
 
     @Override
     public GraphResult generateGraphResult(TraversalGraph graph) {
@@ -25,30 +26,36 @@ public class GraphTextGenerator extends GraphGenerator{
         tree.append("<\\ul>");
         return new TraversalGraphTree(tree.toString());
     }
+
     /**
      * This method appends text form of node to currently created graph.
+     *
      * @param tree Currently created text tree of graph
      * @param node New node to append
      */
     private void writeNode(StringBuilder tree, Node node) {
         tree.append("<li>");
         if (node.isValid()) {
-            writeValidNode(tree, (ValidNode)node);
+            writeValidNode(tree, (ValidNode) node);
         } else {
-            writeInvalidNode(tree, (InvalidNode)node);
+            writeInvalidNode(tree, (InvalidNode) node);
         }
         tree.append("<\\li>");
     }
+
     /**
      * This method appends text form of invalid node to currently created graph.
+     *
      * @param tree Currently created text tree of graph
      * @param node New invalid node to append
      */
     private void writeInvalidNode(StringBuilder tree, InvalidNode node) {
         tree.append("X ").append(node.getErrorCode().getCode().toString()).append(" ").append(node.getUrl().getUrl());
     }
+
     /**
      * This method appends text form of valid node to currently created graph.
+     *
      * @param tree Currently created text tree of graph
      * @param node New valid node to append
      */

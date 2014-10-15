@@ -2,10 +2,12 @@ package org.presentation.model.graph;
 
 /**
  * This class represents source of link
+ *
  * @author Adam Kugler
  * @version 1.0
  */
 public enum LinkSourceType {
+
     /**
      * Link from &lta href=...&gt.
      */

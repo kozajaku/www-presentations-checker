@@ -6,6 +6,7 @@ import org.presentation.model.LinkURL;
 
 /**
  * This class represents valid node in link graph.
+ *
  * @author Adam Kugler
  * @version 1.0
  */
@@ -25,6 +26,7 @@ public class ValidNode extends Node {
 
     /**
      * Adds new edge from this node.
+     *
      * @param edge new edge which goes from this node
      */
     public void addEdge(Edge edge) {

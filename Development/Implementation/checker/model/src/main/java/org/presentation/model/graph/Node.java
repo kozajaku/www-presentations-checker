@@ -4,10 +4,12 @@ import org.presentation.model.LinkURL;
 
 /**
  * This class represents node in link graph.
+ *
  * @author Adam Kugler
  * @version 1.0
  */
 public abstract class Node {
+
     /**
      * An absolute URL which is represented by node.
      */
@@ -16,9 +18,10 @@ public abstract class Node {
      * How many edges goes to node.
      */
     protected int inputDegree;
-    
+
     /**
      * Says if node is valid or not.
+     *
      * @return true if node is valid
      */
     public abstract boolean isValid();

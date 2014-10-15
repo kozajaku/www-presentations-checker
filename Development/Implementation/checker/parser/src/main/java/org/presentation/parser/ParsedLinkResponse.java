@@ -1,20 +1,22 @@
 package org.presentation.parser;
+
 import org.presentation.model.LinkURL;
 import org.presentation.model.graph.LinkSourceType;
 
 /**
  * This class represents response from link parsers.
+ *
  * @author Adam Kugler
  * @version 1.0
  */
 public class ParsedLinkResponse {
 
-	private final LinkURL link;
-	private final LinkSourceType sourceType;
-	private final String label;
+    private final LinkURL link;
+    private final LinkSourceType sourceType;
+    private final String label;
 
     /**
-     * 
+     *
      * @param link URL
      * @param sourceType type of link source
      * @param label label which represents link
@@ -36,7 +38,5 @@ public class ParsedLinkResponse {
     public String getLabel() {
         return label;
     }
-
-
 
 }

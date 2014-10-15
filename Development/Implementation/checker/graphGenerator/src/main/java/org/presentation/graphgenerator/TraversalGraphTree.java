@@ -6,10 +6,13 @@
 package org.presentation.graphgenerator;
 
 /**
- * This class represents traversal graph tree by using HTML tags as nested unordered lists.
+ * This class represents traversal graph tree by using HTML tags as nested
+ * unordered lists.
+ *
  * @author Adam Kugler
  */
-public class TraversalGraphTree extends GraphResult{
+public class TraversalGraphTree extends GraphResult {
+
     private final String tagTree;
 
     /**
@@ -19,7 +22,7 @@ public class TraversalGraphTree extends GraphResult{
     public TraversalGraphTree(String tagTree) {
         this.tagTree = tagTree;
     }
-    
+
     @Override
     public String getResultAsCode() {
         return tagTree;
@@ -29,5 +32,5 @@ public class TraversalGraphTree extends GraphResult{
     public String getResultId() {
         return "Traversal graph tag tree";
     }
-    
+
 }

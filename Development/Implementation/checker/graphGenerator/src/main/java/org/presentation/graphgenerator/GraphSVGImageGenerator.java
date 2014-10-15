@@ -8,6 +8,7 @@ package org.presentation.graphgenerator;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
+ * This class can convert graph into SVG image.
  *
  * @author Adam Kugler
  */
@@ -17,5 +18,5 @@ public class GraphSVGImageGenerator extends GraphGenerator {
     public GraphResult generateGraphResult(TraversalGraph graph) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

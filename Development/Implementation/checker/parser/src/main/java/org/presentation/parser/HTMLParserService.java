@@ -10,18 +10,19 @@ import org.presentation.model.PageContent;
  */
 public interface HTMLParserService {
 
-	/**
-	 * Parses link from HTML page. Supported links are specified in LinkSourceType.
-	 * @param sourceCode code of HMTL page
-         * @param baseURL URL of location of this HTML page
-         * @return links parsed from HTML page
-	 */
-	List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL);
+    /**
+     * Parses link from HTML page. Supported links are specified in
+     * LinkSourceType.
+     *
+     * @param sourceCode code of HMTL page
+     * @param baseURL URL of location of this HTML page
+     * @return links parsed from HTML page
+     */
+    List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL);
 
-	/**
-	 * 
-	 * @param sourceCode
-	 */
+    /**
+     *
+     * @param sourceCode
+     */
 	//HTMLTagTree parseWholeHTMLPage(PageContent sourceCode);
-
 }

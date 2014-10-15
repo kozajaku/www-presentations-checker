@@ -5,6 +5,7 @@ import org.presentation.model.logging.ErrorCode;
 
 /**
  * This class represents invalid node (invalid link) in link graph.
+ *
  * @author Adam Kugler
  * @version 1.0
  */
@@ -16,7 +17,7 @@ public class InvalidNode extends Node {
     private final ErrorCode errorCode;
 
     /**
-     * 
+     *
      * @param url an absolute URL representing link
      * @param errorCode reason why the link is invalid
      */
