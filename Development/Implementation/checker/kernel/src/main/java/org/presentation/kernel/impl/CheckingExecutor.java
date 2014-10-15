@@ -1,12 +1,16 @@
 package org.presentation.kernel.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import org.presentation.graphgenerator.GraphGeneratorQueue;
+import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
@@ -17,6 +21,7 @@ import org.presentation.model.logging.MsgReport;
 import org.presentation.persistence.business.PersistenceFacade;
 import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
+import org.presentation.persistence.model.Graph;
 import org.presentation.utils.Stoppable;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
@@ -44,13 +49,17 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     private Logger LOG;//for debug purposes only
 
     private Checkup checkup;
+
+    private Future<List<GraphResult>> futureGraphResults;
     
 //    @Inject
 //    private SinglePageController singlePageController;
 //    @Inject
 //    private WholePresentationController wholePresentationController;
-//    @EJB
-//    private GraphGeneratorQueue graphGenerator;
+    
+    @EJB
+    private GraphGeneratorQueue graphGenerator;
+
     public void startChecking(Checkup checkup) {
         this.checkup = checkup;
         try {
@@ -73,6 +82,17 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             for (Map.Entry<String, List<Message>> i : report.getMsgGroups().entrySet()) {
                 persistenceFacade.addMessagesToCheckup(checkup, i.getValue(), i.getKey());
             }
+            //wait for graph results and persist them to database
+            List<GraphResult> graphResults = futureGraphResults.get();
+            List<Graph> graphs = new ArrayList<>();
+            Graph tmp;
+            for (GraphResult i : graphResults){
+                tmp = new Graph();
+                tmp.setGraphType(i.getResultId());
+                tmp.setOutput(i.getResultAsCode());
+                graphs.add(tmp);
+            }
+            persistenceFacade.addGraphsToCheckup(checkup, graphs);
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
@@ -89,9 +109,10 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     @Override
     public void crawlingDone(TraversalGraph traversalGraph, CompleteCrawlingState crawlingState) {
         LOG.log(Level.INFO, "Called crawling done method. State: {0}", crawlingState.name());
-        //TODO implement
-
-        //consider it done...
+        //asynchronous generating graphs
+        futureGraphResults = graphGenerator.drawGraph(traversalGraph);
+        //TODO implement calling whole page controllers
+        //consider it done
     }
 
     @Override

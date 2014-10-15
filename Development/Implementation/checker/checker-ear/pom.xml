@@ -77,6 +77,12 @@
             <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>graphGenerator</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
 <!--        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>tests</artifactId>
