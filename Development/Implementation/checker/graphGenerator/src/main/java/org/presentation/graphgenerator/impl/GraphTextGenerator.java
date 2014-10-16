@@ -53,7 +53,8 @@ public class GraphTextGenerator extends GraphGenerator {
      * @param node New invalid node to append
      */
     private void writeInvalidNode(StringBuilder tree, InvalidNode node) {
-        tree.append("X ").append(node.getErrorCode().getCode().toString()).append(" ").append(node.getUrl().getUrl());
+        tree.append("<span class=\"invalidnode\">").append(node.getErrorCode().getCode().toString())
+                .append(" ").append(node.getUrl().getUrl()).append("</span>");
     }
 
     /**
@@ -63,7 +64,7 @@ public class GraphTextGenerator extends GraphGenerator {
      * @param node New valid node to append
      */
     private void writeValidNode(StringBuilder tree, ValidNode node) {
-        tree.append("V ").append(node.getUrl().getUrl());
+        tree.append("<span class=\"validnode\">").append(node.getUrl().getUrl()).append("</span>");
         if (node.getOrientedEdges().size() > 0) {
             tree.append("<ul>");
             for (Edge orientedEdge : node.getOrientedEdges()) {
