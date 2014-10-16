@@ -26,7 +26,7 @@ public class GraphTextGenerator extends GraphGenerator {
         StringBuilder tree = new StringBuilder();
         tree.append("<ul>");
         writeNode(tree, graph.getRoot());
-        tree.append("<\\ul>");
+        tree.append("</ul>");
         return new TraversalGraphTree(tree.toString());
     }
 
@@ -43,7 +43,7 @@ public class GraphTextGenerator extends GraphGenerator {
         } else {
             writeInvalidNode(tree, (InvalidNode) node);
         }
-        tree.append("<\\li>");
+        tree.append("</li>");
     }
 
     /**
@@ -71,7 +71,7 @@ public class GraphTextGenerator extends GraphGenerator {
                     writeNode(tree, orientedEdge.getNode());
                 }
             }
-            tree.append("<\\ul>");
+            tree.append("</ul>");
         }
     }
 }
