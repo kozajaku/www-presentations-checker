@@ -37,7 +37,10 @@
     <module>parser</module>
     <module>graphGenerator</module>
         <module>securityDomain</module>
-    </modules>
+    <module>singlePageController</module>
+    <module>validatorHTML</module>
+    <module>validatorCSS</module>
+  </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
