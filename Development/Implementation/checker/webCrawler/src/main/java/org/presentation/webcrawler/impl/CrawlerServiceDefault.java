@@ -278,11 +278,11 @@ public class CrawlerServiceDefault implements CrawlerService {
      * @return
      */
     private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response, LinkURL baseURL) {
-        if (response.getContentType().getContentType().equals("text/css")) {
+        if (response.getContentType().isCss()) {
             LOG.info("CSS parse");
             return cssParserService.parseLinks(response.getSourceCode(), baseURL);
         }
-        if (response.getContentType().getContentType().equals("text/html")) {
+        if (response.getContentType().isHtml()) {
             LOG.info("HTML parse");
             return htmlParserService.parseLinks(response.getSourceCode(), baseURL);
         }
