@@ -7,11 +7,15 @@ package org.presentation.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.model.ListDataModel;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.presentation.exception.UserAuthorizationException;
 import org.presentation.presentation.helper.CheckupEnvelope;
+import org.presentation.presentation.helper.DataListingSupport;
 
 /**
  *
@@ -19,27 +23,38 @@ import org.presentation.presentation.helper.CheckupEnvelope;
  */
 @Named
 @RequestScoped
-public class CheckupListBean extends ProtectedBean {
+public class CheckupListBean extends DataListingSupport<CheckupEnvelope> {
   
  
-    public List<CheckupEnvelope> getCheckupList() throws UserAuthorizationException {		
+    public List<CheckupEnvelope> getCheckupList() {		
 	List<Checkup> checkups;	
 	List<CheckupEnvelope> checkupList = new ArrayList<>();
 		
-	checkups = persistance.findUserCheckings(this.getLoggedUser());			
+	try {			
+	    checkups = persistance.findUserCheckings(this.getLoggedUser());
 	
-	for(Checkup checkup: checkups) {
-	    checkup.setOptionList(persistance.findCheckupOptions(checkup));
+	    for(Checkup checkup: checkups) {
+		checkup.setOptionList(persistance.findCheckupOptions(checkup));
 
-	    checkupList.add(new CheckupEnvelope(
-		checkup,
-		persistance.findCheckupDomains(checkup),
-		checkup.getOptionList()
-	    ));
-	}
-	
+		checkupList.add(new CheckupEnvelope(
+		    checkup,
+		    persistance.findCheckupDomains(checkup),
+		    checkup.getOptionList()
+		));
+	    }
+
+	} catch (UserAuthorizationException ex) {
+	    //todo
+	}		    
+	    
 	return checkupList;
 	
     }                    
+
+    @Override
+    protected void populateCountAndData() {	
+	this.setRecordCount(this.getCheckupList().size());
+	this.setData(new ListDataModel<>(this.getCheckupList().subList((this.getPage()-1) * this.getRowsPerPage(), this.getPage() * this.getRowsPerPage())));	
+    }
     
 }

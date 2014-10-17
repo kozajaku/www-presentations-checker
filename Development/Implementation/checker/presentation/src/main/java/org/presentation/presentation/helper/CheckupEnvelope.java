@@ -5,6 +5,7 @@
  */
 package org.presentation.presentation.helper;
 
+import java.io.Serializable;
 import java.util.List;
 import org.presentation.model.Domain;
 import org.presentation.persistence.model.Checkup;
@@ -14,7 +15,7 @@ import org.presentation.persistence.model.ChosenOption;
  *
  * @author petrof
  */
-public class CheckupEnvelope {
+public class CheckupEnvelope implements Serializable {
 
     protected Checkup ch;
     protected List<Domain> domainsAllowed;

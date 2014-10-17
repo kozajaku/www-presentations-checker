@@ -3,7 +3,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:func="http://example.com/functions"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:checker="http://xmlns.jcp.org/jsf/composite/checker">
+        
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
@@ -15,72 +17,83 @@
                 </ui:define>				
 
                 <hr />
-                <h:dataTable value="#{checkupListBean.checkupList}" var="o"
-                             styleClass="table table-hover checkup-table"
-                             headerClass="checkup-table-hdr"
-                             >
+		
+		<f:view transient="true">
+		    <f:metadata>
+			<f:viewAction transient="true" action="#{checkupListBean.refresh}"/>
+		    </f:metadata>
+		    <h:form>
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_id']}</f:facet>
-                            #{o.ch.idCheckup}
-                    </h:column>
+			<checker:paginator paginateModel="#{checkupListBean}">
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_start_point']}</f:facet>
-                            #{o.ch.startPoint}
-                    </h:column>
+			    <h:dataTable value="#{checkupListBean.checkupList}" var="o"
+					 styleClass="table table-hover checkup-table"
+					 headerClass="checkup-table-hdr"
+					 >
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_state']}</f:facet>
-                            #{func:getEnumHumanReadable(msg, o.ch.state)}
-                    </h:column>
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_id']}</f:facet>
+					#{o.ch.idCheckup}
+				</h:column>
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_date_created']}</f:facet>
-                            #{o.ch.checkingCreated}
-                    </h:column>
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_start_point']}</f:facet>
+					#{o.ch.startPoint}
+				</h:column>
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_desired_checkups']}</f:facet>
-                            #{func:getDesiredCheckupsConcat(msg, o.desiredCheckups)}
-                    </h:column>
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_state']}</f:facet>
+					#{func:getEnumHumanReadable(msg, o.ch.state)}
+				</h:column>
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_max_depth']}</f:facet>
-                            #{o.ch.maxDepth}
-                    </h:column>	
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_date_created']}</f:facet>
+					#{o.ch.checkingCreated}
+				</h:column>
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_page_limit']}</f:facet>
-                            #{o.ch.pageLimit}
-                    </h:column>			    
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_desired_checkups']}</f:facet>
+					#{func:getDesiredCheckupsConcat(msg, o.desiredCheckups)}
+				</h:column>
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
-                            #{func:getDomainsConcat(o.domainsAllowed)}
-                    </h:column>
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_max_depth']}</f:facet>
+					#{o.ch.maxDepth}
+				</h:column>	
 
-                    <h:column>
-                        <f:facet name="header">#{msg['checkupList.col_actions']}</f:facet>
-                        <div class="buttons btn-group-sm">
-                            <h:link styleClass="btn btn-danger" outcome="checkupManipulator" rendered="#{o.ch.state == 'CHECKING'}" value="#{msg['checkupList.act_stop']}">
-                                <f:param name="checkupId" value="#{o.ch.idCheckup}" />
-                            </h:link>				
-                            <h:link styleClass="btn btn-info" outcome="checkupResult" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_results']}">
-                                <f:param name="checkupId" value="#{o.ch.idCheckup}" />
-                            </h:link>			
-                            <h:link styleClass="btn btn-info disabled" outcome="renderGraph" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_graph']}">
-                                <f:param name="checkupId" value="#{o.ch.idCheckup}" />
-                            </h:link>	
-                            <h:link styleClass="btn btn-info" outcome="newCheckup" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_retry_checkup']}">
-                                <f:param name="checkupId" value="#{o.ch.idCheckup}" />
-                            </h:link>	
-                        </div>
-                    </h:column>
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_page_limit']}</f:facet>
+					#{o.ch.pageLimit}
+				</h:column>			    
+
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
+					#{func:getDomainsConcat(o.domainsAllowed)}
+				</h:column>
+
+				<h:column>
+				    <f:facet name="header">#{msg['checkupList.col_actions']}</f:facet>
+				    <div class="buttons btn-group-sm">
+					<h:link styleClass="btn btn-danger" outcome="checkupManipulator" rendered="#{o.ch.state == 'CHECKING'}" value="#{msg['checkupList.act_stop']}">
+					    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+					</h:link>				
+					<h:link styleClass="btn btn-info" outcome="checkupResult" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_results']}">
+					    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+					</h:link>			
+					<h:link styleClass="btn btn-info disabled" outcome="renderGraph" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_graph']}">
+					    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+					</h:link>	
+					<h:link styleClass="btn btn-info" outcome="newCheckup" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_retry_checkup']}">
+					    <f:param name="checkupId" value="#{o.ch.idCheckup}" />
+					</h:link>	
+				    </div>
+				</h:column>
 
 
-                </h:dataTable>
-
+			    </h:dataTable>
+			</checker:paginator>
+		    </h:form>
+		</f:view>
             </ui:define>
 
         </ui:composition>
