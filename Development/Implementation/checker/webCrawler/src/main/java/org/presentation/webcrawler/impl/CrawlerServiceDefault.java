@@ -1,6 +1,7 @@
 package org.presentation.webcrawler.impl;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -101,6 +102,10 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
                 try {
                     receiverResponse = pageReceiver.checkPage(linkURL, headers);
+                } catch (UnknownHostException ex) {
+                    LOG.log(Level.SEVERE, null, ex);
+                    sendErrorMsg(linkURL, "Unable to resolve DNS name.");
+                    return foundPages;
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
                     sendErrorMsg(linkURL, "Unable to get page.");
@@ -118,6 +123,10 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
                 try {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
+                } catch (UnknownHostException ex) {
+                    LOG.log(Level.SEVERE, null, ex);
+                    sendErrorMsg(linkURL, "Unable to resolve DNS name.");
+                    return foundPages;
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
                     sendErrorMsg(linkURL, "Unable to get page.");
