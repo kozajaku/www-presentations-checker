@@ -123,6 +123,10 @@ public class CrawlerServiceDefault implements CrawlerService {
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
                 }
+                //send page to further process FIX IT BETTER!!!
+                if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
+                    observer.processOnePage(linkURL, receiverResponse.getSourceCode(), receiverResponse.getContentType());
+                }
             }
             //create node
             if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
@@ -136,8 +140,6 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
                 visitedURLs.put(linkURL, node);
                 sendValidLinkMsg(linkURL);
-                //send page to further process
-                observer.processOnePage(linkURL, receiverResponse.getSourceCode(), receiverResponse.getContentType());
                 //find links in page
                 List<ParsedLinkResponse> foundLinks;
                 LOG.info("get links from page");
