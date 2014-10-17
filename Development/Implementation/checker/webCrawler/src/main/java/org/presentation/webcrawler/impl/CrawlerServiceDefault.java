@@ -81,7 +81,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         public List<WebPage> browseWebPage() {
             List<WebPage> foundPages = new ArrayList<>();
             foundPages.clear();
-            //byl node uz vytvoren?
+            //has been node already created? (URL has been checked)
             Node createdNode = visitedURLs.get(linkURL);
             if (createdNode != null) {
                 previousNode.addEdge(new Edge(createdNode, label, linkSourceType, false));
@@ -89,7 +89,7 @@ public class CrawlerServiceDefault implements CrawlerService {
             }
             ReceiverResponse receiverResponse;
             //stop conditions
-//            LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
+            //LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
                 //check page
                 LOG.info("just check page (HEAD)");
