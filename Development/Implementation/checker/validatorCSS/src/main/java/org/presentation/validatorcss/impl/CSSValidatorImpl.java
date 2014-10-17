@@ -39,6 +39,7 @@ public class CSSValidatorImpl implements SinglePageControllerService {
 
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
+        LOG.log(Level.INFO, "Checking validity of css {0}", url.getUrl());
         try {
             ValidationResponse response = new ValidatorBuilder().css().validate(text.getContent());
             Set<Defect> errors = response.errors();

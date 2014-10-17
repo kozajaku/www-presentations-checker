@@ -3,6 +3,7 @@ package org.presentation.kernel.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +22,10 @@ import org.presentation.model.logging.MsgReport;
 import org.presentation.persistence.business.PersistenceFacade;
 import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
+import org.presentation.persistence.model.ChosenOption;
 import org.presentation.persistence.model.Graph;
+import org.presentation.singlepagecontroller.SinglePageController;
+import org.presentation.utils.OptionContainer;
 import org.presentation.utils.Stoppable;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
@@ -52,20 +56,29 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
 
     private Future<List<GraphResult>> futureGraphResults;
     
-//    @Inject
-//    private SinglePageController singlePageController;
+    @Inject
+    private SinglePageController singlePageController;
 //    @Inject
 //    private WholePresentationController wholePresentationController;
     
     @EJB
     private GraphGeneratorQueue graphGenerator;
 
+    @SuppressWarnings("UseSpecificCatch")
     public void startChecking(Checkup checkup) {
         this.checkup = checkup;
         try {
             LOG.info("Starting new checking");
             //fetch initialized checkup
             crawlerService.offerMsgLoggerContainer(messageLoggerContainer);
+            //initialize controllers
+            OptionContainer oc = new OptionContainer();
+            List<ChosenOption> options = persistenceFacade.findCheckupOptions(checkup);
+            for (ChosenOption i: options){
+                oc.addOption(i.getIdOption());
+            }
+            singlePageController.initializeControllers(oc);
+            singlePageController.offerMsgLoggerContainer(messageLoggerContainer);
             //this method blocks to the end of web crawling
             crawlerService.startBrowsing(new LinkURL(checkup.getStartPoint()),
                     checkup.getMaxDepth(), checkup.getPageLimit(), this,
@@ -76,7 +89,6 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             CrawlingState state = crawlerService.getCrawlingState();
             LOG.log(Level.INFO, "Crawling of checkup with id {0} has ended. Pages crawled: {1}", new Object[]{checkup.getIdCheckup(), state.getPagesCrawled()});
             //TODO wait for controllers
-            //TODO generate graphs
             //persist results to database
             MsgReport report = messageLoggerContainer.generateMsgReport();
             for (Map.Entry<String, List<Message>> i : report.getMsgGroups().entrySet()) {
@@ -101,9 +113,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     @Override
     public void processOnePage(LinkURL pageUrl, PageContent pageSourceCode, ContentType contentType) {
         LOG.log(Level.INFO, "Processing page with url: {0}", pageUrl.getUrl());
-        //TODO implement
-
-        //consider it done...
+        singlePageController.checkPage(contentType, pageUrl, pageSourceCode);
     }
 
     @Override

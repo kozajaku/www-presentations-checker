@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import org.presentation.model.ContentType;
@@ -28,7 +29,7 @@ import org.presentation.utils.Stoppable;
 public class SinglePageController implements MessageProducer, Stoppable {
 
     ///Instance object for requesting SinglePageControllerService prototypes
-    @Inject
+    @Inject @Any
     private Instance<SinglePageControllerService> singlePageCheckersPrototype;
 
     ///Real SinglePageControllerService implemented instances created at time of spc initializeControllers calling

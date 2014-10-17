@@ -40,6 +40,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
 
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
+        LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
         try {
             ValidationResponse response = new ValidatorBuilder().html().validate(text.getContent());
             Set<Defect> errors = response.errors();

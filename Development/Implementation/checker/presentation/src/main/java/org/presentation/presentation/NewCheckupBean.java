@@ -80,21 +80,21 @@ public class NewCheckupBean extends ProtectedBean  {
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;        
     
-    /*
-    @Inject
+    @Inject 
     @Any
     protected Instance<AllowOptionService> optionServicePrototype;
-    */
 
-    // 4 testing
     //private final Map<String,Object> checkupsAvailable;
     public Map<String,Object> getCheckupsAvailable() {	
 	Map<String,Object> checkupsAvailable = new HashMap<>();	    
-		
-	checkupsAvailable.put(msg.getString("common.ch_css_redundancy"), CHK_CSS_REDUNDANCY);
-	checkupsAvailable.put(msg.getString("common.ch_css_validation"), CHK_CSS_VALIDATION);
-	checkupsAvailable.put(msg.getString("common.ch_html_validation"), CHK_HTML_VALIDATION);
-	checkupsAvailable.put(msg.getString("common.ch_dead_links"), CHK_DEAD_LINKS);
+	//TODO dodelej si to petre s tou lokalizaci. potreboval jsem to tu mit hotovy
+        for (AllowOptionService i: optionServicePrototype){
+            checkupsAvailable.put(i.getID(), i.getID());
+        }
+//	checkupsAvailable.put(msg.getString("common.ch_css_redundancy"), CHK_CSS_REDUNDANCY);
+//	checkupsAvailable.put(msg.getString("common.ch_css_validation"), CHK_CSS_VALIDATION);
+//	checkupsAvailable.put(msg.getString("common.ch_html_validation"), CHK_HTML_VALIDATION);
+//	checkupsAvailable.put(msg.getString("common.ch_dead_links"), CHK_DEAD_LINKS);
 	return checkupsAvailable;
     }    
     
