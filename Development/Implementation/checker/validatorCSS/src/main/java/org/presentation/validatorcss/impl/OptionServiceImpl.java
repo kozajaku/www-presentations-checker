@@ -1,21 +1,23 @@
 package org.presentation.validatorcss.impl;
 
+import javax.enterprise.context.Dependent;
 import org.presentation.utils.AllowOptionService;
 
 /**
  *
- * @author Jindřich Máca
+ * @author radio.koza
  */
+@Dependent
 public class OptionServiceImpl implements AllowOptionService {
 
     @Override
     public String getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return CSSValidatorImpl.SERVICE_NAME;
     }
 
     @Override
     public String getDestription() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Validation of CSS code";
     }
 
 }

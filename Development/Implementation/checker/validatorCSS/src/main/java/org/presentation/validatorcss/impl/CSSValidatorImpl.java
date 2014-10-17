@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 import org.presentation.model.logging.ErrorMsg;
@@ -25,7 +26,9 @@ import org.presentation.singlepagecontroller.SinglePageControllerService;
  */
 @Dependent
 public class CSSValidatorImpl implements SinglePageControllerService {
-
+    //package friendly constant
+    static final String SERVICE_NAME = "CSS validator";
+    
     /**
      * Inject logger.
      */
@@ -35,7 +38,7 @@ public class CSSValidatorImpl implements SinglePageControllerService {
     private MessageLogger logger;
 
     @Override
-    public void checkPage(LinkURL url, PageContent text) {
+    public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         try {
             ValidationResponse response = new ValidatorBuilder().css().validate(text.getContent());
             Set<Defect> errors = response.errors();
@@ -66,12 +69,17 @@ public class CSSValidatorImpl implements SinglePageControllerService {
 
     @Override
     public String getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return SERVICE_NAME;
     }
 
     @Override
     public void stopChecking() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //nothing to do - body should be empty
+    }
+
+    @Override
+    public boolean isApplicable(ContentType contentType) {
+        return contentType.isCss();
     }
 
 }

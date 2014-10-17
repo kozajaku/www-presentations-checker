@@ -1,5 +1,6 @@
 package org.presentation.singlepagecontroller;
 
+import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 import org.presentation.model.logging.MessageProducer;
@@ -16,8 +17,17 @@ public interface SinglePageControllerService extends MessageProducer, Option, St
     /**
      * Request for check page.
      *
-     * @param url Link of the page.
-     * @param text Content of the page.
+     * @param contentType Content type of the page
+     * @param url Link of the page
+     * @param text Content of the page
      */
-    public abstract void checkPage(LinkURL url, PageContent text);
+    void checkPage(ContentType contentType, LinkURL url, PageContent text);
+    
+    /**
+     * Method quickly response, if page with passed contentType can
+     * be checked by this implementation of SinglePageControllerService.
+     * @param contentType ContentType of the page
+     * @return true if it is applicable; false otherwise
+     */
+    boolean isApplicable(ContentType contentType);
 }
