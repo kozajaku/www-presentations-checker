@@ -123,6 +123,10 @@ public class CrawlerServiceDefault implements CrawlerService {
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
                 }
+                //send page to further process FIX IT BETTER!!!
+                if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
+                    observer.processOnePage(linkURL, receiverResponse.getSourceCode(), receiverResponse.getContentType());
+                }
             }
             //create node
             if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
@@ -136,8 +140,6 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
                 visitedURLs.put(linkURL, node);
                 sendValidLinkMsg(linkURL);
-                //send page to further process
-                observer.processOnePage(linkURL, receiverResponse.getSourceCode(), receiverResponse.getContentType());
                 //find links in page
                 List<ParsedLinkResponse> foundLinks;
                 LOG.info("get links from page");
@@ -278,11 +280,11 @@ public class CrawlerServiceDefault implements CrawlerService {
      * @return
      */
     private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response, LinkURL baseURL) {
-        if (response.getContentType().getContentType().equals("text/css")) {
+        if (response.getContentType().isCss()) {
             LOG.info("CSS parse");
             return cssParserService.parseLinks(response.getSourceCode(), baseURL);
         }
-        if (response.getContentType().getContentType().equals("text/html")) {
+        if (response.getContentType().isHtml()) {
             LOG.info("HTML parse");
             return htmlParserService.parseLinks(response.getSourceCode(), baseURL);
         }
