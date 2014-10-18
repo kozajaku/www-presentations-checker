@@ -88,10 +88,22 @@ public interface PersistenceFacade {
     List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources);
     
     List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources, int offset, int count);
+    
+    List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators);
+    
+    List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators, int offset, int count);
+    
+    List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators);
+    
+    List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators, int offset, int count);
 
     void flush();
 
     int countCheckupMessages(Checkup checkup);
     
     int countCheckupMessagesWithResources(Checkup checkup, List<String> resources);
+    
+    int countCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators);
+    
+    int countCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators);
 }

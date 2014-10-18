@@ -452,4 +452,54 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messageDAO.countCheckMessagesFromResources(checkup.getIdCheckup(), resources);
     }
 
+    @Override
+    public List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities){
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators, int offset, int count) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators, offset, count);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities){
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities){
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators, int offset, int count) {
+        List<MessageEntity> entities = messageDAO.findAllCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators, offset, count);
+        List<Message> messages = new ArrayList<>(entities.size());
+        for (MessageEntity i : entities){
+            messages.add(MessageEntity.convert(i));
+        }
+        return messages;
+    }
+
+    @Override
+    public int countCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators) {
+        return messageDAO.countCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
+    }
+
+    @Override
+    public int countCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators) {
+        return messageDAO.countCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);
+    }
+
 }
