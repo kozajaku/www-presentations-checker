@@ -41,8 +41,12 @@ import org.presentation.persistence.utils.MessageMapperImpl;
     @NamedQuery(name = "MessageEntity.findAllResourcesInCheckup", query = "SELECT DISTINCT m.resource FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId"),
     @NamedQuery(name = "MessageEntity.findAllInCheckupByResource", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource = :resource ORDER BY m.priority DESC"),
     @NamedQuery(name = "MessageEntity.findAllInCheckupByResources", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources) ORDER BY m.priority DESC"),
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByDiscriminators", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.discriminator IN (:discriminators) ORDER BY m.priority DESC"),
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByResourcesDiscriminators", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources) AND m.discriminator IN (:discriminators) ORDER BY m.priority DESC"),
     @NamedQuery(name = "MessageEntity.countCheckupMessages", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId"),
-    @NamedQuery(name = "MessageEntity.countCheckupMessagesFromResource", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources)")})
+    @NamedQuery(name = "MessageEntity.countCheckupMessagesFromResource", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources)"),
+    @NamedQuery(name = "MessageEntity.countCheckupMessagesByDiscriminators", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.discriminator IN (:discriminators)"),
+    @NamedQuery(name = "MessageEntity.countCheckupMessagesByResourcesDiscriminators", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources) AND m.discriminator IN (:discriminators)")})
 public class MessageEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -122,7 +126,7 @@ public class MessageEntity implements Serializable {
     }
 
     public void setPage(String page) {
-        if (page.length() > 2048){
+        if (page.length() > 2048) {
             page = page.substring(0, 2048);
         }
         this.page = page;
@@ -175,7 +179,7 @@ public class MessageEntity implements Serializable {
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

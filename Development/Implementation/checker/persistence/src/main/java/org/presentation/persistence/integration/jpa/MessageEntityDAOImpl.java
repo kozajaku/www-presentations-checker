@@ -102,4 +102,59 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
         return q.getSingleResult();
     }
 
+    @Override
+    public int countCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators) {
+        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesByDiscriminators", Integer.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("discriminators", discriminators);
+        return q.getSingleResult();
+    }
+
+    @Override
+    public int countCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators) {
+        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesByResourcesDiscriminators", Integer.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("resources", resources);
+        q.setParameter("discriminators", discriminators);
+        return q.getSingleResult();
+    }
+
+    @Override
+    public List<MessageEntity> findAllCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators) {
+        TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByDiscriminators", MessageEntity.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("discriminators", discriminators);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<MessageEntity> findAllCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators, int offset, int count) {
+        TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByDiscriminators", MessageEntity.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("discriminators", discriminators);
+        q.setFirstResult(offset);
+        q.setMaxResults(count);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<MessageEntity> findAllCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators) {
+        TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByResourcesDiscriminators", MessageEntity.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("resources", resources);
+        q.setParameter("discriminators", discriminators);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<MessageEntity> findAllCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators, int offset, int count) {
+        TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByResourcesDiscriminators", MessageEntity.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("resources", resources);
+        q.setParameter("discriminators", discriminators);
+        q.setFirstResult(offset);
+        q.setMaxResults(count);
+        return q.getResultList();
+    }
+
 }
