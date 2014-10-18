@@ -7,15 +7,15 @@ package org.presentation.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.model.ListDataModel;
 import org.presentation.persistence.model.Checkup;
+import org.presentation.persistence.model.User;
 import org.presentation.presentation.exception.UserAuthorizationException;
 import org.presentation.presentation.helper.CheckupEnvelope;
-import org.presentation.presentation.helper.DataListingSupport;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -23,38 +23,71 @@ import org.presentation.presentation.helper.DataListingSupport;
  */
 @Named
 @RequestScoped
-public class CheckupListBean extends DataListingSupport<CheckupEnvelope> {
+public class CheckupListBean extends ProtectedBean {
   
  
-    public List<CheckupEnvelope> getCheckupList() {		
+    protected LazyDataModel<CheckupEnvelope> lazyCheckupList;
+    
+    /*
+    public List<CheckupEnvelope> getCheckupList() throws UserAuthorizationException {		
 	List<Checkup> checkups;	
 	List<CheckupEnvelope> checkupList = new ArrayList<>();
 		
-	try {			
-	    checkups = persistance.findUserCheckings(this.getLoggedUser());
-	
-	    for(Checkup checkup: checkups) {
-		checkup.setOptionList(persistance.findCheckupOptions(checkup));
+	checkups = persistance.findUserCheckings(this.getLoggedUser());
 
-		checkupList.add(new CheckupEnvelope(
-		    checkup,
-		    persistance.findCheckupDomains(checkup),
-		    checkup.getOptionList()
-		));
-	    }
+	for(Checkup checkup: checkups) {
+	    checkup.setOptionList(persistance.findCheckupOptions(checkup));
 
-	} catch (UserAuthorizationException ex) {
-	    //todo
-	}		    
+	    checkupList.add(new CheckupEnvelope(
+		checkup,
+		persistance.findCheckupDomains(checkup),
+		checkup.getOptionList()
+	    ));
+	}
 	    
 	return checkupList;
 	
-    }                    
+    }    
+    */
 
-    @Override
-    protected void populateCountAndData() {	
-	this.setRecordCount(this.getCheckupList().size());
-	this.setData(new ListDataModel<>(this.getCheckupList().subList((this.getPage()-1) * this.getRowsPerPage(), this.getPage() * this.getRowsPerPage())));	
+    public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {	
+	if(lazyCheckupList != null) return lazyCheckupList;
+	
+	final User loggedUser = getLoggedUser();
+	
+	this.lazyCheckupList = new LazyDataModel<CheckupEnvelope>(){
+
+	    @Override
+	    public List<CheckupEnvelope> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+		List<Checkup> checkups;
+		List<CheckupEnvelope> checkupList = new ArrayList<>();
+		
+		lazyCheckupList.setRowCount(persistance.findUserCheckings(loggedUser).size());	// todo replace by .countUserCheckings(user)
+		
+		checkups = persistance.findUserCheckings(loggedUser, first, pageSize);
+
+		for(Checkup checkup: checkups) {
+		    checkup.setOptionList(persistance.findCheckupOptions(checkup));
+
+		    checkupList.add(new CheckupEnvelope(
+			checkup,
+			persistance.findCheckupDomains(checkup),
+			checkup.getOptionList()
+		    ));
+	    	}
+	    
+		return checkupList;
+		
+	    }
+
+	};
+	
+	return this.lazyCheckupList;
     }
+
+    public void setLazyCheckupList(LazyDataModel<CheckupEnvelope> lazyCheckupList) {
+	this.lazyCheckupList = lazyCheckupList;
+    }
+        
     
 }

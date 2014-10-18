@@ -4,16 +4,24 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
      <application>
-	    <view-handler>org.presentation.presentation.helper.CustomViewHandler</view-handler>
-	    <locale-config>
-     	        <default-locale>en</default-locale>
-	    </locale-config>
-	    <resource-bundle>
-		<base-name>org.presentation.presentation.lang</base-name>
-		<var>msg</var>
-	    </resource-bundle>
-	    <message-bundle>
-	       org.presentation.presentation.messages
-	    </message-bundle>
+	<system-event-listener>
+	    <system-event-listener-class>
+		org.presentation.presentation.helper.RemoveResourcesListener
+	    </system-event-listener-class>
+	    <system-event-class>
+		javax.faces.event.PreRenderViewEvent
+	    </system-event-class>
+	</system-event-listener>
+	<view-handler>org.presentation.presentation.helper.CustomViewHandler</view-handler>
+	<locale-config>
+	    <default-locale>en</default-locale>
+	</locale-config>
+	<resource-bundle>
+	    <base-name>org.presentation.presentation.lang</base-name>
+	    <var>msg</var>
+	</resource-bundle>
+	<message-bundle>
+	   org.presentation.presentation.messages
+	</message-bundle>
      </application>
 </faces-config>
