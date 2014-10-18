@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -28,7 +29,6 @@ import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
-import org.presentation.persistence.model.HeaderEntity;
 import org.presentation.presentation.exception.UserAuthorizationException;
 import org.presentation.presentation.validation.ValidUrl;
 import org.presentation.utils.AllowOptionService;
@@ -84,17 +84,18 @@ public class NewCheckupBean extends ProtectedBean  {
     @Any
     protected Instance<AllowOptionService> optionServicePrototype;
 
-    //private final Map<String,Object> checkupsAvailable;
     public Map<String,Object> getCheckupsAvailable() {	
 	Map<String,Object> checkupsAvailable = new HashMap<>();	    
-	//TODO dodelej si to petre s tou lokalizaci. potreboval jsem to tu mit hotovy
-        for (AllowOptionService i: optionServicePrototype){
-            checkupsAvailable.put(i.getID(), i.getID());
+
+	for (AllowOptionService i: optionServicePrototype){
+            try {
+		checkupsAvailable.put(msg.getString("common.ch_" + i.getID().trim().replaceAll(" ", "_").toLowerCase()), i.getID());
+	    }
+	    catch(MissingResourceException ex) {
+		checkupsAvailable.put(i.getID(), i.getID());
+	    }
         }
-//	checkupsAvailable.put(msg.getString("common.ch_css_redundancy"), CHK_CSS_REDUNDANCY);
-//	checkupsAvailable.put(msg.getString("common.ch_css_validation"), CHK_CSS_VALIDATION);
-//	checkupsAvailable.put(msg.getString("common.ch_html_validation"), CHK_HTML_VALIDATION);
-//	checkupsAvailable.put(msg.getString("common.ch_dead_links"), CHK_DEAD_LINKS);
+
 	return checkupsAvailable;
     }    
     
