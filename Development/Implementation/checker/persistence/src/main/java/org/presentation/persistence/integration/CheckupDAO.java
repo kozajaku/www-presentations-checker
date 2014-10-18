@@ -23,4 +23,6 @@ public interface CheckupDAO {
     List<Checkup> findAllWithState(CheckState[] states);
     
     void flush();
+    
+    int countUserChecks(String email);
 }

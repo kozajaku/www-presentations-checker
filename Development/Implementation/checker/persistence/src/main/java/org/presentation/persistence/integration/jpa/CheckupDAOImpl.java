@@ -61,4 +61,11 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         q.setMaxResults(count);
         return q.getResultList();
     }
+
+    @Override
+    public int countUserChecks(String email) {
+        TypedQuery<Integer> q = getEntityManager().createNamedQuery("Checkup.countUserCheckups", Integer.class);
+        q.setParameter("email", email);
+        return q.getSingleResult();
+    }
 }

@@ -437,4 +437,19 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    @Override
+    public int countUserCheckups(User user) {
+        return checkupDAO.countUserChecks(user.getEmail());
+    }
+
+    @Override
+    public int countCheckupMessages(Checkup checkup) {
+        return messageDAO.countCheckMessages(checkup.getIdCheckup());
+    }
+
+    @Override
+    public int countCheckupMessagesWithResources(Checkup checkup, List<String> resources) {
+        return messageDAO.countCheckMessagesFromResources(checkup.getIdCheckup(), resources);
+    }
+
 }

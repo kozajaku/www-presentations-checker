@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Checkup.findByCheckingFinished", query = "SELECT c FROM Checkup c WHERE c.checkingFinished = :checkingFinished"),
     @NamedQuery(name = "Checkup.findByStartPoint", query = "SELECT c FROM Checkup c WHERE c.startPoint = :startPoint"),
     @NamedQuery(name = "Checkup.findByMaxDepth", query = "SELECT c FROM Checkup c WHERE c.maxDepth = :maxDepth"),
-    @NamedQuery(name = "Checkup.findByUserEmail", query = "SELECT c FROM Checkup c WHERE c.user.email = :email ORDER BY c.checkingCreated DESC")})
+    @NamedQuery(name = "Checkup.findByUserEmail", query = "SELECT c FROM Checkup c WHERE c.user.email = :email ORDER BY c.checkingCreated DESC"),
+    @NamedQuery(name = "Checkup.countUserCheckups", query = "SELECT COUNT(c) FROM Checkup c WHERE c.user.email = :email")})
 public class Checkup implements Serializable {
 
     private static final long serialVersionUID = 1L;

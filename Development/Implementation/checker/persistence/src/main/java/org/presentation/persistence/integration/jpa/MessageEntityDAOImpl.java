@@ -87,4 +87,19 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
         return q.getResultList();
     }
 
+    @Override
+    public int countCheckMessages(Integer checkupId) {
+        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessages", Integer.class);
+        q.setParameter("checkupId", checkupId);
+        return q.getSingleResult();
+    }
+
+    @Override
+    public int countCheckMessagesFromResources(Integer checkupId, List<String> resources) {
+        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesFromResource", Integer.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("resources", resources);
+        return q.getSingleResult();
+    }
+
 }

@@ -44,7 +44,9 @@ public interface PersistenceFacade {
 
     List<Checkup> findNotEndedCheckupsStateOrdered();
 
-    public Checkup fetchNewlyCreatedCheckup();
+    Checkup fetchNewlyCreatedCheckup();
+    
+    int countUserCheckups(User user);
 
     //headers
     void addHeadersToCheckup(Checkup checkup, List<Header> headers);
@@ -89,4 +91,7 @@ public interface PersistenceFacade {
 
     void flush();
 
+    int countCheckupMessages(Checkup checkup);
+    
+    int countCheckupMessagesWithResources(Checkup checkup, List<String> resources);
 }
