@@ -5,10 +5,27 @@
  */
 package org.presentation.graphgenerator.impl;
 
+import org.presentation.graphgenerator.GraphResult;
+
 /**
  *
  * @author Adam Kugler
  */
-public class SVGImage {
+public class SVGImage extends GraphResult{
+    String image;
+
+    public SVGImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public String getResultAsCode() {
+        return image;
+    }
+
+    @Override
+    public String getResultId() {
+        return "SVG graph";
+    }
     
 }

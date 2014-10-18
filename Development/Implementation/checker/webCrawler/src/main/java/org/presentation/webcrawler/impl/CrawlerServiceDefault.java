@@ -89,6 +89,11 @@ public class CrawlerServiceDefault implements CrawlerService {
                 return foundPages;
             }
             ReceiverResponse receiverResponse;
+            //is URL unreachable?
+            Boolean tryToReach = unreachedURLs.get(linkURL);
+            if (tryToReach != null && tryToReach == false) {
+                return foundPages;
+            }
             //stop conditions
             //LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
@@ -104,7 +109,16 @@ public class CrawlerServiceDefault implements CrawlerService {
                     receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (UnknownHostException ex) {
                     LOG.log(Level.SEVERE, null, ex);
-                    sendErrorMsg(linkURL, "Unable to resolve DNS name.");
+                    //don't try to resolve DNS more than twice; node is not in graph
+                    if (tryToReach == null) {
+                        //try it again later
+                        unreachedURLs.put(linkURL, true);
+                        linkQueue.add(this);
+                    } else {
+                        //don't try it anymore
+                        unreachedURLs.put(linkURL, false);
+                        sendErrorMsg(linkURL, "Unable to resolve DNS name.");
+                    }
                     return foundPages;
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
@@ -125,7 +139,16 @@ public class CrawlerServiceDefault implements CrawlerService {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (UnknownHostException ex) {
                     LOG.log(Level.SEVERE, null, ex);
-                    sendErrorMsg(linkURL, "Unable to resolve DNS name.");
+                    //don't try to resolve DNS more than twice; node is not in graph
+                    if (tryToReach == null) {
+                        //try it again later
+                        unreachedURLs.put(linkURL, true);
+                        linkQueue.add(this);
+                    } else {
+                        //don't try it anymore
+                        unreachedURLs.put(linkURL, false);
+                        sendErrorMsg(linkURL, "Unable to resolve DNS name.");
+                    }
                     return foundPages;
                 } catch (IOException ex) {
                     LOG.log(Level.SEVERE, null, ex);
@@ -241,6 +264,12 @@ public class CrawlerServiceDefault implements CrawlerService {
     CompleteCrawlingState completeCrawlingState;
 
     private Map<LinkURL, Node> visitedURLs;
+    /**
+     * List of URLs that crawler can't reached because of exception. Boolean
+     * value indicates if crawler schould keep trying to get this URL (true) or
+     * not (false).
+     */
+    private Map<LinkURL, Boolean> unreachedURLs;
 
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer container) {
@@ -261,6 +290,8 @@ public class CrawlerServiceDefault implements CrawlerService {
         completeCrawlingState = CompleteCrawlingState.UNKNOWN;
 
         visitedURLs = new HashMap<>();
+        unreachedURLs = new HashMap<>();
+
         linkQueue = new LinkedList<>();
         WebPage page = new WebPage(null, null, null, url, 0);
         linkQueue.add(page);

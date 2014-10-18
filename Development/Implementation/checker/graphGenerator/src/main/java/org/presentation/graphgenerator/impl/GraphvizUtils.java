@@ -10,5 +10,4 @@ package org.presentation.graphgenerator.impl;
  * @author Adam Kugler
  */
 public class GraphvizUtils {
-    
 }
