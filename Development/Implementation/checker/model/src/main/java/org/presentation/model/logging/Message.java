@@ -8,6 +8,9 @@ import org.presentation.model.LinkURL;
  */
 public abstract class Message {
 
+    protected static final int MAX_PRIORITY_BOOST  = 50;
+    
+    private Integer priority = null;
     private String message;
     private LinkURL page;
     private MsgLocation msgLocation;
@@ -48,5 +51,22 @@ public abstract class Message {
         this.page = mapper.getPage();
         this.msgLocation = mapper.getMsgLocation();
     }
+       
+    public void setPriority(int priority) throws Exception {
+	setPriorityBoost(priority - this.getDefaultPriority());
+    }
+    
+    public void setPriorityBoost(int priorityBoost) throws Exception {
+	if(priorityBoost < -MAX_PRIORITY_BOOST || priorityBoost > MAX_PRIORITY_BOOST) {
+	    throw new Exception("Invalid message priority set!");
+	}
+	this.priority = this.getDefaultPriority() + priorityBoost;
+    }
+    
+    public int getPriority(){
+	return this.priority == null ? this.getDefaultPriority() : this.priority;
+    }
+    
+    public abstract int getDefaultPriority();    
 
 }

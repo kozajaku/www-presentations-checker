@@ -6,4 +6,10 @@ package org.presentation.model.logging;
  */
 public class InfoMsg extends Message {
 
+    @Override
+    public int getDefaultPriority() {
+	return 2000;
+    }
+    
+    
 }
