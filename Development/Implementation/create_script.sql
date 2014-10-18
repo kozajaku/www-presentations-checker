@@ -1,4 +1,4 @@
-masCREATE DATABASE IF NOT EXISTS `checker`
+CREATE DATABASE IF NOT EXISTS `checker`
     CHARACTER SET utf8
     COLLATE utf8_czech_ci;
 
