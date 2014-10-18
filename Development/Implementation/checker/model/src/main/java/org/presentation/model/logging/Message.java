@@ -8,8 +8,8 @@ import org.presentation.model.LinkURL;
  */
 public abstract class Message {
 
-    protected static final int MAX_PRIORITY_BOOST  = 50;
-    
+    protected static final int MAX_PRIORITY_BOOST = 50;
+
     private Integer priority = null;
     private String message;
     private LinkURL page;
@@ -38,35 +38,35 @@ public abstract class Message {
     public void setMsgLocation(MsgLocation msgLocation) {
         this.msgLocation = msgLocation;
     }
-    
-    public void setIntoMapper(MessageMapper mapper){
+
+    public void setIntoMapper(MessageMapper mapper) {
         mapper.setMessage(message);
         mapper.setPage(page);
         mapper.setMsgLocation(msgLocation);
         mapper.setDiscriminator(this.getClass().getName());
     }
-    
-    public void setFromMapper(MessageMapper mapper){
+
+    public void setFromMapper(MessageMapper mapper) {
         this.message = mapper.getMessage();
         this.page = mapper.getPage();
         this.msgLocation = mapper.getMsgLocation();
     }
-       
-    public void setPriority(int priority) throws Exception {
-	setPriorityBoost(priority - this.getDefaultPriority());
+
+    public void setPriority(int priority) {
+        setPriorityBoost(priority - this.getDefaultPriority());
     }
-    
-    public void setPriorityBoost(int priorityBoost) throws Exception {
-	if(priorityBoost < -MAX_PRIORITY_BOOST || priorityBoost > MAX_PRIORITY_BOOST) {
-	    throw new Exception("Invalid message priority set!");
-	}
-	this.priority = this.getDefaultPriority() + priorityBoost;
+
+    public void setPriorityBoost(int priorityBoost) {
+        if (priorityBoost < - MAX_PRIORITY_BOOST || priorityBoost > MAX_PRIORITY_BOOST) {
+            throw new IllegalArgumentException("Invalid message priority set!");
+        }
+        this.priority = this.getDefaultPriority() + priorityBoost;
     }
-    
-    public int getPriority(){
-	return this.priority == null ? this.getDefaultPriority() : this.priority;
+
+    public int getPriority() {
+        return this.priority == null ? this.getDefaultPriority() : this.priority;
     }
-    
-    public abstract int getDefaultPriority();    
+
+    public abstract int getDefaultPriority();
 
 }

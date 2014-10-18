@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `checker`
+masCREATE DATABASE IF NOT EXISTS `checker`
     CHARACTER SET utf8
     COLLATE utf8_czech_ci;
 
@@ -99,6 +99,7 @@ CREATE TABLE `message`
 	`error_code` INTEGER,
 	`resource` VARCHAR(50) NOT NULL,
 	`checkup` INTEGER NOT NULL,
+    `priority` INTEGER NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY (`checkup`)
 ) ENGINE = InnoDB;

@@ -70,4 +70,14 @@ public class MessageMapperImpl implements MessageMapper {
         messageEntity.setDiscriminator(discriminator);
     }
 
+    @Override
+    public void setPriority(Integer priority) {
+        messageEntity.setPriority(priority);
+    }
+
+    @Override
+    public Integer getPriority() {
+        return messageEntity.getPriority();
+    }
+
 }

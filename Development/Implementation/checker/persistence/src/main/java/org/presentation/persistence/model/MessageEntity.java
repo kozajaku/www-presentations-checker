@@ -37,10 +37,10 @@ import org.presentation.persistence.utils.MessageMapperImpl;
     @NamedQuery(name = "MessageEntity.findByColumn", query = "SELECT m FROM MessageEntity m WHERE m.column = :column"),
     @NamedQuery(name = "MessageEntity.findByRow", query = "SELECT m FROM MessageEntity m WHERE m.row = :row"),
     @NamedQuery(name = "MessageEntity.findByErrorCode", query = "SELECT m FROM MessageEntity m WHERE m.errorCode = :errorCode"),
-    @NamedQuery(name = "MessageEntity.findByCheckupId", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId ORDER BY m.discriminator"),
+    @NamedQuery(name = "MessageEntity.findByCheckupId", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId ORDER BY m.priority DESC"),
     @NamedQuery(name = "MessageEntity.findAllResourcesInCheckup", query = "SELECT DISTINCT m.resource FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId"),
-    @NamedQuery(name = "MessageEntity.findAllInCheckupByResource", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource = :resource ORDER BY m.discriminator"),
-    @NamedQuery(name = "MessageEntity.findAllInCheckupByResources", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources) ORDER BY m.discriminator"),
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByResource", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource = :resource ORDER BY m.priority DESC"),
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByResources", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources) ORDER BY m.priority DESC"),
     @NamedQuery(name = "MessageEntity.countCheckupMessages", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId"),
     @NamedQuery(name = "MessageEntity.countCheckupMessagesFromResource", query = "SELECT COUNT(m) FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources)")})
 public class MessageEntity implements Serializable {
@@ -70,6 +70,9 @@ public class MessageEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "resource", length = 50)
     private String resource;
+    @Basic(optional = false)
+    @Column(name = "priority")
+    private Integer priority;
     @JoinColumn(name = "checkup", referencedColumnName = "id_checkup")
     @ManyToOne(optional = false)
     private Checkup checkup;
@@ -165,6 +168,14 @@ public class MessageEntity implements Serializable {
         this.checkup = checkup;
     }
 
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

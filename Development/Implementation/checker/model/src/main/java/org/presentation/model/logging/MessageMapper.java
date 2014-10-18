@@ -15,6 +15,8 @@ public interface MessageMapper {
     
     void setErrorCode(ErrorCode errorCode);
     
+    void setPriority(Integer priority);
+    
     String getMessage();
     
     LinkURL getPage();
@@ -22,6 +24,8 @@ public interface MessageMapper {
     MsgLocation getMsgLocation();
     
     ErrorCode getErrorCode();
+    
+    Integer getPriority();
     
     void setDiscriminator(String discriminator);
 }
