@@ -20,4 +20,8 @@ public interface MessageEntityDAO {
     List<MessageEntity> findAllCheckMessagesFromResource(Integer checkupId, String resource);
 
     List<MessageEntity> findAllCheckMessagesFromResource(Integer checkupId, String resource, int offset, int count);
+    
+    List<MessageEntity> findAllCheckMessagesFromResources(Integer checkupId, List<String> resources);
+
+    List<MessageEntity> findAllCheckMessagesFromResources(Integer checkupId, List<String> resources, int offset, int count);
 }

@@ -66,4 +66,25 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
         return q.getResultList();
     }
 
+    @Override
+    public List<MessageEntity> findAllCheckMessagesFromResources(Integer checkupId, List<String> resources) {
+        TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByResources", MessageEntity.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("resources", resources);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<MessageEntity> findAllCheckMessagesFromResources(Integer checkupId, List<String> resources, int offset, int count) {
+        if (offset < 0 || count <= 0){
+            throw new IllegalArgumentException("offset negative or count not positive");
+        }
+        TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByResources", MessageEntity.class);
+        q.setParameter("checkupId", checkupId);
+        q.setParameter("resources", resources);
+        q.setFirstResult(offset);
+        q.setMaxResults(count);
+        return q.getResultList();
+    }
+
 }

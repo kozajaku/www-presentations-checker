@@ -39,7 +39,8 @@ import org.presentation.persistence.utils.MessageMapperImpl;
     @NamedQuery(name = "MessageEntity.findByErrorCode", query = "SELECT m FROM MessageEntity m WHERE m.errorCode = :errorCode"),
     @NamedQuery(name = "MessageEntity.findByCheckupId", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId ORDER BY m.discriminator"),
     @NamedQuery(name = "MessageEntity.findAllResourcesInCheckup", query = "SELECT DISTINCT m.resource FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId"),
-    @NamedQuery(name = "MessageEntity.findAllInCheckupByResource", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource = :resource ORDER BY m.discriminator")})
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByResource", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource = :resource ORDER BY m.discriminator"),
+    @NamedQuery(name = "MessageEntity.findAllInCheckupByResources", query = "SELECT m FROM MessageEntity m WHERE m.checkup.idCheckup = :checkupId AND m.resource IN (:resources) ORDER BY m.discriminator")})
 public class MessageEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

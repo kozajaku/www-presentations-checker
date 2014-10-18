@@ -82,6 +82,10 @@ public interface PersistenceFacade {
     List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource);
     
     List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource, int offset, int count);
+    
+    List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources);
+    
+    List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources, int offset, int count);
 
     void flush();
 
