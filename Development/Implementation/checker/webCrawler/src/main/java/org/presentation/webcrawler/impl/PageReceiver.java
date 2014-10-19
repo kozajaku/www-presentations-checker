@@ -29,7 +29,6 @@ import org.presentation.model.logging.WarningMsg;
  * Default implementation of PageReciever
  *
  * @author Jindřich Máca
- * @version 1.0
  */
 @Dependent
 public class PageReceiver implements MessageProducer {
@@ -40,15 +39,30 @@ public class PageReceiver implements MessageProducer {
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
+    /**
+     * Message logger for this resource.
+     */
     private MessageLogger messageLogger;
+    /**
+     * Set of already marked hostnames with invalid certificate.
+     */
     private final Set<String> hostnames = new HashSet<>();
 
     /**
-     * Defining constants.
+     * Constant for GET method.
      */
     private static final String GET = "GET";
+    /**
+     * Constant for HEAD method.
+     */
     private static final String HEAD = "HEAD";
+    /**
+     * Constant for HTTP protocol.
+     */
     private static final String HTTP = "http";
+    /**
+     * Constant fot HTTPS protocol.
+     */
     private static final String HTTPS = "https";
 
     @Override
@@ -59,11 +73,11 @@ public class PageReceiver implements MessageProducer {
     /**
      * Sending HEAD request on the page.
      *
-     * @param linkURL
-     * @param addHeaders
-     * @return ReceiverResponse
-     * @throws MalformedURLException
-     * @throws IOException
+     * @param linkURL URL address of the page.
+     * @param addHeaders Headers attributes specified by user.
+     * @return Response for HEAD request represented by ReceiverResponse.
+     * @throws MalformedURLException If an unknown protocol is specified.
+     * @throws IOException If request fails in any way.
      */
     public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting checkPage(HEAD) on {0}", linkURL.getUrl());
@@ -74,11 +88,11 @@ public class PageReceiver implements MessageProducer {
      * Sending HEAD request and if it is HTML or CSS, sending GET request and
      * downloads page content.
      *
-     * @param linkURL
-     * @param addHeaders
-     * @return ReceiverResponse
-     * @throws MalformedURLException
-     * @throws IOException
+     * @param linkURL URL address of the page.
+     * @param addHeaders Headers attributes specified by user.
+     * @return Response for request represented by ReceiverResponse.
+     * @throws MalformedURLException If an unknown protocol is specified.
+     * @throws IOException If request fails in any way.
      */
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting getPage(HEAD) on {0}", linkURL.getUrl());
@@ -94,22 +108,23 @@ public class PageReceiver implements MessageProducer {
      * Short version of connectToPage automaticly defining, if content should be
      * downloaded.
      *
-     * @param linkURL
-     * @param addHeaders
-     * @param method
-     * @return ReceiverResponse
-     * @throws MalformedURLException
-     * @throws IOException
+     * @param linkURL URL address of the page.
+     * @param addHeaders Headers attributes specified by user.
+     * @param method Name of the selected method.
+     * @return Response for request represented by ReceiverResponse.
+     * @throws MalformedURLException If an unknown protocol is specified.
+     * @throws IOException If request fails in any way.
      */
     private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method) throws MalformedURLException, IOException {
         return connectToPage(linkURL, addHeaders, method, method.equals(GET));
     }
 
     /**
-     * Sets our own certificate verification, which allows to go through any
-     * certificate, but invalid certificate sends warning message.
+     * Sets our own certificate verification for the specified HTTPS connection,
+     * which allows to go through any certificate, but invalid certificate sends
+     * warning message.
      *
-     * @param connection
+     * @param connection Https connection.
      */
     private void setHostnameVerifier(HttpsURLConnection connection) {
         final HostnameVerifier ver = connection.getHostnameVerifier();
@@ -135,13 +150,13 @@ public class PageReceiver implements MessageProducer {
     /**
      * Sends request to server.
      *
-     * @param linkURL
-     * @param addHeaders
-     * @param method
-     * @param getContent
-     * @return ReceiverResponse
-     * @throws MalformedURLException
-     * @throws IOException
+     * @param linkURL URL address of the page.
+     * @param addHeaders Headers attributes specified by user.
+     * @param method Name of the selected method.
+     * @param getContent Indentifier if method should get the page content.
+     * @return Response for request represented by ReceiverResponse.
+     * @throws MalformedURLException If an unknown protocol is specified.
+     * @throws IOException If request fails in any way.
      */
     private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws MalformedURLException, IOException {
         ReceiverResponse response = new ReceiverResponse();
