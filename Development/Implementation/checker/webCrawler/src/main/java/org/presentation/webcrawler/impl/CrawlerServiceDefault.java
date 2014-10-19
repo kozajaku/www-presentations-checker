@@ -108,7 +108,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 try {
                     receiverResponse = pageReceiver.checkPage(linkURL, headers);
                 } catch (UnknownHostException ex) {
-                    LOG.log(Level.WARNING, null, ex);
+                    LOG.log(Level.WARNING, "Unable to resolve DNS name: {0}", ex.getMessage());
                     //don't try to resolve DNS more than twice; node is not in graph
                     if (tryToReach == null) {
                         //try it again later
@@ -137,7 +137,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 try {
                     receiverResponse = pageReceiver.getPage(linkURL, headers);
                 } catch (UnknownHostException ex) {
-                    LOG.log(Level.WARNING, null, ex);
+                    LOG.log(Level.WARNING, "Unable to resolve DNS name: {0}", ex.getMessage());
                     //don't try to resolve DNS more than twice; node is not in graph
                     if (tryToReach == null) {
                         //try it again later
