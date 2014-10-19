@@ -1,0 +1,98 @@
+<xs:schema targetNamespace="http://www.w3.org/2005/07/css-validator"
+    xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns="http://www.w3.org/2005/07/css-validator"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified"
+    elementFormDefault="qualified" xmlns:tns="http://www.w3.org/2005/07/css-validator"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="xml.xsd" />
+    <xs:import namespace="http://www.w3.org/2003/05/soap-envelope"
+        schemaLocation="soap-envelope.xsd" />
+
+
+    <xs:complexType name="CSSValidationResponse">
+        <xs:sequence>
+            <xs:element name="uri" type="xs:string" />
+            <xs:element name="checkedby" type="xs:string" />
+            <xs:element name="csslevel" type="xs:string" />
+            <xs:element name="date" type="xs:string" />
+            <xs:element name="validity" type="xs:boolean" />
+            <xs:element name="result" type="tns:Result" />
+        </xs:sequence>
+        <xs:attribute ref="soap:encodingStyle" />
+    </xs:complexType>
+
+    <xs:complexType name="Result">
+        <xs:sequence>
+            <xs:element name="errors" type="tns:ValidationErrors" />
+            <xs:element name="warnings" type="tns:ValidationWarnings" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ValidationErrors">
+        <xs:sequence>
+            <xs:element name="errorcount" type="xs:int" />
+            <xs:element name="errorlist" type="tns:ErrorList"
+                minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute ref="xml:lang" />
+    </xs:complexType>
+    <xs:complexType name="ErrorList">
+        <xs:sequence>
+            <xs:element name="uri" type="xs:string" />
+            <xs:element name="error" type="tns:Error"
+                minOccurs="0" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Error">
+        <xs:complexContent>
+            <xs:extension base="tns:Culprit">
+                <xs:sequence>
+                    <!-- This Elements are not documented but actually given! -->
+                    <xs:element name="errortype" type="xs:string"
+                        minOccurs="0"></xs:element>
+                    <xs:element name="errorsubtype" type="xs:string"
+                        minOccurs="0"></xs:element>
+                    <xs:element name="context" type="xs:string"
+                        minOccurs="0"></xs:element>
+                    <xs:element name="skippedstring" type="xs:string"
+                        minOccurs="0"></xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ValidationWarnings">
+        <xs:sequence>
+            <xs:element name="warningcount" type="xs:int" />
+            <xs:element name="warninglist" type="tns:WarningList"
+                minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute ref="xml:lang" />
+    </xs:complexType>
+
+    <xs:complexType name="WarningList">
+        <xs:sequence>
+            <xs:element name="uri" type="xs:string" />
+            <xs:element type="tns:Warning" name="warning"
+                minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Warning">
+        <xs:complexContent>
+            <xs:extension base="tns:Culprit"></xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Culprit" abstract="true">
+        <xs:sequence>
+            <xs:element name="line" type="xs:int" />
+            <xs:element name="level" type="xs:int" />
+            <xs:element name="message" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- the root of the response -->
+    <xs:element name="cssvalidationresponse" type="tns:CSSValidationResponse" />
+</xs:schema>
