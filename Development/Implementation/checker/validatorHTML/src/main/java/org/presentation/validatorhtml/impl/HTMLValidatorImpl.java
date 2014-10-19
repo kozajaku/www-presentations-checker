@@ -16,14 +16,15 @@ import javax.xml.bind.Unmarshaller;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import org.presentation.model.logging.ErrorMsg;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
+import org.presentation.model.logging.MsgLocation;
+import org.presentation.model.logging.WarningMsg;
 import org.presentation.singlepagecontroller.SinglePageControllerService;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._10.markup_validator.ErrorList;
 import org.w3._2005._10.markup_validator.MarkupValidationResponse;
-import org.w3._2005._10.markup_validator.ValidationErrors;
-import org.w3._2005._10.markup_validator.ValidationWarnings;
 import org.w3._2005._10.markup_validator.Warning;
 import org.w3._2005._10.markup_validator.WarningList;
 
@@ -39,7 +40,10 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
      * Package friendly constant for option interface.
      */
     static final String SERVICE_NAME = "HTML validator";
-    private static final String validationService = "http://validator.w3.org/check";
+    /**
+     * Constant representing W3C url of validation service for HTML.
+     */
+    private static final String VALIDATION_SERVICE = "http://validator.w3.org/check";
 
     /**
      * Inject logger.
@@ -52,41 +56,52 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
      */
     private MessageLogger logger;
 
+    /**
+     * Returns input stream with SOAP respons of HTML W3C validation service.
+     *
+     * @param urlToValidate URL which will be validated
+     * @return Input stream wich SOAP respons of HTML W3C validation service.
+     * @throws MalformedURLException If an unknown protocol is specified
+     * @throws IOException If request fails in any way
+     */
     private InputStream getSOAPInputStream(String urlToValidate) throws MalformedURLException, IOException {
-        URL url = new URL(validationService + "?output=soap12&uri=" + urlToValidate);
+        URL url = new URL(VALIDATION_SERVICE + "?output=soap12&uri=" + urlToValidate);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         return connection.getInputStream();
     }
 
-    private void processMVR(MarkupValidationResponse mvr){
-        //TODO misto System.out.println naper co je potreba do tech loggeru - snad je rozhrani jasne
-
-        //uri
-        System.out.println("URI: " + mvr.getUri());
-        //charset
-        System.out.println("Charset: " + mvr.getCharset());
-        //checked by
-        System.out.println("Checked by: " + mvr.getCheckedby());
-        //doctype
-        System.out.println("Doctype: " + mvr.getDoctype());
-        //validity
-        System.out.println("Validity: " + Boolean.toString(mvr.isValidity()));
-        //errors
-        ValidationErrors errors = mvr.getErrors();
-        System.out.println("Errors count: " + errors.getErrorcount());
-        ErrorList elist = errors.getErrorlist();
-        for (org.w3._2005._10.markup_validator.Error i: elist.getError()){
-            System.out.println("Error: " + i.getMessage());
-        }
-        //warnings
-        ValidationWarnings warnings = mvr.getWarnings();
-        System.out.println("Warnings count: " + warnings.getWarningcount());
-        WarningList wlist = warnings.getWarninglist();
-        for (Warning w: wlist.getWarning()){
-            System.out.println("Warning: " + w.getMessage());
+    /**
+     * Process prepared SOAP response for specific URL to relevant messages for
+     * user.
+     *
+     * @param mvr Prepared SOAP response
+     * @param url URL releated to validation
+     */
+    private void processMVR(MarkupValidationResponse mvr, LinkURL url) {
+        if (!mvr.isValidity()) {
+            WarningList warnings = mvr.getWarnings().getWarninglist();
+            for (Warning warning : warnings.getWarning()) {
+                WarningMsg msg = new WarningMsg();
+                msg.setPage(url);
+                msg.setMessage(warning.getMessage().trim());
+                msg.setMsgLocation(new MsgLocation(new Integer(warning.getLine()), new Integer(warning.getCol())));
+                logger.addMessage(msg);
+            }
+            LOG.log(Level.INFO, "Logged {0} HTML warnings on page: {1}", new Object[]{mvr.getWarnings().getWarningcount(), url.getUrl()});
+            ErrorList errors = mvr.getErrors().getErrorlist();
+            for (org.w3._2005._10.markup_validator.Error error : errors.getError()) {
+                ErrorMsg msg = new ErrorMsg();
+                msg.setPage(url);
+                msg.setMessage(error.getMessage().trim());
+                msg.setMsgLocation(new MsgLocation(new Integer(error.getLine()), new Integer(error.getCol())));
+                logger.addMessage(msg);
+            }
+            LOG.log(Level.INFO, "Logged {0} HTML errors on page: {1}", new Object[]{mvr.getErrors().getErrorcount(), url.getUrl()});
+        } else {
+            LOG.log(Level.INFO, "Validation of HTML page {0} contains no warning or errors.", url.getUrl());
         }
     }
-    
+
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
@@ -99,7 +114,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
                 i = ((JAXBElement<?>) i).getValue();
                 if (i instanceof MarkupValidationResponse) {
                     MarkupValidationResponse mvr = (MarkupValidationResponse) i;
-                    processMVR(mvr);
+                    processMVR(mvr, url);
                     return;//done successfully
                 }
             }
