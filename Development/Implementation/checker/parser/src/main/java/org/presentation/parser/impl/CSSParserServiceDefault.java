@@ -51,7 +51,7 @@ public class CSSParserServiceDefault implements CSSParserService {
             Pattern URL_PATTERN = Pattern.compile("url\\([\",\']?(.*?)[\",\']?\\)");
             Matcher m = URL_PATTERN.matcher(sourceCode.getContent());
             while (m.find()) {
-                LOG.log(Level.INFO, "Link found in CSS: {0}", m.group(1));
+                //LOG.log(Level.INFO, "Link found in CSS: {0}", m.group(1));
                 try {
                     parsedLinks.add(new ParsedLinkResponse(formatToAbsURL(m.group(1), base), LinkSourceType.INSIDE_CSS, "")); //posible to fill label in form of CSS atribute
                 } catch (MalformedURLException ex) {
