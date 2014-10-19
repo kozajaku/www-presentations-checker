@@ -46,6 +46,11 @@ import org.presentation.webcrawler.PageCrawlingObserver;
 @Dependent
 public class CrawlerServiceDefault implements CrawlerService {
 
+    /**
+     * Timeout to head request in ms.S
+     */
+    private static final int HEAD_TIMEOUT = 500;
+
     public class WebPage {
 
         private final String label;
@@ -100,8 +105,8 @@ public class CrawlerServiceDefault implements CrawlerService {
                 //check page
                 LOG.info("just check page (HEAD)");
                 try {
-                    LOG.log(Level.INFO, "sleep for 100 ms");
-                    Thread.sleep(100);
+                    LOG.log(Level.INFO, "sleep for {0} ms", HEAD_TIMEOUT);
+                    Thread.sleep(HEAD_TIMEOUT);
                 } catch (InterruptedException ex) {
                     LOG.log(Level.SEVERE, null, ex);
                 }
