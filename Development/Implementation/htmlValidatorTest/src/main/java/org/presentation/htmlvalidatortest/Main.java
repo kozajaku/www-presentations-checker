@@ -1,8 +1,12 @@
 
 package org.presentation.htmlvalidatortest;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import org.w3._2003._05.soap_envelope.Envelope;
@@ -48,14 +52,23 @@ public class Main {
         
     }
     
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, IOException {
         Receiver receiver = new Receiver();
         InputStream stream = receiver.getSoapResponse(HTML_TEST_PAGE);
         
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+//        String line;
+//        while ((line = reader.readLine()) != null){
+//            System.out.println(line);
+//        }
+//        if (true){
+//            return;
+//        }
         JAXBContext context = JAXBContext.newInstance("org.w3._2003._05.soap_envelope:org.w3._2005._10.markup_validator");
         Unmarshaller un = context.createUnmarshaller();
-        Envelope envelope = (Envelope) un.unmarshal(stream);
+        Envelope envelope = (Envelope) ((JAXBElement<?>)un.unmarshal(stream)).getValue();
         for (Object i : envelope.getBody().getAny()){
+            i = ((JAXBElement<?>)i).getValue();
             if (i instanceof MarkupValidationResponse){
                 MarkupValidationResponse mvr = (MarkupValidationResponse) i;
                 getInfo(mvr);
