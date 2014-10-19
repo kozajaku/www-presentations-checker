@@ -55,7 +55,10 @@ public class ContentType {
         }
         return false;
     }
-
+    /**
+     * Decides if type of content can be processed further by any PageController. 
+     * @return True if content is processable.
+     */
     public boolean isProcessable() {
         return this.isHtml() || this.isCss();
     }
