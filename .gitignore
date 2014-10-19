@@ -242,3 +242,5 @@ pip-log.txt
 /Development/Implementation/checker/singlePageController/target/
 /Development/Implementation/checker/validatorHTML/target/
 /Development/Implementation/checker/validatorCSS/target/
+/Development/Implementation/tests/htmlValidatorTest/target/
+/Development/Implementation/tests/cssValidatorTest/target/

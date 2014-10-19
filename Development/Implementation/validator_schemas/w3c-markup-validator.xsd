@@ -1,0 +1,93 @@
+<!-- This tries to encode the SOAP format description found at http://validator.w3.org/docs/api.html 
+    so we can parse the response as a simple JAXB Elements -->
+<xs:schema targetNamespace="http://www.w3.org/2005/10/markup-validator"
+    xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns="http://www.w3.org/2005/10/markup-validator"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+    elementFormDefault="qualified" xmlns:tns="http://www.w3.org/2005/10/markup-validator">
+    <xs:import namespace="http://www.w3.org/2003/05/soap-envelope"
+        schemaLocation="soap-envelope.xsd" />
+
+
+
+    <xs:complexType name="MarkupValidationResponse">
+        <xs:sequence>
+            <xs:element name="debug" type="tns:Debug" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="uri" type="xs:string" />
+            <xs:element name="checkedby" type="xs:string" />
+            <xs:element name="doctype" type="xs:string" />
+            <xs:element name="charset" type="xs:string" />
+            <xs:element name="validity" type="xs:boolean" />
+            <xs:element name="errors" minOccurs="0"
+                maxOccurs="1" type="tns:ValidationErrors" />
+            <xs:element name="warnings" minOccurs="0"
+                maxOccurs="1" type="tns:ValidationWarnings" />
+        </xs:sequence>
+        <xs:attribute ref="soap:encodingStyle" />
+    </xs:complexType>
+
+    <xs:complexType name="ValidationErrors">
+        <xs:sequence>
+            <xs:element name="errorcount" type="xs:int" />
+            <xs:element name="errorlist" type="tns:ErrorList" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ErrorList">
+        <xs:sequence>
+            <xs:element name="error" minOccurs="0" maxOccurs="unbounded"
+                type="tns:Error" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Error">
+        <xs:complexContent>
+            <xs:extension base="tns:Culprit"></xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ValidationWarnings">
+        <xs:sequence>
+            <xs:element name="warningcount" type="xs:int" />
+            <xs:element name="warninglist" type="tns:WarningList" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="WarningList">
+        <xs:sequence>
+            <xs:element name="warning" minOccurs="0"
+                maxOccurs="unbounded" type="tns:Warning" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Warning">
+        <xs:complexContent>
+            <xs:extension base="tns:Culprit"></xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="Culprit" abstract="true">
+        <xs:sequence>
+            <xs:element name="line" type="xs:string" />
+            <xs:element name="col" type="xs:string" />
+            <xs:element name="source" type="xs:string"
+                minOccurs="0" />
+            <xs:element name="explanation" type="xs:string"
+                minOccurs="0" />
+            <xs:element name="messageid" type="xs:string"
+                minOccurs="0" />
+            <xs:element name="message" type="xs:string"
+                minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Debug">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="xs:string">
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- This is the actual result root -->
+    <xs:element name="markupvalidationresponse" type="tns:MarkupValidationResponse" />
+</xs:schema>
