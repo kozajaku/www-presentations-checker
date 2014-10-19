@@ -5,6 +5,7 @@
  */
 package org.presentation.presentation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,9 @@ public class CheckupResultBean extends ProtectedBean {
     protected int checkupId = 0;
     
     protected List<String> messageResourcesAvailable;
+    protected List<String> messageDiscriminatorsAvailable;
     protected String[] messageResourcesAllowed;
+    protected String[] messageDiscriminatorsAllowed;
     
     protected Checkup checkup;
     
@@ -55,6 +58,13 @@ public class CheckupResultBean extends ProtectedBean {
 	}
 		
 	this.messageResourcesAvailable = this.persistance.findCheckupMessageResources(c);	
+	
+	// todo retrieve it dynamically
+	this.messageDiscriminatorsAvailable = new ArrayList<>();
+	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.DebugMsg");
+	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.InfoMsg");
+	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.WarningMsg");
+	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.ErrorMsg");
     }
     
     public int getCheckupId() {
@@ -83,15 +93,35 @@ public class CheckupResultBean extends ProtectedBean {
     public List<Message> getMessages() throws UserAuthorizationException {
 	if(this.checkup == null) return null;
 	
-	if(this.messageResourcesAllowed == null || this.messageResourcesAllowed.length == 0) {
-	    return this.persistance.findCheckupMessages(this.checkup);
+	boolean filterByResources = this.isFilteredByResources();
+	boolean filterByDiscriminators = this.isFilteredByDiscriminators();
+		
+	if(!filterByResources && !filterByDiscriminators) {
+	    return this.persistance.findCheckupMessages(checkup);
 	} else {
-	   // return this.checkup == null ? null : this.persistance.findCheckupMessages(this.checkup);
-	    
-	    // todo - fetch only checkups with desired resources
-	    return this.persistance.findCheckupMessagesWithResource(checkup, this.messageResourcesAllowed[0]);
+	    if(filterByResources && filterByDiscriminators) {
+		return this.persistance.findCheckupMessagesWithResourcesDiscriminators(checkup, Arrays.asList(this.messageResourcesAllowed), Arrays.asList(this.messageDiscriminatorsAllowed));
+	    } else {
+		if(filterByResources) {
+		    return this.persistance.findCheckupMessagesWithResources(checkup, Arrays.asList(this.messageResourcesAllowed));
+		} else if(filterByDiscriminators) {
+		    return this.persistance.findCheckupMessagesWithResources(checkup, Arrays.asList(this.messageDiscriminatorsAllowed));
+		}
+	    }
 	}
+	    
+	return null;
     }
+    
+    
+    public boolean isFilteredByResources() {
+	return (this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0);
+    }
+    
+    public boolean isFilteredByDiscriminators(){
+	return (this.messageDiscriminatorsAllowed != null && this.messageDiscriminatorsAllowed.length > 0);
+    }
+    
 
     public Checkup getCheckup() {
 	return checkup;
@@ -117,7 +147,28 @@ public class CheckupResultBean extends ProtectedBean {
 	}	
 	
 	return resourcesAvailable;
-    }    
+    }
+    
+    public Map<String,Object> getMessageDiscriminatorsAvailable() {
+	Map<String,Object> discriminatorsAvailable = new HashMap<>();
+	
+	if(this.messageDiscriminatorsAvailable != null) {
+	    for(String s : this.messageDiscriminatorsAvailable) {
+		String[] classPathParts = s.split("\\.");
+		String className = classPathParts[classPathParts.length - 1];
+		String discriminatorCaption;
+		try {
+		    discriminatorCaption = msg.getString("common.msg_type_" + className.toLowerCase());
+		}
+		catch(MissingResourceException e) {
+		    discriminatorCaption = className;
+		}
+		discriminatorsAvailable.put(discriminatorCaption, s);
+	    }
+	}
+	
+	return discriminatorsAvailable;
+    }
 
     public String[] getMessageResourcesAllowed() {
 	return messageResourcesAllowed;
@@ -126,6 +177,16 @@ public class CheckupResultBean extends ProtectedBean {
     public void setMessageResourcesAllowed(String[] messageResourcesAllowed) {
 	this.messageResourcesAllowed = messageResourcesAllowed;
     }
+
+    public String[] getMessageDiscriminatorsAllowed() {
+	return messageDiscriminatorsAllowed;
+    }
+
+    public void setMessageDiscriminatorsAllowed(String[] messageDiscriminatorsAllowed) {
+	this.messageDiscriminatorsAllowed = messageDiscriminatorsAllowed;
+    }
+    
+    
     
     
 }

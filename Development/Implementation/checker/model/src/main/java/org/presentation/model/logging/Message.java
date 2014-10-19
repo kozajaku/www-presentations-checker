@@ -44,12 +44,14 @@ public abstract class Message {
         mapper.setPage(page);
         mapper.setMsgLocation(msgLocation);
         mapper.setDiscriminator(this.getClass().getName());
+	mapper.setPriority(this.getPriority());
     }
 
     public void setFromMapper(MessageMapper mapper) {
         this.message = mapper.getMessage();
         this.page = mapper.getPage();
         this.msgLocation = mapper.getMsgLocation();
+	this.priority = mapper.getPriority();
     }
 
     public void setPriority(int priority) {

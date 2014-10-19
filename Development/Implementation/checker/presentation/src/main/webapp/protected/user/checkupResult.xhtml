@@ -30,32 +30,46 @@
 			<f:param name="checkupId" value="#{checkupResultBean.checkup.idCheckup}" />
 		    </h:link>	
 		    
+		    <ui:fragment rendered="#{(not empty checkupResultBean.messages) or checkupResultBean.filteredByDiscriminators or checkupResultBean.filteredByResources}">
+			<h:form styleClass="form-horizontal" role="form">		   
+
+			    <div class="form-group">
+				<h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['checkupResult.inp_resource_filter']}" />
+				<div class="col-sm-8 checkbox">
+
+				    <h:selectManyCheckbox value="#{checkupResultBean.messageResourcesAllowed}" label="#{msg['checkupResult.inp_resource_filter']}" >
+					<f:selectItems value="#{checkupResultBean.messageResourcesAvailable}" />
+				    </h:selectManyCheckbox>
+
+				</div>
+			    </div>
+
+			    <div class="form-group">
+				<h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['checkupResult.inp_priority_filter']}" />
+				<div class="col-sm-8 checkbox">
+
+				    <h:selectManyCheckbox value="#{checkupResultBean.messageDiscriminatorsAllowed}" label="#{msg['checkupResult.inp_priority_filter']}" >
+					<f:selectItems value="#{checkupResultBean.messageDiscriminatorsAvailable}" />
+				    </h:selectManyCheckbox>
+
+				</div>
+			    </div>				
+
+			    <h:commandButton styleClass="btn btn-primary" value="#{msg['checkupResult.submit_filter']}" action="#{checkupResultBean.showResult}">
+				<f:param name="checkupId" value="#{checkupResultBean.checkupId}" />
+			    </h:commandButton>
+
+			</h:form>
+			    
+			<hr />
+		    </ui:fragment>
+		    
 		    <c:choose>
                         <c:when test="#{empty checkupResultBean.messages}">
                             <h:outputLabel styleClass="alert alert-info" value="#{msg['checkupResult.no_messages']}" />
                         </c:when>
                         <c:otherwise>			    			   
 			    
-			    <h:form styleClass="form-horizontal" role="form">		   
-
-				<div class="form-group">
-				    <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['checkupResult.inp_resource_filter']}" />
-				    <div class="col-sm-8 checkbox">
-					
-					<h:selectManyCheckbox value="#{checkupResultBean.messageResourcesAllowed}" label="#{msg['checkupResult.inp_resource_filter']}" >
-					    <f:selectItems value="#{checkupResultBean.messageResourcesAvailable}" />
-					</h:selectManyCheckbox>
-     
-				    </div>
-				</div>
-					
-				<h:commandButton styleClass="btn btn-primary" value="#{msg['checkupResult.submit_filter']}" action="#{checkupResultBean.showResult}">
-				    <f:param name="checkupId" value="#{checkupResultBean.checkupId}" />
-				</h:commandButton>
-
-			    </h:form>
-			    
-                            <hr />
                             <h:dataTable value="#{checkupResultBean.messages}" var="o"
                                          styleClass="table table-hover message-table"
                                          headerClass="message-table-hdr"
