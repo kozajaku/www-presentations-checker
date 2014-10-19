@@ -1,10 +1,10 @@
 package org.presentation.validatorhtml.impl;
 
-import com.jcabi.w3c.Defect;
-import com.jcabi.w3c.ValidationResponse;
-import com.jcabi.w3c.ValidatorBuilder;
 import java.io.IOException;
-import java.util.Set;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -12,11 +12,8 @@ import javax.inject.Inject;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
-import org.presentation.model.logging.ErrorMsg;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
-import org.presentation.model.logging.MsgLocation;
-import org.presentation.model.logging.WarningMsg;
 import org.presentation.singlepagecontroller.SinglePageControllerService;
 
 /**
@@ -31,6 +28,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
      * Package friendly constant for option interface.
      */
     static final String SERVICE_NAME = "HTML validator";
+    private static final String validationService = "http://validator.w3.org/check";
 
     /**
      * Inject logger.
@@ -43,31 +41,24 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
      */
     private MessageLogger logger;
 
+    private InputStream getSOAPInputStream(String urlToValidate) throws MalformedURLException, IOException {
+        URL url = new URL(validationService + "?uri=" + urlToValidate + "&output=soap12");
+        System.out.println(url.toString());
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setUseCaches(false);
+        connection.connect();
+        return connection.getInputStream();
+    }
+
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
         try {
-            ValidationResponse response = new ValidatorBuilder().html().validate(text.getContent());
-            if (!response.valid()) {
-                Set<Defect> errors = response.errors();
-                for (Defect error : errors) {
-                    ErrorMsg msg = new ErrorMsg();
-                    msg.setPage(url);
-                    msg.setMessage(error.message());
-                    msg.setMsgLocation(new MsgLocation(error.line(), error.column()));
-                    logger.addMessage(msg);
-                }
-                Set<Defect> warnings = response.warnings();
-                for (Defect warning : warnings) {
-                    WarningMsg msg = new WarningMsg();
-                    msg.setPage(url);
-                    msg.setMessage(warning.message());
-                    msg.setMsgLocation(new MsgLocation(warning.line(), warning.column()));
-                    logger.addMessage(msg);
-                }
-            }
+            InputStream input = getSOAPInputStream(url.getUrl());
+            //implement soap representation
         } catch (IOException ex) {
-            LOG.log(Level.WARNING, "HTML validation failed on {0}", url.getUrl());
+            LOG.log(Level.WARNING, "{0}", ex.getMessage());
         }
     }
 
