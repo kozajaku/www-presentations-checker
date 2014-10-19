@@ -17,6 +17,7 @@ import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 import org.presentation.model.logging.ErrorMsg;
+import org.presentation.model.logging.InfoMsg;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
@@ -86,27 +87,39 @@ public class CSSValidatorImpl implements SinglePageControllerService {
             ValidationWarnings warningLists = res.getWarnings();
             for (WarningList warningList : warningLists.getWarninglist()) {
                 for (Warning warning : warningList.getWarning()) {
-                    WarningMsg msg = new WarningMsg();
-                    msg.setPage(url);
-                    msg.setMessage(warning.getMessage().trim());
-                    msg.setMsgLocation(new MsgLocation(warning.getLine(), 0)); //CSS validation do not return column
-                    logger.addMessage(msg);
+                    if (warning.getMessage() != null) {
+                        WarningMsg msg = new WarningMsg();
+                        msg.setPage(url);
+                        msg.setMessage(warning.getMessage().trim());
+                        msg.setMsgLocation(new MsgLocation(warning.getLine(), 0)); //CSS validation do not return column
+                        logger.addMessage(msg);
+                    }
                 }
             }
-            LOG.log(Level.INFO, "Logged {0} HTML warnings on page: {1}", new Object[]{res.getWarnings().getWarningcount(), url.getUrl()});
+            LOG.log(Level.INFO, "Logged {0} CSS warnings in file: {1}", new Object[]{res.getWarnings().getWarningcount(), url.getUrl()});
             ValidationErrors errorLists = res.getErrors();
             for (ErrorList errorList : errorLists.getErrorlist()) {
                 for (org.w3._2005._07.css_validator.Error error : errorList.getError()) {
-                    ErrorMsg msg = new ErrorMsg();
-                    msg.setPage(url);
-                    msg.setMessage(error.getMessage().trim());
-                    msg.setMsgLocation(new MsgLocation(error.getLine(), 0)); //CSS validation do not return column
-                    logger.addMessage(msg);
+                    if (error.getMessage() != null) {
+                        ErrorMsg msg = new ErrorMsg();
+                        msg.setPage(url);
+                        msg.setMessage(error.getMessage().trim());
+                        msg.setMsgLocation(new MsgLocation(error.getLine(), 0)); //CSS validation do not return column
+                        logger.addMessage(msg);
+                    }
                 }
             }
-            LOG.log(Level.INFO, "Logged {0} HTML errors on page: {1}", new Object[]{res.getErrors().getErrorcount(), url.getUrl()});
+            LOG.log(Level.INFO, "Logged {0} CSS errors in file: {1}", new Object[]{res.getErrors().getErrorcount(), url.getUrl()});
+            WarningMsg msg = new WarningMsg();
+            msg.setPage(url);
+            msg.setMessage("CSS file contains " + res.getWarnings().getWarningcount() + " warnings and " + res.getErrors().getErrorcount() + " errors.");
+            logger.addMessage(msg);
         } else {
-            LOG.log(Level.INFO, "Validation of HTML page {0} contains no warning or errors.", url.getUrl());
+            InfoMsg msg = new InfoMsg();
+            msg.setPage(url);
+            msg.setMessage("Validation of CSS file contains no warning or errors.");
+            logger.addMessage(msg);
+            LOG.log(Level.INFO, "Validation of CSS file {0} contains no warning or errors.", url.getUrl());
         }
     }
 

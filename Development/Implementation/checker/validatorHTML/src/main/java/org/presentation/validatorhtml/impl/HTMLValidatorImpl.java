@@ -17,6 +17,7 @@ import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 import org.presentation.model.logging.ErrorMsg;
+import org.presentation.model.logging.InfoMsg;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
@@ -84,7 +85,9 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
                 WarningMsg msg = new WarningMsg();
                 msg.setPage(url);
                 msg.setMessage(warning.getMessage().trim());
-                msg.setMsgLocation(new MsgLocation(new Integer(warning.getLine()), new Integer(warning.getCol())));
+                if (warning.getLine() != null && warning.getCol() != null) {
+                    msg.setMsgLocation(new MsgLocation(new Integer(warning.getLine()), new Integer(warning.getCol())));
+                }
                 logger.addMessage(msg);
             }
             LOG.log(Level.INFO, "Logged {0} HTML warnings on page: {1}", new Object[]{mvr.getWarnings().getWarningcount(), url.getUrl()});
@@ -93,11 +96,21 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
                 ErrorMsg msg = new ErrorMsg();
                 msg.setPage(url);
                 msg.setMessage(error.getMessage().trim());
-                msg.setMsgLocation(new MsgLocation(new Integer(error.getLine()), new Integer(error.getCol())));
+                if (error.getLine() != null && error.getCol() != null) {
+                    msg.setMsgLocation(new MsgLocation(new Integer(error.getLine()), new Integer(error.getCol())));
+                }
                 logger.addMessage(msg);
             }
             LOG.log(Level.INFO, "Logged {0} HTML errors on page: {1}", new Object[]{mvr.getErrors().getErrorcount(), url.getUrl()});
+            WarningMsg msg = new WarningMsg();
+            msg.setPage(url);
+            msg.setMessage("HTML page contains " + mvr.getWarnings().getWarningcount() + " warnings and " + mvr.getErrors().getErrorcount() + " errors.");
+            logger.addMessage(msg);
         } else {
+            InfoMsg msg = new InfoMsg();
+            msg.setPage(url);
+            msg.setMessage("Validation of HTML page contains no warning or errors.");
+            logger.addMessage(msg);
             LOG.log(Level.INFO, "Validation of HTML page {0} contains no warning or errors.", url.getUrl());
         }
     }
