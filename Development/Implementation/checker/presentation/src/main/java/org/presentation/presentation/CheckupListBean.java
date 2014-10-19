@@ -18,7 +18,8 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 /**
- *
+ * This bean provides the checkup listing ability
+ * 
  * @author petrof
  */
 @Named
@@ -28,6 +29,7 @@ public class CheckupListBean extends ProtectedBean {
  
     protected LazyDataModel<CheckupEnvelope> lazyCheckupList;
     
+    // old un-paginated crap
     /*
     public List<CheckupEnvelope> getCheckupList() throws UserAuthorizationException {		
 	List<Checkup> checkups;	
@@ -50,6 +52,11 @@ public class CheckupListBean extends ProtectedBean {
     }    
     */
 
+    /**
+     * This getter creates a lazydata model for primefaces pagination
+     * @return lazy data model
+     * @throws UserAuthorizationException 
+     */
     public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {	
 	if(lazyCheckupList != null) return lazyCheckupList;
 	

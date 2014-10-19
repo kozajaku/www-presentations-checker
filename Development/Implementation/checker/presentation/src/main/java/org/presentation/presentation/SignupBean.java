@@ -15,7 +15,8 @@ import org.presentation.presentation.validation.ValidEmail;
 import org.presentation.presentation.validation.ValidPassword;
 
 /**
- *
+ * This bean provides account creation ability
+ * 
  * @author petrof
  */
 @Named
@@ -42,6 +43,12 @@ public class SignupBean extends CommonBean {
     @NotNull    
     private String surname;
     
+    /**
+     * this action is called to create new account
+     * 
+     * @return jsf view
+     * @throws Exception 
+     */
     public String signUp() throws Exception{		
 	
 	if(persistance.findUser(email) != null) {
@@ -54,9 +61,7 @@ public class SignupBean extends CommonBean {
 	    return "";
 	}
 	
-	if(persistance.createNewUser(email, password, name, surname) == true) {
-	    // todo the login procedure automatically
-	    
+	if(persistance.createNewUser(email, password, name, surname) == true) {    
 	    return "/protected/user/index.xhtml?faces-redirect=true";
 	} else {
 	    this.addMessage(new FacesMessage(this.msg.getString("signUp.fail_message")));

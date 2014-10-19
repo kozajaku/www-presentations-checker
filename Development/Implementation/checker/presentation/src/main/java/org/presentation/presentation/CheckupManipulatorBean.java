@@ -15,7 +15,8 @@ import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.User;
 
 /**
- *
+ * This bean is used to perform operations/actions on checkups
+ * 
  * @author petrof
  */
 @Named
@@ -30,6 +31,11 @@ public class CheckupManipulatorBean extends ProtectedBean {
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
     
+    /**
+     * This action stops specific checkup
+     * @return jsf view
+     * @throws Exception 
+     */
     public String stopCheckup() throws Exception{
 	Checkup checkup = persistance.findCheckup(checkupId);
 	User user = null;	

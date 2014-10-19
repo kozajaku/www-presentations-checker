@@ -10,15 +10,21 @@ import javax.enterprise.context.RequestScoped;
 import org.presentation.persistence.model.User;
 import org.presentation.presentation.exception.UserAuthorizationException;
 
+
 /**
- *
+ * This bean is designed to fulfill data requests from header section of the page
+ * 
  * @author petrof
  */
 @Named
 @RequestScoped
 public class HeaderBean extends ProtectedBean {
 
-    public boolean getLoggedIn() {
+    /**
+     * Decides if the user is logged in
+     * @return user is logged in?
+     */
+    public boolean isLoggedIn() {
         try {
             return this.getLoggedUser() == null ? false : true;
         } catch (UserAuthorizationException ex) {
@@ -26,6 +32,11 @@ public class HeaderBean extends ProtectedBean {
         }
     }
 
+    /**
+     * Get user that is currently logged in
+     * @return currently logged-in user
+     * @throws UserAuthorizationException 
+     */
     public User getUser() throws UserAuthorizationException {
         try {
             return this.getLoggedUser();

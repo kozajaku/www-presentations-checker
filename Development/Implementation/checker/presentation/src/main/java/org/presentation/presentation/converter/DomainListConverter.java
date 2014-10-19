@@ -15,7 +15,8 @@ import javax.faces.convert.FacesConverter;
 import org.presentation.model.Domain;
 
 /**
- *
+ * JSF converter - converts domain newline-separated list <-> List of Domain objects
+ * 
  * @author petrof
  */
 

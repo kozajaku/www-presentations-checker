@@ -12,7 +12,8 @@ import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
 
 /**
- *
+ * helper class for display checkup data
+ * 
  * @author petrof
  */
 public class CheckupEnvelope implements Serializable {

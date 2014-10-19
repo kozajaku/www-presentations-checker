@@ -10,13 +10,9 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import org.presentation.model.Header;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * JSF converter - converts http headers newline-separated list <-> List of Header objects
+ * 
  * @author petrof
  */
 @FacesConverter("HttpHeadersConverter")

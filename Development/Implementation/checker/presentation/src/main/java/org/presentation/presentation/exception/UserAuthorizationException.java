@@ -6,7 +6,8 @@
 package org.presentation.presentation.exception;
 
 /**
- *
+ * This exception should be thrown when the system is unable to authorize / identify user from session
+ * 
  * @author petrof
  */
 public class UserAuthorizationException extends Exception {

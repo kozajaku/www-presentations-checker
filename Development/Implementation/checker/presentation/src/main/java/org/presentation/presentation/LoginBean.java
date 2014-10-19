@@ -5,9 +5,6 @@
  */
 package org.presentation.presentation;
 
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -20,7 +17,8 @@ import org.presentation.presentation.validation.ValidEmail;
 
 
 /**
- *
+ * this bean handles user login and logout operations
+ * 
  * @author petrof
  */
 @Named
@@ -34,7 +32,14 @@ public class LoginBean extends CommonBean {
     @NotNull
     //@ValidPassword
     private String password;
-         
+        
+    /**
+     * this action performs user login operation
+     * 
+     * @return jsf view
+     * @throws ServletException
+     * @throws Exception 
+     */
     public String login() throws ServletException, Exception{
 	
 	FacesContext context = FacesContext.getCurrentInstance();
@@ -51,16 +56,19 @@ public class LoginBean extends CommonBean {
 	try {	   	    
 	    request.login(email, password);	    	    
 	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", user);
-	    	    
+	    this.persistance.addUserLogin(user, ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRemoteAddr());	    	    
 	} catch (ServletException e) {	
 	    this.addMessage(new FacesMessage(msg.getString("login.login_fail_message")));
-//            Logger.getLogger(this.getClass().getName()).log(Level.WARNING, null, e);
 	    return "";
 	}
 	
 	return "/protected/user/index?faces-redirect=true";
     }
     
+    /**
+     * this action performs the logout operation
+     * @return jsf view
+     */
     public String logout() {
 	FacesContext context = FacesContext.getCurrentInstance();
 	HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();

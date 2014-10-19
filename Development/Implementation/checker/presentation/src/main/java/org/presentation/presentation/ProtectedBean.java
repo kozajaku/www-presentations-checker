@@ -11,11 +11,18 @@ import org.presentation.persistence.model.User;
 import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
- *
+ * This bean is a super class for beans that are available to logged users only
+ * 
  * @author petrof
  */
 public class ProtectedBean extends CommonBean {
 
+    /**
+     * This method returns the instance of currently logged user
+     * 
+     * @return user that is logged in in current session
+     * @throws UserAuthorizationException 
+     */
     protected User getLoggedUser() throws UserAuthorizationException {
 
 	// real code

@@ -35,7 +35,8 @@ import org.presentation.utils.AllowOptionService;
 import org.presentation.utils.OptionContainer;
 
 /**
- *
+ * This bean is used to create new checkups
+ * 
  * @author petrof
  */
 @Named
@@ -84,6 +85,11 @@ public class NewCheckupBean extends ProtectedBean  {
     @Any
     protected Instance<AllowOptionService> optionServicePrototype;
 
+    /**
+     * this method gets all checkups available
+     * 
+     * @return all checkups available
+     */
     public Map<String,Object> getCheckupsAvailable() {	
 	Map<String,Object> checkupsAvailable = new HashMap<>();	    
 
@@ -167,7 +173,12 @@ public class NewCheckupBean extends ProtectedBean  {
 	this.previousCheckupId = previousCheckupId;
     }
     
-    
+    /**
+     * This action creates a new validation (it's started immediately after creation)
+     * @return jsf view
+     * @throws UserAuthorizationException
+     * @throws MalformedURLException 
+     */
     public String startValidation() throws UserAuthorizationException, MalformedURLException {
 	
 	CheckingRequest r = new CheckingRequest();
@@ -204,7 +215,10 @@ public class NewCheckupBean extends ProtectedBean  {
     }
     
     
-    
+    /**
+     * This action loads params from previous checkup to the web-form     
+     * @throws UserAuthorizationException 
+     */
     public void loadPreviousCheckup() throws UserAuthorizationException {
 	if(this.previousCheckupId > 0) {
 	    Checkup c = this.persistance.findCheckup(this.previousCheckupId);

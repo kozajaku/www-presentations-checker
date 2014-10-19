@@ -22,7 +22,8 @@ import org.presentation.persistence.model.User;
 import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
- *
+ * This bean supports showing of the Results
+ * 
  * @author petrof
  */
 @Named
@@ -71,7 +72,11 @@ public class CheckupResultBean extends ProtectedBean {
 	return checkupId;
     }          
     
-    
+    /**
+     * This action performs show-result-related operations
+     * 
+     * @throws UserAuthorizationException 
+     */
     public void showResult() throws UserAuthorizationException {	
 	if(this.checkup != null) {
 	    User user = this.checkup.getUser();	
@@ -89,7 +94,11 @@ public class CheckupResultBean extends ProtectedBean {
 	}
     }
 
-    
+    /**
+     * This getter gets the messages by filter selected
+     * @return
+     * @throws UserAuthorizationException 
+     */
     public List<Message> getMessages() throws UserAuthorizationException {
 	if(this.checkup == null) return null;
 	
@@ -131,7 +140,10 @@ public class CheckupResultBean extends ProtectedBean {
 	this.checkupId = checkupId;
     }        
 
- 
+    /**
+     * This getter retrieves all available resources per checkup. i18n ready
+     * @return all available message resources
+     */
     public Map<String,Object> getMessageResourcesAvailable() {	
 	Map<String,Object> resourcesAvailable = new HashMap<>();	    
 	
@@ -149,6 +161,10 @@ public class CheckupResultBean extends ProtectedBean {
 	return resourcesAvailable;
     }
     
+    /**
+     * This getter retrieves all available discriminators. i18n ready
+     * @return all available message discriminators
+     */    
     public Map<String,Object> getMessageDiscriminatorsAvailable() {
 	Map<String,Object> discriminatorsAvailable = new HashMap<>();
 	

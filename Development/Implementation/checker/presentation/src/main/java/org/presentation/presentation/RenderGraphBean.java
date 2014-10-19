@@ -7,10 +7,8 @@ package org.presentation.presentation;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -24,7 +22,8 @@ import org.presentation.persistence.model.User;
 import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
- *
+ * This bean brings the ability of graph rendering
+ * 
  * @author petrof
  */
 @Named
@@ -41,8 +40,9 @@ public class RenderGraphBean extends ProtectedBean {
     protected Graph selectedGraph;
     
     
-    @PostConstruct
-    public void init() {
+    @PostConstruct    
+    public void init() {	
+	// set checkupId from GET argument if not set by JSF
 	if(checkupId == 0) {
 	    Map<String, String> params =FacesContext.getCurrentInstance().
                    getExternalContext().getRequestParameterMap();
@@ -51,6 +51,11 @@ public class RenderGraphBean extends ProtectedBean {
 	}
     }       
     
+    /**
+     * This method loads the checkup by id. Checking/validation is also involved. 
+     * @return success
+     * @throws UserAuthorizationException 
+     */
     protected boolean loadCheckup() throws UserAuthorizationException{
 	Checkup c = this.persistance.findCheckup(checkupId);		
 	
@@ -69,6 +74,10 @@ public class RenderGraphBean extends ProtectedBean {
 	} else return true;		
     }
     
+    /**
+     * This method decides if all variables necessary to display a specific checkup are set
+     * @return are all necessary vars set?
+     */
     protected boolean validateSpecificGraphIdVars(){
 	if(this.checkup != null) {
 	    if(graphType != null && this.graphType.length() > 0) {
@@ -80,18 +89,30 @@ public class RenderGraphBean extends ProtectedBean {
 	return false;
     }
     
+    /**
+     * This action prepares the bean for graph rendering
+     * @throws UserAuthorizationException 
+     */
     public void showGraph() throws UserAuthorizationException {
-	LOG.log(Level.INFO, "ACTION FIRED");
 	if(!this.loadCheckup()) return;
 	if(this.validateSpecificGraphIdVars()) {
 	    this.selectedGraph = this.persistance.findGraphByGraphType(checkup, this.graphType);	
 	}
     }
     
+    /**
+     * This action prepares the bean for graph list rendering
+     * @throws UserAuthorizationException 
+     */
     public void showGraphList() throws UserAuthorizationException {
 	if(!this.loadCheckup()) return;	
     }
     
+    /**
+     * This action brings the ability to download graphs
+     * @throws IOException
+     * @throws UserAuthorizationException 
+     */
     public void download() throws IOException, UserAuthorizationException {
 	this.showGraph();
 	if(this.selectedGraph != null) {

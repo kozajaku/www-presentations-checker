@@ -18,7 +18,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewMetadata;
 
 /**
- *
+ * 
+ * 
  * @author petrof
  */
 public class CustomViewHandler extends ViewHandlerWrapper {

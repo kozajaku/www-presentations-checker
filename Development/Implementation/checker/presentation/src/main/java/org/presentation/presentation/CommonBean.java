@@ -16,7 +16,8 @@ import javax.inject.Inject;
 import org.presentation.persistence.business.PersistenceFacade;
 
 /**
- *
+ * This bean is a SUPER-BEAN that provides basic functionality for all of its children
+ * 
  * @author petrof
  */
 public abstract class CommonBean {   
@@ -34,7 +35,6 @@ public abstract class CommonBean {
     private void init() {
 	Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 	msg = ResourceBundle.getBundle("org.presentation.presentation.lang", locale);
-
     }        
     
     protected void addMessage(FacesMessage msg){
