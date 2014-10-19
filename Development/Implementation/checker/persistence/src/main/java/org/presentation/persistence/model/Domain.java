@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Entity class representing the Domain entity in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -43,9 +44,17 @@ public class Domain implements Serializable {
     @ManyToOne(optional = false)
     private Checkup checking;
 
+    /**
+     * Non-parametric constructor required by JPA specification.
+     */
     public Domain() {
     }
 
+    /**
+     * Constructor with primary key.
+     *
+     * @param idDomain Primary key of Domain entity.
+     */
     public Domain(Integer idDomain) {
         this.idDomain = idDomain;
     }
@@ -101,12 +110,28 @@ public class Domain implements Serializable {
         return "testicek.Domain[ idDomain=" + idDomain + " ]";
     }
 
+    /**
+     * Method converts {@link org.presentation.model.Domain} class to its mapped
+     * entity class {@link Domain}.
+     *
+     * @param domain {@link org.presentation.model.Domain} model class as the
+     * source of conversion
+     * @return {@link Domain} as the target of conversion
+     */
     public static Domain convert(org.presentation.model.Domain domain) {
         Domain dom = new Domain();
         dom.setName(domain.getDomain());
         return dom;
     }
 
+    /**
+     * Method converts {@link Domain} entity class to its mapping
+     * {@link org.presentation.model.Domain} model class.
+     *
+     * @param domain {@link Domain} entity class as the source of conversion
+     * @return {@link org.presentation.model.Domain} model class as the target
+     * of conversion
+     */
     public static org.presentation.model.Domain convert(Domain domain) {
         return new org.presentation.model.Domain(domain.getName());
     }

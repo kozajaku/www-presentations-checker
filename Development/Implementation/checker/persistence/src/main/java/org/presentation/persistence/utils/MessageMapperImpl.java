@@ -7,6 +7,7 @@ import org.presentation.model.logging.MsgLocation;
 import org.presentation.persistence.model.MessageEntity;
 
 /**
+ * Default implementation of {@link MessageMapper} interface.
  *
  * @author radio.koza
  */

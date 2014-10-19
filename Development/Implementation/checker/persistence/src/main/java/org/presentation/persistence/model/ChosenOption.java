@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Entity class representing the Option entity in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -37,9 +38,17 @@ public class ChosenOption implements Serializable {
     @ManyToMany(mappedBy = "optionList")
     private List<Checkup> checkupList = new ArrayList<>();
 
+    /**
+     * Non-parametric constructor required by JPA specification.
+     */
     public ChosenOption() {
     }
 
+    /**
+     * Constructor with primary key, which is also option name.
+     *
+     * @param idOption Primary key and name of the option
+     */
     public ChosenOption(String idOption) {
         this.idOption = idOption;
     }
@@ -83,10 +92,24 @@ public class ChosenOption implements Serializable {
         return "test.Option[ idOption=" + idOption + " ]";
     }
 
+    /**
+     * Method converts {@link String} representing name of option to
+     * {@link ChosenOption} entity class.
+     *
+     * @param option String representing source of conversion and option name
+     * @return Entity class possible to be persisted by JPA
+     */
     public static ChosenOption convert(String option) {
         return new ChosenOption(option);
     }
 
+    /**
+     * Method converts {@link ChosenOption} entity class back to {@link String}
+     * class which serves as the option name.
+     *
+     * @param chOption Entity class as the source of conversion
+     * @return String representing name (unique identifier) of the option
+     */
     public static String convert(ChosenOption chOption) {
         return chOption.getIdOption();
     }

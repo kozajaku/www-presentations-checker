@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Entity class representing the entity Checkup in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -90,9 +91,17 @@ public class Checkup implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "checkup")
     private List<Graph> graphList = new ArrayList<>();
 
+    /**
+     * Non-parametrict constructor required by JPA specification.
+     */
     public Checkup() {
     }
 
+    /**
+     * Constructor with primary key.
+     *
+     * @param idCheckup Primary key of the checkup
+     */
     public Checkup(Integer idCheckup) {
         this.idCheckup = idCheckup;
     }

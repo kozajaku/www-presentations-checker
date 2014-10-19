@@ -290,15 +290,15 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     }
 
     @Override
-    public List<String> listGraphTypes(Checkup checkup){
+    public List<String> listGraphTypes(Checkup checkup) {
         return graphDAO.listGraphTypes(checkup.getIdCheckup());
     }
-    
+
     @Override
-    public Graph findGraphByGraphType(Checkup checkup, String graphType){
+    public Graph findGraphByGraphType(Checkup checkup, String graphType) {
         return graphDAO.findGraphByGraphType(checkup.getIdCheckup(), graphType);
     }
-    
+
     @Override
     public void addMessagesToCheckup(Checkup checkup, List<Message> messages, String resource) {
         //at first find managed version of checkup
@@ -383,7 +383,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     @Override
     public Checkup fetchNewlyCreatedCheckup() {
         List<Checkup> checkups = checkupDAO.findAllWithState(new CheckState[]{CheckState.CREATED});
-        if (checkups.isEmpty()){
+        if (checkups.isEmpty()) {
             return null;
         }
         Checkup res = checkups.get(0);
@@ -421,7 +421,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     public List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResources(checkup.getIdCheckup(), resources);
         List<Message> messages = new ArrayList<>(entities.size());
-        for (MessageEntity i : entities){
+        for (MessageEntity i : entities) {
             messages.add(MessageEntity.convert(i));
         }
         return messages;
@@ -431,7 +431,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     public List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResources(checkup.getIdCheckup(), resources, offset, count);
         List<Message> messages = new ArrayList<>(entities.size());
-        for (MessageEntity i : entities){
+        for (MessageEntity i : entities) {
             messages.add(MessageEntity.convert(i));
         }
         return messages;
@@ -456,7 +456,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     public List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
         List<Message> messages = new ArrayList<>(entities.size());
-        for (MessageEntity i : entities){
+        for (MessageEntity i : entities) {
             messages.add(MessageEntity.convert(i));
         }
         return messages;
@@ -466,7 +466,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     public List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators, offset, count);
         List<Message> messages = new ArrayList<>(entities.size());
-        for (MessageEntity i : entities){
+        for (MessageEntity i : entities) {
             messages.add(MessageEntity.convert(i));
         }
         return messages;
@@ -476,7 +476,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     public List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);
         List<Message> messages = new ArrayList<>(entities.size());
-        for (MessageEntity i : entities){
+        for (MessageEntity i : entities) {
             messages.add(MessageEntity.convert(i));
         }
         return messages;
@@ -486,7 +486,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
     public List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators, offset, count);
         List<Message> messages = new ArrayList<>(entities.size());
-        for (MessageEntity i : entities){
+        for (MessageEntity i : entities) {
             messages.add(MessageEntity.convert(i));
         }
         return messages;

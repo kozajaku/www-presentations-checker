@@ -43,7 +43,7 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
 
     @Override
     public List<MessageEntity> findAllCheckMessages(Integer checkupId, int offset, int count) {
-        if (offset < 0 || count <= 0){
+        if (offset < 0 || count <= 0) {
             throw new IllegalArgumentException("offset negative or count not positive");
         }
         TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findByCheckupId", MessageEntity.class);
@@ -55,7 +55,7 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
 
     @Override
     public List<MessageEntity> findAllCheckMessagesFromResource(Integer checkupId, String resource, int offset, int count) {
-        if (offset < 0 || count <= 0){
+        if (offset < 0 || count <= 0) {
             throw new IllegalArgumentException("offset negative or count not positive");
         }
         TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByResource", MessageEntity.class);
@@ -76,7 +76,7 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
 
     @Override
     public List<MessageEntity> findAllCheckMessagesFromResources(Integer checkupId, List<String> resources, int offset, int count) {
-        if (offset < 0 || count <= 0){
+        if (offset < 0 || count <= 0) {
             throw new IllegalArgumentException("offset negative or count not positive");
         }
         TypedQuery<MessageEntity> q = getEntityManager().createNamedQuery("MessageEntity.findAllInCheckupByResources", MessageEntity.class);

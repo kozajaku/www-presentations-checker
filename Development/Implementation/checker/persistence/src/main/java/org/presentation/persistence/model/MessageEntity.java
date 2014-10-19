@@ -22,6 +22,7 @@ import org.presentation.model.logging.MessageMapper;
 import org.presentation.persistence.utils.MessageMapperImpl;
 
 /**
+ * Entity class representing the Message entity in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -81,9 +82,17 @@ public class MessageEntity implements Serializable {
     @ManyToOne(optional = false)
     private Checkup checkup;
 
+    /**
+     * Non-parametric constructor required by JPA specification.
+     */
     public MessageEntity() {
     }
 
+    /**
+     * Constructor with primary key.
+     *
+     * @param id Primary key of message entity
+     */
     public MessageEntity(Integer id) {
         this.id = id;
     }
@@ -202,6 +211,18 @@ public class MessageEntity implements Serializable {
         return "test.Message[ id=" + id + " ]";
     }
 
+    /**
+     * Method converts {@link MessageEntity} class to its mapping class
+     * (subclass) {@link Message} by using {@link MessageMapper} interface.
+     * Method requires Java reflection api for instantiation of Message
+     * implementation by using its full class name persisted in discriminator
+     * column.
+     *
+     * @param entity Entity class representing the Message in database model
+     * @return Specific instance of implemented {@link Message} class; zero if
+     * it is not possible to instantiate Message implementation by using java
+     * reflection
+     */
     public static Message convert(MessageEntity entity) {
         MessageMapper mapper = new MessageMapperImpl(entity);
         try {
@@ -215,6 +236,15 @@ public class MessageEntity implements Serializable {
         }
     }
 
+    /**
+     * Method converts implementation of {@link Message} class to its mapped
+     * entity class.
+     *
+     * @param message Message implementation instance to be mapped as entity
+     * {@link MessageEntity} class
+     * @return MessageEntity class used for persisting into database using JPA
+     * framework.
+     */
     public static MessageEntity convert(Message message) {
         MessageEntity res = new MessageEntity();
         MessageMapper mapper = new MessageMapperImpl(res);

@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Entity class representing the Login entity in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -51,9 +52,17 @@ public class Login implements Serializable {
     @ManyToOne(optional = false)
     private User user;
 
+    /**
+     * Non-parametrict constructor required by JPA specification.
+     */
     public Login() {
     }
 
+    /**
+     * Constructor with primary key.
+     *
+     * @param idLogin Primary key of login entity class
+     */
     public Login(Integer idLogin) {
         this.idLogin = idLogin;
     }

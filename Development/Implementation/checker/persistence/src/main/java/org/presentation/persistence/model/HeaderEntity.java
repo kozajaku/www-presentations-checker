@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.presentation.model.Header;
 
 /**
+ * Entity class representing the Header entity in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -46,9 +47,17 @@ public class HeaderEntity implements Serializable {
     @ManyToOne(optional = false)
     private Checkup checkup;
 
+    /**
+     * Non-parametric constructor required by JPA specification.
+     */
     public HeaderEntity() {
     }
 
+    /**
+     * Constructor with primary key.
+     *
+     * @param idHeader Primary key of header entity class
+     */
     public HeaderEntity(Integer idHeader) {
         this.idHeader = idHeader;
     }
@@ -100,7 +109,6 @@ public class HeaderEntity implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof HeaderEntity)) {
             return false;
         }
@@ -113,10 +121,24 @@ public class HeaderEntity implements Serializable {
         return "test.Header[ idHeader=" + idHeader + " ]";
     }
 
+    /**
+     * Method converts {@link HeaderEntity} class to its mapping class
+     * {@link Header}.
+     *
+     * @param headerEntity Entity class as the source of conversion
+     * @return Model class {@link Header} as the target of conversion
+     */
     public static Header convert(HeaderEntity headerEntity) {
         return new Header(headerEntity.getKey(), headerEntity.getValue());
     }
 
+    /**
+     * Method converts {@link Header} class to is mapped entity class
+     * {@link HeaderEntity}.
+     *
+     * @param header Model class @{link Header} as the source of the conversion
+     * @return HeaderEntity class as the target of conversion
+     */
     public static HeaderEntity convert(Header header) {
         HeaderEntity ent = new HeaderEntity();
         ent.setKey(header.getKey());

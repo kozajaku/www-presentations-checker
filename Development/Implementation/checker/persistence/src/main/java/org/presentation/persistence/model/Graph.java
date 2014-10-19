@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Entity class representing the Graph entity in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -49,9 +50,17 @@ public class Graph implements Serializable {
     @ManyToOne(optional = false)
     private Checkup checkup;
 
+    /**
+     * Non-parametric constructor required by JPA specification.
+     */
     public Graph() {
     }
 
+    /**
+     * Constructor with primary key.
+     *
+     * @param idGraph Primary key of the Graph entity class
+     */
     public Graph(Integer idGraph) {
         this.idGraph = idGraph;
     }

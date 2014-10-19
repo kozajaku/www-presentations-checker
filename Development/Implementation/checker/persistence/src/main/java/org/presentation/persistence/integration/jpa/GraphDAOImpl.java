@@ -39,7 +39,7 @@ public class GraphDAOImpl extends AbstractDAOImpl implements GraphDAO {
         q.setParameter("checkupId", checkupId);
         q.setParameter("graphType", graphTypeId);
         List<Graph> results = q.getResultList();
-        if (results == null || results.isEmpty()){
+        if (results == null || results.isEmpty()) {
             return null;
         }
         return results.get(0);

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Entity class representing the entity User in JPA entity architecture.
  *
  * @author radio.koza
  */
@@ -63,9 +64,17 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Checkup> checkupList = new ArrayList<>();
 
+    /**
+     * Non parametric constructor - required by JPA specification.
+     */
     public User() {
     }
 
+    /**
+     * Constructor taking email (primary key) of the user entity.
+     *
+     * @param email Email string of the user.
+     */
     public User(String email) {
         this.email = email;
     }
