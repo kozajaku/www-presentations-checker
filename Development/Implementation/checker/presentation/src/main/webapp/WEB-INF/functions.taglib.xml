@@ -33,6 +33,11 @@
         <function-class>org.presentation.presentation.helper.Functions</function-class>
         <function-signature>String getMessageTypeCaption(java.util.ResourceBundle, org.presentation.model.logging.Message)</function-signature>
     </function>  	
-			
+
+    <function>
+        <function-name>normalizeString</function-name>
+        <function-class>org.presentation.presentation.helper.Functions</function-class>
+        <function-signature>String normalizeString(java.lang.String)</function-signature>
+    </function>  			
 								        
 </facelet-taglib>

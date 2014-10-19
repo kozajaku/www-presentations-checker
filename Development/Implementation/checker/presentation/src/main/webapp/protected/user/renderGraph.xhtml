@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:func="http://example.com/functions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"	  
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <f:metadata>
+	<f:viewParam name="checkupId" value="#{renderGraphBean.checkupId}"/>
+	<f:viewAction action="#{renderGraphBean.showGraphList}"/>
+    </f:metadata>   
+    
     <h:body>
-        Hello from Facelets
+
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+
+
+	    <c:if test="#{not empty renderGraph.checkup}">
+		<ui:define name="subheader">
+		    <h2>
+			<h:outputFormat value="#{msg['renderGraph.caption']}">
+			    <f:param value="#{renderGraphBean.checkupId}" />
+			</h:outputFormat>
+		    </h2>
+		</ui:define>
+	    </c:if>
+		
+	    <ui:define name="content">		
+
+                <ui:include src="/WEB-INF/helper/errorList.xhtml" />
+
+                <ui:fragment rendered="#{not empty renderGraphBean.checkup}">		    		    		    		    				    
+		    
+		    <c:choose>
+			<c:when test="#{empty renderGraphBean.availableGraphs}">
+                            <h:outputLabel styleClass="alert alert-info" value="#{msg['renderGraph.no_graphs']}" />
+                        </c:when>
+			<c:otherwise>
+			    <h:form styleClass="form-horizontal" role="form">		   
+
+				<div class="form-group">
+				    <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['renderGraph.inp_graph_select']}" />
+				    <div class="col-sm-4 checkbox">
+
+					<h:selectOneMenu value="#{renderGraphBean.graphType}" label="#{msg['renderGraph.inp_graph_select']}:" >
+					    <f:selectItems value="#{renderGraphBean.availableGraphs}" var="o"
+							   itemLabel="#{o.graphType}" itemValue="#{o.graphType}" />
+					</h:selectOneMenu>
+
+				    </div>
+				</div>
+
+				<h:inputHidden value="#{renderGraphBean.checkupId}" />
+
+				<h:commandButton styleClass="btn btn-primary" value="#{msg['renderGraph.submit_render']}" action="#{renderGraphBean.showGraph}">
+				    <f:param name="checkupId" value="#{renderGraphBean.checkupId}" />
+				</h:commandButton>
+				<h:commandButton styleClass="btn btn-primary" value="#{msg['renderGraph.submit_download']}" action="#{renderGraphBean.download()}">
+				    <f:param name="checkupId" value="#{renderGraphBean.checkupId}" />
+				</h:commandButton>
+
+
+			    </h:form>
+
+			    <c:choose>
+				<c:when test="#{not empty renderGraphBean.selectedGraph}">
+				    <div class="graph #{func:normalizeString(renderGraphBean.selectedGraph.graphType)}">										
+					<h:outputText value="#{renderGraphBean.selectedGraph.output}" escape="false" /> 
+				    </div>
+				</c:when>
+			    </c:choose>
+			    <hr />
+			</c:otherwise>
+		    </c:choose>
+ 
+                </ui:fragment>
+
+                <h:link outcome="checkupList" value="#{func:translate(msg['navi.back'], msg['navi.checkup_list'])}" />
+            </ui:define>
+
+        </ui:composition>
+
     </h:body>
+
 </html>

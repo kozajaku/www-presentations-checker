@@ -76,4 +76,8 @@ public final class Functions {
 	}
     }
     
+    public static String normalizeString (String s) {
+	return s.replaceAll("[^a-zA-Z]+", "-");
+    }
+    
 }

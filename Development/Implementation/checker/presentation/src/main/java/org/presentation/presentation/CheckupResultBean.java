@@ -72,7 +72,7 @@ public class CheckupResultBean extends ProtectedBean {
     }          
     
     
-    public void showResult() throws UserAuthorizationException{	
+    public void showResult() throws UserAuthorizationException {	
 	if(this.checkup != null) {
 	    User user = this.checkup.getUser();	
 	    if(user == null || !user.equals(this.getLoggedUser())) {

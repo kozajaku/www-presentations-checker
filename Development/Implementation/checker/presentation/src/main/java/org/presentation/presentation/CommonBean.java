@@ -7,10 +7,12 @@ package org.presentation.presentation;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import org.presentation.persistence.business.PersistenceFacade;
 
 /**
@@ -24,6 +26,9 @@ public abstract class CommonBean {
     
     protected ResourceBundle msg;
     
+    @Inject
+    @SuppressWarnings("NonConstantLogger")
+    protected Logger LOG;
 
     @PostConstruct
     private void init() {

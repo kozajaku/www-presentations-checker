@@ -79,7 +79,7 @@
                                 <h:link styleClass="btn btn-info" outcome="checkupResult" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_results']}">
                                     <f:param name="checkupId" value="#{o.ch.idCheckup}" />
                                 </h:link><br />			
-                                <h:link styleClass="btn btn-info disabled" outcome="renderGraph" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_graph']}">
+                                <h:link styleClass="btn btn-info" outcome="renderGraph" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_show_graph']}">
                                     <f:param name="checkupId" value="#{o.ch.idCheckup}" />
                                 </h:link><br />
                                 <h:link styleClass="btn btn-info" outcome="newCheckup" rendered="#{o.ch.state == 'FINISHED'}" value="#{msg['checkupList.act_retry_checkup']}">
