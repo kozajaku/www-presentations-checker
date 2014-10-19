@@ -19,13 +19,13 @@ import org.presentation.model.PageContent;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.singlepagecontroller.SinglePageControllerService;
-import org.w3.markup_validator.ErrorList;
-import org.w3.markup_validator.MarkupValidationResponse;
-import org.w3.markup_validator.ValidationErrors;
-import org.w3.markup_validator.ValidationWarnings;
-import org.w3.markup_validator.Warning;
-import org.w3.markup_validator.WarningList;
-import org.w3.soap_envelope.Envelope;
+import org.w3._2003._05.soap_envelope.Envelope;
+import org.w3._2005._10.markup_validator.ErrorList;
+import org.w3._2005._10.markup_validator.MarkupValidationResponse;
+import org.w3._2005._10.markup_validator.ValidationErrors;
+import org.w3._2005._10.markup_validator.ValidationWarnings;
+import org.w3._2005._10.markup_validator.Warning;
+import org.w3._2005._10.markup_validator.WarningList;
 
 /**
  * HTML validator service.
@@ -75,7 +75,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         ValidationErrors errors = mvr.getErrors();
         System.out.println("Errors count: " + errors.getErrorcount());
         ErrorList elist = errors.getErrorlist();
-        for (org.w3.markup_validator.Error i: elist.getError()){
+        for (org.w3._2005._10.markup_validator.Error i: elist.getError()){
             System.out.println("Error: " + i.getMessage());
         }
         //warnings
@@ -92,7 +92,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
         try {
             InputStream stream = getSOAPInputStream(url.getUrl());
-            JAXBContext context = JAXBContext.newInstance("org.w3.soap_envelope:org.w3.markup_validator", this.getClass().getClassLoader());
+            JAXBContext context = JAXBContext.newInstance("org.w3._2003._05.soap_envelope:org.w3._2005._10.markup_validator", this.getClass().getClassLoader());
             Unmarshaller un = context.createUnmarshaller();
             Envelope envelope = (Envelope) ((JAXBElement<?>) un.unmarshal(stream)).getValue();
             for (Object i : envelope.getBody().getAny()) {
