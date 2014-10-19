@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * This helper prevents logged users from accessing pages for not logged users
+ * 
  * @author petrof
  */
 @WebFilter(urlPatterns = {"/public/login.xhtml", "/publicc/signUp.xhtml"})
