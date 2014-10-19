@@ -86,6 +86,11 @@
                                     <f:facet name="header">#{msg['checkupResult.col_url']}</f:facet>
                                         #{o.page.url}
                                 </h:column>
+				
+				<h:column>
+				    <f:facet name="header">#{msg['checkupResult.col_type']}</f:facet>
+					#{func:getMessageTypeCaption(msg, o)}
+				</h:column>
 
                                 <h:column>
                                     <f:facet name="header">#{msg['checkupResult.col_message']}</f:facet>

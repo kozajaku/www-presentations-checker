@@ -105,7 +105,7 @@ public class CheckupResultBean extends ProtectedBean {
 		if(filterByResources) {
 		    return this.persistance.findCheckupMessagesWithResources(checkup, Arrays.asList(this.messageResourcesAllowed));
 		} else if(filterByDiscriminators) {
-		    return this.persistance.findCheckupMessagesWithResources(checkup, Arrays.asList(this.messageDiscriminatorsAllowed));
+		    return this.persistance.findCheckupMessagesWithDiscriminators(checkup, Arrays.asList(this.messageDiscriminatorsAllowed));
 		}
 	    }
 	}

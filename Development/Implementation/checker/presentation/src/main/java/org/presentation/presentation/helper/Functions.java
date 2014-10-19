@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import org.presentation.model.Domain;
+import org.presentation.model.logging.Message;
 import org.presentation.persistence.model.ChosenOption;
 
 /**
@@ -62,6 +63,17 @@ public final class Functions {
     
     public static String translate(String msg, String p1) {	
 	return MessageFormat.format(msg, p1);
+    }
+    
+    public static String getMessageTypeCaption(ResourceBundle msg, Message messageObject) {
+	String className = messageObject.getClass().getSimpleName();
+	if(msg == null) return className;
+	try {
+	    return msg.getString("common.msg_type_" + className.toLowerCase());
+	}
+	catch(MissingResourceException ex) {
+	    return className;
+	}
     }
     
 }
