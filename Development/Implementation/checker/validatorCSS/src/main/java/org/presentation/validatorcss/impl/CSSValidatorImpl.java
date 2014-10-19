@@ -16,8 +16,11 @@ import javax.xml.bind.Unmarshaller;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import org.presentation.model.logging.ErrorMsg;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
+import org.presentation.model.logging.MsgLocation;
+import org.presentation.model.logging.WarningMsg;
 import org.presentation.singlepagecontroller.SinglePageControllerService;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._07.css_validator.CSSValidationResponse;
@@ -40,6 +43,9 @@ public class CSSValidatorImpl implements SinglePageControllerService {
      * Package friendly constant for option interface.
      */
     static final String SERVICE_NAME = "CSS validator";
+    /**
+     * Constant representing W3C url of validation service for CSS.
+     */
     private static final String VALIDATION_SERVICE = "http://jigsaw.w3.org/css-validator/validator";
 
     /**
@@ -53,41 +59,54 @@ public class CSSValidatorImpl implements SinglePageControllerService {
      */
     private MessageLogger logger;
 
+    /**
+     * Returns input stream with SOAP respons of CSS W3C validation service.
+     *
+     * @param urlToValidate URL which will be validated
+     * @return Input stream wich SOAP respons of CSS W3C validation service.
+     * @throws MalformedURLException If an unknown protocol is specified
+     * @throws IOException If request fails in any way
+     */
     private InputStream getSOAPInputStream(String urlToValidate) throws MalformedURLException, IOException {
         URL url = new URL(VALIDATION_SERVICE + "?output=soap12&uri=" + urlToValidate);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         return connection.getInputStream();
     }
-    
-    private void processCVR(CSSValidationResponse cvr){
-        //TODO zase to samy tuniku
 
-        //uri
-        System.out.println("URI: " + cvr.getUri());
-        //checked by
-        System.out.println("Checked by: " + cvr.getCheckedby());
-        //css level
-        System.out.println("CSS level: " + cvr.getCsslevel());
-        //validity
-        System.out.println("Validity: " + Boolean.toString(cvr.isValidity()));
-        Result res = cvr.getResult();
-        //errors
-        ValidationErrors errors = res.getErrors();
-        System.out.println("Errors count: " + errors.getErrorcount());
-        for (ErrorList elist: errors.getErrorlist()){
-            System.out.println("Errorlist uri: " + elist.getUri());
-            for (org.w3._2005._07.css_validator.Error e: elist.getError()){
-                System.out.println("Error: " + e.getMessage().trim());
+    /**
+     * Process prepared SOAP response for specific URL to relevant messages for
+     * user.
+     *
+     * @param cvr Prepared SOAP response
+     * @param url URL releated to validation
+     */
+    private void processCVR(CSSValidationResponse cvr, LinkURL url) {
+        if (!cvr.isValidity()) {
+            Result res = cvr.getResult();
+            ValidationWarnings warningLists = res.getWarnings();
+            for (WarningList warningList : warningLists.getWarninglist()) {
+                for (Warning warning : warningList.getWarning()) {
+                    WarningMsg msg = new WarningMsg();
+                    msg.setPage(url);
+                    msg.setMessage(warning.getMessage().trim());
+                    msg.setMsgLocation(new MsgLocation(warning.getLine(), 0)); //CSS validation do not return column
+                    logger.addMessage(msg);
+                }
             }
-        }
-        //warnings
-        ValidationWarnings warns = res.getWarnings();
-        System.out.println("Warnings count: " + warns.getWarningcount());
-        for (WarningList wlist: warns.getWarninglist()){
-            System.out.println("Warnlist uri: " + wlist.getUri());
-            for (Warning w: wlist.getWarning()){
-                System.out.println("Warning: " + w.getMessage().trim());
+            LOG.log(Level.INFO, "Logged {0} HTML warnings on page: {1}", new Object[]{res.getWarnings().getWarningcount(), url.getUrl()});
+            ValidationErrors errorLists = res.getErrors();
+            for (ErrorList errorList : errorLists.getErrorlist()) {
+                for (org.w3._2005._07.css_validator.Error error : errorList.getError()) {
+                    ErrorMsg msg = new ErrorMsg();
+                    msg.setPage(url);
+                    msg.setMessage(error.getMessage().trim());
+                    msg.setMsgLocation(new MsgLocation(error.getLine(), 0)); //CSS validation do not return column
+                    logger.addMessage(msg);
+                }
             }
+            LOG.log(Level.INFO, "Logged {0} HTML errors on page: {1}", new Object[]{res.getErrors().getErrorcount(), url.getUrl()});
+        } else {
+            LOG.log(Level.INFO, "Validation of HTML page {0} contains no warning or errors.", url.getUrl());
         }
     }
 
@@ -103,7 +122,7 @@ public class CSSValidatorImpl implements SinglePageControllerService {
                 i = ((JAXBElement<?>) i).getValue();
                 if (i instanceof CSSValidationResponse) {
                     CSSValidationResponse cvr = (CSSValidationResponse) i;
-                    processCVR(cvr);
+                    processCVR(cvr, url);
                     return;//done successfully
                 }
             }
