@@ -97,7 +97,7 @@ public class PageReceiver implements MessageProducer {
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting getPage(HEAD) on {0}", linkURL.getUrl());
         ReceiverResponse response = connectToPage(linkURL, addHeaders, HEAD);
-        if (response.getContentType().getContentType().equals("text/html") || response.getContentType().getContentType().equals("text/css")) {
+        if (response.getContentType().isHtml() || response.getContentType().isCss()) {
             LOG.log(Level.INFO, "Starting getPage(GET) on {0}", linkURL.getUrl());
             return connectToPage(linkURL, addHeaders, GET);
         }
@@ -159,7 +159,6 @@ public class PageReceiver implements MessageProducer {
      * @throws IOException If request fails in any way.
      */
     private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws MalformedURLException, IOException {
-        ReceiverResponse response = new ReceiverResponse();
         URL url = new URL(linkURL.getUrl());
         HttpURLConnection connection;
         switch (url.getProtocol().toLowerCase()) {
@@ -187,14 +186,18 @@ public class PageReceiver implements MessageProducer {
         connection.connect();
         LOG.info("Request sent.");
 
-        response.setStateCode(connection.getResponseCode());
+        //parts of response
+        int stateCode = connection.getResponseCode();
+        ContentType contentType = new ContentType("");
+        PageContent pageContent = new PageContent("");
+
         LOG.log(Level.INFO, "Response code is {0}", connection.getResponseCode());
         switch (connection.getResponseCode()) {
             case 200: {
-                String contentType = connection.getHeaderField("Content-Type");
+                String contentTypeS = connection.getHeaderField("Content-Type");
                 String[] split;
-                split = contentType.split(";\\s*(charset=)?");
-                response.setContentType(new ContentType(split[0]));
+                split = contentTypeS.split(";\\s*(charset=)?");
+                contentType = new ContentType(split[0]);
                 LOG.log(Level.INFO, "Content-Type is {0}", split[0]);
 
                 if (getContent && method.equals(GET)) {
@@ -205,7 +208,7 @@ public class PageReceiver implements MessageProducer {
                         coding = "UTF-8";
                     }
                     LOG.log(Level.INFO, "Coding is {0}", coding);
-                    response.setSourceCode(new PageContent(recievePageContent(new BufferedReader(new InputStreamReader(connection.getInputStream(), coding)))));
+                    pageContent = new PageContent(recievePageContent(new BufferedReader(new InputStreamReader(connection.getInputStream(), coding))));
                 }
                 break;
             }
@@ -213,7 +216,7 @@ public class PageReceiver implements MessageProducer {
                 String location = connection.getHeaderField("Location");
                 if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
                     LOG.log(Level.INFO, "Redirect 301 to {0}", location);
-                    response = connectToPage(new LinkURL(location), addHeaders, method, getContent);
+                    return connectToPage(new LinkURL(location), addHeaders, method, getContent);
                 }
                 break;
             }
@@ -221,29 +224,21 @@ public class PageReceiver implements MessageProducer {
                 String location = connection.getHeaderField("Location");
                 if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
                     LOG.log(Level.INFO, "Redirect 302 to {0}", location);
-                    response = connectToPage(new LinkURL(location), addHeaders, method, getContent);
+                    return connectToPage(new LinkURL(location), addHeaders, method, getContent);
                 }
                 break;
             }
             case 405: {
                 if (method.equals(HEAD)) {
                     LOG.info("Server refused HEAD, trying GET.");
-                    response = connectToPage(linkURL, addHeaders, GET, false);
+                    return connectToPage(linkURL, addHeaders, GET, false);
                 }
                 break;
             }
         }
 
-        if (response.getContentType().getContentType() == null) {
-            response.setContentType(new ContentType(""));
-        }
-
-        if (response.getSourceCode().getContent() == null) {
-            response.setSourceCode(new PageContent(""));
-        }
-
         LOG.log(Level.INFO, "Finished request on {0}", linkURL.getUrl());
-        return response;
+        return new ReceiverResponse(contentType, pageContent, stateCode);
     }
 
     /**
