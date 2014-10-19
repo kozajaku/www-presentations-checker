@@ -42,12 +42,8 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
     private MessageLogger logger;
 
     private InputStream getSOAPInputStream(String urlToValidate) throws MalformedURLException, IOException {
-        URL url = new URL(validationService + "?uri=" + urlToValidate + "&output=soap12");
-        System.out.println(url.toString());
+        URL url = new URL(validationService + "?output=soap12&uri=" + urlToValidate);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("GET");
-        connection.setUseCaches(false);
-        connection.connect();
         return connection.getInputStream();
     }
 
