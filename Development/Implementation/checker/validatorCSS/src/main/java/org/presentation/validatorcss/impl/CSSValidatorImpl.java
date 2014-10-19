@@ -27,7 +27,9 @@ import org.presentation.singlepagecontroller.SinglePageControllerService;
 @Dependent
 public class CSSValidatorImpl implements SinglePageControllerService {
 
-    //package friendly constant
+    /**
+     * Package friendly constant for option interface.
+     */
     static final String SERVICE_NAME = "CSS validator";
 
     /**
@@ -36,6 +38,9 @@ public class CSSValidatorImpl implements SinglePageControllerService {
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
+    /**
+     * Message logger for this resource.
+     */
     private MessageLogger logger;
 
     @Override
@@ -43,21 +48,23 @@ public class CSSValidatorImpl implements SinglePageControllerService {
         LOG.log(Level.INFO, "Checking validity of css {0}", url.getUrl());
         try {
             ValidationResponse response = new ValidatorBuilder().css().validate(text.getContent());
-            Set<Defect> errors = response.errors();
-            for (Defect error : errors) {
-                ErrorMsg msg = new ErrorMsg();
-                msg.setPage(url);
-                msg.setMessage(error.message());
-                msg.setMsgLocation(new MsgLocation(error.line(), error.column()));
-                logger.addMessage(msg);
-            }
-            Set<Defect> warnings = response.warnings();
-            for (Defect warning : warnings) {
-                WarningMsg msg = new WarningMsg();
-                msg.setPage(url);
-                msg.setMessage(warning.message());
-                msg.setMsgLocation(new MsgLocation(warning.line(), warning.column()));
-                logger.addMessage(msg);
+            if (!response.valid()) {
+                Set<Defect> errors = response.errors();
+                for (Defect error : errors) {
+                    ErrorMsg msg = new ErrorMsg();
+                    msg.setPage(url);
+                    msg.setMessage(error.message());
+                    msg.setMsgLocation(new MsgLocation(error.line(), error.column()));
+                    logger.addMessage(msg);
+                }
+                Set<Defect> warnings = response.warnings();
+                for (Defect warning : warnings) {
+                    WarningMsg msg = new WarningMsg();
+                    msg.setPage(url);
+                    msg.setMessage(warning.message());
+                    msg.setMsgLocation(new MsgLocation(warning.line(), warning.column()));
+                    logger.addMessage(msg);
+                }
             }
         } catch (IOException ex) {
             LOG.log(Level.WARNING, "CSS validation failed on {0}", url.getUrl());
