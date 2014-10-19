@@ -127,7 +127,6 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
             } else {
                 //receive page
-                crawlingState.incPagesCrawled();
                 LOG.log(Level.INFO, "get page {0}(GET)", crawlingState.getPagesCrawled());
                 try {
                     LOG.log(Level.INFO, "sleep for {0} ms", requestTimeout);
@@ -155,13 +154,14 @@ public class CrawlerServiceDefault implements CrawlerService {
                     sendErrorMsg(linkURL, "Unable to get page.");
                     return foundPages;
                 }
-                //send page to further process FIX IT BETTER!!!
-                if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
+                crawlingState.incPagesCrawled();
+                //send page to further process
+                if (receiverResponse.isOK() && receiverResponse.getContentType().isProcessable()) {
                     observer.processOnePage(linkURL, receiverResponse.getSourceCode(), receiverResponse.getContentType());
                 }
             }
             //create node
-            if (200 <= receiverResponse.getStateCode() && receiverResponse.getStateCode() < 300) {
+            if (receiverResponse.isOK()) {
                 LOG.info("create valid node");
                 ValidNode node = new ValidNode(linkURL);
                 //connect with graph

@@ -85,4 +85,12 @@ public class ReceiverResponse {
         this.stateCode = stateCode;
     }
 
+    /**
+     * Indicates if page was succesfully received.
+     *
+     * @return True if state code is OK.
+     */
+    public boolean isOK() {
+        return (200 <= stateCode && stateCode < 300);
+    }
 }

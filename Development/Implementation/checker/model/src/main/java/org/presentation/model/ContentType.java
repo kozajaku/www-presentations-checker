@@ -56,4 +56,7 @@ public class ContentType {
         return false;
     }
 
+    public boolean isProcessable() {
+        return this.isHtml() || this.isCss();
+    }
 }
