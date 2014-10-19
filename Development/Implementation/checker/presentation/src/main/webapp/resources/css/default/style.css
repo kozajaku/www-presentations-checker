@@ -66,3 +66,6 @@ ul {
 .buttons a:last-child {
     margin-bottom: 0;
 }
+.retry {
+    margin-bottom: 20px;
+}
