@@ -98,12 +98,18 @@ public class CSSValidatorImpl implements SinglePageControllerService {
             }
             LOG.log(Level.INFO, "Logged {0} CSS warnings in file: {1}", new Object[]{res.getWarnings().getWarningcount(), url.getUrl()});
             ValidationErrors errorLists = res.getErrors();
+            String tmp;
             for (ErrorList errorList : errorLists.getErrorlist()) {
                 for (org.w3._2005._07.css_validator.Error error : errorList.getError()) {
                     if (error.getMessage() != null) {
+                        //ignore parse errors
+                        tmp = error.getMessage().trim();
+                        if (tmp.equals("Parse Error")){
+                            continue;
+                        }
                         ErrorMsg msg = new ErrorMsg();
                         msg.setPage(url);
-                        msg.setMessage(error.getMessage().trim());
+                        msg.setMessage(tmp);
                         msg.setMsgLocation(new MsgLocation(error.getLine(), 0)); //CSS validation do not return column
                         logger.addMessage(msg);
                     }
