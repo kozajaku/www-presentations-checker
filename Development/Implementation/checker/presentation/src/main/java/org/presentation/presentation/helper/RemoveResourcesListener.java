@@ -16,6 +16,10 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
+/**
+ * This is the dirtiest class ever. It removes all the primefaces stylesheets.
+ * @author petrof
+ */
 public class RemoveResourcesListener implements SystemEventListener {
 
   @Override

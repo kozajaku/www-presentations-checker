@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewMetadata;
 
 /**
- * 
+ * This helper supports persisting GET parameters over POST form calls
  * 
  * @author petrof
  */

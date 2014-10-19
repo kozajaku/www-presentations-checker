@@ -14,7 +14,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
- *
+ * Annotation spec for email validator
  * @author petrof
  */
 @Constraint(validatedBy = {EmailValidator.class})

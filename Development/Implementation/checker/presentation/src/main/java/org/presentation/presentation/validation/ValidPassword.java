@@ -15,13 +15,8 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * This validator validates password (how suprising!)
  * @author petrof
  */
 @Constraint(validatedBy = {ValidPassword.PasswordValidator.class})
