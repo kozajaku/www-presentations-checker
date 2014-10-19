@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <context-param>
-	<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-	<param-value>/WEB-INF/functions.taglib.xml</param-value>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/functions.taglib.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
     </context-param>    
     <context-param>
-	    <param-name>primefaces.THEME</param-name>
-	    <param-value>none</param-value>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>none</param-value>
     </context-param>		    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -24,7 +28,7 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
-	<welcome-file>public/index.xhtml</welcome-file>
+        <welcome-file>public/index.xhtml</welcome-file>
     </welcome-file-list>
     
     <!-- to be enabled later -->    
@@ -40,17 +44,17 @@
 
     <!-- Login page -->
     <login-config>
-	<auth-method>FORM</auth-method>
-	<realm-name>LoginWCRealm</realm-name>
-	<form-login-config>
-	    <form-login-page>/public/login.xhtml</form-login-page>
-	    <form-error-page>/public/loginError.xhtml</form-error-page>
-	</form-login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>LoginWCRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/public/login.xhtml</form-login-page>
+            <form-error-page>/public/loginError.xhtml</form-error-page>
+        </form-login-config>
     </login-config>
 
     <!-- System roles -->
     <security-role>
-	<role-name>user</role-name>
+        <role-name>user</role-name>
     </security-role>  
     
 </web-app>
