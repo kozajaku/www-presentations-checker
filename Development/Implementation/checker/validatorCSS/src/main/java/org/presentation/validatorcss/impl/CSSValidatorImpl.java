@@ -26,9 +26,10 @@ import org.presentation.singlepagecontroller.SinglePageControllerService;
  */
 @Dependent
 public class CSSValidatorImpl implements SinglePageControllerService {
+
     //package friendly constant
     static final String SERVICE_NAME = "CSS validator";
-    
+
     /**
      * Inject logger.
      */

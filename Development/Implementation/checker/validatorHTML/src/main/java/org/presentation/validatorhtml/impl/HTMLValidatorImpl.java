@@ -29,7 +29,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
 
     //package friendly constant
     static final String SERVICE_NAME = "HTML validator";
-    
+
     /**
      * Inject logger.
      */

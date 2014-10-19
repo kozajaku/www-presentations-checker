@@ -20,7 +20,6 @@ import org.presentation.parser.ParsedLinkResponse;
  * Default implementation of CSSParserService
  *
  * @author Jindřich Máca
- * @version 1.0
  */
 @Dependent
 public class CSSParserServiceDefault implements CSSParserService {
@@ -35,9 +34,9 @@ public class CSSParserServiceDefault implements CSSParserService {
     /**
      * Default method for parse links from CSS file.
      *
-     * @param sourceCode
-     * @param baseURL
-     * @return parsedLinks
+     * @param sourceCode Source code of the CSS file.
+     * @param baseURL URL link of the CSS file.
+     * @return List of parsed links from the CSS file.
      */
     @Override
     public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL) {
@@ -69,9 +68,9 @@ public class CSSParserServiceDefault implements CSSParserService {
     /**
      * Formats relative URL to absolute if necessary.
      *
-     * @param url
-     * @param baseURL
-     * @return LinkURL
+     * @param url Relative URL parsed from the CSS file.
+     * @param baseURL Base URL of the CSS file.
+     * @return Absolute URL generated from relative and base URL.
      */
     private LinkURL formatToAbsURL(String url, URL base) throws MalformedURLException {
         URL abs = new URL(base, url);
