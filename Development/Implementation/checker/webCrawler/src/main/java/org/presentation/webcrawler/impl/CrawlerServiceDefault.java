@@ -24,10 +24,10 @@ import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.graph.ValidNode;
 import org.presentation.model.logging.ErrorCode;
 import org.presentation.model.logging.ErrorMsg;
-import org.presentation.model.logging.InfoMsg;
 import org.presentation.model.logging.InvalidLinkMsg;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.graph.LinkSourceType;
+import org.presentation.model.logging.DebugMsg;
 import org.presentation.parser.CSSParserService;
 import org.presentation.parser.HTMLParserService;
 import org.presentation.parser.ParsedLinkResponse;
@@ -343,10 +343,10 @@ public class CrawlerServiceDefault implements CrawlerService {
      * @param url Location of valid link
      */
     private void sendValidLinkMsg(LinkURL url) {
-        InfoMsg infoMsg = new InfoMsg();
-        infoMsg.setMessage("valid link");
-        infoMsg.setPage(url);
-        messageLogger.addMessage(infoMsg);
+        DebugMsg msg = new DebugMsg();
+        msg.setMessage("valid link");
+        msg.setPage(url);
+        messageLogger.addMessage(msg);
     }
 
     /**
