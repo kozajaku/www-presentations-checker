@@ -57,8 +57,8 @@ public interface PersistenceFacade {
     void editUser(User user);
 
     /**
-     * Method adds new {@link Link} object to the specified user passed as
-     * parameter. {@link Link} is created by using contemporary date and address
+     * Method adds new {@link Login} object to the specified user passed as
+     * parameter. {@link Login} is created by using contemporary date and address
      * (IP) passed in parameter.
      *
      * @param user {@link User} instance which new {@link Login} should be added
