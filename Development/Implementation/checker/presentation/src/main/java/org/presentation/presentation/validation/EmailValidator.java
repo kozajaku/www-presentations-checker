@@ -12,7 +12,7 @@ import javax.validation.ConstraintValidatorContext;
 
 
 /**
- *
+ * This validator validates email address
  * @author petrof
  */
 
