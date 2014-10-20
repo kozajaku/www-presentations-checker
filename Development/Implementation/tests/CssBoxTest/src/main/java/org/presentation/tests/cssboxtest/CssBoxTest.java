@@ -12,6 +12,8 @@ import cz.vutbr.web.css.Term;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,7 @@ import org.fit.cssbox.io.DocumentSource;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -41,17 +44,24 @@ public class CssBoxTest {
     public static void main(String[] args) throws SAXException, IOException {
 	
 	//Open the network connection 
-	DocumentSource docSource = new DefaultDocumentSource("http://www.webzdarma.cz/");
+	//DocumentSource docSource = new DefaultDocumentSource("http://www.webzdarma.cz/");
 
 	//Parse the input document
-	DOMSource parser = new DefaultDOMSource(docSource);
-	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(docSource.getURL(), 0);
+	//DOMSource parser = new DefaultDOMSource(docSource);
+	
+	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new URL());
+	String docFolder = System.getProperty("user.dir") + File.separator + "testpage" + File.separator;
+	String docFilename = docFolder + "index.html";
+	String cssFilename = docFolder + "style.css";
+	
+	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
 	
 	Document doc = DOMBuilder.jsoup2DOM(jsoupDocument);
 	
-	DOMAnalyzer da = new DOMAnalyzer(doc, docSource.getURL());
+	DOMAnalyzer da = new DOMAnalyzer(doc);
 	
 	//da.attributesToStyles(); //convert the HTML presentation attributes to inline styles
+	da.addStyleSheet(null, new String(Files.readAllBytes(Paths.get(cssFilename))), DOMAnalyzer.Origin.AUTHOR);
 	da.getStyleSheets(); //load the author style sheets
 	
 	NodeList nodeList = doc.getElementsByTagName("*");
@@ -85,7 +95,7 @@ public class CssBoxTest {
 		    Term<?> value = ndata.getValue(propertyName, true);
 		    String valueStr;
 		    if(value == null) {
-			valueStr = "null";
+			valueStr = ndata.getProperty(propertyName, true).toString();
 		    } else valueStr = value.toString();
 		    
 		    sb.append(valueStr);
@@ -119,7 +129,12 @@ public class CssBoxTest {
 	Node node = n;
 	StringBuilder sb = new StringBuilder();
 	while(node != null) {	    
-	    sb.insert(0, (first ? node.getNodeName() : node.getNodeName() + '/'));
+	    NamedNodeMap attrList = node.getAttributes();	    
+	    Node classItem = null;
+	    if(attrList != null) {
+		classItem = attrList.getNamedItem("class");
+	    }
+	    sb.insert(0, node.getNodeName() + (classItem == null ? "" : "(" + classItem.getNodeValue() + ")") + (first ? "" : "/"));
 	    node = node.getParentNode();
 	    first = false;
 	}
