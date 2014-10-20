@@ -245,3 +245,4 @@ pip-log.txt
 /Development/Implementation/tests/htmlValidatorTest/target/
 /Development/Implementation/tests/cssValidatorTest/target/
 /Development/Implementation/checker/target/
+/Development/Implementation/tests/CssBoxTest/target/
