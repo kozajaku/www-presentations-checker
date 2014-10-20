@@ -53,8 +53,13 @@ public class GraphTextGenerator extends GraphGenerator {
      * @param node New invalid node to append
      */
     private void writeInvalidNode(StringBuilder tree, InvalidNode node) {
-        tree.append("<span class=\"invalidnode\">").append(node.getErrorCode().getCode().toString())
-                .append(" ").append(node.getUrl().getUrl().replaceAll("&", "&amp;")).append("</span>");
+        tree.append("<span class=\"invalidnode\">")
+                .append("<span class=\"error-code\">")
+                .append(node.getErrorCode().getCode().toString())
+                .append("</span>")
+//                .append(" ")
+                .append(node.getUrl().getUrl().replaceAll("&", "&amp;"))
+                .append("</span>");
     }
 
     /**
