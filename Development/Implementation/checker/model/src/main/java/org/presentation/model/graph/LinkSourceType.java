@@ -9,19 +9,19 @@ package org.presentation.model.graph;
 public enum LinkSourceType {
 
     /**
-     * Link from &lta href=...&gt.
+     * Link from &lt;a href=...&gt;.
      */
     A_HREF,
     /**
-     * Link from &ltimg src=...&gt.
+     * Link from &lt;img src=...&gt;.
      */
     IMG_SRC,
     /**
-     * Link from &ltlink href=...&gt.
+     * Link from &lt;link href=...&gt;.
      */
     LINK_HREF,
     /**
-     * Link from &ltscript src=...&gt.
+     * Link from &lt;script src=...&gt;.
      */
     SCRIPT_SRC,
     /**

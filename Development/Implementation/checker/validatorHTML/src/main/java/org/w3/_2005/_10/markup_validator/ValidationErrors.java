@@ -41,13 +41,21 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ValidationErrors {
 
+    /**
+     *
+     */
     protected int errorcount;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected ErrorList errorlist;
 
     /**
      * Gets the value of the errorcount property.
      * 
+     * @return 
      */
     public int getErrorcount() {
         return errorcount;
@@ -56,6 +64,7 @@ public class ValidationErrors {
     /**
      * Sets the value of the errorcount property.
      * 
+     * @param value
      */
     public void setErrorcount(int value) {
         this.errorcount = value;

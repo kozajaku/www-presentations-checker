@@ -38,8 +38,15 @@ import javax.xml.bind.annotation.XmlValue;
 })
 public class Reasontext {
 
+    /**
+     *
+     */
     @XmlValue
     protected String value;
+
+    /**
+     *
+     */
     @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace", required = true)
     protected String lang;
 

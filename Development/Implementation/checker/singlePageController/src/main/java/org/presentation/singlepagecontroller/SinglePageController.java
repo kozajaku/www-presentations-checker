@@ -29,7 +29,8 @@ import org.presentation.utils.Stoppable;
 public class SinglePageController implements MessageProducer, Stoppable {
 
     ///Instance object for requesting SinglePageControllerService prototypes
-    @Inject @Any
+    @Inject
+    @Any
     private Instance<SinglePageControllerService> singlePageCheckersPrototype;
 
     ///Real SinglePageControllerService implemented instances created at time of spc initializeControllers calling
@@ -42,7 +43,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
-    
+
     /**
      * Method initialize controller services for this checkup by injecting all
      * possible implementations and than choosing those, which was chosed by
@@ -66,14 +67,17 @@ public class SinglePageController implements MessageProducer, Stoppable {
      * Method is called by web crawler (delegated from kernel) for every valid
      * page validation can be applied on. Method must delegate these requests
      * paralelly to chosen implementations of
-     * {@link SinglePageControllerService} class. Method {@link #initializeControllers(org.presentation.utils.OptionContainer)
-     * must be called before this method or IllegalStateException will be thrown.
+     * {@link SinglePageControllerService} class. Method
+     * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
+     * must be called before this method or IllegalStateException will be
+     * thrown.
      *
      * @param contentType Type of page content (eg. text/html, etc...)
      * @param linkURL URL of the checked page
      * @param pageContent Source code of checking page
      *
-     * @throws IllegalStateException Thrown if {@link #initializeControllers(org.presentation.utils.OptionContainer)
+     * @throws IllegalStateException Thrown if
+     * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * was not called before calling this method.
      */
     public void checkPage(ContentType contentType, LinkURL linkURL, PageContent pageContent) {
@@ -84,14 +88,14 @@ public class SinglePageController implements MessageProducer, Stoppable {
         }
         List<Future<?>> futures = new ArrayList<>();
         AsyncSPCCaller asyncTask;
-        for (SinglePageControllerService i: singlePageCheckers){
-            if (i.isApplicable(contentType)){
+        for (SinglePageControllerService i : singlePageCheckers) {
+            if (i.isApplicable(contentType)) {
                 asyncTask = new AsyncSPCCaller(contentType, linkURL, pageContent, i);
                 futures.add(mes.submit(asyncTask));
             }
         }
         //all tasks submitted - wait for end
-        for (Future<?> i: futures){
+        for (Future<?> i : futures) {
             try {
                 i.get();
             } catch (InterruptedException | ExecutionException ex) {
@@ -101,18 +105,21 @@ public class SinglePageController implements MessageProducer, Stoppable {
     }
 
     /**
-     * Setting messageLogger to chosen controllers. Note that {@link #initializeControllers(org.presentation.utils.OptionContainer)
+     * Setting messageLogger to chosen controllers. Note that
+     * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * must be called before this or IllegalStateException will be thrown.
      *
      * @param messageLoggerContainer Logger container for creating new logger
-     * @throws IllegalStateException If {@link #initializeControllers(org.presentation.utils.OptionContainer)} was not called first.
+     * @throws IllegalStateException If
+     * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
+     * was not called first.
      */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
-        if (singlePageCheckers == null){
+        if (singlePageCheckers == null) {
             throw new IllegalStateException("Method initializeControllers was not called before checkPage!");
         }
-        for (SinglePageControllerService i: singlePageCheckers){
+        for (SinglePageControllerService i : singlePageCheckers) {
             i.offerMsgLoggerContainer(messageLoggerContainer);
         }
     }
@@ -120,8 +127,8 @@ public class SinglePageController implements MessageProducer, Stoppable {
     @Override
     public void stopChecking() {
         //delegating to spc service implementations
-        if (singlePageCheckers != null){
-            for (SinglePageControllerService i: singlePageCheckers){
+        if (singlePageCheckers != null) {
+            for (SinglePageControllerService i : singlePageCheckers) {
                 i.stopChecking();
             }
         }

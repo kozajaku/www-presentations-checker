@@ -36,6 +36,9 @@ import javax.xml.namespace.QName;
 @XmlType(name = "NotUnderstoodType")
 public class NotUnderstoodType {
 
+    /**
+     *
+     */
     @XmlAttribute(name = "qname", required = true)
     protected QName qname;
 

@@ -51,6 +51,9 @@ import org.w3c.dom.Element;
 })
 public class Header {
 
+    /**
+     *
+     */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
     @XmlAnyAttribute
@@ -78,6 +81,7 @@ public class Header {
      * {@link Object }
      * 
      * 
+     * @return 
      */
     public List<Object> getAny() {
         if (any == null) {

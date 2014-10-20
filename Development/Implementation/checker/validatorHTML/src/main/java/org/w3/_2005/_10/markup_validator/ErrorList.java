@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ErrorList {
 
+    /**
+     *
+     */
     protected List<Error> error;
 
     /**
@@ -63,6 +66,7 @@ public class ErrorList {
      * {@link Error }
      * 
      * 
+     * @return 
      */
     public List<Error> getError() {
         if (error == null) {

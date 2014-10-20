@@ -48,6 +48,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link NotUnderstoodType }
      * 
+     * @return 
      */
     public NotUnderstoodType createNotUnderstoodType() {
         return new NotUnderstoodType();
@@ -56,6 +57,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Header }
      * 
+     * @return 
      */
     public Header createHeader() {
         return new Header();
@@ -64,6 +66,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Fault }
      * 
+     * @return 
      */
     public Fault createFault() {
         return new Fault();
@@ -72,6 +75,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Envelope }
      * 
+     * @return 
      */
     public Envelope createEnvelope() {
         return new Envelope();
@@ -80,6 +84,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Body }
      * 
+     * @return 
      */
     public Body createBody() {
         return new Body();
@@ -88,6 +93,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link UpgradeType }
      * 
+     * @return 
      */
     public UpgradeType createUpgradeType() {
         return new UpgradeType();
@@ -96,6 +102,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Faultcode }
      * 
+     * @return 
      */
     public Faultcode createFaultcode() {
         return new Faultcode();
@@ -104,6 +111,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Subcode }
      * 
+     * @return 
      */
     public Subcode createSubcode() {
         return new Subcode();
@@ -112,6 +120,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link SupportedEnvType }
      * 
+     * @return 
      */
     public SupportedEnvType createSupportedEnvType() {
         return new SupportedEnvType();
@@ -120,6 +129,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Reasontext }
      * 
+     * @return 
      */
     public Reasontext createReasontext() {
         return new Reasontext();
@@ -128,6 +138,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Faultreason }
      * 
+     * @return 
      */
     public Faultreason createFaultreason() {
         return new Faultreason();
@@ -136,6 +147,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Detail }
      * 
+     * @return 
      */
     public Detail createDetail() {
         return new Detail();
@@ -144,6 +156,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Header }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Header")
     public JAXBElement<Header> createHeader(Header value) {
@@ -153,6 +167,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link NotUnderstoodType }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "NotUnderstood")
     public JAXBElement<NotUnderstoodType> createNotUnderstood(NotUnderstoodType value) {
@@ -162,6 +178,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Envelope }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Envelope")
     public JAXBElement<Envelope> createEnvelope(Envelope value) {
@@ -171,6 +189,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Body }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Body")
     public JAXBElement<Body> createBody(Body value) {
@@ -180,6 +200,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UpgradeType }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Upgrade")
     public JAXBElement<UpgradeType> createUpgrade(UpgradeType value) {
@@ -189,6 +211,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link Fault }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Fault")
     public JAXBElement<Fault> createFault(Fault value) {

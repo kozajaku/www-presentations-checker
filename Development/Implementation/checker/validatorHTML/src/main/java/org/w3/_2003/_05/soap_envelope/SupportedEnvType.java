@@ -36,6 +36,9 @@ import javax.xml.namespace.QName;
 @XmlType(name = "SupportedEnvType")
 public class SupportedEnvType {
 
+    /**
+     *
+     */
     @XmlAttribute(name = "qname", required = true)
     protected QName qname;
 

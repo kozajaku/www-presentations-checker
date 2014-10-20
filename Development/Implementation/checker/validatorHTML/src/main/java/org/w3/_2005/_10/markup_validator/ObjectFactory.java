@@ -43,6 +43,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link MarkupValidationResponse }
      * 
+     * @return 
      */
     public MarkupValidationResponse createMarkupValidationResponse() {
         return new MarkupValidationResponse();
@@ -51,6 +52,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link WarningList }
      * 
+     * @return 
      */
     public WarningList createWarningList() {
         return new WarningList();
@@ -59,6 +61,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Warning }
      * 
+     * @return 
      */
     public Warning createWarning() {
         return new Warning();
@@ -67,6 +70,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link ErrorList }
      * 
+     * @return 
      */
     public ErrorList createErrorList() {
         return new ErrorList();
@@ -75,6 +79,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link ValidationErrors }
      * 
+     * @return 
      */
     public ValidationErrors createValidationErrors() {
         return new ValidationErrors();
@@ -83,6 +88,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link ValidationWarnings }
      * 
+     * @return 
      */
     public ValidationWarnings createValidationWarnings() {
         return new ValidationWarnings();
@@ -91,6 +97,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Error }
      * 
+     * @return 
      */
     public Error createError() {
         return new Error();
@@ -99,6 +106,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Debug }
      * 
+     * @return 
      */
     public Debug createDebug() {
         return new Debug();
@@ -107,6 +115,8 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link MarkupValidationResponse }{@code >}}
      * 
+     * @param value
+     * @return 
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2005/10/markup-validator", name = "markupvalidationresponse")
     public JAXBElement<MarkupValidationResponse> createMarkupvalidationresponse(MarkupValidationResponse value) {

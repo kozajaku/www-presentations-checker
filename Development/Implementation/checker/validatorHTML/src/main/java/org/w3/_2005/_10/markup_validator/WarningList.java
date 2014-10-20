@@ -40,6 +40,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class WarningList {
 
+    /**
+     *
+     */
     protected List<Warning> warning;
 
     /**
@@ -63,6 +66,7 @@ public class WarningList {
      * {@link Warning }
      * 
      * 
+     * @return 
      */
     public List<Warning> getWarning() {
         if (warning == null) {

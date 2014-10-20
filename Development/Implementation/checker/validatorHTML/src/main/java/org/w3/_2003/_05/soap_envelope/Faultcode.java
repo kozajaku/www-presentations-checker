@@ -42,8 +42,15 @@ import javax.xml.namespace.QName;
 })
 public class Faultcode {
 
+    /**
+     *
+     */
     @XmlElement(name = "Value", required = true)
     protected QName value;
+
+    /**
+     *
+     */
     @XmlElement(name = "Subcode")
     protected Subcode subcode;
 

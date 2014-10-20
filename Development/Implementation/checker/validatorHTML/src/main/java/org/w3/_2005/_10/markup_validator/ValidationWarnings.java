@@ -41,13 +41,21 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class ValidationWarnings {
 
+    /**
+     *
+     */
     protected int warningcount;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected WarningList warninglist;
 
     /**
      * Gets the value of the warningcount property.
      * 
+     * @return 
      */
     public int getWarningcount() {
         return warningcount;
@@ -56,6 +64,7 @@ public class ValidationWarnings {
     /**
      * Sets the value of the warningcount property.
      * 
+     * @param value
      */
     public void setWarningcount(int value) {
         this.warningcount = value;

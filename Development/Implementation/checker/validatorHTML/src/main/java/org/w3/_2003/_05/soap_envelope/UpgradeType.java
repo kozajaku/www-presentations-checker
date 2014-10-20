@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class UpgradeType {
 
+    /**
+     *
+     */
     @XmlElement(name = "SupportedEnvelope", required = true)
     protected List<SupportedEnvType> supportedEnvelope;
 
@@ -65,6 +68,7 @@ public class UpgradeType {
      * {@link SupportedEnvType }
      * 
      * 
+     * @return 
      */
     public List<SupportedEnvType> getSupportedEnvelope() {
         if (supportedEnvelope == null) {

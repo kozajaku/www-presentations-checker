@@ -58,18 +58,53 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class MarkupValidationResponse {
 
+    /**
+     *
+     */
     protected List<Debug> debug;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected String uri;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected String checkedby;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected String doctype;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected String charset;
+
+    /**
+     *
+     */
     protected boolean validity;
+
+    /**
+     *
+     */
     protected ValidationErrors errors;
+
+    /**
+     *
+     */
     protected ValidationWarnings warnings;
+
+    /**
+     *
+     */
     @XmlAttribute(name = "encodingStyle", namespace = "http://www.w3.org/2003/05/soap-envelope")
     @XmlSchemaType(name = "anyURI")
     protected String encodingStyle;
@@ -95,6 +130,7 @@ public class MarkupValidationResponse {
      * {@link Debug }
      * 
      * 
+     * @return 
      */
     public List<Debug> getDebug() {
         if (debug == null) {
@@ -202,6 +238,7 @@ public class MarkupValidationResponse {
     /**
      * Gets the value of the validity property.
      * 
+     * @return 
      */
     public boolean isValidity() {
         return validity;
@@ -210,6 +247,7 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the validity property.
      * 
+     * @param value
      */
     public void setValidity(boolean value) {
         this.validity = value;

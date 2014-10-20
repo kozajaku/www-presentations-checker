@@ -46,8 +46,15 @@ import javax.xml.namespace.QName;
 })
 public class Envelope {
 
+    /**
+     *
+     */
     @XmlElement(name = "Header")
     protected Header header;
+
+    /**
+     *
+     */
     @XmlElement(name = "Body", required = true)
     protected Body body;
     @XmlAnyAttribute

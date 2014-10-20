@@ -52,16 +52,35 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Fault {
 
+    /**
+     *
+     */
     @XmlElement(name = "Code", required = true)
     protected Faultcode code;
+
+    /**
+     *
+     */
     @XmlElement(name = "Reason", required = true)
     protected Faultreason reason;
+
+    /**
+     *
+     */
     @XmlElement(name = "Node")
     @XmlSchemaType(name = "anyURI")
     protected String node;
+
+    /**
+     *
+     */
     @XmlElement(name = "Role")
     @XmlSchemaType(name = "anyURI")
     protected String role;
+
+    /**
+     *
+     */
     @XmlElement(name = "Detail")
     protected Detail detail;
 

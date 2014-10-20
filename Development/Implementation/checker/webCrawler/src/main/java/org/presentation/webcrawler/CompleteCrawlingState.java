@@ -4,7 +4,6 @@ package org.presentation.webcrawler;
  * This class represents state of crawling when it is done.
  * @author Adam Kugler
  * @version 1.0
- * @created 04-5-2014 20:56:23
  */
 public enum CompleteCrawlingState {
 	/**

@@ -38,8 +38,15 @@ import javax.xml.bind.annotation.XmlValue;
 })
 public class Debug {
 
+    /**
+     *
+     */
     @XmlValue
     protected String value;
+
+    /**
+     *
+     */
     @XmlAttribute(name = "name")
     protected String name;
 

@@ -47,6 +47,9 @@ import org.w3c.dom.Element;
 })
 public class Detail {
 
+    /**
+     *
+     */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
     @XmlAnyAttribute
@@ -74,6 +77,7 @@ public class Detail {
      * {@link Object }
      * 
      * 
+     * @return 
      */
     public List<Object> getAny() {
         if (any == null) {

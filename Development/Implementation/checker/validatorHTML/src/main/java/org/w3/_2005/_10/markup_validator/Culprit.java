@@ -54,13 +54,36 @@ import javax.xml.bind.annotation.XmlType;
 })
 public abstract class Culprit {
 
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected String line;
+
+    /**
+     *
+     */
     @XmlElement(required = true)
     protected String col;
+
+    /**
+     *
+     */
     protected String source;
+
+    /**
+     *
+     */
     protected String explanation;
+
+    /**
+     *
+     */
     protected String messageid;
+
+    /**
+     *
+     */
     protected String message;
 
     /**

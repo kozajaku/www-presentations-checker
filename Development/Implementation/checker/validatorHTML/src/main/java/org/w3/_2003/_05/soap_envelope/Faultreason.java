@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Faultreason {
 
+    /**
+     *
+     */
     @XmlElement(name = "Text", required = true)
     protected List<Reasontext> text;
 
@@ -65,6 +68,7 @@ public class Faultreason {
      * {@link Reasontext }
      * 
      * 
+     * @return 
      */
     public List<Reasontext> getText() {
         if (text == null) {
