@@ -1,0 +1,118 @@
+.class {
+    color: #000001;
+}
+
+.multiClassOne.multiClassTwo {
+    color: #000002;
+}
+
+.subClassParent .subClassChildren {
+    color: #000003;
+}
+
+.inheritanceParent {
+    color: #000004;
+}
+
+.overwriteParent {
+    color: #000005;
+}
+
+.overwriteParent .overwriteChild1 {
+    color: #000006;
+}
+
+.overwriteChild2 {
+    color: #000007;
+}
+
+.partialOverwriteParent {
+    color: #000008;
+    text-align: center;
+}
+
+.partialOverwriteChild1 {
+    text-align: left;
+}
+
+.partialOverwriteParent .partialOverwriteChild2 {
+    text-align: right;
+}
+
+span.elementName {
+    color: #000009;
+}
+
+.nthChild :nth-child(odd) {
+    color: #000010;
+}
+
+.nthChild :nth-child(even) {
+    color: #000011;
+}
+
+
+.nthChild :first-child {
+    color: #000012;
+}
+
+.nthChild :nth-child(2) {
+    color: #000013;
+}
+
+
+.nthChild :last-child {
+    color: #000014;
+}
+
+.firstLetter :first-letter {
+    color: #000015;
+}
+
+.multi1, .multi2 {
+    color: #000016;
+}
+
+#testId {
+    color: #000017;
+}
+
+.inlineOverwrite {
+    color: #000018;
+}
+
+.inlineFakeOverwrite {
+    color: #000019 !important;
+}
+
+.parent > .parentChild {
+    color: #000020;
+}
+
+.after + div {
+    color: #000021;
+}
+
+div ~ .before {
+    text-align: center;
+}
+
+a[href^="https"] {
+    color: #000022;
+}
+
+img[alt~=opossum] {
+    border: 1px;
+}
+
+span.after::after {
+    content: "good";
+}
+
+span.empty:empty {
+    color: #000023;
+}
+
+span.not:not(.notnot) {
+    color: #000024;
+}
