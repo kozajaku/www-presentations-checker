@@ -11,82 +11,112 @@ import org.presentation.persistence.model.ChosenOption;
 import org.presentation.persistence.model.Graph;
 
 /**
+ * Interface which serves as middle business side between modules, which
+ * requires ability to query data from and to database, and the specific
+ * implementation of implementation of integration DAO classes.
  *
  * @author radio.koza
  */
 public interface PersistenceFacade {
 
-    //user methods
+    //======================user methods========================================
     /**
-     * Creates new user.
+     * Method creates new user in database by using email, password, user's name
+     * and surname. Implementation should be cappable to work with salts and
+     * hashing if it is specified so in database model.
      *
-     * @param email User email
-     * @param pass User password
-     * @param name Name of user
-     * @param surname Surname of User
-     * @return True if user was created sucesfully.
+     * @param email Email of the new user
+     * @param pass Password of the new user given as plain text in utf-8
+     * encoding
+     * @param name First name of the new user
+     * @param surname Surname of the new user
+     * @return <code>true</code> if user was created sucessfully;
+     * <code>false</code> otherwise
      */
     boolean createNewUser(String email, String pass, String name, String surname);
 
     /**
-     * Finds user based on email.
+     * Method finds user in database by user's email address (primary key). If
+     * there is no user with specified email, method returns <code>null</code>.
      *
-     * @param email Email of searched user
-     * @return User with matching email or null if there isn't match.
+     * @param email Email of the user to be seeked
+     * @return User with matching email or <code>null</code> if there is no user
+     * with such email address
      */
     User findUser(String email);
 
     /**
-     * Edits user with matching email. Updates values.
+     * Method edits user matching the specified email address. Note that this
+     * method should not be used to update collection values inside {@link User}
+     * class but should use proper methods instead. Editing of collection is not
+     * necessary functionable because of JPA owning side problem.
      *
-     * @param user User with new values.
+     * @param user Specific instance of {@link User} class defining the new
+     * state of user with same email address
      */
     void editUser(User user);
 
     /**
-     * Adds users login.
+     * Method adds new {@link Link} object to the specified user passed as
+     * parameter. {@link Link} is created by using contemporary date and address
+     * (IP) passed in parameter.
      *
-     * @param user User that logged in
-     * @param address IP address from which is user logged in
+     * @param user {@link User} instance which new {@link Login} should be added
+     * to
+     * @param address {@link String} representation of IP address from which is
+     * user logged in
      */
     void addUserLogin(User user, String address);
 
     /**
-     * Finds last user login.
+     * Method finds {@link Login} instance of the specified user's last login.
+     * If there is no user with such email address or found user does have no
+     * logins, method returns {@code null}.
      *
-     * @param user User to search
-     * @return Last user login.
+     * @param user Instance of {@link User} that the {@link Login} should be
+     * found for
+     * @return Last Instance of {@link Login} representing last user login;
+     * {@code null} if user not found or user have no logins
      */
     Login findLastUserLogin(User user);
 
     /**
-     * Finds all user logins
+     * Method finds collection of all user logins (instance of {@link Login}) of
+     * the user specified as method parameter.
      *
-     * @param user User to search
-     * @return User login history.
+     * @param user {@link User} that {@link Login} collection should be found
+     * for
+     * @return Collection of user logins; collection can be empty if user was
+     * not found in database or user does have no logins; never returns
+     * {@code null}
      */
     List<Login> findUserLogins(User user);
 
-    //checkup methods
+    //========================checkup methods===================================
     /**
-     * Creates new check-up.
+     * Method creates new checkup by using instance of {@link Checkup} class.
+     * Note that checkup passed as parameter must have set mandatory database
+     * field and also {@link User} instance set through method {@link Checkup#setUser(org.presentation.persistence.model.User) }.
      *
-     * @param checkup New check-up.
+     * @param checkup New checkup that should be persisted in database
      */
     void createNewCheckup(Checkup checkup);
 
     /**
-     * Updates check-up with same id.
+     * Method updates checkup passed as parameter. Checkup is found by primary key
+     * specified in passed instance of {@link Checkup} and merged to database with new values.
+     * Note that this method should not be used for updating collection of {@link Checkup}.
      *
-     * @param checkup Updated check-up.
+     * @param checkup Instance of {@link Checkup} to be merged into database with new values
      */
     void updateCheckup(Checkup checkup);
 
     /**
-     * Finds user check-ups.
+     * Method finds collection of {@link Checkup} class. Collection can be empty
+     * if no checkup was found but collection is never {@code null}.
      *
-     * @param user User to search
-     * @return All user check-ups.
+     * @param user {@link User} for which to find collection of checkups
+     * @return Collection of user's {@link Checkup}
      */
     List<Checkup> findUserCheckings(User user);
 
@@ -108,6 +138,13 @@ public interface PersistenceFacade {
      */
     Checkup findCheckup(Integer checkId);
 
+    /**
+     * <p>
+     * findCheckupInitializedInputs.</p>
+     *
+     * @param checkId a {@link java.lang.Integer} object.
+     * @return a {@link org.presentation.persistence.model.Checkup} object.
+     */
     Checkup findCheckupInitializedInputs(Integer checkId);
 
     /**
@@ -133,7 +170,7 @@ public interface PersistenceFacade {
      */
     int countUserCheckups(User user);
 
-    //headers
+    //=========================headers==========================================
     /**
      * Adds http/https headers to check-up.
      *
@@ -150,7 +187,7 @@ public interface PersistenceFacade {
      */
     List<Header> findCheckupHeaders(Checkup checkup);
 
-    //options
+    //=============================options======================================
     /**
      * Adds options to check-up.
      *
@@ -294,12 +331,54 @@ public interface PersistenceFacade {
      */
     List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources, int offset, int count);
 
+    /**
+     * <p>
+     * findCheckupMessagesWithDiscriminators.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @param discriminators a {@link java.util.List} object.
+     * @return a {@link java.util.List} object.
+     */
     List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators);
 
+    /**
+     * <p>
+     * findCheckupMessagesWithDiscriminators.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @param discriminators a {@link java.util.List} object.
+     * @param offset a int.
+     * @param count a int.
+     * @return a {@link java.util.List} object.
+     */
     List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators, int offset, int count);
 
+    /**
+     * <p>
+     * findCheckupMessagesWithResourcesDiscriminators.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @param resources a {@link java.util.List} object.
+     * @param discriminators a {@link java.util.List} object.
+     * @return a {@link java.util.List} object.
+     */
     List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators);
 
+    /**
+     * <p>
+     * findCheckupMessagesWithResourcesDiscriminators.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @param resources a {@link java.util.List} object.
+     * @param discriminators a {@link java.util.List} object.
+     * @param offset a int.
+     * @param count a int.
+     * @return a {@link java.util.List} object.
+     */
     List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators, int offset, int count);
 
     /**
@@ -324,7 +403,26 @@ public interface PersistenceFacade {
      */
     int countCheckupMessagesWithResources(Checkup checkup, List<String> resources);
 
+    /**
+     * <p>
+     * countCheckupMessagesWithDiscriminators.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @param discriminators a {@link java.util.List} object.
+     * @return a int.
+     */
     int countCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators);
 
+    /**
+     * <p>
+     * countCheckupMessagesWithResourcesDiscriminators.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @param resources a {@link java.util.List} object.
+     * @param discriminators a {@link java.util.List} object.
+     * @return a int.
+     */
     int countCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators);
 }

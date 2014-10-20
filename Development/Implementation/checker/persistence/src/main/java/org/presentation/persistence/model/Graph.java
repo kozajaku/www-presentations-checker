@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Entity class representing the Graph entity in JPA entity architecture.
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Entity
 @Vetoed
@@ -65,43 +66,90 @@ public class Graph implements Serializable {
         this.idGraph = idGraph;
     }
 
+    /**
+     * <p>Constructor for Graph.</p>
+     *
+     * @param output a {@link java.lang.String} object.
+     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public Graph(String output, Checkup checkup) {
         this.output = output;
         this.checkup = checkup;
     }
 
+    /**
+     * <p>Getter for the field <code>idGraph</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getIdGraph() {
         return idGraph;
     }
 
+    /**
+     * <p>Setter for the field <code>idGraph</code>.</p>
+     *
+     * @param idGraph a {@link java.lang.Integer} object.
+     */
     public void setIdGraph(Integer idGraph) {
         this.idGraph = idGraph;
     }
 
+    /**
+     * <p>Getter for the field <code>output</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getOutput() {
         return output;
     }
 
+    /**
+     * <p>Setter for the field <code>output</code>.</p>
+     *
+     * @param output a {@link java.lang.String} object.
+     */
     public void setOutput(String output) {
         this.output = output;
     }
 
+    /**
+     * <p>Getter for the field <code>checkup</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public Checkup getCheckup() {
         return checkup;
     }
 
+    /**
+     * <p>Setter for the field <code>checkup</code>.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public void setCheckup(Checkup checkup) {
         this.checkup = checkup;
     }
 
+    /**
+     * <p>Getter for the field <code>graphType</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getGraphType() {
         return graphType;
     }
 
+    /**
+     * <p>Setter for the field <code>graphType</code>.</p>
+     *
+     * @param graphType a {@link java.lang.String} object.
+     */
     public void setGraphType(String graphType) {
         this.graphType = graphType;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +157,7 @@ public class Graph implements Serializable {
         return hash;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -121,6 +170,7 @@ public class Graph implements Serializable {
         return Objects.equals(this.idGraph, other.idGraph);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Graph{" + "idGraph=" + idGraph + ", output=" + output + ", checkup=" + checkup + '}';

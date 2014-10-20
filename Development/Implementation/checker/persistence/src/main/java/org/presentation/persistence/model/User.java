@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entity class representing the entity User in JPA entity architecture.
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Entity
 @Vetoed
@@ -79,79 +80,161 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    /**
+     * <p>Getter for the field <code>email</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * <p>Setter for the field <code>email</code>.</p>
+     *
+     * @param email a {@link java.lang.String} object.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * <p>Getter for the field <code>password</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @XmlTransient
     public String getPassword() {
         return password;
     }
 
+    /**
+     * <p>Setter for the field <code>password</code>.</p>
+     *
+     * @param password a {@link java.lang.String} object.
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * <p>Getter for the field <code>salt</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     @XmlTransient
     public String getSalt() {
         return salt;
     }
 
+    /**
+     * <p>Setter for the field <code>salt</code>.</p>
+     *
+     * @param salt a {@link java.lang.String} object.
+     */
     public void setSalt(String salt) {
         this.salt = salt;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * <p>Setter for the field <code>name</code>.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>surname</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * <p>Setter for the field <code>surname</code>.</p>
+     *
+     * @param surname a {@link java.lang.String} object.
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     * <p>Getter for the field <code>registrationDate</code>.</p>
+     *
+     * @return a {@link java.util.Date} object.
+     */
     public Date getRegistrationDate() {
         return registrationDate;
     }
 
+    /**
+     * <p>Setter for the field <code>registrationDate</code>.</p>
+     *
+     * @param registrationDate a {@link java.util.Date} object.
+     */
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
     }
 
+    /**
+     * <p>Getter for the field <code>loginList</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     @XmlTransient
     public List<Login> getLoginList() {
         return loginList;
     }
 
+    /**
+     * <p>Setter for the field <code>loginList</code>.</p>
+     *
+     * @param loginList a {@link java.util.List} object.
+     */
     public void setLoginList(List<Login> loginList) {
         this.loginList = loginList;
     }
 
+    /**
+     * <p>Getter for the field <code>checkupList</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     @XmlTransient
     public List<Checkup> getCheckupList() {
         return checkupList;
     }
 
+    /**
+     * <p>Setter for the field <code>checkupList</code>.</p>
+     *
+     * @param checkupList a {@link java.util.List} object.
+     */
     public void setCheckupList(List<Checkup> checkupList) {
         this.checkupList = checkupList;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "User{" + "email=" + email + ", name=" + name + ", surname=" + surname + ", registrationDate=" + registrationDate + '}';
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -159,6 +242,7 @@ public class User implements Serializable {
         return hash;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

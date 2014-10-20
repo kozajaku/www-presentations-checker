@@ -9,12 +9,15 @@ import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
 
 /**
+ * <p>ChosenOptionDAOImpl class.</p>
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Dependent
 public class ChosenOptionDAOImpl extends AbstractDAOImpl implements ChosenOptionDAO {
 
+    /** {@inheritDoc} */
     @Override
     public List<ChosenOption> findAllCheckOptions(Integer checkupId) {
         TypedQuery<ChosenOption> q = getEntityManager().createNamedQuery("ChosenOption.findAllInCheckup", ChosenOption.class);
@@ -22,6 +25,7 @@ public class ChosenOptionDAOImpl extends AbstractDAOImpl implements ChosenOption
         return q.getResultList();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addOptionToCheckup(ChosenOption option, Integer checkupId) {
         ChosenOption tmp = getEntityManager().find(ChosenOption.class, option.getIdOption());

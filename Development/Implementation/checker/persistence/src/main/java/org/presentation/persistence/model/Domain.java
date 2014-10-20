@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Entity class representing the Domain entity in JPA entity architecture.
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Entity
 @Vetoed
@@ -59,35 +60,72 @@ public class Domain implements Serializable {
         this.idDomain = idDomain;
     }
 
+    /**
+     * <p>Constructor for Domain.</p>
+     *
+     * @param idDomain a {@link java.lang.Integer} object.
+     * @param name a {@link java.lang.String} object.
+     */
     public Domain(Integer idDomain, String name) {
         this.idDomain = idDomain;
         this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>idDomain</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getIdDomain() {
         return idDomain;
     }
 
+    /**
+     * <p>Setter for the field <code>idDomain</code>.</p>
+     *
+     * @param idDomain a {@link java.lang.Integer} object.
+     */
     public void setIdDomain(Integer idDomain) {
         this.idDomain = idDomain;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * <p>Setter for the field <code>name</code>.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>checking</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public Checkup getChecking() {
         return checking;
     }
 
+    /**
+     * <p>Setter for the field <code>checking</code>.</p>
+     *
+     * @param checking a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public void setChecking(Checkup checking) {
         this.checking = checking;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -95,6 +133,7 @@ public class Domain implements Serializable {
         return hash;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -105,6 +144,7 @@ public class Domain implements Serializable {
         return !((this.idDomain == null && other.idDomain != null) || (this.idDomain != null && !this.idDomain.equals(other.idDomain)));
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "testicek.Domain[ idDomain=" + idDomain + " ]";
@@ -112,11 +152,11 @@ public class Domain implements Serializable {
 
     /**
      * Method converts {@link org.presentation.model.Domain} class to its mapped
-     * entity class {@link Domain}.
+     * entity class {@link org.presentation.persistence.model.Domain}.
      *
      * @param domain {@link org.presentation.model.Domain} model class as the
      * source of conversion
-     * @return {@link Domain} as the target of conversion
+     * @return {@link org.presentation.persistence.model.Domain} as the target of conversion
      */
     public static Domain convert(org.presentation.model.Domain domain) {
         Domain dom = new Domain();
@@ -125,10 +165,10 @@ public class Domain implements Serializable {
     }
 
     /**
-     * Method converts {@link Domain} entity class to its mapping
+     * Method converts {@link org.presentation.persistence.model.Domain} entity class to its mapping
      * {@link org.presentation.model.Domain} model class.
      *
-     * @param domain {@link Domain} entity class as the source of conversion
+     * @param domain {@link org.presentation.persistence.model.Domain} entity class as the source of conversion
      * @return {@link org.presentation.model.Domain} model class as the target
      * of conversion
      */
