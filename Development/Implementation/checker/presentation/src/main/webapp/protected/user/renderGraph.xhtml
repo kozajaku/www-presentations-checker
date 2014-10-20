@@ -7,73 +7,73 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <f:metadata>
-	<f:viewParam name="checkupId" value="#{renderGraphBean.checkupId}"/>
-	<f:viewAction action="#{renderGraphBean.showGraphList}"/>
+        <f:viewParam name="checkupId" value="#{renderGraphBean.checkupId}"/>
+        <f:viewAction action="#{renderGraphBean.showGraphList}"/>
     </f:metadata>   
-    
+
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
 
 
-	    <c:if test="#{not empty renderGraph.checkup}">
-		<ui:define name="subheader">
-		    <h2>
-			<h:outputFormat value="#{msg['renderGraph.caption']}">
-			    <f:param value="#{renderGraphBean.checkupId}" />
-			</h:outputFormat>
-		    </h2>
-		</ui:define>
-	    </c:if>
-		
-	    <ui:define name="content">		
+            <c:if test="#{not empty renderGraph.checkup}">
+                <ui:define name="subheader">
+                    <h2>
+                        <h:outputFormat value="#{msg['renderGraph.caption']}">
+                            <f:param value="#{renderGraphBean.checkupId}" />
+                        </h:outputFormat>
+                    </h2>
+                </ui:define>
+            </c:if>
+
+            <ui:define name="content">		
 
                 <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                 <ui:fragment rendered="#{not empty renderGraphBean.checkup}">		    		    		    		    				    
-		    
-		    <c:choose>
-			<c:when test="#{empty renderGraphBean.availableGraphs}">
+
+                    <c:choose>
+                        <c:when test="#{empty renderGraphBean.availableGraphs}">
                             <h:outputLabel styleClass="alert alert-info" value="#{msg['renderGraph.no_graphs']}" />
                         </c:when>
-			<c:otherwise>
-			    <h:form styleClass="form-horizontal" role="form">		   
+                        <c:otherwise>
+                            <h:form styleClass="form-horizontal" role="form">		   
 
-				<div class="form-group">
-				    <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['renderGraph.inp_graph_select']}" />
-				    <div class="col-sm-4 checkbox">
+                                <div class="form-group">
+                                    <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['renderGraph.inp_graph_select']}" />
+                                    <div class="col-sm-4 checkbox">
 
-					<h:selectOneMenu value="#{renderGraphBean.graphType}" label="#{msg['renderGraph.inp_graph_select']}:" >
-					    <f:selectItems value="#{renderGraphBean.availableGraphs}" var="o"
-							   itemLabel="#{o.graphType}" itemValue="#{o.graphType}" />
-					</h:selectOneMenu>
+                                        <h:selectOneMenu value="#{renderGraphBean.graphType}" label="#{msg['renderGraph.inp_graph_select']}:" >
+                                            <f:selectItems value="#{renderGraphBean.availableGraphs}" var="o"
+                                                           itemLabel="#{o.graphType}" itemValue="#{o.graphType}" />
+                                        </h:selectOneMenu>
 
-				    </div>
-				</div>
+                                    </div>
+                                </div>
 
-				<h:inputHidden value="#{renderGraphBean.checkupId}" />
+                                <h:inputHidden value="#{renderGraphBean.checkupId}" />
 
-				<h:commandButton styleClass="btn btn-primary" value="#{msg['renderGraph.submit_render']}" action="#{renderGraphBean.showGraph}">
-				    <f:param name="checkupId" value="#{renderGraphBean.checkupId}" />
-				</h:commandButton>
-				<h:commandButton styleClass="btn btn-primary" value="#{msg['renderGraph.submit_download']}" action="#{renderGraphBean.download()}">
-				    <f:param name="checkupId" value="#{renderGraphBean.checkupId}" />
-				</h:commandButton>
+                                <h:commandButton styleClass="btn btn-primary render" value="#{msg['renderGraph.submit_render']}" action="#{renderGraphBean.showGraph}">
+                                    <f:param name="checkupId" value="#{renderGraphBean.checkupId}" />
+                                </h:commandButton>
+                                <h:commandButton styleClass="btn btn-primary" value="#{msg['renderGraph.submit_download']}" action="#{renderGraphBean.download()}">
+                                    <f:param name="checkupId" value="#{renderGraphBean.checkupId}" />
+                                </h:commandButton>
 
 
-			    </h:form>
+                            </h:form>
 
-			    <c:choose>
-				<c:when test="#{not empty renderGraphBean.selectedGraph}">
-				    <div class="graph #{func:normalizeString(renderGraphBean.selectedGraph.graphType)}">										
-					<h:outputText value="#{renderGraphBean.selectedGraph.output}" escape="false" /> 
-				    </div>
-				</c:when>
-			    </c:choose>
-			    <hr />
-			</c:otherwise>
-		    </c:choose>
- 
+                            <c:choose>
+                                <c:when test="#{not empty renderGraphBean.selectedGraph}">
+                                    <div class="graph #{func:normalizeString(renderGraphBean.selectedGraph.graphType)}">										
+                                        <h:outputText value="#{renderGraphBean.selectedGraph.output}" escape="false" /> 
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                            <hr />
+                        </c:otherwise>
+                    </c:choose>
+
                 </ui:fragment>
 
                 <h:link outcome="checkupList" value="#{func:translate(msg['navi.back'], msg['navi.checkup_list'])}" />
