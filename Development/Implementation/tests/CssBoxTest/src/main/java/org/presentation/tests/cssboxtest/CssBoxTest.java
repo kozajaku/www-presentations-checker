@@ -6,9 +6,9 @@
 package org.presentation.tests.cssboxtest;
 
 
+import cz.vutbr.web.css.CSSProperty;
 import cz.vutbr.web.css.Declaration;
 import cz.vutbr.web.css.NodeData;
-import cz.vutbr.web.css.Term;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,6 @@ import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-import org.fit.cssbox.css.CSSNorm;
 import org.fit.cssbox.css.DOMAnalyzer;
 import org.fit.cssbox.io.DOMSource;
 import org.fit.cssbox.io.DefaultDOMSource;
@@ -91,12 +89,19 @@ public class CssBoxTest {
 		    sb.append("\t");
 		    sb.append(propertyName);
 		    sb.append(spaces.substring(0, Math.max(10, 30 - propertyName.length())));
-		    
-		    Term<?> value = ndata.getValue(propertyName, true);
-		    String valueStr;
-		    if(value == null) {
-			valueStr = ndata.getProperty(propertyName, true).toString();
-		    } else valueStr = value.toString();
+                    CSSProperty property = ndata.getProperty(propertyName, true);
+                    String valueStr = property.toString();
+                    if (valueStr.equals("")){
+                        valueStr = ndata.getValue(propertyName, true).toString();
+                    }
+
+//		    Term<?> value = ndata.getValue(propertyName, true);
+//                    property.
+//		    String valueStr = property.toString();
+//		    if(value == null) {
+//                        System.out.println("null for propertyName: " + propertyName);
+//			valueStr = "null";
+//		    } else valueStr = value.toString();
 		    
 		    sb.append(valueStr);
 		    sb.append(spaces.substring(0, Math.max(10, 30 - valueStr.length())));
