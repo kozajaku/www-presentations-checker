@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Entity class representing the Login entity in JPA entity architecture.
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Entity
 @Vetoed
@@ -67,38 +68,79 @@ public class Login implements Serializable {
         this.idLogin = idLogin;
     }
 
+    /**
+     * <p>Getter for the field <code>idLogin</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getIdLogin() {
         return idLogin;
     }
 
+    /**
+     * <p>Setter for the field <code>idLogin</code>.</p>
+     *
+     * @param idLogin a {@link java.lang.Integer} object.
+     */
     public void setIdLogin(Integer idLogin) {
         this.idLogin = idLogin;
     }
 
+    /**
+     * <p>Getter for the field <code>address</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * <p>Setter for the field <code>address</code>.</p>
+     *
+     * @param address a {@link java.lang.String} object.
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * <p>Getter for the field <code>time</code>.</p>
+     *
+     * @return a {@link java.util.Date} object.
+     */
     public Date getTime() {
         return time;
     }
 
+    /**
+     * <p>Setter for the field <code>time</code>.</p>
+     *
+     * @param time a {@link java.util.Date} object.
+     */
     public void setTime(Date time) {
         this.time = time;
     }
 
+    /**
+     * <p>Getter for the field <code>user</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.User} object.
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * <p>Setter for the field <code>user</code>.</p>
+     *
+     * @param user a {@link org.presentation.persistence.model.User} object.
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -106,6 +148,7 @@ public class Login implements Serializable {
         return hash;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Login)) {
@@ -115,6 +158,7 @@ public class Login implements Serializable {
         return !((this.idLogin == null && other.idLogin != null) || (this.idLogin != null && !this.idLogin.equals(other.idLogin)));
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "testicek.Login[ idLogin=" + idLogin + " ]";

@@ -37,8 +37,10 @@ import org.presentation.persistence.model.MessageEntity;
 import org.presentation.persistence.model.User;
 
 /**
+ * <p>PersistenceFacadeImpl class.</p>
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Local(PersistenceFacade.class)
 @Stateless
@@ -88,6 +90,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return new String(hexChars);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean createNewUser(String email, String pass, String name, String surname) {
         try {
@@ -127,11 +130,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void createNewCheckup(Checkup checkup) {
         checkupDAO.create(checkup);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addUserLogin(User user, String address) {
         Login login = new Login();
@@ -141,41 +146,49 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         loginDAO.create(login);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void editUser(User user) {
         userDAO.update(user);
     }
 
+    /** {@inheritDoc} */
     @Override
     public User findUser(String email) {
         return userDAO.find(email);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Checkup> findUserCheckings(User user) {
         return checkupDAO.findAllUserChecks(user.getEmail());
     }
 
+    /** {@inheritDoc} */
     @Override
     public Checkup findCheckup(Integer checkId) {
         return checkupDAO.find(checkId);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void updateCheckup(Checkup checkup) {
         checkupDAO.update(checkup);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Login> findUserLogins(User user) {
         return loginDAO.findAllUserLogins(user.getEmail());
     }
 
+    /** {@inheritDoc} */
     @Override
     public Login findLastUserLogin(User user) {
         return loginDAO.findLastUserLogin(user.getEmail());
     }
 
+    /** {@inheritDoc} */
     @Override
     public Checkup findCheckupInitializedInputs(Integer checkId) {
         Checkup checkup = checkupDAO.find(checkId);
@@ -190,6 +203,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return checkup;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addHeadersToCheckup(Checkup checkup, List<Header> headers) {
         //at first find managed version of checkup
@@ -209,6 +223,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Header> findCheckupHeaders(Checkup checkup) {
         List<HeaderEntity> entityHeaders = headerDAO.findAllCheckHeaders(checkup.getIdCheckup());
@@ -219,6 +234,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return res;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addOptionsToCheckup(Checkup checkup, List<String> options) {
         //at first find managed version of checkup
@@ -236,11 +252,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<ChosenOption> findCheckupOptions(Checkup checkup) {
         return chosenOptionDAO.findAllCheckOptions(checkup.getIdCheckup());
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addDomainsToCheckup(Checkup checkup, List<Domain> domains) {
         //at first find managed version of checkup
@@ -258,6 +276,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Domain> findCheckupDomains(Checkup checkup) {
         List<org.presentation.persistence.model.Domain> domains = domainDAO.findAllCheckDomains(checkup.getIdCheckup());
@@ -268,6 +287,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return res;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addGraphsToCheckup(Checkup checkup, List<Graph> graphs) {
         //at first find managed version of checkup
@@ -284,21 +304,25 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Graph> findCheckupGraphs(Checkup checkup) {
         return graphDAO.findAllCheckGraphs(checkup.getIdCheckup());
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<String> listGraphTypes(Checkup checkup) {
         return graphDAO.listGraphTypes(checkup.getIdCheckup());
     }
 
+    /** {@inheritDoc} */
     @Override
     public Graph findGraphByGraphType(Checkup checkup, String graphType) {
         return graphDAO.findGraphByGraphType(checkup.getIdCheckup(), graphType);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addMessagesToCheckup(Checkup checkup, List<Message> messages, String resource) {
         //at first find managed version of checkup
@@ -317,6 +341,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessages(Checkup checkup) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessages(checkup.getIdCheckup());
@@ -327,11 +352,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<String> findCheckupMessageResources(Checkup checkup) {
         return messageDAO.findAllCheckMessageResources(checkup.getIdCheckup());
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResource(checkup.getIdCheckup(), resource);
@@ -342,11 +369,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void flush() {
         checkupDAO.flush();
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Checkup> findNotEndedCheckupsStateOrdered() {
         CheckState[] notEndedStates = {CheckState.CREATED, CheckState.PENDING, CheckState.CHECKING};
@@ -380,6 +409,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return checkups;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Checkup fetchNewlyCreatedCheckup() {
         List<Checkup> checkups = checkupDAO.findAllWithState(new CheckState[]{CheckState.CREATED});
@@ -392,11 +422,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return res;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Checkup> findUserCheckings(User user, int offset, int count) {
         return checkupDAO.findAllUserChecks(user.getEmail(), offset, count);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessages(Checkup checkup, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessages(checkup.getIdCheckup(), offset, count);
@@ -407,6 +439,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithResource(Checkup checkup, String resource, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResource(checkup.getIdCheckup(), resource, offset, count);
@@ -417,6 +450,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResources(checkup.getIdCheckup(), resources);
@@ -427,6 +461,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithResources(Checkup checkup, List<String> resources, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesFromResources(checkup.getIdCheckup(), resources, offset, count);
@@ -437,21 +472,25 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int countUserCheckups(User user) {
         return checkupDAO.countUserChecks(user.getEmail());
     }
 
+    /** {@inheritDoc} */
     @Override
     public int countCheckupMessages(Checkup checkup) {
         return messageDAO.countCheckMessages(checkup.getIdCheckup());
     }
 
+    /** {@inheritDoc} */
     @Override
     public int countCheckupMessagesWithResources(Checkup checkup, List<String> resources) {
         return messageDAO.countCheckMessagesFromResources(checkup.getIdCheckup(), resources);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
@@ -462,6 +501,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators, offset, count);
@@ -472,6 +512,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);
@@ -482,6 +523,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Message> findCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators, int offset, int count) {
         List<MessageEntity> entities = messageDAO.findAllCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators, offset, count);
@@ -492,11 +534,13 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         return messages;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int countCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators) {
         return messageDAO.countCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
     }
 
+    /** {@inheritDoc} */
     @Override
     public int countCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators) {
         return messageDAO.countCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);

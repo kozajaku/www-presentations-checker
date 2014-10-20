@@ -34,13 +34,14 @@
         <module>utils</module>
         <module>model</module>
         <module>webCrawler</module>
-    <module>parser</module>
-    <module>graphGenerator</module>
+        <module>parser</module>
+        <module>graphGenerator</module>
         <module>securityDomain</module>
-    <module>singlePageController</module>
-    <module>validatorHTML</module>
-    <module>validatorCSS</module>
-  </modules>
+        <module>singlePageController</module>
+        <module>validatorHTML</module>
+        <module>validatorCSS</module>
+        <module>validatorUtils</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

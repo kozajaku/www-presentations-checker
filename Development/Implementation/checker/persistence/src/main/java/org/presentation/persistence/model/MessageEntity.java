@@ -25,6 +25,7 @@ import org.presentation.persistence.utils.MessageMapperImpl;
  * Entity class representing the Message entity in JPA entity architecture.
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Entity
 @Vetoed
@@ -97,6 +98,16 @@ public class MessageEntity implements Serializable {
         this.id = id;
     }
 
+    /**
+     * <p>Constructor for MessageEntity.</p>
+     *
+     * @param id a {@link java.lang.Integer} object.
+     * @param discriminator a {@link java.lang.String} object.
+     * @param message a {@link java.lang.String} object.
+     * @param page a {@link java.lang.String} object.
+     * @param column a {@link java.lang.Integer} object.
+     * @param row a {@link java.lang.Integer} object.
+     */
     public MessageEntity(Integer id, String discriminator, String message, String page, Integer column, Integer row) {
         this.id = id;
         this.discriminator = discriminator;
@@ -106,34 +117,74 @@ public class MessageEntity implements Serializable {
         this.row = row;
     }
 
+    /**
+     * <p>Getter for the field <code>id</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * <p>Setter for the field <code>id</code>.</p>
+     *
+     * @param id a {@link java.lang.Integer} object.
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * <p>Getter for the field <code>discriminator</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getDiscriminator() {
         return discriminator;
     }
 
+    /**
+     * <p>Setter for the field <code>discriminator</code>.</p>
+     *
+     * @param discriminator a {@link java.lang.String} object.
+     */
     public void setDiscriminator(String discriminator) {
         this.discriminator = discriminator;
     }
 
+    /**
+     * <p>Getter for the field <code>message</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * <p>Setter for the field <code>message</code>.</p>
+     *
+     * @param message a {@link java.lang.String} object.
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     * <p>Getter for the field <code>page</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getPage() {
         return page;
     }
 
+    /**
+     * <p>Setter for the field <code>page</code>.</p>
+     *
+     * @param page a {@link java.lang.String} object.
+     */
     public void setPage(String page) {
         if (page.length() > 2048) {
             page = page.substring(0, 2048);
@@ -141,54 +192,115 @@ public class MessageEntity implements Serializable {
         this.page = page;
     }
 
+    /**
+     * <p>Getter for the field <code>column</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getColumn() {
         return column;
     }
 
+    /**
+     * <p>Setter for the field <code>column</code>.</p>
+     *
+     * @param column a {@link java.lang.Integer} object.
+     */
     public void setColumn(Integer column) {
         this.column = column;
     }
 
+    /**
+     * <p>Getter for the field <code>row</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getRow() {
         return row;
     }
 
+    /**
+     * <p>Setter for the field <code>row</code>.</p>
+     *
+     * @param row a {@link java.lang.Integer} object.
+     */
     public void setRow(Integer row) {
         this.row = row;
     }
 
+    /**
+     * <p>Getter for the field <code>errorCode</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getErrorCode() {
         return errorCode;
     }
 
+    /**
+     * <p>Setter for the field <code>errorCode</code>.</p>
+     *
+     * @param errorCode a {@link java.lang.Integer} object.
+     */
     public void setErrorCode(Integer errorCode) {
         this.errorCode = errorCode;
     }
 
+    /**
+     * <p>Getter for the field <code>resource</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getResource() {
         return resource;
     }
 
+    /**
+     * <p>Setter for the field <code>resource</code>.</p>
+     *
+     * @param resource a {@link java.lang.String} object.
+     */
     public void setResource(String resource) {
         this.resource = resource;
     }
 
+    /**
+     * <p>Getter for the field <code>checkup</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public Checkup getCheckup() {
         return checkup;
     }
 
+    /**
+     * <p>Setter for the field <code>checkup</code>.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public void setCheckup(Checkup checkup) {
         this.checkup = checkup;
     }
 
+    /**
+     * <p>Getter for the field <code>priority</code>.</p>
+     *
+     * @return a {@link java.lang.Integer} object.
+     */
     public Integer getPriority() {
         return priority;
     }
 
+    /**
+     * <p>Setter for the field <code>priority</code>.</p>
+     *
+     * @param priority a {@link java.lang.Integer} object.
+     */
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -196,6 +308,7 @@ public class MessageEntity implements Serializable {
         return hash;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -206,20 +319,21 @@ public class MessageEntity implements Serializable {
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "test.Message[ id=" + id + " ]";
     }
 
     /**
-     * Method converts {@link MessageEntity} class to its mapping class
-     * (subclass) {@link Message} by using {@link MessageMapper} interface.
+     * Method converts {@link org.presentation.persistence.model.MessageEntity} class to its mapping class
+     * (subclass) {@link org.presentation.model.logging.Message} by using {@link org.presentation.model.logging.MessageMapper} interface.
      * Method requires Java reflection api for instantiation of Message
      * implementation by using its full class name persisted in discriminator
      * column.
      *
      * @param entity Entity class representing the Message in database model
-     * @return Specific instance of implemented {@link Message} class; zero if
+     * @return Specific instance of implemented {@link org.presentation.model.logging.Message} class; zero if
      * it is not possible to instantiate Message implementation by using java
      * reflection
      */
@@ -237,11 +351,11 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * Method converts implementation of {@link Message} class to its mapped
+     * Method converts implementation of {@link org.presentation.model.logging.Message} class to its mapped
      * entity class.
      *
      * @param message Message implementation instance to be mapped as entity
-     * {@link MessageEntity} class
+     * {@link org.presentation.persistence.model.MessageEntity} class
      * @return MessageEntity class used for persisting into database using JPA
      * framework.
      */

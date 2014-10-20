@@ -7,18 +7,22 @@ import org.presentation.persistence.integration.GraphDAO;
 import org.presentation.persistence.model.Graph;
 
 /**
+ * <p>GraphDAOImpl class.</p>
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Dependent
 public class GraphDAOImpl extends AbstractDAOImpl implements GraphDAO {
 
+    /** {@inheritDoc} */
     @Override
     public void create(Graph graph) {
         graph.setIdGraph(null);
         getEntityManager().persist(graph);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Graph> findAllCheckGraphs(Integer checkupId) {
         TypedQuery<Graph> q = getEntityManager().createNamedQuery("Graph.findByCheckupId", Graph.class);
@@ -26,6 +30,7 @@ public class GraphDAOImpl extends AbstractDAOImpl implements GraphDAO {
         return q.getResultList();
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<String> listGraphTypes(Integer checkupId) {
         TypedQuery<String> q = getEntityManager().createNamedQuery("Graph.listGraphTypes", String.class);
@@ -33,6 +38,7 @@ public class GraphDAOImpl extends AbstractDAOImpl implements GraphDAO {
         return q.getResultList();
     }
 
+    /** {@inheritDoc} */
     @Override
     public Graph findGraphByGraphType(Integer checkupId, String graphTypeId) {
         TypedQuery<Graph> q = getEntityManager().createNamedQuery("Graph.findGraphByGraphType", Graph.class);

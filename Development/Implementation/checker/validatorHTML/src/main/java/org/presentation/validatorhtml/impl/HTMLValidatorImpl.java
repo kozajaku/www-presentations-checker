@@ -2,9 +2,6 @@ package org.presentation.validatorhtml.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -23,6 +20,7 @@ import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
 import org.presentation.singlepagecontroller.SinglePageControllerService;
+import org.presentation.validatorjaxbutils.ValidatorResponseFetcher;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._10.markup_validator.ErrorList;
 import org.w3._2005._10.markup_validator.MarkupValidationResponse;
@@ -63,13 +61,10 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
      *
      * @param urlToValidate URL which will be validated
      * @return Input stream wich SOAP respons of HTML W3C validation service.
-     * @throws MalformedURLException If an unknown protocol is specified
      * @throws IOException If request fails in any way
      */
-    private InputStream getSOAPInputStream(String urlToValidate) throws MalformedURLException, IOException {
-        URL url = new URL(VALIDATION_SERVICE + "?output=soap12&uri=" + urlToValidate);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        return connection.getInputStream();
+    private InputStream getSOAPInputStream(String urlToValidate) throws IOException {
+        return ValidatorResponseFetcher.fetchSOAPResponse(VALIDATION_SERVICE, urlToValidate);
     }
 
     /**

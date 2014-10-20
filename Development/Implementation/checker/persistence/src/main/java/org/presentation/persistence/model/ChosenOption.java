@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entity class representing the Option entity in JPA entity architecture.
  *
  * @author radio.koza
+ * @version $Id: $Id
  */
 @Entity
 @Vetoed
@@ -53,23 +54,44 @@ public class ChosenOption implements Serializable {
         this.idOption = idOption;
     }
 
+    /**
+     * <p>Getter for the field <code>idOption</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getIdOption() {
         return idOption;
     }
 
+    /**
+     * <p>Setter for the field <code>idOption</code>.</p>
+     *
+     * @param idOption a {@link java.lang.String} object.
+     */
     public void setIdOption(String idOption) {
         this.idOption = idOption;
     }
 
+    /**
+     * <p>Getter for the field <code>checkupList</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     @XmlTransient
     public List<Checkup> getCheckupList() {
         return checkupList;
     }
 
+    /**
+     * <p>Setter for the field <code>checkupList</code>.</p>
+     *
+     * @param checkupList a {@link java.util.List} object.
+     */
     public void setCheckupList(List<Checkup> checkupList) {
         this.checkupList = checkupList;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -77,6 +99,7 @@ public class ChosenOption implements Serializable {
         return hash;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -87,14 +110,15 @@ public class ChosenOption implements Serializable {
         return !((this.idOption == null && other.idOption != null) || (this.idOption != null && !this.idOption.equals(other.idOption)));
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "test.Option[ idOption=" + idOption + " ]";
     }
 
     /**
-     * Method converts {@link String} representing name of option to
-     * {@link ChosenOption} entity class.
+     * Method converts {@link java.lang.String} representing name of option to
+     * {@link org.presentation.persistence.model.ChosenOption} entity class.
      *
      * @param option String representing source of conversion and option name
      * @return Entity class possible to be persisted by JPA
@@ -104,7 +128,7 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * Method converts {@link ChosenOption} entity class back to {@link String}
+     * Method converts {@link org.presentation.persistence.model.ChosenOption} entity class back to {@link java.lang.String}
      * class which serves as the option name.
      *
      * @param chOption Entity class as the source of conversion
