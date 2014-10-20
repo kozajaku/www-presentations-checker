@@ -17,23 +17,24 @@ import javax.xml.namespace.QName;
 
 /**
  * <p>Java class for subcode complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="subcode">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Value" type="{http://www.w3.org/2001/XMLSchema}QName"/>
- *         &lt;element name="Subcode" type="{http://www.w3.org/2003/05/soap-envelope}subcode" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="subcode"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="Value" type="{http://www.w3.org/2001/XMLSchema}QName"/&gt;
+ *         &lt;element name="Subcode" type="{http://www.w3.org/2003/05/soap-envelope}subcode" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "subcode", propOrder = {
@@ -56,11 +57,8 @@ public class Subcode {
 
     /**
      * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link QName }
-     *     
+     *
+     * @return a {@link javax.xml.namespace.QName} object.
      */
     public QName getValue() {
         return value;
@@ -68,11 +66,10 @@ public class Subcode {
 
     /**
      * Sets the value of the value property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link QName }
-     *     
+     *     {@link javax.xml.namespace.QName}
      */
     public void setValue(QName value) {
         this.value = value;
@@ -80,11 +77,8 @@ public class Subcode {
 
     /**
      * Gets the value of the subcode property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Subcode }
-     *     
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Subcode} object.
      */
     public Subcode getSubcode() {
         return subcode;
@@ -92,11 +86,10 @@ public class Subcode {
 
     /**
      * Sets the value of the subcode property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link Subcode }
-     *     
+     *     {@link org.w3._2003._05.soap_envelope.Subcode}
      */
     public void setSubcode(Subcode value) {
         this.subcode = value;

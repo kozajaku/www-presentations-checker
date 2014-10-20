@@ -18,7 +18,9 @@ import javax.validation.Payload;
 
 /**
  * This validator validates URL address (written by a huge opossum)
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 
 @Constraint(validatedBy = {ValidUrl.UrlValidator.class})

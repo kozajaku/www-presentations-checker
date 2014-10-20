@@ -17,35 +17,36 @@ import javax.xml.namespace.QName;
 
 /**
  * <p>Java class for NotUnderstoodType complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="NotUnderstoodType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="qname" use="required" type="{http://www.w3.org/2001/XMLSchema}QName" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="NotUnderstoodType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;attribute name="qname" use="required" type="{http://www.w3.org/2001/XMLSchema}QName" /&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "NotUnderstoodType")
 public class NotUnderstoodType {
 
+    /**
+     *
+     */
     @XmlAttribute(name = "qname", required = true)
     protected QName qname;
 
     /**
      * Gets the value of the qname property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link QName }
-     *     
+     *
+     * @return a {@link javax.xml.namespace.QName} object.
      */
     public QName getQname() {
         return qname;
@@ -53,11 +54,10 @@ public class NotUnderstoodType {
 
     /**
      * Sets the value of the qname property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link QName }
-     *     
+     *     {@link javax.xml.namespace.QName}
      */
     public void setQname(QName value) {
         this.qname = value;

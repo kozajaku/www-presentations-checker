@@ -16,8 +16,9 @@ import org.presentation.presentation.validation.ValidPassword;
 
 /**
  * This bean provides account creation ability
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Named
 @RequestScoped
@@ -45,9 +46,9 @@ public class SignupBean extends CommonBean {
     
     /**
      * this action is called to create new account
-     * 
+     *
      * @return jsf view
-     * @throws Exception 
+     * @throws java.lang.Exception if any.
      */
     public String signUp() throws Exception{		
 	
@@ -70,42 +71,92 @@ public class SignupBean extends CommonBean {
 	return "";
     }
 
+    /**
+     * <p>Getter for the field <code>email</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getEmail() {
 	return email;
     }
 
+    /**
+     * <p>Setter for the field <code>email</code>.</p>
+     *
+     * @param email a {@link java.lang.String} object.
+     */
     public void setEmail(String email) {
 	this.email = email;
     }
 
+    /**
+     * <p>Getter for the field <code>password</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getPassword() {
 	return password;
     }
 
+    /**
+     * <p>Setter for the field <code>password</code>.</p>
+     *
+     * @param password a {@link java.lang.String} object.
+     */
     public void setPassword(String password) {
 	this.password = password;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getName() {
 	return name;
     }
 
+    /**
+     * <p>Setter for the field <code>name</code>.</p>
+     *
+     * @param name a {@link java.lang.String} object.
+     */
     public void setName(String name) {
 	this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>surname</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getSurname() {
 	return surname;
     }
 
+    /**
+     * <p>Setter for the field <code>surname</code>.</p>
+     *
+     * @param surname a {@link java.lang.String} object.
+     */
     public void setSurname(String surname) {
 	this.surname = surname;
     }
 
+    /**
+     * <p>Getter for the field <code>passwordVerification</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getPasswordVerification() {
 	return passwordVerification;
     }
 
+    /**
+     * <p>Setter for the field <code>passwordVerification</code>.</p>
+     *
+     * @param passwordVerification a {@link java.lang.String} object.
+     */
     public void setPasswordVerification(String passwordVerification) {
 	this.passwordVerification = passwordVerification;
     }

@@ -17,8 +17,9 @@ import org.presentation.persistence.business.PersistenceFacade;
 
 /**
  * This bean is a SUPER-BEAN that provides basic functionality for all of its children
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 public abstract class CommonBean {   
     
@@ -37,6 +38,11 @@ public abstract class CommonBean {
 	msg = ResourceBundle.getBundle("org.presentation.presentation.lang", locale);
     }        
     
+    /**
+     * <p>addMessage.</p>
+     *
+     * @param msg a {@link javax.faces.application.FacesMessage} object.
+     */
     protected void addMessage(FacesMessage msg){
 	FacesContext.getCurrentInstance().addMessage(null, msg);
     }

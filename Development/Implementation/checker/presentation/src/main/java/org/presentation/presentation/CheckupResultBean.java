@@ -23,8 +23,9 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
  * This bean supports showing of the Results
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Named
 @RequestScoped
@@ -40,6 +41,9 @@ public class CheckupResultBean extends ProtectedBean {
     protected Checkup checkup;
     
     
+    /**
+     * <p>init.</p>
+     */
     @PostConstruct
     public void init() {
 	if(checkupId == 0) {
@@ -68,14 +72,19 @@ public class CheckupResultBean extends ProtectedBean {
 	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.ErrorMsg");
     }
     
+    /**
+     * <p>Getter for the field <code>checkupId</code>.</p>
+     *
+     * @return a int.
+     */
     public int getCheckupId() {
 	return checkupId;
     }          
     
     /**
      * This action performs show-result-related operations
-     * 
-     * @throws UserAuthorizationException 
+     *
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
      */
     public void showResult() throws UserAuthorizationException {	
 	if(this.checkup != null) {
@@ -96,8 +105,9 @@ public class CheckupResultBean extends ProtectedBean {
 
     /**
      * This getter gets the messages by filter selected
-     * @return
-     * @throws UserAuthorizationException 
+     *
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @return a {@link java.util.List} object.
      */
     public List<Message> getMessages() throws UserAuthorizationException {
 	if(this.checkup == null) return null;
@@ -123,25 +133,46 @@ public class CheckupResultBean extends ProtectedBean {
     }
     
     
+    /**
+     * <p>isFilteredByResources.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isFilteredByResources() {
 	return (this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0);
     }
     
+    /**
+     * <p>isFilteredByDiscriminators.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isFilteredByDiscriminators(){
 	return (this.messageDiscriminatorsAllowed != null && this.messageDiscriminatorsAllowed.length > 0);
     }
     
 
+    /**
+     * <p>Getter for the field <code>checkup</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public Checkup getCheckup() {
 	return checkup;
     }
 
+    /**
+     * <p>Setter for the field <code>checkupId</code>.</p>
+     *
+     * @param checkupId a int.
+     */
     public void setCheckupId(int checkupId) {
 	this.checkupId = checkupId;
     }        
 
     /**
      * This getter retrieves all available resources per checkup. i18n ready
+     *
      * @return all available message resources
      */
     public Map<String,Object> getMessageResourcesAvailable() {	
@@ -163,8 +194,9 @@ public class CheckupResultBean extends ProtectedBean {
     
     /**
      * This getter retrieves all available discriminators. i18n ready
+     *
      * @return all available message discriminators
-     */    
+     */
     public Map<String,Object> getMessageDiscriminatorsAvailable() {
 	Map<String,Object> discriminatorsAvailable = new HashMap<>();
 	
@@ -186,18 +218,38 @@ public class CheckupResultBean extends ProtectedBean {
 	return discriminatorsAvailable;
     }
 
+    /**
+     * <p>Getter for the field <code>messageResourcesAllowed</code>.</p>
+     *
+     * @return an array of {@link java.lang.String} objects.
+     */
     public String[] getMessageResourcesAllowed() {
 	return messageResourcesAllowed;
     }
 
+    /**
+     * <p>Setter for the field <code>messageResourcesAllowed</code>.</p>
+     *
+     * @param messageResourcesAllowed an array of {@link java.lang.String} objects.
+     */
     public void setMessageResourcesAllowed(String[] messageResourcesAllowed) {
 	this.messageResourcesAllowed = messageResourcesAllowed;
     }
 
+    /**
+     * <p>Getter for the field <code>messageDiscriminatorsAllowed</code>.</p>
+     *
+     * @return an array of {@link java.lang.String} objects.
+     */
     public String[] getMessageDiscriminatorsAllowed() {
 	return messageDiscriminatorsAllowed;
     }
 
+    /**
+     * <p>Setter for the field <code>messageDiscriminatorsAllowed</code>.</p>
+     *
+     * @param messageDiscriminatorsAllowed an array of {@link java.lang.String} objects.
+     */
     public void setMessageDiscriminatorsAllowed(String[] messageDiscriminatorsAllowed) {
 	this.messageDiscriminatorsAllowed = messageDiscriminatorsAllowed;
     }

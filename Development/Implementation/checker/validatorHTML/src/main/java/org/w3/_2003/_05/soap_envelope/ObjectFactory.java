@@ -15,18 +15,20 @@ import javax.xml.namespace.QName;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the org.w3._2003._05.soap_envelope package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the org.w3._2003._05.soap_envelope package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -40,124 +42,123 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.w3._2003._05.soap_envelope
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link NotUnderstoodType }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.NotUnderstoodType}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.NotUnderstoodType} object.
      */
     public NotUnderstoodType createNotUnderstoodType() {
         return new NotUnderstoodType();
     }
 
     /**
-     * Create an instance of {@link Header }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Header}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Header} object.
      */
     public Header createHeader() {
         return new Header();
     }
 
     /**
-     * Create an instance of {@link Fault }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Fault}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Fault} object.
      */
     public Fault createFault() {
         return new Fault();
     }
 
     /**
-     * Create an instance of {@link Envelope }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Envelope}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Envelope} object.
      */
     public Envelope createEnvelope() {
         return new Envelope();
     }
 
     /**
-     * Create an instance of {@link Body }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Body}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Body} object.
      */
     public Body createBody() {
         return new Body();
     }
 
     /**
-     * Create an instance of {@link UpgradeType }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.UpgradeType}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.UpgradeType} object.
      */
     public UpgradeType createUpgradeType() {
         return new UpgradeType();
     }
 
     /**
-     * Create an instance of {@link Faultcode }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Faultcode}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Faultcode} object.
      */
     public Faultcode createFaultcode() {
         return new Faultcode();
     }
 
     /**
-     * Create an instance of {@link Subcode }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Subcode}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Subcode} object.
      */
     public Subcode createSubcode() {
         return new Subcode();
     }
 
     /**
-     * Create an instance of {@link SupportedEnvType }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.SupportedEnvType}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.SupportedEnvType} object.
      */
     public SupportedEnvType createSupportedEnvType() {
         return new SupportedEnvType();
     }
 
     /**
-     * Create an instance of {@link Reasontext }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Reasontext}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Reasontext} object.
      */
     public Reasontext createReasontext() {
         return new Reasontext();
     }
 
     /**
-     * Create an instance of {@link Faultreason }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Faultreason}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Faultreason} object.
      */
     public Faultreason createFaultreason() {
         return new Faultreason();
     }
 
     /**
-     * Create an instance of {@link Detail }
-     * 
-     * @return 
+     * Create an instance of {@link org.w3._2003._05.soap_envelope.Detail}
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Detail} object.
      */
     public Detail createDetail() {
         return new Detail();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Header }{@code >}}
-     * 
-     * @param value
-     * @return 
+     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2003._05.soap_envelope.Header}{@code >}}
+     *
+     * @param value a {@link org.w3._2003._05.soap_envelope.Header} object.
+     * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Header")
     public JAXBElement<Header> createHeader(Header value) {
@@ -165,10 +166,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link NotUnderstoodType }{@code >}}
-     * 
-     * @param value
-     * @return 
+     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2003._05.soap_envelope.NotUnderstoodType}{@code >}}
+     *
+     * @param value a {@link org.w3._2003._05.soap_envelope.NotUnderstoodType} object.
+     * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "NotUnderstood")
     public JAXBElement<NotUnderstoodType> createNotUnderstood(NotUnderstoodType value) {
@@ -176,10 +177,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Envelope }{@code >}}
-     * 
-     * @param value
-     * @return 
+     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2003._05.soap_envelope.Envelope}{@code >}}
+     *
+     * @param value a {@link org.w3._2003._05.soap_envelope.Envelope} object.
+     * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Envelope")
     public JAXBElement<Envelope> createEnvelope(Envelope value) {
@@ -187,10 +188,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Body }{@code >}}
-     * 
-     * @param value
-     * @return 
+     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2003._05.soap_envelope.Body}{@code >}}
+     *
+     * @param value a {@link org.w3._2003._05.soap_envelope.Body} object.
+     * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Body")
     public JAXBElement<Body> createBody(Body value) {
@@ -198,10 +199,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UpgradeType }{@code >}}
-     * 
-     * @param value
-     * @return 
+     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2003._05.soap_envelope.UpgradeType}{@code >}}
+     *
+     * @param value a {@link org.w3._2003._05.soap_envelope.UpgradeType} object.
+     * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Upgrade")
     public JAXBElement<UpgradeType> createUpgrade(UpgradeType value) {
@@ -209,10 +210,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Fault }{@code >}}
-     * 
-     * @param value
-     * @return 
+     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2003._05.soap_envelope.Fault}{@code >}}
+     *
+     * @param value a {@link org.w3._2003._05.soap_envelope.Fault} object.
+     * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2003/05/soap-envelope", name = "Fault")
     public JAXBElement<Fault> createFault(Fault value) {

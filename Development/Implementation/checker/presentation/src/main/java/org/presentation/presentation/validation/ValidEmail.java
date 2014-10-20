@@ -15,7 +15,9 @@ import javax.validation.Payload;
 
 /**
  * Annotation spec for email validator
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Constraint(validatedBy = {EmailValidator.class})
 @Target({ElementType.FIELD, ElementType.PARAMETER})

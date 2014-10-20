@@ -13,9 +13,10 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * This validator validates email address
+ *
  * @author petrof
+ * @version $Id: $Id
  */
-
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
@@ -25,11 +26,13 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     private Pattern pattern;
     private Matcher matcher;
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
 	pattern = Pattern.compile(EMAIL_PATTERN);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
 	matcher = pattern.matcher(value);

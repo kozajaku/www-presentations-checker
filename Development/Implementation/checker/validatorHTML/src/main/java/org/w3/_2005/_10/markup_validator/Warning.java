@@ -15,19 +15,20 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Warning complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="Warning">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.w3.org/2005/10/markup-validator}Culprit">
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Warning"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.w3.org/2005/10/markup-validator}Culprit"&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Warning")

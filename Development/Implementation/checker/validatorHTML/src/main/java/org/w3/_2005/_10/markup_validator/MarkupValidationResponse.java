@@ -20,30 +20,31 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for MarkupValidationResponse complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="MarkupValidationResponse">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="debug" type="{http://www.w3.org/2005/10/markup-validator}Debug" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="uri" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="checkedby" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="doctype" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="charset" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="validity" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="errors" type="{http://www.w3.org/2005/10/markup-validator}ValidationErrors" minOccurs="0"/>
- *         &lt;element name="warnings" type="{http://www.w3.org/2005/10/markup-validator}ValidationWarnings" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://www.w3.org/2003/05/soap-envelope}encodingStyle"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="MarkupValidationResponse"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="debug" type="{http://www.w3.org/2005/10/markup-validator}Debug" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="uri" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="checkedby" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="doctype" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="charset" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="validity" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="errors" type="{http://www.w3.org/2005/10/markup-validator}ValidationErrors" minOccurs="0"/&gt;
+ *         &lt;element name="warnings" type="{http://www.w3.org/2005/10/markup-validator}ValidationWarnings" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://www.w3.org/2003/05/soap-envelope}encodingStyle"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MarkupValidationResponse", propOrder = {
@@ -111,26 +112,25 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the debug property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the debug property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getDebug().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Debug }
-     * 
-     * 
-     * @return 
+     * {@link org.w3._2005._10.markup_validator.Debug}
+     *
+     * @return a {@link java.util.List} object.
      */
     public List<Debug> getDebug() {
         if (debug == null) {
@@ -141,11 +141,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the uri property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getUri() {
         return uri;
@@ -153,11 +150,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the uri property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setUri(String value) {
         this.uri = value;
@@ -165,11 +161,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the checkedby property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getCheckedby() {
         return checkedby;
@@ -177,11 +170,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the checkedby property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setCheckedby(String value) {
         this.checkedby = value;
@@ -189,11 +181,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the doctype property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getDoctype() {
         return doctype;
@@ -201,11 +190,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the doctype property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setDoctype(String value) {
         this.doctype = value;
@@ -213,11 +201,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the charset property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getCharset() {
         return charset;
@@ -225,11 +210,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the charset property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setCharset(String value) {
         this.charset = value;
@@ -237,8 +221,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the validity property.
-     * 
-     * @return 
+     *
+     * @return a boolean.
      */
     public boolean isValidity() {
         return validity;
@@ -246,8 +230,8 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the validity property.
-     * 
-     * @param value
+     *
+     * @param value a boolean.
      */
     public void setValidity(boolean value) {
         this.validity = value;
@@ -255,11 +239,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the errors property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ValidationErrors }
-     *     
+     *
+     * @return a {@link org.w3._2005._10.markup_validator.ValidationErrors} object.
      */
     public ValidationErrors getErrors() {
         return errors;
@@ -267,11 +248,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the errors property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link ValidationErrors }
-     *     
+     *     {@link org.w3._2005._10.markup_validator.ValidationErrors}
      */
     public void setErrors(ValidationErrors value) {
         this.errors = value;
@@ -279,11 +259,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the warnings property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ValidationWarnings }
-     *     
+     *
+     * @return a {@link org.w3._2005._10.markup_validator.ValidationWarnings} object.
      */
     public ValidationWarnings getWarnings() {
         return warnings;
@@ -291,11 +268,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the warnings property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link ValidationWarnings }
-     *     
+     *     {@link org.w3._2005._10.markup_validator.ValidationWarnings}
      */
     public void setWarnings(ValidationWarnings value) {
         this.warnings = value;
@@ -303,11 +279,8 @@ public class MarkupValidationResponse {
 
     /**
      * Gets the value of the encodingStyle property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getEncodingStyle() {
         return encodingStyle;
@@ -315,11 +288,10 @@ public class MarkupValidationResponse {
 
     /**
      * Sets the value of the encodingStyle property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setEncodingStyle(String value) {
         this.encodingStyle = value;

@@ -16,8 +16,9 @@ import org.presentation.persistence.model.User;
 
 /**
  * This bean is used to perform operations/actions on checkups
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Named
 @RequestScoped
@@ -33,8 +34,9 @@ public class CheckupManipulatorBean extends ProtectedBean {
     
     /**
      * This action stops specific checkup
+     *
      * @return jsf view
-     * @throws Exception 
+     * @throws java.lang.Exception if any.
      */
     public String stopCheckup() throws Exception{
 	Checkup checkup = persistance.findCheckup(checkupId);
@@ -62,10 +64,20 @@ public class CheckupManipulatorBean extends ProtectedBean {
 	return "";
     }
 
+    /**
+     * <p>Getter for the field <code>checkupId</code>.</p>
+     *
+     * @return a int.
+     */
     public int getCheckupId() {
 	return checkupId;
     }
 
+    /**
+     * <p>Setter for the field <code>checkupId</code>.</p>
+     *
+     * @param checkupId a int.
+     */
     public void setCheckupId(int checkupId) {
 	this.checkupId = checkupId;
     }

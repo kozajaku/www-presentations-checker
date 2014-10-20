@@ -18,24 +18,25 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for ValidationWarnings complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="ValidationWarnings">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="warningcount" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="warninglist" type="{http://www.w3.org/2005/07/css-validator}WarningList" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://www.w3.org/XML/1998/namespace}lang"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ValidationWarnings"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="warningcount" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="warninglist" type="{http://www.w3.org/2005/07/css-validator}WarningList" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://www.w3.org/XML/1998/namespace}lang"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ValidationWarnings", propOrder = {
@@ -51,7 +52,8 @@ public class ValidationWarnings {
 
     /**
      * Gets the value of the warningcount property.
-     * 
+     *
+     * @return a int.
      */
     public int getWarningcount() {
         return warningcount;
@@ -59,7 +61,8 @@ public class ValidationWarnings {
 
     /**
      * Sets the value of the warningcount property.
-     * 
+     *
+     * @param value a int.
      */
     public void setWarningcount(int value) {
         this.warningcount = value;
@@ -67,25 +70,25 @@ public class ValidationWarnings {
 
     /**
      * Gets the value of the warninglist property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the warninglist property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getWarninglist().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link WarningList }
-     * 
-     * 
+     * {@link org.w3._2005._07.css_validator.WarningList}
+     *
+     * @return a {@link java.util.List} object.
      */
     public List<WarningList> getWarninglist() {
         if (warninglist == null) {
@@ -96,11 +99,8 @@ public class ValidationWarnings {
 
     /**
      * Gets the value of the lang property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getLang() {
         return lang;
@@ -108,11 +108,10 @@ public class ValidationWarnings {
 
     /**
      * Sets the value of the lang property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setLang(String value) {
         this.lang = value;

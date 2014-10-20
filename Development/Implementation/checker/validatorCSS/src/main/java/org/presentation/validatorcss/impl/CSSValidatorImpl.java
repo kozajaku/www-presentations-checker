@@ -36,6 +36,7 @@ import org.w3._2005._07.css_validator.WarningList;
  * CSS validator service.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 @Dependent
 public class CSSValidatorImpl implements SinglePageControllerService {
@@ -129,6 +130,7 @@ public class CSSValidatorImpl implements SinglePageControllerService {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of css {0}", url.getUrl());
@@ -153,21 +155,25 @@ public class CSSValidatorImpl implements SinglePageControllerService {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         logger = messageLoggerContainer.createLogger("CSS Validator");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void stopChecking() {
         //nothing to do - body should be empty
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isApplicable(ContentType contentType) {
         return contentType.isCss();

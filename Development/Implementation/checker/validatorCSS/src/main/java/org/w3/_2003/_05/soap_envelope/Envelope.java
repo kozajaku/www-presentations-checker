@@ -20,24 +20,25 @@ import javax.xml.namespace.QName;
 
 /**
  * <p>Java class for Envelope complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="Envelope">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://www.w3.org/2003/05/soap-envelope}Header" minOccurs="0"/>
- *         &lt;element ref="{http://www.w3.org/2003/05/soap-envelope}Body"/>
- *       &lt;/sequence>
- *       &lt;anyAttribute processContents='lax' namespace='##other'/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Envelope"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element ref="{http://www.w3.org/2003/05/soap-envelope}Header" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.w3.org/2003/05/soap-envelope}Body"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;anyAttribute processContents='lax' namespace='##other'/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Envelope", propOrder = {
@@ -46,8 +47,15 @@ import javax.xml.namespace.QName;
 })
 public class Envelope {
 
+    /**
+     *
+     */
     @XmlElement(name = "Header")
     protected Header header;
+
+    /**
+     *
+     */
     @XmlElement(name = "Body", required = true)
     protected Body body;
     @XmlAnyAttribute
@@ -55,11 +63,8 @@ public class Envelope {
 
     /**
      * Gets the value of the header property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Header }
-     *     
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Header} object.
      */
     public Header getHeader() {
         return header;
@@ -67,11 +72,10 @@ public class Envelope {
 
     /**
      * Sets the value of the header property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link Header }
-     *     
+     *     {@link org.w3._2003._05.soap_envelope.Header}
      */
     public void setHeader(Header value) {
         this.header = value;
@@ -79,11 +83,8 @@ public class Envelope {
 
     /**
      * Gets the value of the body property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Body }
-     *     
+     *
+     * @return a {@link org.w3._2003._05.soap_envelope.Body} object.
      */
     public Body getBody() {
         return body;
@@ -91,11 +92,10 @@ public class Envelope {
 
     /**
      * Sets the value of the body property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link Body }
-     *     
+     *     {@link org.w3._2003._05.soap_envelope.Body}
      */
     public void setBody(Body value) {
         this.body = value;
@@ -103,17 +103,15 @@ public class Envelope {
 
     /**
      * Gets a map that contains attributes that aren't bound to any typed property on this class.
-     * 
+     *
      * <p>
-     * the map is keyed by the name of the attribute and 
+     * the map is keyed by the name of the attribute and
      * the value is the string value of the attribute.
-     * 
+     *
      * the map returned by this method is live, and you can add new attribute
      * by updating the map directly. Because of this design, there's no setter.
-     * 
-     * 
-     * @return
-     *     always non-null
+     *
+     * @return a {@link java.util.Map} object.
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;

@@ -17,7 +17,9 @@ import javax.validation.Payload;
 
 /**
  * This validator validates password (how suprising!)
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Constraint(validatedBy = {ValidPassword.PasswordValidator.class})
 @Documented

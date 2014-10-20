@@ -16,23 +16,24 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for ValidationWarnings complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="ValidationWarnings">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="warningcount" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="warninglist" type="{http://www.w3.org/2005/10/markup-validator}WarningList"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ValidationWarnings"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="warningcount" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="warninglist" type="{http://www.w3.org/2005/10/markup-validator}WarningList"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ValidationWarnings", propOrder = {
@@ -54,8 +55,8 @@ public class ValidationWarnings {
 
     /**
      * Gets the value of the warningcount property.
-     * 
-     * @return 
+     *
+     * @return a int.
      */
     public int getWarningcount() {
         return warningcount;
@@ -63,8 +64,8 @@ public class ValidationWarnings {
 
     /**
      * Sets the value of the warningcount property.
-     * 
-     * @param value
+     *
+     * @param value a int.
      */
     public void setWarningcount(int value) {
         this.warningcount = value;
@@ -72,11 +73,8 @@ public class ValidationWarnings {
 
     /**
      * Gets the value of the warninglist property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link WarningList }
-     *     
+     *
+     * @return a {@link org.w3._2005._10.markup_validator.WarningList} object.
      */
     public WarningList getWarninglist() {
         return warninglist;
@@ -84,11 +82,10 @@ public class ValidationWarnings {
 
     /**
      * Sets the value of the warninglist property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link WarningList }
-     *     
+     *     {@link org.w3._2005._10.markup_validator.WarningList}
      */
     public void setWarninglist(WarningList value) {
         this.warninglist = value;

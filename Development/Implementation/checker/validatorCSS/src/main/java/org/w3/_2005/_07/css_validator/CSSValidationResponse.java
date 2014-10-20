@@ -18,28 +18,29 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for CSSValidationResponse complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="CSSValidationResponse">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="uri" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="checkedby" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="csslevel" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="validity" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="result" type="{http://www.w3.org/2005/07/css-validator}Result"/>
- *       &lt;/sequence>
- *       &lt;attribute ref="{http://www.w3.org/2003/05/soap-envelope}encodingStyle"/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="CSSValidationResponse"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="uri" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="checkedby" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="csslevel" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="validity" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="result" type="{http://www.w3.org/2005/07/css-validator}Result"/&gt;
+ *       &lt;/sequence&gt;
+ *       &lt;attribute ref="{http://www.w3.org/2003/05/soap-envelope}encodingStyle"/&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "CSSValidationResponse", propOrder = {
@@ -69,11 +70,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the uri property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getUri() {
         return uri;
@@ -81,11 +79,10 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the uri property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setUri(String value) {
         this.uri = value;
@@ -93,11 +90,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the checkedby property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getCheckedby() {
         return checkedby;
@@ -105,11 +99,10 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the checkedby property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setCheckedby(String value) {
         this.checkedby = value;
@@ -117,11 +110,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the csslevel property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getCsslevel() {
         return csslevel;
@@ -129,11 +119,10 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the csslevel property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setCsslevel(String value) {
         this.csslevel = value;
@@ -141,11 +130,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the date property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getDate() {
         return date;
@@ -153,11 +139,10 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the date property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setDate(String value) {
         this.date = value;
@@ -165,7 +150,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the validity property.
-     * 
+     *
+     * @return a boolean.
      */
     public boolean isValidity() {
         return validity;
@@ -173,7 +159,8 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the validity property.
-     * 
+     *
+     * @param value a boolean.
      */
     public void setValidity(boolean value) {
         this.validity = value;
@@ -181,11 +168,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the result property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Result }
-     *     
+     *
+     * @return a {@link org.w3._2005._07.css_validator.Result} object.
      */
     public Result getResult() {
         return result;
@@ -193,11 +177,10 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the result property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link Result }
-     *     
+     *     {@link org.w3._2005._07.css_validator.Result}
      */
     public void setResult(Result value) {
         this.result = value;
@@ -205,11 +188,8 @@ public class CSSValidationResponse {
 
     /**
      * Gets the value of the encodingStyle property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getEncodingStyle() {
         return encodingStyle;
@@ -217,11 +197,10 @@ public class CSSValidationResponse {
 
     /**
      * Sets the value of the encodingStyle property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setEncodingStyle(String value) {
         this.encodingStyle = value;

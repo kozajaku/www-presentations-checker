@@ -16,23 +16,24 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for ValidationErrors complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="ValidationErrors">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="errorcount" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="errorlist" type="{http://www.w3.org/2005/10/markup-validator}ErrorList"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="ValidationErrors"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="errorcount" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="errorlist" type="{http://www.w3.org/2005/10/markup-validator}ErrorList"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ValidationErrors", propOrder = {
@@ -54,8 +55,8 @@ public class ValidationErrors {
 
     /**
      * Gets the value of the errorcount property.
-     * 
-     * @return 
+     *
+     * @return a int.
      */
     public int getErrorcount() {
         return errorcount;
@@ -63,8 +64,8 @@ public class ValidationErrors {
 
     /**
      * Sets the value of the errorcount property.
-     * 
-     * @param value
+     *
+     * @param value a int.
      */
     public void setErrorcount(int value) {
         this.errorcount = value;
@@ -72,11 +73,8 @@ public class ValidationErrors {
 
     /**
      * Gets the value of the errorlist property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ErrorList }
-     *     
+     *
+     * @return a {@link org.w3._2005._10.markup_validator.ErrorList} object.
      */
     public ErrorList getErrorlist() {
         return errorlist;
@@ -84,11 +82,10 @@ public class ValidationErrors {
 
     /**
      * Sets the value of the errorlist property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link ErrorList }
-     *     
+     *     {@link org.w3._2005._10.markup_validator.ErrorList}
      */
     public void setErrorlist(ErrorList value) {
         this.errorlist = value;

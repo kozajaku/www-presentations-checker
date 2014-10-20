@@ -17,27 +17,28 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Culprit complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="Culprit">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="line" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="col" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="source" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="explanation" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="messageid" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Culprit"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="line" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="col" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="source" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="explanation" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="messageid" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Culprit", propOrder = {
@@ -88,11 +89,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the line property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getLine() {
         return line;
@@ -100,11 +98,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the line property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setLine(String value) {
         this.line = value;
@@ -112,11 +109,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the col property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getCol() {
         return col;
@@ -124,11 +118,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the col property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setCol(String value) {
         this.col = value;
@@ -136,11 +129,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the source property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getSource() {
         return source;
@@ -148,11 +138,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the source property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setSource(String value) {
         this.source = value;
@@ -160,11 +149,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the explanation property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getExplanation() {
         return explanation;
@@ -172,11 +158,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the explanation property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setExplanation(String value) {
         this.explanation = value;
@@ -184,11 +169,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the messageid property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getMessageid() {
         return messageid;
@@ -196,11 +178,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the messageid property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setMessageid(String value) {
         this.messageid = value;
@@ -208,11 +189,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the message property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getMessage() {
         return message;
@@ -220,11 +198,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the message property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setMessage(String value) {
         this.message = value;

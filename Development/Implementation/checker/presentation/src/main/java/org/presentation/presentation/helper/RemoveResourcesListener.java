@@ -18,10 +18,13 @@ import javax.faces.event.SystemEventListener;
 
 /**
  * This is the dirtiest class ever. It removes all the primefaces stylesheets.
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 public class RemoveResourcesListener implements SystemEventListener {
 
+  /** {@inheritDoc} */
   @Override
   public void processEvent(SystemEvent event) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -41,6 +44,7 @@ public class RemoveResourcesListener implements SystemEventListener {
 	}
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isListenerForSource(Object source) {
 	return (source instanceof UIViewRoot);

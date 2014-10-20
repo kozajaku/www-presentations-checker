@@ -11,13 +11,15 @@ import javax.faces.convert.FacesConverter;
 import org.presentation.model.Header;
 
 /**
- * JSF converter - converts http headers newline-separated list <-> List of Header objects
- * 
+ * JSF converter - converts http headers newline-separated list - List of Header objects
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @FacesConverter("HttpHeadersConverter")
 public class HttpHeadersConverter implements Converter {
 
+    /** {@inheritDoc} */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	
@@ -35,6 +37,7 @@ public class HttpHeadersConverter implements Converter {
 	return headers;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
 	

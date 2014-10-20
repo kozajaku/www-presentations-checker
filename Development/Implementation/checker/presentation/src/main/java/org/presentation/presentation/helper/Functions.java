@@ -15,8 +15,9 @@ import org.presentation.persistence.model.ChosenOption;
 
 /**
  * Custom function bundle used by view templates
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 public final class Functions {
     
@@ -24,6 +25,7 @@ public final class Functions {
     
     /**
      * This function returns comma-separated list from List of Domain objects
+     *
      * @param domains domain list
      * @return comma-separated list
      */
@@ -42,6 +44,7 @@ public final class Functions {
     
     /**
      * This function supports dynamic enum i18n
+     *
      * @param msg resource bundle for i18n
      * @param e enum value to be translated
      * @return translated enum value
@@ -58,6 +61,7 @@ public final class Functions {
     
     /**
      * This function returns comma-separated list from List of ChosenOption objects
+     *
      * @param msg resource bundle for i18n
      * @param opts option list
      * @return comma-separated list
@@ -81,6 +85,7 @@ public final class Functions {
     
     /**
      * This function allows to user parametrized messages (such as "there is {0} posts")
+     *
      * @param msg parametrized message
      * @param p1 parameter to be replaced
      * @return formatted message
@@ -91,9 +96,10 @@ public final class Functions {
     
     /**
      * This function translates the message type
+     *
      * @param msg resource bundle for i18n
      * @param messageObject message object
-     * @return 
+     * @return a {@link java.lang.String} object.
      */
     public static String getMessageTypeCaption(ResourceBundle msg, Message messageObject) {
 	String className = messageObject.getClass().getSimpleName();
@@ -108,6 +114,7 @@ public final class Functions {
     
     /**
      * this function replaces all non-alphanumeric characters by '-'
+     *
      * @param s input string
      * @return sanitized string
      */

@@ -33,6 +33,7 @@ import org.w3._2005._10.markup_validator.WarningList;
  * HTML validator service.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 @Dependent
 public class HTMLValidatorImpl implements SinglePageControllerService {
@@ -115,6 +116,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
@@ -138,21 +140,25 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         logger = messageLoggerContainer.createLogger("HTML Validator");
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void stopChecking() {
         //not used method - should have empty body
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean isApplicable(ContentType contentType) {
         return contentType.isHtml();

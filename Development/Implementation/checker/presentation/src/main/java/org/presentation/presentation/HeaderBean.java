@@ -13,8 +13,9 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
  * This bean is designed to fulfill data requests from header section of the page
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Named
 @RequestScoped
@@ -22,6 +23,7 @@ public class HeaderBean extends ProtectedBean {
 
     /**
      * Decides if the user is logged in
+     *
      * @return user is logged in?
      */
     public boolean isLoggedIn() {
@@ -34,8 +36,9 @@ public class HeaderBean extends ProtectedBean {
 
     /**
      * Get user that is currently logged in
+     *
      * @return currently logged-in user
-     * @throws UserAuthorizationException 
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
      */
     public User getUser() throws UserAuthorizationException {
         try {

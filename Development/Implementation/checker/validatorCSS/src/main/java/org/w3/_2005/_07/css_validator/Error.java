@@ -15,25 +15,26 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Error complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="Error">
- *   &lt;complexContent>
- *     &lt;extension base="{http://www.w3.org/2005/07/css-validator}Culprit">
- *       &lt;sequence>
- *         &lt;element name="errortype" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="errorsubtype" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="context" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="skippedstring" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Error"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.w3.org/2005/07/css-validator}Culprit"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="errortype" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="errorsubtype" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="context" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="skippedstring" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Error", propOrder = {
@@ -53,11 +54,8 @@ public class Error
 
     /**
      * Gets the value of the errortype property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getErrortype() {
         return errortype;
@@ -65,11 +63,10 @@ public class Error
 
     /**
      * Sets the value of the errortype property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setErrortype(String value) {
         this.errortype = value;
@@ -77,11 +74,8 @@ public class Error
 
     /**
      * Gets the value of the errorsubtype property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getErrorsubtype() {
         return errorsubtype;
@@ -89,11 +83,10 @@ public class Error
 
     /**
      * Sets the value of the errorsubtype property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setErrorsubtype(String value) {
         this.errorsubtype = value;
@@ -101,11 +94,8 @@ public class Error
 
     /**
      * Gets the value of the context property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getContext() {
         return context;
@@ -113,11 +103,10 @@ public class Error
 
     /**
      * Sets the value of the context property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setContext(String value) {
         this.context = value;
@@ -125,11 +114,8 @@ public class Error
 
     /**
      * Gets the value of the skippedstring property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getSkippedstring() {
         return skippedstring;
@@ -137,11 +123,10 @@ public class Error
 
     /**
      * Sets the value of the skippedstring property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setSkippedstring(String value) {
         this.skippedstring = value;

@@ -18,8 +18,9 @@ import org.presentation.presentation.validation.ValidEmail;
 
 /**
  * this bean handles user login and logout operations
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Named
 @RequestScoped
@@ -35,10 +36,11 @@ public class LoginBean extends CommonBean {
         
     /**
      * this action performs user login operation
-     * 
+     *
      * @return jsf view
-     * @throws ServletException
-     * @throws Exception 
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws java.lang.Exception if any.
      */
     public String login() throws ServletException, Exception{
 	
@@ -67,6 +69,7 @@ public class LoginBean extends CommonBean {
     
     /**
      * this action performs the logout operation
+     *
      * @return jsf view
      */
     public String logout() {
@@ -87,18 +90,38 @@ public class LoginBean extends CommonBean {
 	return "/public/index?faces-redirect=true";
     }
 
+    /**
+     * <p>Getter for the field <code>email</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getEmail() {
 	return email;
     }
 
+    /**
+     * <p>Setter for the field <code>email</code>.</p>
+     *
+     * @param email a {@link java.lang.String} object.
+     */
     public void setEmail(String email) {
 	this.email = email;
     }
 
+    /**
+     * <p>Getter for the field <code>password</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getPassword() {
 	return password;
     }
 
+    /**
+     * <p>Setter for the field <code>password</code>.</p>
+     *
+     * @param password a {@link java.lang.String} object.
+     */
     public void setPassword(String password) {
 	this.password = password;
     }    

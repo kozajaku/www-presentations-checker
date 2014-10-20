@@ -20,17 +20,20 @@ import javax.servlet.http.HttpSession;
 
 /**
  * This helper prevents logged users from accessing pages for not logged users
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @WebFilter(urlPatterns = {"/public/login.xhtml", "/publicc/signUp.xhtml"})
 public class LoggedInUserRestrictionFilter implements Filter {
 
+    /** {@inheritDoc} */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 	
     }
 
+    /** {@inheritDoc} */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 	HttpServletRequest req = (HttpServletRequest) request;
@@ -46,6 +49,7 @@ public class LoggedInUserRestrictionFilter implements Filter {
 	chain.doFilter(request, response);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void destroy() {
 	

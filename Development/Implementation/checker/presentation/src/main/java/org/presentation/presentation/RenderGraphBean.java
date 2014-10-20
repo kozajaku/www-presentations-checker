@@ -23,8 +23,9 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 
 /**
  * This bean brings the ability of graph rendering
- * 
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 @Named
 @RequestScoped
@@ -40,6 +41,9 @@ public class RenderGraphBean extends ProtectedBean {
     protected Graph selectedGraph;
     
     
+    /**
+     * <p>init.</p>
+     */
     @PostConstruct    
     public void init() {	
 	// set checkupId from GET argument if not set by JSF
@@ -52,9 +56,10 @@ public class RenderGraphBean extends ProtectedBean {
     }       
     
     /**
-     * This method loads the checkup by id. Checking/validation is also involved. 
+     * This method loads the checkup by id. Checking/validation is also involved.
+     *
      * @return success
-     * @throws UserAuthorizationException 
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
      */
     protected boolean loadCheckup() throws UserAuthorizationException{
 	Checkup c = this.persistance.findCheckup(checkupId);		
@@ -76,6 +81,7 @@ public class RenderGraphBean extends ProtectedBean {
     
     /**
      * This method decides if all variables necessary to display a specific checkup are set
+     *
      * @return are all necessary vars set?
      */
     protected boolean validateSpecificGraphIdVars(){
@@ -91,7 +97,8 @@ public class RenderGraphBean extends ProtectedBean {
     
     /**
      * This action prepares the bean for graph rendering
-     * @throws UserAuthorizationException 
+     *
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
      */
     public void showGraph() throws UserAuthorizationException {
 	if(!this.loadCheckup()) return;
@@ -102,7 +109,8 @@ public class RenderGraphBean extends ProtectedBean {
     
     /**
      * This action prepares the bean for graph list rendering
-     * @throws UserAuthorizationException 
+     *
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
      */
     public void showGraphList() throws UserAuthorizationException {
 	if(!this.loadCheckup()) return;	
@@ -110,8 +118,9 @@ public class RenderGraphBean extends ProtectedBean {
     
     /**
      * This action brings the ability to download graphs
-     * @throws IOException
-     * @throws UserAuthorizationException 
+     *
+     * @throws java.io.IOException if any.
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
      */
     public void download() throws IOException, UserAuthorizationException {
 	this.showGraph();
@@ -132,30 +141,66 @@ public class RenderGraphBean extends ProtectedBean {
 	}
     }    
     
+    /**
+     * <p>Getter for the field <code>checkupId</code>.</p>
+     *
+     * @return a int.
+     */
     public int getCheckupId() {
 	return checkupId;
     }
 
+    /**
+     * <p>Setter for the field <code>checkupId</code>.</p>
+     *
+     * @param checkupId a int.
+     */
     public void setCheckupId(int checkupId) {
 	this.checkupId = checkupId;
     }
 
+    /**
+     * <p>Getter for the field <code>graphType</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getGraphType() {
 	return graphType;
     }
 
+    /**
+     * <p>Setter for the field <code>graphType</code>.</p>
+     *
+     * @param graphType a {@link java.lang.String} object.
+     */
     public void setGraphType(String graphType) {
 	this.graphType = graphType;
     }
 
+    /**
+     * <p>Getter for the field <code>selectedGraph</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.Graph} object.
+     */
     public Graph getSelectedGraph() {
 	return selectedGraph;
     }
 
+    /**
+     * <p>Getter for the field <code>checkup</code>.</p>
+     *
+     * @return a {@link org.presentation.persistence.model.Checkup} object.
+     */
     public Checkup getCheckup() {
 	return checkup;
     }
 
+    /**
+     * <p>getAvailableGraphs.</p>
+     *
+     * @return a {@link java.util.List} object.
+     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     */
     public List<Graph> getAvailableGraphs() throws UserAuthorizationException {
 	if(this.checkup == null) this.loadCheckup();
 	if(this.checkup != null) return this.persistance.findCheckupGraphs(checkup); else return null;

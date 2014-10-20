@@ -15,14 +15,16 @@ import javax.faces.convert.FacesConverter;
 import org.presentation.model.Domain;
 
 /**
- * JSF converter - converts domain newline-separated list <-> List of Domain objects
- * 
+ * JSF converter - converts domain newline-separated list - List of Domain objects
+ *
  * @author petrof
+ * @version $Id: $Id
  */
 
 @FacesConverter("DomainListConverter")
 public class DomainListConverter implements Converter {
 
+    /** {@inheritDoc} */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 	
@@ -37,6 +39,7 @@ public class DomainListConverter implements Converter {
 	return domains;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
 	

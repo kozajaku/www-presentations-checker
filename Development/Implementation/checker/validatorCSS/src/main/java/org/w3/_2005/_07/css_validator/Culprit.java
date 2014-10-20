@@ -17,24 +17,25 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Culprit complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="Culprit">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="line" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="level" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Culprit"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="line" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="level" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Culprit", propOrder = {
@@ -55,7 +56,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the line property.
-     * 
+     *
+     * @return a int.
      */
     public int getLine() {
         return line;
@@ -63,7 +65,8 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the line property.
-     * 
+     *
+     * @param value a int.
      */
     public void setLine(int value) {
         this.line = value;
@@ -71,7 +74,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the level property.
-     * 
+     *
+     * @return a int.
      */
     public int getLevel() {
         return level;
@@ -79,7 +83,8 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the level property.
-     * 
+     *
+     * @param value a int.
      */
     public void setLevel(int value) {
         this.level = value;
@@ -87,11 +92,8 @@ public abstract class Culprit {
 
     /**
      * Gets the value of the message property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return a {@link java.lang.String} object.
      */
     public String getMessage() {
         return message;
@@ -99,11 +101,10 @@ public abstract class Culprit {
 
     /**
      * Sets the value of the message property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link String }
-     *     
+     *     {@link java.lang.String}
      */
     public void setMessage(String value) {
         this.message = value;

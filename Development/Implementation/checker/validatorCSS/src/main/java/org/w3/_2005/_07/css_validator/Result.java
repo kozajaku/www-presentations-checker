@@ -16,23 +16,24 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for Result complex type.
- * 
+ *
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ *
  * <pre>
- * &lt;complexType name="Result">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="errors" type="{http://www.w3.org/2005/07/css-validator}ValidationErrors"/>
- *         &lt;element name="warnings" type="{http://www.w3.org/2005/07/css-validator}ValidationWarnings"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="Result"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="errors" type="{http://www.w3.org/2005/07/css-validator}ValidationErrors"/&gt;
+ *         &lt;element name="warnings" type="{http://www.w3.org/2005/07/css-validator}ValidationWarnings"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
- * 
- * 
+ *
+ * @author radio.koza
+ * @version $Id: $Id
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Result", propOrder = {
@@ -48,11 +49,8 @@ public class Result {
 
     /**
      * Gets the value of the errors property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ValidationErrors }
-     *     
+     *
+     * @return a {@link org.w3._2005._07.css_validator.ValidationErrors} object.
      */
     public ValidationErrors getErrors() {
         return errors;
@@ -60,11 +58,10 @@ public class Result {
 
     /**
      * Sets the value of the errors property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link ValidationErrors }
-     *     
+     *     {@link org.w3._2005._07.css_validator.ValidationErrors}
      */
     public void setErrors(ValidationErrors value) {
         this.errors = value;
@@ -72,11 +69,8 @@ public class Result {
 
     /**
      * Gets the value of the warnings property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ValidationWarnings }
-     *     
+     *
+     * @return a {@link org.w3._2005._07.css_validator.ValidationWarnings} object.
      */
     public ValidationWarnings getWarnings() {
         return warnings;
@@ -84,11 +78,10 @@ public class Result {
 
     /**
      * Sets the value of the warnings property.
-     * 
+     *
      * @param value
      *     allowed object is
-     *     {@link ValidationWarnings }
-     *     
+     *     {@link org.w3._2005._07.css_validator.ValidationWarnings}
      */
     public void setWarnings(ValidationWarnings value) {
         this.warnings = value;
