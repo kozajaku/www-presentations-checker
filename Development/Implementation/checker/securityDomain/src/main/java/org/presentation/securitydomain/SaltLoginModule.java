@@ -14,7 +14,6 @@ import javax.security.auth.Subject;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
-import org.jboss.security.PicketBoxLogger;
 import org.jboss.security.PicketBoxMessages;
 import org.jboss.security.auth.spi.DatabaseServerLoginModule;
 
