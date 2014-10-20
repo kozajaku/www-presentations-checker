@@ -6,8 +6,12 @@
 package org.presentation.tests.cssboxtest;
 
 
+import cz.vutbr.web.css.Declaration;
 import cz.vutbr.web.css.NodeData;
+import cz.vutbr.web.css.Term;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +41,7 @@ public class CssBoxTest {
     public static void main(String[] args) throws SAXException, IOException {
 	
 	//Open the network connection 
-	DocumentSource docSource = new DefaultDocumentSource("http://seznam.cz/");
+	DocumentSource docSource = new DefaultDocumentSource("http://www.webzdarma.cz/");
 
 	//Parse the input document
 	DOMSource parser = new DefaultDOMSource(docSource);
@@ -47,28 +51,79 @@ public class CssBoxTest {
 	
 	DOMAnalyzer da = new DOMAnalyzer(doc, docSource.getURL());
 	
-	da.attributesToStyles(); //convert the HTML presentation attributes to inline styles
+	//da.attributesToStyles(); //convert the HTML presentation attributes to inline styles
 	da.getStyleSheets(); //load the author style sheets
 	
 	NodeList nodeList = doc.getElementsByTagName("*");
 	NodeData ndata;
 		
+	String outputFilename = System.getProperty("user.dir") + File.separator + "cssbox_test.txt";
+	Logger.getLogger(CssBoxTest.class.getName()).log(Level.INFO, "WRITING LOG TO {0}", outputFilename);	
+	PrintWriter writer = new PrintWriter(outputFilename, "UTF-8");
+	
+	long startTime = System.currentTimeMillis();		
+		
+	String spaces = "                                                                                                                                              ";
+	
 	for (int i = 0; i < nodeList.getLength(); i++) {
 	    Node node = nodeList.item(i);
-	    //Logger.getLogger(TestCssBox.class.getName()).log(Level.INFO, "- {0}", node.getNodeName());	
-	    
+	    	    
 	    if (node.getNodeType() == Node.ELEMENT_NODE) {
 		ndata = da.getElementStyleInherited((Element) node);		
+						
+		writer.println(getNodeCaption(node));
 			
-		Logger.getLogger(CssBoxTest.class.getName()).log(Level.INFO, "- {0}", ((Element)node).getNodeName());	
+		Collection<String> propertyNames = ndata.getPropertyNames();
 		
-		Logger.getLogger(CssBoxTest.class.getName()).log(Level.INFO, ndata.getPropertyNames().stream().collect(Collectors.joining(", ")));		
+		StringBuilder sb = new StringBuilder();
 		
-		//for()
+		for(String propertyName : propertyNames) {
+		    sb.append("\t");
+		    sb.append(propertyName);
+		    sb.append(spaces.substring(0, Math.max(10, 30 - propertyName.length())));
+		    
+		    Term<?> value = ndata.getValue(propertyName, true);
+		    String valueStr;
+		    if(value == null) {
+			valueStr = "null";
+		    } else valueStr = value.toString();
+		    
+		    sb.append(valueStr);
+		    sb.append(spaces.substring(0, Math.max(10, 30 - valueStr.length())));
+		    //sb.append(value.toString());
+		    //sb.append(spaces.substring(0, Math.max(1, 30 - value.length())));
+		    
+		    Declaration sourceDeclaration = ndata.getSourceDeclaration(propertyName, true);
+		    Declaration.Source source = sourceDeclaration.getSource();
+		    if(source == null) {
+			sb.append("unknown source");
+		    } else {
+			sb.append(source.getUrl()).append(" - ").append(source.getLine()).append(":").append(source.getPosition());
+		    }
+		    sb.append(System.getProperty("line.separator"));
+		}
+		writer.println(sb.toString());
+		
 	    }
 	}
 	
+	writer.println("---");
+	writer.println("Run time: " + (System.currentTimeMillis() - startTime) + " ms");
+	
+	writer.close();
 
+    }
+    
+    protected static String getNodeCaption(Node n) {
+	boolean first = true;
+	Node node = n;
+	StringBuilder sb = new StringBuilder();
+	while(node != null) {	    
+	    sb.insert(0, (first ? node.getNodeName() : node.getNodeName() + '/'));
+	    node = node.getParentNode();
+	    first = false;
+	}
+	return sb.toString();
     }
        
     
