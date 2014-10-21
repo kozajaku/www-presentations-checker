@@ -5,7 +5,7 @@ import java.util.List;
 import org.presentation.model.LinkURL;
 
 /**
- * This class represents valid node in link graph.
+ * This class represents valid node in {@link TraversalGraph}.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -15,8 +15,9 @@ public class ValidNode extends Node {
     private final List<Edge> orientedEdges;
 
     /**
+     * Creates valid node without sucessors.
      *
-     * @param url an absolute URL representing link
+     * @param url An absolute URL representing web page
      */
     public ValidNode(LinkURL url) {
         this.url = url;
@@ -25,9 +26,9 @@ public class ValidNode extends Node {
     }
 
     /**
-     * Adds new edge from this node.
+     * Adds new {@link Edge} from this node.
      *
-     * @param edge new edge which goes from this node
+     * @param edge New {@link Edge} which goes from this node
      */
     public void addEdge(Edge edge) {
         orientedEdges.add(edge);

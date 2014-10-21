@@ -1,7 +1,7 @@
 package org.presentation.model.graph;
 
 /**
- * This class represents egde in link graph.
+ * This class represents egde in {@link TraversalGraph}.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -12,13 +12,15 @@ public class Edge {
     private final String name;
     private final LinkSourceType sourceType;
     private final boolean treeEdge;
-
+  
     /**
+     * Creates new edge which can be added to {@link ValidNode} from that it goes.
      *
-     * @param node the graph node in direction of edge
-     * @param name the label of edge
-     * @param sourceType the source type of link
-     * @param treeEdge true if edge is in crawling tree (node is found as new)
+     * @param node The graph node in direction of edge
+     * @param name The label of edge
+     * @param sourceType The source type of link
+     * @param treeEdge <code>true</code> if edge is in crawling tree (node is found as new)
+     * @see ValidNode#addEdge(org.presentation.model.graph.Edge) 
      */
     public Edge(Node node, String name, LinkSourceType sourceType, boolean treeEdge) {
         this.node = node;

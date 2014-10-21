@@ -37,7 +37,7 @@ import org.presentation.webcrawler.CrawlingState;
 import org.presentation.webcrawler.PageCrawlingObserver;
 
 /**
- * Default implementation of CrawlerService interface.
+ * Default implementation of {@link CrawlerService} interface.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -51,6 +51,13 @@ public class CrawlerServiceDefault implements CrawlerService {
      */
     private static final int HEAD_TIMEOUT = 500;
 
+    /**
+     * This class helps web crawler to crawl the web presentation and to create
+     * {@link TraversalGraph}. It represents web page for traversal purposes
+     * that's why it's nested class.
+     *
+     * @see CrawlerServiceDefault
+     */
     public class WebPage {
 
         private final String label;
@@ -60,15 +67,15 @@ public class CrawlerServiceDefault implements CrawlerService {
         private final int depthFromRoot;
 
         /**
-         * This class helps crawled to crawl the web and to create traversal
-         * graph.
+         * {@link WebPage} constructor.
          *
-         * @param label Name of link that points to page
-         * @param linkSourceType Type of link source
-         * @param previousNode Node from which was the page found.
+         * @param label Name of link that points to page; text in link, picture
+         * description etc.; information for {@link Node}
+         * @param linkSourceType Type of link source; information for {@link Node}
+         * @param previousNode Node from which was the page found; information for {@link TraversaGraph} connection
          * @param linkURL URL of page
          * @param depthFromRoot How long is link connection (number of links)
-         * between root page and this page
+         * between root page and this page; depth in {@link TraversaGraph}
          */
         public WebPage(String label, LinkSourceType linkSourceType, ValidNode previousNode, LinkURL linkURL, int depthFromRoot) {
             this.label = label;
@@ -79,10 +86,16 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
 
         /**
-         * This method checks if page is available, sends it to further process
-         * and gets new links from it.
+         * This method checks if page is available and gets all links from
+         * available page. Also sends available pages to further process (next
+         * validations) if page is processable (can be processed by some
+         * validator) and page limit wasn't reached. It also creates
+         * {@link Node} from checked page and connects it with
+         * {@link TraversalGraph}. Previously founded links are connected to the
+         * node and newly founded links are trasnformed into {@link WebPage}s.
          *
-         * @return List of newly found web pages (links).
+         * @return List of newly found {@link WebPage}s (links) or empty
+         * collection if this {@link WebPage} isn't available.
          */
         public List<WebPage> browseWebPage() {
             List<WebPage> foundPages = new ArrayList<>();
@@ -211,9 +224,9 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
 
         /**
-         * Decides if page is over allowed depth.
+         * Decides if {@link WebPage} is over allowed depth.
          *
-         * @return True if page is over allowed depth.
+         * @return <code>true</code> if {@link WebPage} is over allowed depth.
          */
         public boolean isOverMaximalDepth() {
             //LOG.info("is over maximal depth?");
@@ -229,9 +242,10 @@ public class CrawlerServiceDefault implements CrawlerService {
         /**
          * Decides if page limit has been reached.
          *
-         * @return True if page limit has been reached.
+         * @return <code>true</code> if page limit has been reached.
          */
         public boolean isOverPageLimit() {
+            isOverPageLimit();
             //LOG.info("is over page limit?");
             if (crawlingState.getPagesCrawled() >= pageLimit) {
                 if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
@@ -270,9 +284,10 @@ public class CrawlerServiceDefault implements CrawlerService {
 
     private Map<LinkURL, Node> visitedURLs;
     /**
-     * List of URLs that crawler can't reached because of exception. Boolean
-     * value indicates if crawler schould keep trying to get this URL (true) or
-     * not (false).
+     * List of URLs that crawler can't reached because of
+     * <@link UknownHostException>. Boolean value indicates if crawler schould
+     * keep trying to get this URL (<code>true</code>) or not
+     * (<code>false</code>).
      */
     private Map<LinkURL, Boolean> unreachedURLs;
 
@@ -320,9 +335,10 @@ public class CrawlerServiceDefault implements CrawlerService {
     /**
      * Gets all links from page using HTML and CSS parsers.
      *
-     * @param response A result from page receiver
+     * @param response A result from {@link PageReceiver}
      * @param baseURL An absolute URL of page
-     * @return
+     * @return List of {@link ParsedLinkResponse} (links) founded by parsers
+     * from response
      */
     private List<ParsedLinkResponse> getLinksFromPage(ReceiverResponse response, LinkURL baseURL) {
         if (response.getContentType().isCss()) {
@@ -392,7 +408,7 @@ public class CrawlerServiceDefault implements CrawlerService {
         for (Domain allowedDomain : allowedDomains) {
             String domain = allowedDomain.getDomain();
             if (domainURL.length() >= domain.length()) {
-                //domeny se musi shodovat od konce
+                //match from end
                 if (domain.equals(domainURL.substring(domainURL.length() - domain.length()))) {
                     return true;
                 }
