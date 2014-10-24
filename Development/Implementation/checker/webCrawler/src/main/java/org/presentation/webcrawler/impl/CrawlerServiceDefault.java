@@ -245,7 +245,6 @@ public class CrawlerServiceDefault implements CrawlerService {
          * @return <code>true</code> if page limit has been reached.
          */
         public boolean isOverPageLimit() {
-            isOverPageLimit();
             //LOG.info("is over page limit?");
             if (crawlingState.getPagesCrawled() >= pageLimit) {
                 if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
