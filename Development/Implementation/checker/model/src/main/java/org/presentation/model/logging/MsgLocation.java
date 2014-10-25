@@ -4,6 +4,7 @@ package org.presentation.model.logging;
  * Represents location of message content.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class MsgLocation {
 

@@ -95,7 +95,9 @@ public class ChosenOption implements Serializable {
         this.checkupList = checkupList;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -103,7 +105,9 @@ public class ChosenOption implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -114,7 +118,9 @@ public class ChosenOption implements Serializable {
         return !((this.idOption == null && other.idOption != null) || (this.idOption != null && !this.idOption.equals(other.idOption)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "test.Option[ idOption=" + idOption + " ]";

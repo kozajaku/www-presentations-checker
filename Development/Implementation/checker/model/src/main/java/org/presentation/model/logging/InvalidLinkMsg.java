@@ -5,6 +5,7 @@ package org.presentation.model.logging;
  * specification of class Error Message.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class InvalidLinkMsg extends ErrorMsg {
 
@@ -31,12 +32,18 @@ public class InvalidLinkMsg extends ErrorMsg {
         this.errorCode = errorCode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setFromMapper(MessageMapper mapper) {
         super.setFromMapper(mapper);
         errorCode = mapper.getErrorCode();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setIntoMapper(MessageMapper mapper) {
         super.setIntoMapper(mapper);

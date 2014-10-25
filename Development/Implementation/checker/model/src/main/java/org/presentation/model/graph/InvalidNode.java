@@ -4,7 +4,8 @@ import org.presentation.model.LinkURL;
 import org.presentation.model.logging.ErrorCode;
 
 /**
- * This class represents invalid node (invalid link) in {@link TraversalGraph}.
+ * This class represents invalid node (invalid link) in
+ * {@link org.presentation.model.graph.TraversalGraph}.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -28,10 +29,19 @@ public class InvalidNode extends Node {
         this.errorCode = errorCode;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>errorCode</code>.</p>
+     *
+     * @return a {@link org.presentation.model.logging.ErrorCode} object.
+     */
     public ErrorCode getErrorCode() {
         return errorCode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid() {
         return false;

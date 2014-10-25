@@ -18,26 +18,34 @@ import org.presentation.persistence.model.Checkup;
 @Dependent
 public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void create(Checkup checkup) {
         checkup.setIdCheckup(null);
         getEntityManager().persist(checkup);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(Checkup checkup) {
         getEntityManager().merge(checkup);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Checkup find(Integer checkupId) {
         return getEntityManager().find(Checkup.class, checkupId);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Checkup> findAllUserChecks(String email) {
         TypedQuery<Checkup> q = getEntityManager().createNamedQuery("Checkup.findByUserEmail", Checkup.class);
@@ -45,13 +53,17 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         return q.getResultList();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void flush() {
         getEntityManager().flush();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Checkup> findAllWithState(CheckState[] states) {
         TypedQuery<Checkup> q = getEntityManager().createQuery("SELECT c FROM Checkup c WHERE c.state IN :states ORDER BY c.checkingCreated", Checkup.class);
@@ -59,7 +71,9 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         return q.getResultList();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Checkup> findAllUserChecks(String email, int offset, int count) {
         if (offset < 0 || count <= 0) {
@@ -72,7 +86,9 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
         return q.getResultList();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int countUserChecks(String email) {
         TypedQuery<Integer> q = getEntityManager().createNamedQuery("Checkup.countUserCheckups", Integer.class);

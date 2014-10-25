@@ -36,6 +36,7 @@ import org.w3._2005._07.css_validator.WarningList;
  * CSS validator service.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class CSSValidatorImpl implements SinglePageControllerService {
@@ -103,7 +104,7 @@ public class CSSValidatorImpl implements SinglePageControllerService {
                     if (error.getMessage() != null) {
                         //ignore parse errors
                         tmp = error.getMessage().trim();
-                        if (tmp.equals("Parse Error")){
+                        if (tmp.equals("Parse Error")) {
                             continue;
                         }
                         ErrorMsg msg = new ErrorMsg();
@@ -128,7 +129,9 @@ public class CSSValidatorImpl implements SinglePageControllerService {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of css {0}", url.getUrl());
@@ -153,25 +156,33 @@ public class CSSValidatorImpl implements SinglePageControllerService {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         logger = messageLoggerContainer.createLogger("CSS Validator");
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         //nothing to do - body should be empty
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isApplicable(ContentType contentType) {
         return contentType.isCss();

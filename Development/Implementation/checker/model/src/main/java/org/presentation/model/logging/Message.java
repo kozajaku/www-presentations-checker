@@ -6,6 +6,7 @@ import org.presentation.model.LinkURL;
  * Abstract class representing common composition of message.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public abstract class Message {
 
@@ -95,7 +96,7 @@ public abstract class Message {
         mapper.setPage(page);
         mapper.setMsgLocation(msgLocation);
         mapper.setDiscriminator(this.getClass().getName());
-	mapper.setPriority(this.getPriority());
+        mapper.setPriority(this.getPriority());
     }
 
     /**
@@ -107,7 +108,7 @@ public abstract class Message {
         this.message = mapper.getMessage();
         this.page = mapper.getPage();
         this.msgLocation = mapper.getMsgLocation();
-	this.priority = mapper.getPriority();
+        this.priority = mapper.getPriority();
     }
 
     /**

@@ -5,7 +5,8 @@ import java.util.List;
 import org.presentation.model.LinkURL;
 
 /**
- * This class represents valid node in {@link TraversalGraph}.
+ * This class represents valid node in
+ * {@link org.presentation.model.graph.TraversalGraph}.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -26,18 +27,28 @@ public class ValidNode extends Node {
     }
 
     /**
-     * Adds new {@link Edge} from this node.
+     * Adds new {@link org.presentation.model.graph.Edge} from this node.
      *
-     * @param edge New {@link Edge} which goes from this node
+     * @param edge New {@link org.presentation.model.graph.Edge} which goes from
+     * this node
      */
     public void addEdge(Edge edge) {
         orientedEdges.add(edge);
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>orientedEdges</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<Edge> getOrientedEdges() {
         return orientedEdges;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid() {
         return true;

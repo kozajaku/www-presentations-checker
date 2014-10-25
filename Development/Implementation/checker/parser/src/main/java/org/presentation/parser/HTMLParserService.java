@@ -5,6 +5,9 @@ import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 
 /**
+ * <p>
+ * HTMLParserService interface.</p>
+ *
  * @author Adam Kugler
  * @version 1.0
  */

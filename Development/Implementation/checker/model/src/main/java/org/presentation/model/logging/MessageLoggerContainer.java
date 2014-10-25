@@ -8,6 +8,7 @@ import javax.enterprise.context.Dependent;
  * Represents container, which associates all message loggers.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class MessageLoggerContainer {

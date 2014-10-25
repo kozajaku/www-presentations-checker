@@ -15,17 +15,20 @@ import org.w3c.dom.Document;
  * This class is HTML code holder with possibility to parse.
  *
  * @author Adam
+ * @version 1.0-SNAPSHOT
  */
 public class HTMLCode {
 
     PageContent codeHTML;
     LinkURL linkHTML;
     Document parsedHTML;
+
     /**
-     * Creates {@link HTMLCode} without parsing.
+     * Creates {@link org.presentation.parser.HTMLCode} without parsing.
+     *
      * @param codeHTML HTML source code
      * @param linkHTML Link to HTML page
-     * @see #parse() 
+     * @see #parse()
      */
     public HTMLCode(PageContent codeHTML, LinkURL linkHTML) {
         this.codeHTML = codeHTML;
@@ -38,28 +41,44 @@ public class HTMLCode {
      * if you don't need parsed code.
      */
     private void parse() {
-        org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent());	
-	
-	Document document = DOMBuilder.jsoup2DOM(jsoupDocument);
-	
-	this.parsedHTML = document;
-    }
+        org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent());
 
-    public PageContent getCodeHTML() {
-	return codeHTML;
-    }
+        Document document = DOMBuilder.jsoup2DOM(jsoupDocument);
 
-    public LinkURL getLinkHTML() {
-	return linkHTML;
+        this.parsedHTML = document;
     }
 
     /**
-     * Gets the parsed document. If the document hasn't been already parsed, it gets parsed within this call.
+     * <p>
+     * Getter for the field <code>codeHTML</code>.</p>
+     *
+     * @return a {@link org.presentation.model.PageContent} object.
+     */
+    public PageContent getCodeHTML() {
+        return codeHTML;
+    }
+
+    /**
+     * <p>
+     * Getter for the field <code>linkHTML</code>.</p>
+     *
+     * @return a {@link org.presentation.model.LinkURL} object.
+     */
+    public LinkURL getLinkHTML() {
+        return linkHTML;
+    }
+
+    /**
+     * Gets the parsed document. If the document hasn't been already parsed, it
+     * gets parsed within this call.
+     *
      * @return org.w3c.dom.Document parsed HTML code
      */
     public Document getParsedHTML() {
-	if(parsedHTML == null) this.parse();
-	return parsedHTML;
+        if (parsedHTML == null) {
+            this.parse();
+        }
+        return parsedHTML;
     }
-        
+
 }

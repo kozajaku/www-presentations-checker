@@ -23,144 +23,152 @@ import org.presentation.presentation.validation.ValidPassword;
 @Named
 @RequestScoped
 public class SignupBean extends CommonBean {
-    
+
     @NotNull
     @ValidEmail
     private String email;
-    
+
     @NotNull
     @ValidPassword
     private String password;
-    
+
     @NotNull
     @ValidPassword
     private String passwordVerification;
-    
-    @Size(min=2)
+
+    @Size(min = 2)
     @NotNull
     private String name;
-    
-    @Size(min=2)
-    @NotNull    
+
+    @Size(min = 2)
+    @NotNull
     private String surname;
-    
+
     /**
      * this action is called to create new account
      *
      * @return jsf view
      * @throws java.lang.Exception if any.
      */
-    public String signUp() throws Exception{		
-	
-	if(persistance.findUser(email) != null) {
-	    this.addMessage(new FacesMessage(MessageFormat.format(this.msg.getString("signUp.account_already_exists"), email)));
-	    return "";	    
-	}
-	
-	if(!this.password.equals(this.passwordVerification)) {
-	    this.addMessage(new FacesMessage(this.msg.getString("signUp.password_verification_mismatch")));
-	    return "";
-	}
-	
-	if(persistance.createNewUser(email, password, name, surname) == true) {    
-	    return "/protected/user/index.xhtml?faces-redirect=true";
-	} else {
-	    this.addMessage(new FacesMessage(this.msg.getString("signUp.fail_message")));
-	}
-	
-	return "";
+    public String signUp() throws Exception {
+
+        if (persistance.findUser(email) != null) {
+            this.addMessage(new FacesMessage(MessageFormat.format(this.msg.getString("signUp.account_already_exists"), email)));
+            return "";
+        }
+
+        if (!this.password.equals(this.passwordVerification)) {
+            this.addMessage(new FacesMessage(this.msg.getString("signUp.password_verification_mismatch")));
+            return "";
+        }
+
+        if (persistance.createNewUser(email, password, name, surname) == true) {
+            return "/protected/user/index.xhtml?faces-redirect=true";
+        } else {
+            this.addMessage(new FacesMessage(this.msg.getString("signUp.fail_message")));
+        }
+
+        return "";
     }
 
     /**
-     * <p>Getter for the field <code>email</code>.</p>
+     * <p>
+     * Getter for the field <code>email</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getEmail() {
-	return email;
+        return email;
     }
 
     /**
-     * <p>Setter for the field <code>email</code>.</p>
+     * <p>
+     * Setter for the field <code>email</code>.</p>
      *
      * @param email a {@link java.lang.String} object.
      */
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     /**
-     * <p>Getter for the field <code>password</code>.</p>
+     * <p>
+     * Getter for the field <code>password</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getPassword() {
-	return password;
+        return password;
     }
 
     /**
-     * <p>Setter for the field <code>password</code>.</p>
+     * <p>
+     * Setter for the field <code>password</code>.</p>
      *
      * @param password a {@link java.lang.String} object.
      */
     public void setPassword(String password) {
-	this.password = password;
+        this.password = password;
     }
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getName() {
-	return name;
+        return name;
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.</p>
      *
      * @param name a {@link java.lang.String} object.
      */
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     /**
-     * <p>Getter for the field <code>surname</code>.</p>
+     * <p>
+     * Getter for the field <code>surname</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getSurname() {
-	return surname;
+        return surname;
     }
 
     /**
-     * <p>Setter for the field <code>surname</code>.</p>
+     * <p>
+     * Setter for the field <code>surname</code>.</p>
      *
      * @param surname a {@link java.lang.String} object.
      */
     public void setSurname(String surname) {
-	this.surname = surname;
+        this.surname = surname;
     }
 
     /**
-     * <p>Getter for the field <code>passwordVerification</code>.</p>
+     * <p>
+     * Getter for the field <code>passwordVerification</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getPasswordVerification() {
-	return passwordVerification;
+        return passwordVerification;
     }
 
     /**
-     * <p>Setter for the field <code>passwordVerification</code>.</p>
+     * <p>
+     * Setter for the field <code>passwordVerification</code>.</p>
      *
      * @param passwordVerification a {@link java.lang.String} object.
      */
     public void setPasswordVerification(String passwordVerification) {
-	this.passwordVerification = passwordVerification;
+        this.passwordVerification = passwordVerification;
     }
-    
-    
-    
+
 }

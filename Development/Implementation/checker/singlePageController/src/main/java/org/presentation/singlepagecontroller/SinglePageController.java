@@ -22,8 +22,11 @@ import org.presentation.utils.OptionContainer;
 import org.presentation.utils.Stoppable;
 
 /**
+ * <p>
+ * SinglePageController class.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class SinglePageController implements MessageProducer, Stoppable {
@@ -49,7 +52,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
      * possible implementations and than choosing those, which was chosed by
      * user (choice passed in parameter options). This method <b>MUST</b> be
      * called before {@link #checkPage(org.presentation.model.ContentType, org.presentation.model.LinkURL, org.presentation.model.PageContent)
-     * }
+     *}
      * or the IllegalStateException will be thrown.
      *
      * @param options Options allowed for spc checking
@@ -67,7 +70,8 @@ public class SinglePageController implements MessageProducer, Stoppable {
      * Method is called by web crawler (delegated from kernel) for every valid
      * page validation can be applied on. Method must delegate these requests
      * paralelly to chosen implementations of
-     * {@link SinglePageControllerService} class. Method
+     * {@link org.presentation.singlepagecontroller.SinglePageControllerService}
+     * class. Method
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * must be called before this method or IllegalStateException will be
      * thrown.
@@ -75,8 +79,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
      * @param contentType Type of page content (eg. text/html, etc...)
      * @param linkURL URL of the checked page
      * @param pageContent Source code of checking page
-     *
-     * @throws IllegalStateException Thrown if
+     * @throws java.lang.IllegalStateException Thrown if
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * was not called before calling this method.
      */
@@ -105,14 +108,11 @@ public class SinglePageController implements MessageProducer, Stoppable {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Setting messageLogger to chosen controllers. Note that
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * must be called before this or IllegalStateException will be thrown.
-     *
-     * @param messageLoggerContainer Logger container for creating new logger
-     * @throws IllegalStateException If
-     * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
-     * was not called first.
      */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
@@ -124,6 +124,9 @@ public class SinglePageController implements MessageProducer, Stoppable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         //delegating to spc service implementations

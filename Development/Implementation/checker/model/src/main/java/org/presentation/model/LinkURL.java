@@ -6,6 +6,7 @@ import java.util.Objects;
  * This class represents the URL web address.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class LinkURL {
 
@@ -46,11 +47,17 @@ public class LinkURL {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return url.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

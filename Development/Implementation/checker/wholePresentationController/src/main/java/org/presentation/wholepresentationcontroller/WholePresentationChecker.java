@@ -13,6 +13,6 @@ import org.presentation.utils.Stoppable;
  *
  * @author Adam
  */
-public interface WholePresentationChecker extends MessageProducer, Option, Stoppable{
-    
+public interface WholePresentationChecker extends MessageProducer, Option, Stoppable {
+
 }

@@ -18,7 +18,8 @@ public interface CrawlerService extends MessageProducer, Stoppable {
 
     /**
      * Starts browsing. Sends messages about valid/invalid links. Modifies
-     * crawling state. Creates {@link TraversalGraph}.
+     * crawling state. Creates
+     * {@link org.presentation.model.graph.TraversalGraph}.
      *
      * @param url starting URL
      * @param maximalDepth Crawling depth which schould not be overrun.
@@ -34,6 +35,12 @@ public interface CrawlerService extends MessageProducer, Stoppable {
      */
     void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders);
 
+    /**
+     * <p>
+     * getCrawlingState.</p>
+     *
+     * @return a {@link org.presentation.webcrawler.CrawlingState} object.
+     */
     CrawlingState getCrawlingState();
 
 }

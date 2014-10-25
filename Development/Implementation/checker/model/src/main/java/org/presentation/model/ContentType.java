@@ -4,6 +4,7 @@ package org.presentation.model;
  * This class represents the Content-Type attribute in HTTP head.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class ContentType {
 
@@ -55,8 +56,11 @@ public class ContentType {
         }
         return false;
     }
+
     /**
-     * Decides if type of content can be processed further by any PageController. 
+     * Decides if type of content can be processed further by any
+     * PageController.
+     *
      * @return True if content is processable.
      */
     public boolean isProcessable() {

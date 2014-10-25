@@ -17,7 +17,7 @@
                         <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.email']}:" />
                         <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{signupBean.email}" label="#{msg['signUp.email']}" validatorMessage="#{msg['validation.email_bf']}">
-				<f:passThroughAttribute name="autocomplete" value="off" />
+                                <f:passThroughAttribute name="autocomplete" value="off" />
                             </h:inputText>	
                         </div>
                     </div>
@@ -26,12 +26,12 @@
                         <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.password']}:" />
                         <div class="col-sm-8">
                             <h:inputSecret styleClass="form-control" value="#{signupBean.password}" label="#{msg['signUp.password']}" >
-				<f:passThroughAttribute name="autocomplete" value="off" />		   
-			    </h:inputSecret>
+                                <f:passThroughAttribute name="autocomplete" value="off" />		   
+                            </h:inputSecret>
                         </div>
                     </div>
-		    
-		    <div class="form-group">
+
+                    <div class="form-group">
                         <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['signUp.password_verify']}:" />
                         <div class="col-sm-8">
                             <h:inputSecret styleClass="form-control" value="#{signupBean.passwordVerification}" label="#{msg['signUp.password_verify']}" />

@@ -16,20 +16,26 @@ import org.presentation.persistence.model.Login;
 @Dependent
 public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void create(Login login) {
         login.setIdLogin(null);
         getEntityManager().persist(login);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Login find(Integer loginId) {
         return getEntityManager().find(Login.class, loginId);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Login> findAllUserLogins(String email) {
         TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserEmail", Login.class);
@@ -37,7 +43,9 @@ public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {
         return q.getResultList();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Login findLastUserLogin(String email) {
         TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserEmail", Login.class);

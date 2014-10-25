@@ -7,6 +7,7 @@ import java.util.List;
  * Represents container for user options.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class OptionContainer {
 

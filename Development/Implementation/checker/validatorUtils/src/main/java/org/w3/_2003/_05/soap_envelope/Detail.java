@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2003._05.soap_envelope;
 
 import java.util.ArrayList;
@@ -20,11 +18,13 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 import org.w3c.dom.Element;
 
-
 /**
- * <p>Java class for detail complex type.
+ * <p>
+ * Java class for detail complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="detail"&gt;
@@ -60,10 +60,10 @@ public class Detail {
      * Gets the value of the any property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the any property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the any property.
      *
      * <p>
      * For example, to add a new item, do as follows:
@@ -73,8 +73,7 @@ public class Detail {
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link org.w3c.dom.Element}
+     * Objects of the following type(s) are allowed in the list null     {@link org.w3c.dom.Element}
      * {@link java.lang.Object}
      *
      * @return a {@link java.util.List} object.
@@ -87,14 +86,15 @@ public class Detail {
     }
 
     /**
-     * Gets a map that contains attributes that aren't bound to any typed property on this class.
+     * Gets a map that contains attributes that aren't bound to any typed
+     * property on this class.
      *
      * <p>
-     * the map is keyed by the name of the attribute and
-     * the value is the string value of the attribute.
+     * the map is keyed by the name of the attribute and the value is the string
+     * value of the attribute.
      *
-     * the map returned by this method is live, and you can add new attribute
-     * by updating the map directly. Because of this design, there's no setter.
+     * the map returned by this method is live, and you can add new attribute by
+     * updating the map directly. Because of this design, there's no setter.
      *
      * @return a {@link java.util.Map} object.
      */

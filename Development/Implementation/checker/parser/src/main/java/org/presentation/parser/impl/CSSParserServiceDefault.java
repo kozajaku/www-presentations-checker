@@ -20,6 +20,7 @@ import org.presentation.parser.ParsedLinkResponse;
  * Default implementation of CSSParserService
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class CSSParserServiceDefault implements CSSParserService {
@@ -32,11 +33,9 @@ public class CSSParserServiceDefault implements CSSParserService {
     private Logger LOG;
 
     /**
-     * Default method for parse links from CSS file.
+     * {@inheritDoc}
      *
-     * @param sourceCode Source code of the CSS file.
-     * @param baseURL URL link of the CSS file.
-     * @return List of parsed links from the CSS file.
+     * Default method for parse links from CSS file.
      */
     @Override
     public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL) {

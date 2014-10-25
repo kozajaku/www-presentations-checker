@@ -28,64 +28,70 @@ public class CustomViewHandler extends ViewHandlerWrapper {
     private ViewHandler wrapped;
 
     /**
-     * <p>Constructor for CustomViewHandler.</p>
+     * <p>
+     * Constructor for CustomViewHandler.</p>
      *
      * @param wrapped a {@link javax.faces.application.ViewHandler} object.
      */
     public CustomViewHandler(ViewHandler wrapped) {
         this.wrapped = wrapped;
     }
-    
-    /** {@inheritDoc} */
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ViewHandler getWrapped() {
-	return wrapped;
+        return wrapped;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getActionURL(FacesContext context, String viewId) {
-	return context.getExternalContext().encodeBookmarkableURL(
-		super.getActionURL(context, viewId), getViewParameterMap(context));
+        return context.getExternalContext().encodeBookmarkableURL(
+                super.getActionURL(context, viewId), getViewParameterMap(context));
     }
-    
-    
+
     /**
-     * <p>getViewParameters.</p>
+     * <p>
+     * getViewParameters.</p>
      *
      * @param context a {@link javax.faces.context.FacesContext} object.
      * @return a {@link java.util.Collection} object.
      */
     public static Collection<UIViewParameter> getViewParameters(FacesContext context) {
-	    UIViewRoot viewRoot = context.getViewRoot();
-	    return (viewRoot != null) ? ViewMetadata.getViewParameters(viewRoot) : Collections.<UIViewParameter>emptyList();
+        UIViewRoot viewRoot = context.getViewRoot();
+        return (viewRoot != null) ? ViewMetadata.getViewParameters(viewRoot) : Collections.<UIViewParameter>emptyList();
     }
-    
+
     /**
-     * <p>getViewParameterMap.</p>
+     * <p>
+     * getViewParameterMap.</p>
      *
      * @param context a {@link javax.faces.context.FacesContext} object.
      * @return a {@link java.util.Map} object.
      */
     public static Map<String, List<String>> getViewParameterMap(FacesContext context) {
-	    Collection<UIViewParameter> viewParameters = getViewParameters(context);
+        Collection<UIViewParameter> viewParameters = getViewParameters(context);
 
-	    if (viewParameters.isEmpty()) {
-		    return Collections.<String, List<String>>emptyMap();
-	    }
+        if (viewParameters.isEmpty()) {
+            return Collections.<String, List<String>>emptyMap();
+        }
 
-	    Map<String, List<String>> parameterMap = new HashMap<>();
+        Map<String, List<String>> parameterMap = new HashMap<>();
 
-	    for (UIViewParameter viewParameter : viewParameters) {
-		    String value = viewParameter.getStringValue(context);
+        for (UIViewParameter viewParameter : viewParameters) {
+            String value = viewParameter.getStringValue(context);
 
-		    if (value != null) {
-			    // <f:viewParam> doesn't support multiple values anyway, so having multiple <f:viewParam> on the
-			    // same request parameter shouldn't end up in repeated parameters in action URL.
-			    parameterMap.put(viewParameter.getName(), Collections.singletonList(value));
-		    }
-	    }
+            if (value != null) {
+                // <f:viewParam> doesn't support multiple values anyway, so having multiple <f:viewParam> on the
+                // same request parameter shouldn't end up in repeated parameters in action URL.
+                parameterMap.put(viewParameter.getName(), Collections.singletonList(value));
+            }
+        }
 
-	    return parameterMap;
-    }    
+        return parameterMap;
+    }
 }

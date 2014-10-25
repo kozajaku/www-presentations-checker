@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-
 /**
  * This validator validates email address
  *
@@ -19,24 +18,28 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
-		    "[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*" +
-		    "(\\.[A-Za-z]{2,})$";
+    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\."
+            + "[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*"
+            + "(\\.[A-Za-z]{2,})$";
 
     private Pattern pattern;
     private Matcher matcher;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
-	pattern = Pattern.compile(EMAIL_PATTERN);
+        pattern = Pattern.compile(EMAIL_PATTERN);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-	matcher = pattern.matcher(value);
-	return matcher.matches();
+        matcher = pattern.matcher(value);
+        return matcher.matches();
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.Map;
  * loggers.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class MsgReport {
 

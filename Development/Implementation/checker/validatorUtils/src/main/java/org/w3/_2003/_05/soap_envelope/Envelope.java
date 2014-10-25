@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2003._05.soap_envelope;
 
 import java.util.HashMap;
@@ -17,11 +15,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
-
 /**
- * <p>Java class for Envelope complex type.
+ * <p>
+ * Java class for Envelope complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="Envelope"&gt;
@@ -73,9 +73,8 @@ public class Envelope {
     /**
      * Sets the value of the header property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2003._05.soap_envelope.Header}
+     * @param value allowed object is
+     * {@link org.w3._2003._05.soap_envelope.Header}
      */
     public void setHeader(Header value) {
         this.header = value;
@@ -93,23 +92,23 @@ public class Envelope {
     /**
      * Sets the value of the body property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2003._05.soap_envelope.Body}
+     * @param value allowed object is
+     * {@link org.w3._2003._05.soap_envelope.Body}
      */
     public void setBody(Body value) {
         this.body = value;
     }
 
     /**
-     * Gets a map that contains attributes that aren't bound to any typed property on this class.
+     * Gets a map that contains attributes that aren't bound to any typed
+     * property on this class.
      *
      * <p>
-     * the map is keyed by the name of the attribute and
-     * the value is the string value of the attribute.
+     * the map is keyed by the name of the attribute and the value is the string
+     * value of the attribute.
      *
-     * the map returned by this method is live, and you can add new attribute
-     * by updating the map directly. Because of this design, there's no setter.
+     * the map returned by this method is live, and you can add new attribute by
+     * updating the map directly. Because of this design, there's no setter.
      *
      * @return a {@link java.util.Map} object.
      */

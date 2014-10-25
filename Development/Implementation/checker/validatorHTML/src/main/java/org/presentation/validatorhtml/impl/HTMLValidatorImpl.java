@@ -111,7 +111,9 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
@@ -135,25 +137,33 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         logger = messageLoggerContainer.createLogger("HTML Validator");
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         //not used method - should have empty body
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isApplicable(ContentType contentType) {
         return contentType.isHtml();

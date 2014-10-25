@@ -83,7 +83,7 @@
             <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>tests</artifactId>
             <version>${project.version}</version>

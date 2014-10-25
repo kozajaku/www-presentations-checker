@@ -24,7 +24,10 @@ import javax.validation.Payload;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 public @interface ValidEmail {
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
+
     String message() default "";
 }

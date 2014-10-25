@@ -30,183 +30,213 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 @Named
 @RequestScoped
 public class RenderGraphBean extends ProtectedBean {
-    
+
     @NotNull
     protected int checkupId;
-    
+
     protected Checkup checkup;
-         
+
     protected String graphType;
-    
+
     protected Graph selectedGraph;
-    
-    
+
     /**
-     * <p>init.</p>
+     * <p>
+     * init.</p>
      */
-    @PostConstruct    
-    public void init() {	
-	// set checkupId from GET argument if not set by JSF
-	if(checkupId == 0) {
-	    Map<String, String> params =FacesContext.getCurrentInstance().
-                   getExternalContext().getRequestParameterMap();
-	    String pCheckupId = params.get("checkupId");
-	    if(pCheckupId != null) checkupId = Integer.parseInt(pCheckupId);
-	}
-    }       
-    
+    @PostConstruct
+    public void init() {
+        // set checkupId from GET argument if not set by JSF
+        if (checkupId == 0) {
+            Map<String, String> params = FacesContext.getCurrentInstance().
+                    getExternalContext().getRequestParameterMap();
+            String pCheckupId = params.get("checkupId");
+            if (pCheckupId != null) {
+                checkupId = Integer.parseInt(pCheckupId);
+            }
+        }
+    }
+
     /**
-     * This method loads the checkup by id. Checking/validation is also involved.
+     * This method loads the checkup by id. Checking/validation is also
+     * involved.
      *
      * @return success
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
-    protected boolean loadCheckup() throws UserAuthorizationException{
-	Checkup c = this.persistance.findCheckup(checkupId);		
-	
-	this.checkup = c;
-	
-	if(c == null){
-	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
-	    return false;
-	}
-	
-	User user = checkup.getUser();	
-	if(user == null || !user.equals(this.getLoggedUser())) {
-	    this.checkup = null;	
-	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
-	    return false;
-	} else return true;		
+    protected boolean loadCheckup() throws UserAuthorizationException {
+        Checkup c = this.persistance.findCheckup(checkupId);
+
+        this.checkup = c;
+
+        if (c == null) {
+            this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
+            return false;
+        }
+
+        User user = checkup.getUser();
+        if (user == null || !user.equals(this.getLoggedUser())) {
+            this.checkup = null;
+            this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
+            return false;
+        } else {
+            return true;
+        }
     }
-    
+
     /**
-     * This method decides if all variables necessary to display a specific checkup are set
+     * This method decides if all variables necessary to display a specific
+     * checkup are set
      *
      * @return are all necessary vars set?
      */
-    protected boolean validateSpecificGraphIdVars(){
-	if(this.checkup != null) {
-	    if(graphType != null && this.graphType.length() > 0) {
-		return true;
-	    } else {
-		this.addMessage(new FacesMessage(msg.getString("RenderGraph.graph_not_set")));
-	    }
-	}	
-	return false;
+    protected boolean validateSpecificGraphIdVars() {
+        if (this.checkup != null) {
+            if (graphType != null && this.graphType.length() > 0) {
+                return true;
+            } else {
+                this.addMessage(new FacesMessage(msg.getString("RenderGraph.graph_not_set")));
+            }
+        }
+        return false;
     }
-    
+
     /**
      * This action prepares the bean for graph rendering
      *
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public void showGraph() throws UserAuthorizationException {
-	if(!this.loadCheckup()) return;
-	if(this.validateSpecificGraphIdVars()) {
-	    this.selectedGraph = this.persistance.findGraphByGraphType(checkup, this.graphType);	
-	}
+        if (!this.loadCheckup()) {
+            return;
+        }
+        if (this.validateSpecificGraphIdVars()) {
+            this.selectedGraph = this.persistance.findGraphByGraphType(checkup, this.graphType);
+        }
     }
-    
+
     /**
      * This action prepares the bean for graph list rendering
      *
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public void showGraphList() throws UserAuthorizationException {
-	if(!this.loadCheckup()) return;	
+        if (!this.loadCheckup()) {
+            return;
+        }
     }
-    
+
     /**
      * This action brings the ability to download graphs
      *
      * @throws java.io.IOException if any.
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public void download() throws IOException, UserAuthorizationException {
-	this.showGraph();
-	if(this.selectedGraph != null) {
-	
-	    FacesContext fc = FacesContext.getCurrentInstance();
-	    ExternalContext ec = fc.getExternalContext();
+        this.showGraph();
+        if (this.selectedGraph != null) {
 
-	    ec.responseReset(); 
-	    ec.setResponseContentType("application/octet-stream");
-	    ec.setResponseContentLength(this.selectedGraph.getOutput().length()); 
-	    ec.setResponseHeader("Content-Disposition", "attachment; filename=\"graph" + this.selectedGraph.getIdGraph() + ".html\""); 
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ExternalContext ec = fc.getExternalContext();
 
-	    OutputStream output = ec.getResponseOutputStream();
-	    output.write(this.selectedGraph.getOutput().getBytes());
+            ec.responseReset();
+            ec.setResponseContentType("application/octet-stream");
+            ec.setResponseContentLength(this.selectedGraph.getOutput().length());
+            ec.setResponseHeader("Content-Disposition", "attachment; filename=\"graph" + this.selectedGraph.getIdGraph() + ".html\"");
 
-	    fc.responseComplete(); 
-	}
-    }    
-    
+            OutputStream output = ec.getResponseOutputStream();
+            output.write(this.selectedGraph.getOutput().getBytes());
+
+            fc.responseComplete();
+        }
+    }
+
     /**
-     * <p>Getter for the field <code>checkupId</code>.</p>
+     * <p>
+     * Getter for the field <code>checkupId</code>.</p>
      *
      * @return a int.
      */
     public int getCheckupId() {
-	return checkupId;
+        return checkupId;
     }
 
     /**
-     * <p>Setter for the field <code>checkupId</code>.</p>
+     * <p>
+     * Setter for the field <code>checkupId</code>.</p>
      *
      * @param checkupId a int.
      */
     public void setCheckupId(int checkupId) {
-	this.checkupId = checkupId;
+        this.checkupId = checkupId;
     }
 
     /**
-     * <p>Getter for the field <code>graphType</code>.</p>
+     * <p>
+     * Getter for the field <code>graphType</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getGraphType() {
-	return graphType;
+        return graphType;
     }
 
     /**
-     * <p>Setter for the field <code>graphType</code>.</p>
+     * <p>
+     * Setter for the field <code>graphType</code>.</p>
      *
      * @param graphType a {@link java.lang.String} object.
      */
     public void setGraphType(String graphType) {
-	this.graphType = graphType;
+        this.graphType = graphType;
     }
 
     /**
-     * <p>Getter for the field <code>selectedGraph</code>.</p>
+     * <p>
+     * Getter for the field <code>selectedGraph</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Graph} object.
      */
     public Graph getSelectedGraph() {
-	return selectedGraph;
+        return selectedGraph;
     }
 
     /**
-     * <p>Getter for the field <code>checkup</code>.</p>
+     * <p>
+     * Getter for the field <code>checkup</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
     public Checkup getCheckup() {
-	return checkup;
+        return checkup;
     }
 
     /**
-     * <p>getAvailableGraphs.</p>
+     * <p>
+     * getAvailableGraphs.</p>
      *
      * @return a {@link java.util.List} object.
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public List<Graph> getAvailableGraphs() throws UserAuthorizationException {
-	if(this.checkup == null) this.loadCheckup();
-	if(this.checkup != null) return this.persistance.findCheckupGraphs(checkup); else return null;
+        if (this.checkup == null) {
+            this.loadCheckup();
+        }
+        if (this.checkup != null) {
+            return this.persistance.findCheckupGraphs(checkup);
+        } else {
+            return null;
+        }
     }
-        
-    
-    
-    
+
 }

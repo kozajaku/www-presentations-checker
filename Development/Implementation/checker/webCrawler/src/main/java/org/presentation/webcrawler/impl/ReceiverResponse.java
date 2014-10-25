@@ -7,6 +7,7 @@ import org.presentation.model.PageContent;
  * Represents page receiver response.
  *
  * @author Jinřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class ReceiverResponse {
 

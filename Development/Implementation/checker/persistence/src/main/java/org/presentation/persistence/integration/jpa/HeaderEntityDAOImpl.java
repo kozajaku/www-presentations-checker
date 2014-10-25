@@ -16,14 +16,18 @@ import org.presentation.persistence.model.HeaderEntity;
 @Dependent
 public class HeaderEntityDAOImpl extends AbstractDAOImpl implements HeaderEntityDAO {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void create(HeaderEntity headerEntity) {
         headerEntity.setIdHeader(null);
         getEntityManager().persist(headerEntity);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<HeaderEntity> findAllCheckHeaders(Integer checkupId) {
         TypedQuery<HeaderEntity> q = getEntityManager().createNamedQuery("HeaderEntity.findByCheckupId", HeaderEntity.class);

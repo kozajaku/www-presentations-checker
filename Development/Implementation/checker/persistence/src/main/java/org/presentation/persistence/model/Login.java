@@ -148,7 +148,9 @@ public class Login implements Serializable {
         this.user = user;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -156,7 +158,9 @@ public class Login implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Login)) {
@@ -166,7 +170,9 @@ public class Login implements Serializable {
         return !((this.idLogin == null && other.idLogin != null) || (this.idLogin != null && !this.idLogin.equals(other.idLogin)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "testicek.Login[ idLogin=" + idLogin + " ]";

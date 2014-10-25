@@ -160,7 +160,9 @@ public class Graph implements Serializable {
         this.graphType = graphType;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -168,7 +170,9 @@ public class Graph implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -181,7 +185,9 @@ public class Graph implements Serializable {
         return Objects.equals(this.idGraph, other.idGraph);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "Graph{" + "idGraph=" + idGraph + ", output=" + output + ", checkup=" + checkup + '}';

@@ -91,7 +91,7 @@ public class SaltLoginModule extends DatabaseServerLoginModule {
     }
 
     final private static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    
+
     /**
      * Method used for converting array of bytes to HEX representation in String
      *
@@ -107,7 +107,7 @@ public class SaltLoginModule extends DatabaseServerLoginModule {
         }
         return new String(hexChars);
     }
-    
+
     @Override
     protected String createPasswordHash(String username, String password, String digestOption) throws LoginException {
         try {
@@ -127,7 +127,7 @@ public class SaltLoginModule extends DatabaseServerLoginModule {
             LoginException le = PicketBoxMessages.MESSAGES.failedToInvokeCallbackHandler();
             le.initCause(ex);
             throw le;
-        }        
+        }
     }
 
 }

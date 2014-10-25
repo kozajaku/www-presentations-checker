@@ -29,6 +29,7 @@ import org.presentation.model.logging.WarningMsg;
  * Default implementation of PageReciever
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class PageReceiver implements MessageProducer {
@@ -65,6 +66,9 @@ public class PageReceiver implements MessageProducer {
      */
     private static final String HTTPS = "https";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         messageLogger = messageLoggerContainer.createLogger("Page Receiver");
@@ -76,8 +80,9 @@ public class PageReceiver implements MessageProducer {
      * @param linkURL URL address of the page.
      * @param addHeaders Headers attributes specified by user.
      * @return Response for HEAD request represented by ReceiverResponse.
-     * @throws MalformedURLException If an unknown protocol is specified.
-     * @throws IOException If request fails in any way.
+     * @throws java.net.MalformedURLException If an unknown protocol is
+     * specified.
+     * @throws java.io.IOException If request fails in any way.
      */
     public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting checkPage(HEAD) on {0}", linkURL.getUrl());
@@ -91,8 +96,9 @@ public class PageReceiver implements MessageProducer {
      * @param linkURL URL address of the page.
      * @param addHeaders Headers attributes specified by user.
      * @return Response for request represented by ReceiverResponse.
-     * @throws MalformedURLException If an unknown protocol is specified.
-     * @throws IOException If request fails in any way.
+     * @throws java.net.MalformedURLException If an unknown protocol is
+     * specified.
+     * @throws java.io.IOException If request fails in any way.
      */
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting getPage(HEAD) on {0}", linkURL.getUrl());

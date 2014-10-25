@@ -32,229 +32,241 @@ import org.presentation.presentation.exception.UserAuthorizationException;
 public class CheckupResultBean extends ProtectedBean {
 
     protected int checkupId = 0;
-    
+
     protected List<String> messageResourcesAvailable;
     protected List<String> messageDiscriminatorsAvailable;
     protected String[] messageResourcesAllowed;
     protected String[] messageDiscriminatorsAllowed;
-    
+
     protected Checkup checkup;
-    
-    
+
     /**
-     * <p>init.</p>
+     * <p>
+     * init.</p>
      */
     @PostConstruct
     public void init() {
-	if(checkupId == 0) {
-	    Map<String, String> params =FacesContext.getCurrentInstance().
-                   getExternalContext().getRequestParameterMap();
-	    String pCheckupId = params.get("checkupId");
-	    if(pCheckupId != null) checkupId = Integer.parseInt(pCheckupId);
-	}
-	
-	Checkup c = this.persistance.findCheckup(checkupId);		
-	
-	this.checkup = c;
-	
-	if(c == null){
-	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
-	    return;
-	}
-		
-	this.messageResourcesAvailable = this.persistance.findCheckupMessageResources(c);	
-	
-	// todo retrieve it dynamically
-	this.messageDiscriminatorsAvailable = new ArrayList<>();
-	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.DebugMsg");
-	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.InfoMsg");
-	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.WarningMsg");
-	this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.ErrorMsg");
+        if (checkupId == 0) {
+            Map<String, String> params = FacesContext.getCurrentInstance().
+                    getExternalContext().getRequestParameterMap();
+            String pCheckupId = params.get("checkupId");
+            if (pCheckupId != null) {
+                checkupId = Integer.parseInt(pCheckupId);
+            }
+        }
+
+        Checkup c = this.persistance.findCheckup(checkupId);
+
+        this.checkup = c;
+
+        if (c == null) {
+            this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
+            return;
+        }
+
+        this.messageResourcesAvailable = this.persistance.findCheckupMessageResources(c);
+
+        // todo retrieve it dynamically
+        this.messageDiscriminatorsAvailable = new ArrayList<>();
+        this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.DebugMsg");
+        this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.InfoMsg");
+        this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.WarningMsg");
+        this.messageDiscriminatorsAvailable.add("org.presentation.model.logging.ErrorMsg");
     }
-    
+
     /**
-     * <p>Getter for the field <code>checkupId</code>.</p>
+     * <p>
+     * Getter for the field <code>checkupId</code>.</p>
      *
      * @return a int.
      */
     public int getCheckupId() {
-	return checkupId;
-    }          
-    
+        return checkupId;
+    }
+
     /**
      * This action performs show-result-related operations
      *
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
-    public void showResult() throws UserAuthorizationException {	
-	if(this.checkup != null) {
-	    User user = this.checkup.getUser();	
-	    if(user == null || !user.equals(this.getLoggedUser())) {
-		this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
-		this.checkup = null;
-		return;
-	    }
+    public void showResult() throws UserAuthorizationException {
+        if (this.checkup != null) {
+            User user = this.checkup.getUser();
+            if (user == null || !user.equals(this.getLoggedUser())) {
+                this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
+                this.checkup = null;
+                return;
+            }
 
-	    if(this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0 && !this.messageResourcesAvailable.containsAll(Arrays.asList(messageResourcesAllowed))) {
-		this.messageResourcesAllowed = null;
-		this.addMessage(new FacesMessage(msg.getString("checkupResult.resource_not_available")));
-		return;	    
-	    }		
-	}
+            if (this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0 && !this.messageResourcesAvailable.containsAll(Arrays.asList(messageResourcesAllowed))) {
+                this.messageResourcesAllowed = null;
+                this.addMessage(new FacesMessage(msg.getString("checkupResult.resource_not_available")));
+                return;
+            }
+        }
     }
 
     /**
      * This getter gets the messages by filter selected
      *
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      * @return a {@link java.util.List} object.
      */
     public List<Message> getMessages() throws UserAuthorizationException {
-	if(this.checkup == null) return null;
-	
-	boolean filterByResources = this.isFilteredByResources();
-	boolean filterByDiscriminators = this.isFilteredByDiscriminators();
-		
-	if(!filterByResources && !filterByDiscriminators) {
-	    return this.persistance.findCheckupMessages(checkup);
-	} else {
-	    if(filterByResources && filterByDiscriminators) {
-		return this.persistance.findCheckupMessagesWithResourcesDiscriminators(checkup, Arrays.asList(this.messageResourcesAllowed), Arrays.asList(this.messageDiscriminatorsAllowed));
-	    } else {
-		if(filterByResources) {
-		    return this.persistance.findCheckupMessagesWithResources(checkup, Arrays.asList(this.messageResourcesAllowed));
-		} else if(filterByDiscriminators) {
-		    return this.persistance.findCheckupMessagesWithDiscriminators(checkup, Arrays.asList(this.messageDiscriminatorsAllowed));
-		}
-	    }
-	}
-	    
-	return null;
+        if (this.checkup == null) {
+            return null;
+        }
+
+        boolean filterByResources = this.isFilteredByResources();
+        boolean filterByDiscriminators = this.isFilteredByDiscriminators();
+
+        if (!filterByResources && !filterByDiscriminators) {
+            return this.persistance.findCheckupMessages(checkup);
+        } else {
+            if (filterByResources && filterByDiscriminators) {
+                return this.persistance.findCheckupMessagesWithResourcesDiscriminators(checkup, Arrays.asList(this.messageResourcesAllowed), Arrays.asList(this.messageDiscriminatorsAllowed));
+            } else {
+                if (filterByResources) {
+                    return this.persistance.findCheckupMessagesWithResources(checkup, Arrays.asList(this.messageResourcesAllowed));
+                } else if (filterByDiscriminators) {
+                    return this.persistance.findCheckupMessagesWithDiscriminators(checkup, Arrays.asList(this.messageDiscriminatorsAllowed));
+                }
+            }
+        }
+
+        return null;
     }
-    
-    
+
     /**
-     * <p>isFilteredByResources.</p>
+     * <p>
+     * isFilteredByResources.</p>
      *
      * @return a boolean.
      */
     public boolean isFilteredByResources() {
-	return (this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0);
+        return (this.messageResourcesAllowed != null && this.messageResourcesAllowed.length > 0);
     }
-    
+
     /**
-     * <p>isFilteredByDiscriminators.</p>
+     * <p>
+     * isFilteredByDiscriminators.</p>
      *
      * @return a boolean.
      */
-    public boolean isFilteredByDiscriminators(){
-	return (this.messageDiscriminatorsAllowed != null && this.messageDiscriminatorsAllowed.length > 0);
+    public boolean isFilteredByDiscriminators() {
+        return (this.messageDiscriminatorsAllowed != null && this.messageDiscriminatorsAllowed.length > 0);
     }
-    
 
     /**
-     * <p>Getter for the field <code>checkup</code>.</p>
+     * <p>
+     * Getter for the field <code>checkup</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
     public Checkup getCheckup() {
-	return checkup;
+        return checkup;
     }
 
     /**
-     * <p>Setter for the field <code>checkupId</code>.</p>
+     * <p>
+     * Setter for the field <code>checkupId</code>.</p>
      *
      * @param checkupId a int.
      */
     public void setCheckupId(int checkupId) {
-	this.checkupId = checkupId;
-    }        
+        this.checkupId = checkupId;
+    }
 
     /**
      * This getter retrieves all available resources per checkup. i18n ready
      *
      * @return all available message resources
      */
-    public Map<String,Object> getMessageResourcesAvailable() {	
-	Map<String,Object> resourcesAvailable = new HashMap<>();	    
-	
-	if(this.messageResourcesAvailable != null) {
-	    for(String s : this.messageResourcesAvailable) {
-		try {
-		    resourcesAvailable.put(msg.getString("common.ch_" + s.toLowerCase()), s);
-		}
-		catch(MissingResourceException e) {
-		    resourcesAvailable.put(s, s);
-		}
-	    }
-	}	
-	
-	return resourcesAvailable;
+    public Map<String, Object> getMessageResourcesAvailable() {
+        Map<String, Object> resourcesAvailable = new HashMap<>();
+
+        if (this.messageResourcesAvailable != null) {
+            for (String s : this.messageResourcesAvailable) {
+                try {
+                    resourcesAvailable.put(msg.getString("common.ch_" + s.toLowerCase()), s);
+                } catch (MissingResourceException e) {
+                    resourcesAvailable.put(s, s);
+                }
+            }
+        }
+
+        return resourcesAvailable;
     }
-    
+
     /**
      * This getter retrieves all available discriminators. i18n ready
      *
      * @return all available message discriminators
      */
-    public Map<String,Object> getMessageDiscriminatorsAvailable() {
-	Map<String,Object> discriminatorsAvailable = new HashMap<>();
-	
-	if(this.messageDiscriminatorsAvailable != null) {
-	    for(String s : this.messageDiscriminatorsAvailable) {
-		String[] classPathParts = s.split("\\.");
-		String className = classPathParts[classPathParts.length - 1];
-		String discriminatorCaption;
-		try {
-		    discriminatorCaption = msg.getString("common.msg_type_" + className.toLowerCase());
-		}
-		catch(MissingResourceException e) {
-		    discriminatorCaption = className;
-		}
-		discriminatorsAvailable.put(discriminatorCaption, s);
-	    }
-	}
-	
-	return discriminatorsAvailable;
+    public Map<String, Object> getMessageDiscriminatorsAvailable() {
+        Map<String, Object> discriminatorsAvailable = new HashMap<>();
+
+        if (this.messageDiscriminatorsAvailable != null) {
+            for (String s : this.messageDiscriminatorsAvailable) {
+                String[] classPathParts = s.split("\\.");
+                String className = classPathParts[classPathParts.length - 1];
+                String discriminatorCaption;
+                try {
+                    discriminatorCaption = msg.getString("common.msg_type_" + className.toLowerCase());
+                } catch (MissingResourceException e) {
+                    discriminatorCaption = className;
+                }
+                discriminatorsAvailable.put(discriminatorCaption, s);
+            }
+        }
+
+        return discriminatorsAvailable;
     }
 
     /**
-     * <p>Getter for the field <code>messageResourcesAllowed</code>.</p>
+     * <p>
+     * Getter for the field <code>messageResourcesAllowed</code>.</p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
     public String[] getMessageResourcesAllowed() {
-	return messageResourcesAllowed;
+        return messageResourcesAllowed;
     }
 
     /**
-     * <p>Setter for the field <code>messageResourcesAllowed</code>.</p>
+     * <p>
+     * Setter for the field <code>messageResourcesAllowed</code>.</p>
      *
-     * @param messageResourcesAllowed an array of {@link java.lang.String} objects.
+     * @param messageResourcesAllowed an array of {@link java.lang.String}
+     * objects.
      */
     public void setMessageResourcesAllowed(String[] messageResourcesAllowed) {
-	this.messageResourcesAllowed = messageResourcesAllowed;
+        this.messageResourcesAllowed = messageResourcesAllowed;
     }
 
     /**
-     * <p>Getter for the field <code>messageDiscriminatorsAllowed</code>.</p>
+     * <p>
+     * Getter for the field <code>messageDiscriminatorsAllowed</code>.</p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
     public String[] getMessageDiscriminatorsAllowed() {
-	return messageDiscriminatorsAllowed;
+        return messageDiscriminatorsAllowed;
     }
 
     /**
-     * <p>Setter for the field <code>messageDiscriminatorsAllowed</code>.</p>
+     * <p>
+     * Setter for the field <code>messageDiscriminatorsAllowed</code>.</p>
      *
-     * @param messageDiscriminatorsAllowed an array of {@link java.lang.String} objects.
+     * @param messageDiscriminatorsAllowed an array of {@link java.lang.String}
+     * objects.
      */
     public void setMessageDiscriminatorsAllowed(String[] messageDiscriminatorsAllowed) {
-	this.messageDiscriminatorsAllowed = messageDiscriminatorsAllowed;
+        this.messageDiscriminatorsAllowed = messageDiscriminatorsAllowed;
     }
-    
-    
-    
-    
+
 }

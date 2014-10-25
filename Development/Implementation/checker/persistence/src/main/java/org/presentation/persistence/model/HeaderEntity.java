@@ -158,7 +158,9 @@ public class HeaderEntity implements Serializable {
         this.checkup = checkup;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -166,7 +168,9 @@ public class HeaderEntity implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof HeaderEntity)) {
@@ -176,7 +180,9 @@ public class HeaderEntity implements Serializable {
         return !((this.idHeader == null && other.idHeader != null) || (this.idHeader != null && !this.idHeader.equals(other.idHeader)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "test.Header[ idHeader=" + idHeader + " ]";

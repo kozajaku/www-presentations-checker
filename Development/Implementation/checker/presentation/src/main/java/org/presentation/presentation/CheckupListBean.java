@@ -26,82 +26,85 @@ import org.primefaces.model.SortOrder;
 @Named
 @RequestScoped
 public class CheckupListBean extends ProtectedBean {
-  
- 
+
     protected LazyDataModel<CheckupEnvelope> lazyCheckupList;
-    
+
     // old un-paginated crap
     /*
-    public List<CheckupEnvelope> getCheckupList() throws UserAuthorizationException {		
-	List<Checkup> checkups;	
-	List<CheckupEnvelope> checkupList = new ArrayList<>();
+     public List<CheckupEnvelope> getCheckupList() throws UserAuthorizationException {		
+     List<Checkup> checkups;	
+     List<CheckupEnvelope> checkupList = new ArrayList<>();
 		
-	checkups = persistance.findUserCheckings(this.getLoggedUser());
+     checkups = persistance.findUserCheckings(this.getLoggedUser());
 
-	for(Checkup checkup: checkups) {
-	    checkup.setOptionList(persistance.findCheckupOptions(checkup));
+     for(Checkup checkup: checkups) {
+     checkup.setOptionList(persistance.findCheckupOptions(checkup));
 
-	    checkupList.add(new CheckupEnvelope(
-		checkup,
-		persistance.findCheckupDomains(checkup),
-		checkup.getOptionList()
-	    ));
-	}
+     checkupList.add(new CheckupEnvelope(
+     checkup,
+     persistance.findCheckupDomains(checkup),
+     checkup.getOptionList()
+     ));
+     }
 	    
-	return checkupList;
+     return checkupList;
 	
-    }    
-    */
-
+     }    
+     */
     /**
      * This getter creates a lazydata model for primefaces pagination
      *
      * @return lazy data model
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
-    public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {	
-	if(lazyCheckupList != null) return lazyCheckupList;
-	
-	final User loggedUser = getLoggedUser();
-	
-	this.lazyCheckupList = new LazyDataModel<CheckupEnvelope>(){
+    public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {
+        if (lazyCheckupList != null) {
+            return lazyCheckupList;
+        }
 
-	    @Override
-	    public List<CheckupEnvelope> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-		List<Checkup> checkups;
-		List<CheckupEnvelope> checkupList = new ArrayList<>();
-		
-		lazyCheckupList.setRowCount(persistance.findUserCheckings(loggedUser).size());	// todo replace by .countUserCheckings(user)
-		
-		checkups = persistance.findUserCheckings(loggedUser, first, pageSize);
+        final User loggedUser = getLoggedUser();
 
-		for(Checkup checkup: checkups) {
-		    checkup.setOptionList(persistance.findCheckupOptions(checkup));
+        this.lazyCheckupList = new LazyDataModel<CheckupEnvelope>() {
 
-		    checkupList.add(new CheckupEnvelope(
-			checkup,
-			persistance.findCheckupDomains(checkup),
-			checkup.getOptionList()
-		    ));
-	    	}
-	    
-		return checkupList;
-		
-	    }
+            @Override
+            public List<CheckupEnvelope> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                List<Checkup> checkups;
+                List<CheckupEnvelope> checkupList = new ArrayList<>();
 
-	};
-	
-	return this.lazyCheckupList;
+                lazyCheckupList.setRowCount(persistance.findUserCheckings(loggedUser).size());	// todo replace by .countUserCheckings(user)
+
+                checkups = persistance.findUserCheckings(loggedUser, first, pageSize);
+
+                for (Checkup checkup : checkups) {
+                    checkup.setOptionList(persistance.findCheckupOptions(checkup));
+
+                    checkupList.add(new CheckupEnvelope(
+                            checkup,
+                            persistance.findCheckupDomains(checkup),
+                            checkup.getOptionList()
+                    ));
+                }
+
+                return checkupList;
+
+            }
+
+        };
+
+        return this.lazyCheckupList;
     }
 
     /**
-     * <p>Setter for the field <code>lazyCheckupList</code>.</p>
+     * <p>
+     * Setter for the field <code>lazyCheckupList</code>.</p>
      *
-     * @param lazyCheckupList a {@link org.primefaces.model.LazyDataModel} object.
+     * @param lazyCheckupList a {@link org.primefaces.model.LazyDataModel}
+     * object.
      */
     public void setLazyCheckupList(LazyDataModel<CheckupEnvelope> lazyCheckupList) {
-	this.lazyCheckupList = lazyCheckupList;
+        this.lazyCheckupList = lazyCheckupList;
     }
-        
-    
+
 }

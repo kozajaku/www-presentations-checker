@@ -6,6 +6,9 @@ import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 
 /**
+ * <p>
+ * PageCrawlingObserver interface.</p>
+ *
  * @author Adam Kugler
  * @version 1.0
  */

@@ -28,19 +28,25 @@ public class MessageMapperImpl implements MessageMapper {
         this.messageEntity = messageEntity;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setMessage(String message) {
         messageEntity.setMessage(message);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPage(LinkURL linkURL) {
         messageEntity.setPage(linkURL.getUrl());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setMsgLocation(MsgLocation msgLocation) {
         if (msgLocation == null) {
@@ -50,25 +56,33 @@ public class MessageMapperImpl implements MessageMapper {
         messageEntity.setColumn(msgLocation.getColumn());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setErrorCode(ErrorCode errorCode) {
         messageEntity.setErrorCode(errorCode.getCode());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return messageEntity.getMessage();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LinkURL getPage() {
         return new LinkURL(messageEntity.getPage());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MsgLocation getMsgLocation() {
         if (messageEntity.getRow() == null && messageEntity.getColumn() == null) {
@@ -77,25 +91,33 @@ public class MessageMapperImpl implements MessageMapper {
         return new MsgLocation(messageEntity.getRow(), messageEntity.getColumn());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ErrorCode getErrorCode() {
         return new ErrorCode(messageEntity.getErrorCode());
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDiscriminator(String discriminator) {
         messageEntity.setDiscriminator(discriminator);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPriority(Integer priority) {
         messageEntity.setPriority(priority);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Integer getPriority() {
         return messageEntity.getPriority();

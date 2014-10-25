@@ -33,8 +33,11 @@ import org.presentation.webcrawler.CrawlingState;
 import org.presentation.webcrawler.PageCrawlingObserver;
 
 /**
+ * <p>
+ * CheckingExecutor class.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
@@ -55,15 +58,22 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     private Checkup checkup;
 
     private Future<List<GraphResult>> futureGraphResults;
-    
+
     @Inject
     private SinglePageController singlePageController;
 //    @Inject
 //    private WholePresentationController wholePresentationController;
-    
+
     @EJB
     private GraphGeneratorQueue graphGenerator;
 
+    /**
+     * <p>
+     * startChecking.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     */
     @SuppressWarnings("UseSpecificCatch")
     public void startChecking(Checkup checkup) {
         this.checkup = checkup;
@@ -74,7 +84,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             //initialize controllers
             OptionContainer oc = new OptionContainer();
             List<ChosenOption> options = persistenceFacade.findCheckupOptions(checkup);
-            for (ChosenOption i: options){
+            for (ChosenOption i : options) {
                 oc.addOption(i.getIdOption());
             }
             singlePageController.initializeControllers(oc);
@@ -98,7 +108,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             List<GraphResult> graphResults = futureGraphResults.get();
             List<Graph> graphs = new ArrayList<>();
             Graph tmp;
-            for (GraphResult i : graphResults){
+            for (GraphResult i : graphResults) {
                 tmp = new Graph();
                 tmp.setGraphType(i.getResultId());
                 tmp.setOutput(i.getResultAsCode());
@@ -110,12 +120,18 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void processOnePage(LinkURL pageUrl, PageContent pageSourceCode, ContentType contentType) {
         LOG.log(Level.INFO, "Processing page with url: {0}", pageUrl.getUrl());
         singlePageController.checkPage(contentType, pageUrl, pageSourceCode);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void crawlingDone(TraversalGraph traversalGraph, CompleteCrawlingState crawlingState) {
         LOG.log(Level.INFO, "Called crawling done method. State: {0}", crawlingState.name());
@@ -125,6 +141,9 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
         //consider it done
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         //this method must be non blocking 

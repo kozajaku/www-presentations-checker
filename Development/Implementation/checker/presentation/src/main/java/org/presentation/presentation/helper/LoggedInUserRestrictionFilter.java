@@ -27,32 +27,38 @@ import javax.servlet.http.HttpSession;
 @WebFilter(urlPatterns = {"/public/login.xhtml", "/publicc/signUp.xhtml"})
 public class LoggedInUserRestrictionFilter implements Filter {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-	
+
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-	HttpServletRequest req = (HttpServletRequest) request;
-	HttpServletResponse resp = (HttpServletResponse) response;
-	HttpSession sess = req.getSession(false);
-	
-	if(sess != null){
-	    if(sess.getAttribute("user") != null) {
-		resp.sendRedirect("../protected/user/");
-	    }
-	}
-	
-	chain.doFilter(request, response);
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
+        HttpSession sess = req.getSession(false);
+
+        if (sess != null) {
+            if (sess.getAttribute("user") != null) {
+                resp.sendRedirect("../protected/user/");
+            }
+        }
+
+        chain.doFilter(request, response);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void destroy() {
-	
+
     }
-  
+
 }

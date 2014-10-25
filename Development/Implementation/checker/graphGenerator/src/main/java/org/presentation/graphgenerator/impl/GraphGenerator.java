@@ -7,6 +7,7 @@ import org.presentation.model.graph.TraversalGraph;
  * This class generates displayable form of traversal graph.
  *
  * @author Adam Kugler
+ * @version 1.0-SNAPSHOT
  */
 public abstract class GraphGenerator {
 

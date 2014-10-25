@@ -16,14 +16,13 @@ import org.presentation.wholepresentationcontroller.WholePresentationChecker;
  * @author Adam
  */
 public class CSSRedundancyChecker implements WholePresentationChecker {
-    
+
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
     MessageLogger messageLogger;
     boolean stopped;
-    
-    
+
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         messageLogger = messageLoggerContainer.createLogger("CSS redundancy checker");
@@ -39,5 +38,5 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         LOG.info("stop checking");
         stopped = true;
     }
-    
+
 }

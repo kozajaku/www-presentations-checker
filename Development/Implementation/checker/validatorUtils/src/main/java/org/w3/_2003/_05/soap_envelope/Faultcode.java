@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2003._05.soap_envelope;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +12,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
-
 /**
- * <p>Java class for faultcode complex type.
+ * <p>
+ * Java class for faultcode complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="faultcode"&gt;
@@ -67,9 +67,7 @@ public class Faultcode {
     /**
      * Sets the value of the value property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link javax.xml.namespace.QName}
+     * @param value allowed object is {@link javax.xml.namespace.QName}
      */
     public void setValue(QName value) {
         this.value = value;
@@ -87,9 +85,8 @@ public class Faultcode {
     /**
      * Sets the value of the subcode property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2003._05.soap_envelope.Subcode}
+     * @param value allowed object is
+     * {@link org.w3._2003._05.soap_envelope.Subcode}
      */
     public void setSubcode(Subcode value) {
         this.subcode = value;

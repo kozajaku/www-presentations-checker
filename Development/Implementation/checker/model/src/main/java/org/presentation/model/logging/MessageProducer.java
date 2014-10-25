@@ -5,6 +5,7 @@ package org.presentation.model.logging;
  * container.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public interface MessageProducer {
 

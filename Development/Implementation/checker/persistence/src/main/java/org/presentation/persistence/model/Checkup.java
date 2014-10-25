@@ -373,7 +373,9 @@ public class Checkup implements Serializable {
         this.graphList = graphList;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -381,7 +383,9 @@ public class Checkup implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -392,7 +396,9 @@ public class Checkup implements Serializable {
         return !((this.idCheckup == null && other.idCheckup != null) || (this.idCheckup != null && !this.idCheckup.equals(other.idCheckup)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "test.Checkup[ idCheckup=" + idCheckup + " ]";

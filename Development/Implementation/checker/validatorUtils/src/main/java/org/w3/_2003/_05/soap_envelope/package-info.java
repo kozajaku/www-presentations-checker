@@ -4,6 +4,5 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.w3.org/2003/05/soap-envelope", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.w3._2003._05.soap_envelope;

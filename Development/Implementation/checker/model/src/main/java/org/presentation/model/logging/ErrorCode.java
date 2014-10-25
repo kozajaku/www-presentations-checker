@@ -4,6 +4,7 @@ package org.presentation.model.logging;
  * Represents HTTP error code.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class ErrorCode {
 

@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:13 PM CEST 
 //
-
-
 package org.w3._2005._10.markup_validator;
 
 import java.util.ArrayList;
@@ -17,11 +15,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for MarkupValidationResponse complex type.
+ * <p>
+ * Java class for MarkupValidationResponse complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="MarkupValidationResponse"&gt;
@@ -114,10 +114,10 @@ public class MarkupValidationResponse {
      * Gets the value of the debug property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the debug property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the debug property.
      *
      * <p>
      * For example, to add a new item, do as follows:
@@ -151,9 +151,7 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the uri property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setUri(String value) {
         this.uri = value;
@@ -171,9 +169,7 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the checkedby property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setCheckedby(String value) {
         this.checkedby = value;
@@ -191,9 +187,7 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the doctype property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setDoctype(String value) {
         this.doctype = value;
@@ -211,9 +205,7 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the charset property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setCharset(String value) {
         this.charset = value;
@@ -240,7 +232,8 @@ public class MarkupValidationResponse {
     /**
      * Gets the value of the errors property.
      *
-     * @return a {@link org.w3._2005._10.markup_validator.ValidationErrors} object.
+     * @return a {@link org.w3._2005._10.markup_validator.ValidationErrors}
+     * object.
      */
     public ValidationErrors getErrors() {
         return errors;
@@ -249,9 +242,8 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the errors property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2005._10.markup_validator.ValidationErrors}
+     * @param value allowed object is
+     * {@link org.w3._2005._10.markup_validator.ValidationErrors}
      */
     public void setErrors(ValidationErrors value) {
         this.errors = value;
@@ -260,7 +252,8 @@ public class MarkupValidationResponse {
     /**
      * Gets the value of the warnings property.
      *
-     * @return a {@link org.w3._2005._10.markup_validator.ValidationWarnings} object.
+     * @return a {@link org.w3._2005._10.markup_validator.ValidationWarnings}
+     * object.
      */
     public ValidationWarnings getWarnings() {
         return warnings;
@@ -269,9 +262,8 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the warnings property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2005._10.markup_validator.ValidationWarnings}
+     * @param value allowed object is
+     * {@link org.w3._2005._10.markup_validator.ValidationWarnings}
      */
     public void setWarnings(ValidationWarnings value) {
         this.warnings = value;
@@ -289,9 +281,7 @@ public class MarkupValidationResponse {
     /**
      * Sets the value of the encodingStyle property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setEncodingStyle(String value) {
         this.encodingStyle = value;

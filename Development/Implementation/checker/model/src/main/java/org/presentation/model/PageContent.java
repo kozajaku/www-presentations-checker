@@ -4,6 +4,7 @@ package org.presentation.model;
  * This class represents the text content of the specific page.
  *
  * @author Jindřich Máca
+ * @version 1.0-SNAPSHOT
  */
 public class PageContent {
 

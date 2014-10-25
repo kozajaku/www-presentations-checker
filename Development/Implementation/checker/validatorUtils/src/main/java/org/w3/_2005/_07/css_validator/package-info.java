@@ -4,6 +4,5 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.w3.org/2005/07/css-validator", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.w3._2005._07.css_validator;

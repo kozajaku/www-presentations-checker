@@ -3,7 +3,8 @@ package org.presentation.model.graph;
 import org.presentation.model.LinkURL;
 
 /**
- * This class represents node in {@link TraversalGraph}.
+ * This class represents node in
+ * {@link org.presentation.model.graph.TraversalGraph}.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -33,10 +34,22 @@ public abstract class Node {
         inputDegree++;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>url</code>.</p>
+     *
+     * @return a {@link org.presentation.model.LinkURL} object.
+     */
     public LinkURL getUrl() {
         return url;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>inputDegree</code>.</p>
+     *
+     * @return a int.
+     */
     public int getInputDegree() {
         return inputDegree;
     }
