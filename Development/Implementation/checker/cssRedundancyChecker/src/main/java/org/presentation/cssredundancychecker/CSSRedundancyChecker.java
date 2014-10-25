@@ -7,8 +7,14 @@ package org.presentation.cssredundancychecker;
 
 import java.util.logging.Logger;
 import javax.inject.Inject;
+import org.presentation.model.ContentType;
+import org.presentation.model.LinkURL;
+import org.presentation.model.PageContent;
+import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
+import org.presentation.parser.CSSCode;
+import org.presentation.parser.HTMLCode;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
 
 /**
@@ -38,6 +44,21 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     public void stopChecking() {
         LOG.info("stop checking");
         stopped = true;
+    }
+
+    @Override
+    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void finalizeCheckup(TraversalGraph traversalGraph) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

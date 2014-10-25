@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
  *
  * @author Adam
  */
-public class HTMLCode {
+public class HTMLCode implements ParsedCode {
 
     PageContent codeHTML;
     LinkURL linkHTML;
@@ -60,6 +60,11 @@ public class HTMLCode {
     public Document getParsedHTML() {
 	if(parsedHTML == null) this.parse();
 	return parsedHTML;
+    }
+
+    @Override
+    public ParsedCodeType getType() {
+	return ParsedCodeType.HTML_CODE;
     }
         
 }

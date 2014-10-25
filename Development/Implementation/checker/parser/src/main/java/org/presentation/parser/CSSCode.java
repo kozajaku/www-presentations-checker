@@ -17,7 +17,7 @@ import java.io.IOException;
  *
  * @author Adam
  */
-public class CSSCode {
+public class CSSCode implements ParsedCode {
 
     private PageContent codeCSS;
     private LinkURL linkCSS;
@@ -69,6 +69,11 @@ public class CSSCode {
     public StyleSheet getParsedCSS() throws CSSException {
 	if(parsedCSS == null) this.parse();
 	return parsedCSS;
+    }
+
+    @Override
+    public ParsedCodeType getType() {
+	return ParsedCodeType.CSS_CODE;
     }
     
     
