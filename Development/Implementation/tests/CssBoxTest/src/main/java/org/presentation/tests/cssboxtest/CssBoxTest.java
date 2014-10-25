@@ -6,15 +6,22 @@
 package org.presentation.tests.cssboxtest;
 
 
+import cz.vutbr.web.css.CSSException;
+import cz.vutbr.web.css.CSSFactory;
 import cz.vutbr.web.css.CSSProperty;
+import cz.vutbr.web.css.CombinedSelector;
 import cz.vutbr.web.css.Declaration;
 import cz.vutbr.web.css.NodeData;
+import cz.vutbr.web.css.RuleBlock;
+import cz.vutbr.web.css.RuleSet;
+import cz.vutbr.web.css.StyleSheet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.fit.cssbox.css.DOMAnalyzer;
@@ -40,26 +47,54 @@ public class CssBoxTest {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SAXException, IOException {
-	
+		
 	//Open the network connection 
-	//DocumentSource docSource = new DefaultDocumentSource("http://www.webzdarma.cz/");
+	
+	DocumentSource docSource = new DefaultDocumentSource("http://www.webzdarma.cz/");
 
 	//Parse the input document
-	//DOMSource parser = new DefaultDOMSource(docSource);
+	DOMSource parser = new DefaultDOMSource(docSource);
+	
 	
 	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new URL());
 	String docFolder = System.getProperty("user.dir") + File.separator + "testpage" + File.separator;
 	String docFilename = docFolder + "index.html";
 	String cssFilename = docFolder + "style.css";
 	
-	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
+	
+	try {
+	    StyleSheet s = CSSFactory.parse(cssFilename, "UTF-8");
+	    
+	    for(RuleBlock block : s) {
+		if(block instanceof RuleSet) {
+		    StringBuilder selectorString = new StringBuilder();
+		    RuleSet rs = (RuleSet) block;
+		    List<CombinedSelector> selectors = rs.getSelectors();
+		    for(CombinedSelector selector : selectors) {
+			selectorString.append(selector.toString()); // toString suppor?
+		    }
+		    System.out.println(selectorString.toString());
+		    for(Declaration d : rs) {
+			System.out.println("\t\t" + d.getProperty());
+		    }
+		}
+	    }
+	} catch (CSSException ex) {
+	    Logger.getLogger(CssBoxTest.class.getName()).log(Level.SEVERE, null, ex);
+	}
+
+	return;
+	
+	//return;
+	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
+	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse("http://webzdarma.cz");	
 	
 	Document doc = DOMBuilder.jsoup2DOM(jsoupDocument);
 	
 	DOMAnalyzer da = new DOMAnalyzer(doc);
 	
 	//da.attributesToStyles(); //convert the HTML presentation attributes to inline styles
-	da.addStyleSheet(null, new String(Files.readAllBytes(Paths.get(cssFilename))), DOMAnalyzer.Origin.AUTHOR);
+	//da.addStyleSheet(null, new String(Files.readAllBytes(Paths.get(cssFilename))), DOMAnalyzer.Origin.AUTHOR);
 	da.getStyleSheets(); //load the author style sheets
 	
 	NodeList nodeList = doc.getElementsByTagName("*");
