@@ -6,7 +6,7 @@ import org.presentation.persistence.model.User;
  * <p>UserDAO interface.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public interface UserDAO {
 

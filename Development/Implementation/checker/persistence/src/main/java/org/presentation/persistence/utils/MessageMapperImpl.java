@@ -10,7 +10,7 @@ import org.presentation.persistence.model.MessageEntity;
  * Default implementation of {@link org.presentation.model.logging.MessageMapper} interface.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public class MessageMapperImpl implements MessageMapper {
 

@@ -16,7 +16,7 @@ import org.presentation.persistence.model.Graph;
  * implementation of implementation of integration DAO classes.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public interface PersistenceFacade {
 

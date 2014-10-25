@@ -7,7 +7,7 @@ import org.presentation.persistence.model.Graph;
  * <p>GraphDAO interface.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public interface GraphDAO {
 

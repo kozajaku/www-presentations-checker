@@ -10,7 +10,7 @@ import org.presentation.persistence.model.Graph;
  * <p>GraphDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class GraphDAOImpl extends AbstractDAOImpl implements GraphDAO {

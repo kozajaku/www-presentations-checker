@@ -19,7 +19,7 @@ import org.presentation.model.Header;
  * Entity class representing the Header entity in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Table(name = "header")

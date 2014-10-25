@@ -10,7 +10,7 @@ import org.presentation.persistence.model.Login;
  * <p>LoginDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {

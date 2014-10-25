@@ -30,6 +30,8 @@
                 <version>2.10.1</version>
                 <configuration>
                     <excludePackageNames>org.jboss.security.*</excludePackageNames>
+                    <version>${project.version}</version>
+                    <defaultVersion>${project.version}</defaultVersion>
                 </configuration>
             </plugin>
         </plugins>
