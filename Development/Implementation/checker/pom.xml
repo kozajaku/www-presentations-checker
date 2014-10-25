@@ -29,7 +29,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.1</version>
                 <configuration>
-                    <excludePackageNames>org.jboss.security.*</excludePackageNames>
+                    <excludePackageNames>org.jboss*,org.picketbox*,org.presentation.securitydomain</excludePackageNames>
                     <version>${project.version}</version>
                     <defaultVersion>${project.version}</defaultVersion>
                 </configuration>
@@ -51,23 +51,10 @@
         <module>validatorHTML</module>
         <module>validatorCSS</module>
         <module>validatorUtils</module>
-    <module>cssRedundancyChecker</module>
-    <module>wholePresentationController</module>
-  </modules>
+        <module>cssRedundancyChecker</module>
+        <module>wholePresentationController</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
-<!--    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.1</version>
-                <configuration>
-                    <excludePackageNames>org.jboss.security.*</excludePackageNames>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>-->
 </project>
