@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.presentation.parser;
 
 import org.jsoup.Jsoup;
@@ -17,7 +12,7 @@ import org.w3c.dom.Document;
  * @author Adam
  * @version 1.0-SNAPSHOT
  */
-public class HTMLCode {
+public class HTMLCode implements ParsedCode {
 
     PageContent codeHTML;
     LinkURL linkHTML;
@@ -79,6 +74,11 @@ public class HTMLCode {
             this.parse();
         }
         return parsedHTML;
+    }
+
+    @Override
+    public ParsedCodeType getType() {
+        return ParsedCodeType.HTML_CODE;
     }
 
 }

@@ -1,18 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.presentation.wholepresentationcontroller;
 
+import org.presentation.model.ContentType;
+import org.presentation.model.LinkURL;
+import org.presentation.model.PageContent;
+import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.logging.MessageProducer;
+import org.presentation.parser.CSSCode;
+import org.presentation.parser.HTMLCode;
 import org.presentation.utils.Option;
 import org.presentation.utils.Stoppable;
 
+
 /**
- *
  * @author Adam
+ * @version 1.0
+ * @created 25-10-2014 22:43:27
  */
-public interface WholePresentationChecker extends MessageProducer, Option, Stoppable {
+public interface WholePresentationChecker extends Stoppable, Option, MessageProducer {
+
+	/**
+	 * 
+	 * @param contentType
+	 * @param linkURL
+	 * @param pageContent
+	 * @param cssCode
+	 */
+	public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode);
+
+	/**
+	 * 
+	 * @param contentType
+	 * @param linkURL
+	 * @param pageContent
+	 * @param htmlCode
+	 */
+	public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode);
+
+	/**
+	 * 
+	 * @param traversalGraph
+	 */
+	public void finalizeCheckup(TraversalGraph traversalGraph);
 
 }
+

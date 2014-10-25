@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.presentation.parser;
 
 import cz.vutbr.web.css.CSSException;
@@ -18,7 +13,7 @@ import java.io.IOException;
  * @author Adam
  * @version 1.0-SNAPSHOT
  */
-public class CSSCode {
+public class CSSCode implements ParsedCode {
 
     private PageContent codeCSS;
     private LinkURL linkCSS;
@@ -85,6 +80,11 @@ public class CSSCode {
             this.parse();
         }
         return parsedCSS;
+    }
+
+    @Override
+    public ParsedCodeType getType() {
+        return ParsedCodeType.CSS_CODE;
     }
 
 }
