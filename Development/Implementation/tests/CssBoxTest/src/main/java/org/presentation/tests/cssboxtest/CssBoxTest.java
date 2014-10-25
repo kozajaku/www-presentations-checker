@@ -18,6 +18,7 @@ import cz.vutbr.web.css.StyleSheet;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -35,6 +36,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.html.HTMLAnchorElement;
 import org.xml.sax.SAXException;
 
 /**
@@ -83,14 +85,14 @@ public class CssBoxTest {
 	} catch (CSSException ex) {
 	    Logger.getLogger(CssBoxTest.class.getName()).log(Level.SEVERE, null, ex);
 	}
-
-	return;
 	
-	//return;
+	return;
 	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
-	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse("http://webzdarma.cz");	
+	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new URL("http://webzdarma.cz/"), 1000);	
 	
 	Document doc = DOMBuilder.jsoup2DOM(jsoupDocument);
+
+	//return;
 	
 	DOMAnalyzer da = new DOMAnalyzer(doc);
 	
