@@ -255,13 +255,13 @@ public class CrawlerServiceDefault implements CrawlerService {
             return false;
         }
     }
-
-    /**
-     * This object is instantiated by registering into MessageLoggerContainer.
-     */
+   
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
+    /**
+     * This object is instantiated by registering into MessageLoggerContainer.
+     */
     private MessageLogger messageLogger;
     private PageCrawlingObserver observer;
     private TraversalGraph graph;
