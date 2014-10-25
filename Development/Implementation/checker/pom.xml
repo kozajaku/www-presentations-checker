@@ -49,7 +49,9 @@
         <module>validatorHTML</module>
         <module>validatorCSS</module>
         <module>validatorUtils</module>
-    </modules>
+    <module>cssRedundancyChecker</module>
+    <module>wholePresentationController</module>
+  </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
