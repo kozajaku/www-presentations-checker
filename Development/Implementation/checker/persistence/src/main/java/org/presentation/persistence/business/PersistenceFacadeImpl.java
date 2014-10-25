@@ -37,7 +37,9 @@ import org.presentation.persistence.model.MessageEntity;
 import org.presentation.persistence.model.User;
 
 /**
- * <p>PersistenceFacadeImpl class.</p>
+ * Specific implementation of {@link org.presentation.persistence.business.PersistenceFacade} interface, which offers
+ * functionality of EJB specification - support for concurrency management and
+ * transactions.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

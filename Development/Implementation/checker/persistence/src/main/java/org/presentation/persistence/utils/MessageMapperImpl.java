@@ -7,7 +7,8 @@ import org.presentation.model.logging.MsgLocation;
 import org.presentation.persistence.model.MessageEntity;
 
 /**
- * Default implementation of {@link org.presentation.model.logging.MessageMapper} interface.
+ * Default implementation of
+ * {@link org.presentation.model.logging.MessageMapper} interface.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT
@@ -17,9 +18,11 @@ public class MessageMapperImpl implements MessageMapper {
     private final MessageEntity messageEntity;
 
     /**
-     * <p>Constructor for MessageMapperImpl.</p>
+     * <p>
+     * Constructor for MessageMapperImpl.</p>
      *
-     * @param messageEntity a {@link org.presentation.persistence.model.MessageEntity} object.
+     * @param messageEntity a
+     * {@link org.presentation.persistence.model.MessageEntity} object.
      */
     public MessageMapperImpl(MessageEntity messageEntity) {
         this.messageEntity = messageEntity;

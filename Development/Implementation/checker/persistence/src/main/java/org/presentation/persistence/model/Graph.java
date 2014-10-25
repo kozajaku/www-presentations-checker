@@ -67,10 +67,12 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Constructor for Graph.</p>
+     * <p>
+     * Constructor for Graph.</p>
      *
      * @param output a {@link java.lang.String} object.
-     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
      */
     public Graph(String output, Checkup checkup) {
         this.output = output;
@@ -78,7 +80,8 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idGraph</code>.</p>
+     * <p>
+     * Getter for the field <code>idGraph</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -87,7 +90,8 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idGraph</code>.</p>
+     * <p>
+     * Setter for the field <code>idGraph</code>.</p>
      *
      * @param idGraph a {@link java.lang.Integer} object.
      */
@@ -96,7 +100,8 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>output</code>.</p>
+     * <p>
+     * Getter for the field <code>output</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,7 +110,8 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>output</code>.</p>
+     * <p>
+     * Setter for the field <code>output</code>.</p>
      *
      * @param output a {@link java.lang.String} object.
      */
@@ -114,7 +120,8 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkup</code>.</p>
+     * <p>
+     * Getter for the field <code>checkup</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
@@ -123,16 +130,19 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkup</code>.</p>
+     * <p>
+     * Setter for the field <code>checkup</code>.</p>
      *
-     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
      */
     public void setCheckup(Checkup checkup) {
         this.checkup = checkup;
     }
 
     /**
-     * <p>Getter for the field <code>graphType</code>.</p>
+     * <p>
+     * Getter for the field <code>graphType</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,7 +151,8 @@ public class Graph implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>graphType</code>.</p>
+     * <p>
+     * Setter for the field <code>graphType</code>.</p>
      *
      * @param graphType a {@link java.lang.String} object.
      */

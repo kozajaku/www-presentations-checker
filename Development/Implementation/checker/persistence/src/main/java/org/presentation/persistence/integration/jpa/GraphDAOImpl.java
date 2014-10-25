@@ -7,7 +7,8 @@ import org.presentation.persistence.integration.GraphDAO;
 import org.presentation.persistence.model.Graph;
 
 /**
- * <p>GraphDAOImpl class.</p>
+ * Implementation of GraphDAO interface which uses specification of JPA to
+ * persist data into database.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

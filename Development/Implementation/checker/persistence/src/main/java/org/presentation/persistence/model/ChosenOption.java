@@ -55,7 +55,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idOption</code>.</p>
+     * <p>
+     * Getter for the field <code>idOption</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -64,7 +65,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idOption</code>.</p>
+     * <p>
+     * Setter for the field <code>idOption</code>.</p>
      *
      * @param idOption a {@link java.lang.String} object.
      */
@@ -73,7 +75,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkupList</code>.</p>
+     * <p>
+     * Getter for the field <code>checkupList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -83,7 +86,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkupList</code>.</p>
+     * <p>
+     * Setter for the field <code>checkupList</code>.</p>
      *
      * @param checkupList a {@link java.util.List} object.
      */
@@ -128,8 +132,9 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * Method converts {@link org.presentation.persistence.model.ChosenOption} entity class back to {@link java.lang.String}
-     * class which serves as the option name.
+     * Method converts {@link org.presentation.persistence.model.ChosenOption}
+     * entity class back to {@link java.lang.String} class which serves as the
+     * option name.
      *
      * @param chOption Entity class as the source of conversion
      * @return String representing name (unique identifier) of the option
