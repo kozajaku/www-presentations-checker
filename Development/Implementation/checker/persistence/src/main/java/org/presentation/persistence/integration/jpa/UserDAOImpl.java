@@ -8,7 +8,7 @@ import org.presentation.persistence.model.User;
  * <p>UserDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class UserDAOImpl extends AbstractDAOImpl implements UserDAO {

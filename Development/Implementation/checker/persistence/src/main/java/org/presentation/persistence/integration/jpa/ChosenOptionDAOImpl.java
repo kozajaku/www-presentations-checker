@@ -12,7 +12,7 @@ import org.presentation.persistence.model.ChosenOption;
  * <p>ChosenOptionDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class ChosenOptionDAOImpl extends AbstractDAOImpl implements ChosenOptionDAO {

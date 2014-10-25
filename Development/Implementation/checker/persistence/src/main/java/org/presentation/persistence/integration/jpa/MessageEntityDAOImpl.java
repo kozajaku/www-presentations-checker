@@ -10,7 +10,7 @@ import org.presentation.persistence.model.MessageEntity;
  * <p>MessageEntityDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEntityDAO {

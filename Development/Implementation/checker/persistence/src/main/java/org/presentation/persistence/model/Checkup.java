@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entity class representing the entity Checkup in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Vetoed

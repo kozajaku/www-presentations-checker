@@ -10,7 +10,7 @@ import org.presentation.persistence.model.HeaderEntity;
  * <p>HeaderEntityDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class HeaderEntityDAOImpl extends AbstractDAOImpl implements HeaderEntityDAO {

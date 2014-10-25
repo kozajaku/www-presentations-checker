@@ -1,7 +1,7 @@
 package org.presentation.model.graph;
 
 /**
- * This class represents source of link
+ * This class represents source of link.
  *
  * @author Adam Kugler
  * @version 1.0

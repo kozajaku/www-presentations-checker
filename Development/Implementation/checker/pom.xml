@@ -30,6 +30,8 @@
                 <version>2.10.1</version>
                 <configuration>
                     <excludePackageNames>org.jboss.security.*</excludePackageNames>
+                    <version>${project.version}</version>
+                    <defaultVersion>${project.version}</defaultVersion>
                 </configuration>
             </plugin>
         </plugins>
@@ -49,7 +51,9 @@
         <module>validatorHTML</module>
         <module>validatorCSS</module>
         <module>validatorUtils</module>
-    </modules>
+    <module>cssRedundancyChecker</module>
+    <module>wholePresentationController</module>
+  </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

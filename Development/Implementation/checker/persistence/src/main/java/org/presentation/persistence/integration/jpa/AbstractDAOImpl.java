@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
  * <p>Abstract AbstractDAOImpl class.</p>
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public abstract class AbstractDAOImpl {
 

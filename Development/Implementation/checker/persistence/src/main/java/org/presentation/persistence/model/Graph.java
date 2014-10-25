@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Entity class representing the Graph entity in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Vetoed
