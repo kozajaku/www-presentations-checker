@@ -9,7 +9,8 @@ import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
 
 /**
- * <p>ChosenOptionDAOImpl class.</p>
+ * Implementation of ChosenOptionDAO interface which uses specification of JPA
+ * to persist data into database.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

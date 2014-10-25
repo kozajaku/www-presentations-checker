@@ -3,7 +3,8 @@ package org.presentation.persistence.integration;
 import org.presentation.persistence.model.User;
 
 /**
- * <p>UserDAO interface.</p>
+ * UserDAO interface that serves as layer between business persistence facade
+ * and persistence context.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT
@@ -11,31 +12,38 @@ import org.presentation.persistence.model.User;
 public interface UserDAO {
 
     /**
-     * <p>create.</p>
+     * Method creates new user. Note that this method fails if user with
+     * specified email already exists in database.
      *
-     * @param user a {@link org.presentation.persistence.model.User} object.
+     * @param user Instance of {@link org.presentation.persistence.model.User}
+     * to be persisted in database
      */
     void create(User user);
 
     /**
-     * <p>update.</p>
+     * Updates information about {@link org.presentation.persistence.model.User}
+     * in database.
      *
-     * @param user a {@link org.presentation.persistence.model.User} object.
+     * @param user Instance of {@link org.presentation.persistence.model.User}
+     * that should be updated
      */
     void update(User user);
 
     /**
-     * <p>delete.</p>
+     * Method deletes user in database specified by user's email address.
      *
-     * @param email a {@link java.lang.String} object.
+     * @param email Email address of user that should be deleted from database.
      */
     void delete(String email);
 
     /**
-     * <p>find.</p>
+     * Method finds instance of {@link org.presentation.persistence.model.User}
+     * in database by user's email address.
      *
-     * @param email a {@link java.lang.String} object.
-     * @return a {@link org.presentation.persistence.model.User} object.
+     * @param email Email address o wanted user
+     * @return Instance of {@link org.presentation.persistence.model.User} with
+     * specified email address; <code>null</code> if there is no user with such
+     * email address
      */
     User find(String email);
 }

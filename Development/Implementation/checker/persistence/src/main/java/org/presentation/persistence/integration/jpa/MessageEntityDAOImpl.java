@@ -7,7 +7,8 @@ import org.presentation.persistence.integration.MessageEntityDAO;
 import org.presentation.persistence.model.MessageEntity;
 
 /**
- * <p>MessageEntityDAOImpl class.</p>
+ * Implementation of MessageEntityDAO interface which uses specification of JPA
+ * to persist data into database.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

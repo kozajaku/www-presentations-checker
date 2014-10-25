@@ -99,7 +99,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Constructor for MessageEntity.</p>
+     * <p>
+     * Constructor for MessageEntity.</p>
      *
      * @param id a {@link java.lang.Integer} object.
      * @param discriminator a {@link java.lang.String} object.
@@ -118,7 +119,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>id</code>.</p>
+     * <p>
+     * Getter for the field <code>id</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -127,7 +129,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>id</code>.</p>
+     * <p>
+     * Setter for the field <code>id</code>.</p>
      *
      * @param id a {@link java.lang.Integer} object.
      */
@@ -136,7 +139,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>discriminator</code>.</p>
+     * <p>
+     * Getter for the field <code>discriminator</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -145,7 +149,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>discriminator</code>.</p>
+     * <p>
+     * Setter for the field <code>discriminator</code>.</p>
      *
      * @param discriminator a {@link java.lang.String} object.
      */
@@ -154,7 +159,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>message</code>.</p>
+     * <p>
+     * Getter for the field <code>message</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,7 +169,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>message</code>.</p>
+     * <p>
+     * Setter for the field <code>message</code>.</p>
      *
      * @param message a {@link java.lang.String} object.
      */
@@ -172,7 +179,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>page</code>.</p>
+     * <p>
+     * Getter for the field <code>page</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -181,7 +189,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>page</code>.</p>
+     * <p>
+     * Setter for the field <code>page</code>.</p>
      *
      * @param page a {@link java.lang.String} object.
      */
@@ -193,7 +202,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>column</code>.</p>
+     * <p>
+     * Getter for the field <code>column</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -202,7 +212,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>column</code>.</p>
+     * <p>
+     * Setter for the field <code>column</code>.</p>
      *
      * @param column a {@link java.lang.Integer} object.
      */
@@ -211,7 +222,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>row</code>.</p>
+     * <p>
+     * Getter for the field <code>row</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -220,7 +232,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>row</code>.</p>
+     * <p>
+     * Setter for the field <code>row</code>.</p>
      *
      * @param row a {@link java.lang.Integer} object.
      */
@@ -229,7 +242,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>errorCode</code>.</p>
+     * <p>
+     * Getter for the field <code>errorCode</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -238,7 +252,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>errorCode</code>.</p>
+     * <p>
+     * Setter for the field <code>errorCode</code>.</p>
      *
      * @param errorCode a {@link java.lang.Integer} object.
      */
@@ -247,7 +262,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>resource</code>.</p>
+     * <p>
+     * Getter for the field <code>resource</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -256,7 +272,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>resource</code>.</p>
+     * <p>
+     * Setter for the field <code>resource</code>.</p>
      *
      * @param resource a {@link java.lang.String} object.
      */
@@ -265,7 +282,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkup</code>.</p>
+     * <p>
+     * Getter for the field <code>checkup</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
@@ -274,16 +292,19 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkup</code>.</p>
+     * <p>
+     * Setter for the field <code>checkup</code>.</p>
      *
-     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
      */
     public void setCheckup(Checkup checkup) {
         this.checkup = checkup;
     }
 
     /**
-     * <p>Getter for the field <code>priority</code>.</p>
+     * <p>
+     * Getter for the field <code>priority</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -292,7 +313,8 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>priority</code>.</p>
+     * <p>
+     * Setter for the field <code>priority</code>.</p>
      *
      * @param priority a {@link java.lang.Integer} object.
      */
@@ -326,16 +348,17 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * Method converts {@link org.presentation.persistence.model.MessageEntity} class to its mapping class
-     * (subclass) {@link org.presentation.model.logging.Message} by using {@link org.presentation.model.logging.MessageMapper} interface.
-     * Method requires Java reflection api for instantiation of Message
-     * implementation by using its full class name persisted in discriminator
-     * column.
+     * Method converts {@link org.presentation.persistence.model.MessageEntity}
+     * class to its mapping class (subclass)
+     * {@link org.presentation.model.logging.Message} by using
+     * {@link org.presentation.model.logging.MessageMapper} interface. Method
+     * requires Java reflection api for instantiation of Message implementation
+     * by using its full class name persisted in discriminator column.
      *
      * @param entity Entity class representing the Message in database model
-     * @return Specific instance of implemented {@link org.presentation.model.logging.Message} class; zero if
-     * it is not possible to instantiate Message implementation by using java
-     * reflection
+     * @return Specific instance of implemented
+     * {@link org.presentation.model.logging.Message} class; zero if it is not
+     * possible to instantiate Message implementation by using java reflection
      */
     public static Message convert(MessageEntity entity) {
         MessageMapper mapper = new MessageMapperImpl(entity);
@@ -351,8 +374,9 @@ public class MessageEntity implements Serializable {
     }
 
     /**
-     * Method converts implementation of {@link org.presentation.model.logging.Message} class to its mapped
-     * entity class.
+     * Method converts implementation of
+     * {@link org.presentation.model.logging.Message} class to its mapped entity
+     * class.
      *
      * @param message Message implementation instance to be mapped as entity
      * {@link org.presentation.persistence.model.MessageEntity} class

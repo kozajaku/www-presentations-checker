@@ -7,7 +7,8 @@ import org.presentation.persistence.integration.LoginDAO;
 import org.presentation.persistence.model.Login;
 
 /**
- * <p>LoginDAOImpl class.</p>
+ * Implementation of LoginDAO interface which uses specification of JPA to
+ * persist data into database.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

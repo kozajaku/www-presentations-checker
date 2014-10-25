@@ -7,7 +7,8 @@ import org.presentation.persistence.integration.HeaderEntityDAO;
 import org.presentation.persistence.model.HeaderEntity;
 
 /**
- * <p>HeaderEntityDAOImpl class.</p>
+ * Implementation of HeaderEntityDAO interface which uses specification of JPA
+ * to persist data into database.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

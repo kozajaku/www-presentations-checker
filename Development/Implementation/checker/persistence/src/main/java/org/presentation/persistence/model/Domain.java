@@ -61,7 +61,8 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Constructor for Domain.</p>
+     * <p>
+     * Constructor for Domain.</p>
      *
      * @param idDomain a {@link java.lang.Integer} object.
      * @param name a {@link java.lang.String} object.
@@ -72,7 +73,8 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idDomain</code>.</p>
+     * <p>
+     * Getter for the field <code>idDomain</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -81,7 +83,8 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idDomain</code>.</p>
+     * <p>
+     * Setter for the field <code>idDomain</code>.</p>
      *
      * @param idDomain a {@link java.lang.Integer} object.
      */
@@ -90,7 +93,8 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,7 +103,8 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.</p>
      *
      * @param name a {@link java.lang.String} object.
      */
@@ -108,7 +113,8 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checking</code>.</p>
+     * <p>
+     * Getter for the field <code>checking</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
@@ -117,9 +123,11 @@ public class Domain implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checking</code>.</p>
+     * <p>
+     * Setter for the field <code>checking</code>.</p>
      *
-     * @param checking a {@link org.presentation.persistence.model.Checkup} object.
+     * @param checking a {@link org.presentation.persistence.model.Checkup}
+     * object.
      */
     public void setChecking(Checkup checking) {
         this.checking = checking;
@@ -156,7 +164,8 @@ public class Domain implements Serializable {
      *
      * @param domain {@link org.presentation.model.Domain} model class as the
      * source of conversion
-     * @return {@link org.presentation.persistence.model.Domain} as the target of conversion
+     * @return {@link org.presentation.persistence.model.Domain} as the target
+     * of conversion
      */
     public static Domain convert(org.presentation.model.Domain domain) {
         Domain dom = new Domain();
@@ -165,10 +174,11 @@ public class Domain implements Serializable {
     }
 
     /**
-     * Method converts {@link org.presentation.persistence.model.Domain} entity class to its mapping
-     * {@link org.presentation.model.Domain} model class.
+     * Method converts {@link org.presentation.persistence.model.Domain} entity
+     * class to its mapping {@link org.presentation.model.Domain} model class.
      *
-     * @param domain {@link org.presentation.persistence.model.Domain} entity class as the source of conversion
+     * @param domain {@link org.presentation.persistence.model.Domain} entity
+     * class as the source of conversion
      * @return {@link org.presentation.model.Domain} model class as the target
      * of conversion
      */
