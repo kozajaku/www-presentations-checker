@@ -72,8 +72,9 @@ public class CssBoxTest {
 		    List<CombinedSelector> selectors = rs.getSelectors();
 		    for(CombinedSelector selector : selectors) {
 			selectorString.append(selector.toString()); // toString suppor?
-		    }
-		    System.out.println(selectorString.toString());
+			selectorString.append(", ");
+		    }	
+		    System.out.println(selectorString.substring(0, selectorString.length()-2));
 		    for(Declaration d : rs) {
 			System.out.println("\t\t" + d.getProperty());
 		    }

@@ -5,8 +5,10 @@
  */
 package org.presentation.parser;
 
+import org.jsoup.Jsoup;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import org.presentation.parser.helper.DOMBuilder;
 import org.w3c.dom.Document;
 
 /**
@@ -35,7 +37,29 @@ public class HTMLCode {
      * Parses {@link PageContent} into {@link Document}. Don't call this method
      * if you don't need parsed code.
      */
-    public void parse() {
-        //TO DO
+    private void parse() {
+        org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent());	
+	
+	Document document = DOMBuilder.jsoup2DOM(jsoupDocument);
+	
+	this.parsedHTML = document;
     }
+
+    public PageContent getCodeHTML() {
+	return codeHTML;
+    }
+
+    public LinkURL getLinkHTML() {
+	return linkHTML;
+    }
+
+    /**
+     * Gets the parsed document. If the document hasn't been already parsed, it gets parsed within this call.
+     * @return org.w3c.dom.Document parsed HTML code
+     */
+    public Document getParsedHTML() {
+	if(parsedHTML == null) this.parse();
+	return parsedHTML;
+    }
+        
 }
