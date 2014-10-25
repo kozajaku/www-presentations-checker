@@ -7,6 +7,7 @@ package org.presentation.parser;
 
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import cz.vutbr.web.css.StyleSheet;
 
 /**
  * This class is CSS code holder with possibility to parse.
@@ -17,7 +18,7 @@ public class CSSCode {
 
     private PageContent codeCSS;
     private LinkURL linkCSS;
-    private ? parsedCSS ;
+    private StyleSheet parsedCSS;
 
     /**
      * Creates {@link CSSCode} without parsing.
@@ -33,7 +34,7 @@ public class CSSCode {
     }
 
     /**
-     * Parses {@link PageContent} into {@link }. Don't call this method if you
+     * Parses {@link PageContent} into {@link StyleSheet}. Don't call this method if you
      * don't need parsed code.
      */
     public void parse() {
