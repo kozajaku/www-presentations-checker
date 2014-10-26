@@ -31,7 +31,7 @@ public class CSSRuleSet {
     
     public boolean isRedundant() {
 	for(CSSRule rule : cssRules) {
-	    if(!rule.redundant) return false;
+	    if(!rule.isRedundant()) return false;
 	}
 	return true;
     }
