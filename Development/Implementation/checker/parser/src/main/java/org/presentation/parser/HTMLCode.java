@@ -13,9 +13,9 @@ import org.presentation.model.PageContent;
  */
 public class HTMLCode implements ParsedCode {
 
-    PageContent codeHTML;
-    LinkURL linkHTML;
-    Document parsedHTML;
+    protected final PageContent codeHTML;
+    protected final LinkURL linkHTML;
+    protected Document parsedHTML;
 
     /**
      * Creates {@link org.presentation.parser.HTMLCode} without parsing.

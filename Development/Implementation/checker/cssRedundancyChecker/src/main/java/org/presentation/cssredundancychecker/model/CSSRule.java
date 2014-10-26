@@ -5,6 +5,8 @@
  */
 package org.presentation.cssredundancychecker.model;
 
+import java.util.List;
+
 /**
  *
  * @author petrof
@@ -14,20 +16,18 @@ public class CSSRule {
     protected String name;
     protected String value;
     protected DeclarationPosition declarationPosition;
-    protected boolean redundant;
+    protected List<CSSRuleUsage> cssRuleUsages;
 
     public CSSRule(String name, String value, DeclarationPosition declarationPosition) {
 	this.name = name;
 	this.value = value;
 	this.declarationPosition = declarationPosition;
-	this.redundant = true;
     }
 
     public CSSRule(String name, String value) {
 	this.name = name;
 	this.value = value;
 	this.declarationPosition = null;
-	this.redundant = true;
     }        
 
     @Override
@@ -48,16 +48,22 @@ public class CSSRule {
     }
 
     public boolean isRedundant() {
-	return redundant;
+	return cssRuleUsages.isEmpty();
     }
 
     public void setDeclarationPosition(DeclarationPosition declarationPosition) {
 	this.declarationPosition = declarationPosition;
     }
 
-    public void setRedundant(boolean redundant) {
-	this.redundant = redundant;
+    public void addRuleUsage(CSSRuleUsage usage) {
+	this.cssRuleUsages.add(usage);
     }
+
+    public List<CSSRuleUsage> getCssRuleUsages() {
+	return cssRuleUsages;
+    }
+    
+    
             
     
 }

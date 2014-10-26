@@ -26,8 +26,9 @@ public class CRCCssCode {
     protected List<CSSRuleSet> cssRuleBlocks;
     protected Map<DeclarationPosition,DeclarationSource> declarationPositionMap;
     
-    public CRCCssCode(CSSCode cssCode) {
+    public CRCCssCode(CSSCode cssCode) throws CSSException {
 	this.cssCode = cssCode;
+	loadRuleSets();
     }
 
     public CSSCode getCssCode() {
@@ -42,8 +43,8 @@ public class CRCCssCode {
 	    if(block instanceof RuleSet) {
 		
 		StringBuilder selectorString = new StringBuilder();
-		RuleSet ruleSet = (RuleSet) block;
-		
+		RuleSet ruleSet = (RuleSet) block;	
+						
 		List<CombinedSelector> selectors = ruleSet.getSelectors();
 		for(CombinedSelector selector : selectors) {
 		    selectorString.append(selector.toString());
@@ -53,8 +54,8 @@ public class CRCCssCode {
 		List<CSSRule> cssRules = new ArrayList<>();		
 		CSSRule cssRule;
 		Declaration.Source source;
-		DeclarationPosition declarationPosition;
-			
+		DeclarationPosition declarationPosition;			
+		
 		for(Declaration declaration : ruleSet) {
 		    cssRule = new CSSRule(declaration.getProperty(), "");
 		    
@@ -66,12 +67,37 @@ public class CRCCssCode {
 		    }
 		    cssRule.setDeclarationPosition(declarationPosition);
 		    
-		    cssRules.add(cssRule);	    			 
+		    cssRules.add(cssRule);	    
 		}
 		
-		this.cssRuleBlocks.add(new CSSRuleSet(selectorString.toString(), cssRules));
+		CSSRuleSet cssRuleSet = new CSSRuleSet(selectorString.toString(), cssRules);
+		
+		this.cssRuleBlocks.add(cssRuleSet);
+		
+		// add record to the position-declaration map
+		for(CSSRule iCssRule : cssRuleSet.getCssRules()) {
+		    this.declarationPositionMap.put(
+			    iCssRule.getDeclarationPosition(), 
+			    new DeclarationSource(cssRuleSet, iCssRule)
+		    );
+		}
 	    }
 	}
     }
+    
+    public CSSRule getCssRuleByPosition(DeclarationPosition position) {
+	if(this.declarationPositionMap.containsKey(position)) {
+	    DeclarationSource declarationSource = this.declarationPositionMap.get(position);
+	    if(declarationSource != null) {
+		return declarationSource.getCssRule();
+	    }
+	}
+	return null;
+    }
+
+    public List<CSSRuleSet> getCssRuleBlocks() {
+	return cssRuleBlocks;
+    }
+        
     
 }

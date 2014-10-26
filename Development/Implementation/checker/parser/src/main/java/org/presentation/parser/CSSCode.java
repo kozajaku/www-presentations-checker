@@ -15,8 +15,8 @@ import java.io.IOException;
  */
 public class CSSCode implements ParsedCode {
 
-    private PageContent codeCSS;
-    private LinkURL linkCSS;
+    private final PageContent codeCSS;
+    private final LinkURL linkCSS;
     private StyleSheet parsedCSS;
 
     /**

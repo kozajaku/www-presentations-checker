@@ -51,6 +51,14 @@ public class DeclarationPosition {
 	return true;
     }
 
+    public int getLine() {
+	return line;
+    }
+
+    public int getCol() {
+	return col;
+    }
+
   
 	    
     

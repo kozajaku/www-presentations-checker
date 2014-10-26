@@ -49,9 +49,10 @@ public class CRCHtmlCode {
 	Elements links = this.htmlCode.getParsedHTML().select("link[href]");
 	for (Element link : links) {
             String type = link.attr("type");
-	    if(type != null && type.equals("text/css")) {
+	    String rel = link.attr("rel");
+	    if((type != null && (type.toLowerCase().equals("text/css"))) || (rel != null && (rel.toLowerCase().equals("stylesheet")))) {
 		LinkURL stylesheetResource = new LinkURL(link.attr("abs:href").split("#")[0]);
-		LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());	    
+		LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());	    		
 		if (stylesheetResource.checkURL()) {
 		    this.stylesheetFilesRequired.add(stylesheetResource);
 		}
