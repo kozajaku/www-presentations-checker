@@ -79,6 +79,8 @@ public class CssBoxTest {
 		    System.out.println(selectorString.substring(0, selectorString.length()-2));
 		    for(Declaration d : rs) {
 			System.out.println("\t\t" + d.getProperty());
+			Declaration.Source source = d.getSource();
+			System.out.println("\t\t\t\t" + source.getLine() + ":" + source.getPosition());
 		    }
 		}
 	    }
@@ -86,18 +88,18 @@ public class CssBoxTest {
 	    Logger.getLogger(CssBoxTest.class.getName()).log(Level.SEVERE, null, ex);
 	}
 	
-	return;
-	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
-	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new URL("http://webzdarma.cz/"), 1000);	
+
+	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
+	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new URL("http://webzdarma.cz/"), 1000);	
 	
 	Document doc = DOMBuilder.jsoup2DOM(jsoupDocument);
-
+	
 	//return;
 	
 	DOMAnalyzer da = new DOMAnalyzer(doc);
 	
 	//da.attributesToStyles(); //convert the HTML presentation attributes to inline styles
-	//da.addStyleSheet(null, new String(Files.readAllBytes(Paths.get(cssFilename))), DOMAnalyzer.Origin.AUTHOR);
+	da.addStyleSheet(null, new String(Files.readAllBytes(Paths.get(cssFilename))), DOMAnalyzer.Origin.AUTHOR);
 	da.getStyleSheets(); //load the author style sheets
 	
 	NodeList nodeList = doc.getElementsByTagName("*");
@@ -130,7 +132,9 @@ public class CssBoxTest {
                     CSSProperty property = ndata.getProperty(propertyName, true);
                     String valueStr = property.toString();
                     if (valueStr.equals("")){
-                        valueStr = ndata.getValue(propertyName, true).toString();
+                        if(ndata.getValue(propertyName, true) != null) {
+			    valueStr = ndata.getValue(propertyName, true).toString();
+			}
                     }
 
 //		    Term<?> value = ndata.getValue(propertyName, true);
