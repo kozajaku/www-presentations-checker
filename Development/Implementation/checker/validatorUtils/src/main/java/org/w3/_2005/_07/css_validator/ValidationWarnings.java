@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2005._07.css_validator;
 
 import java.util.ArrayList;
@@ -15,11 +13,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for ValidationWarnings complex type.
+ * <p>
+ * Java class for ValidationWarnings complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="ValidationWarnings"&gt;
@@ -72,10 +72,10 @@ public class ValidationWarnings {
      * Gets the value of the warninglist property.
      *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the warninglist property.
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the warninglist property.
      *
      * <p>
      * For example, to add a new item, do as follows:
@@ -109,9 +109,7 @@ public class ValidationWarnings {
     /**
      * Sets the value of the lang property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setLang(String value) {
         this.lang = value;

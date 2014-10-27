@@ -22,11 +22,13 @@ public class ProtectedBean extends CommonBean {
      * This method returns the instance of currently logged user
      *
      * @return user that is logged in in current session
-     * @throws org.presentation.presentation.exception.UserAuthorizationException if any.
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     protected User getLoggedUser() throws UserAuthorizationException {
 
-	// real code
+        // real code
         Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         if (sessionMap == null) {
             throw new UserAuthorizationException("Session data corruption");

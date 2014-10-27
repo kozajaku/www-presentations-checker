@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entity class representing the Option entity in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Vetoed
@@ -55,7 +55,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idOption</code>.</p>
+     * <p>
+     * Getter for the field <code>idOption</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -64,7 +65,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idOption</code>.</p>
+     * <p>
+     * Setter for the field <code>idOption</code>.</p>
      *
      * @param idOption a {@link java.lang.String} object.
      */
@@ -73,7 +75,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkupList</code>.</p>
+     * <p>
+     * Getter for the field <code>checkupList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -83,7 +86,8 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkupList</code>.</p>
+     * <p>
+     * Setter for the field <code>checkupList</code>.</p>
      *
      * @param checkupList a {@link java.util.List} object.
      */
@@ -91,7 +95,9 @@ public class ChosenOption implements Serializable {
         this.checkupList = checkupList;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -99,7 +105,9 @@ public class ChosenOption implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -110,7 +118,9 @@ public class ChosenOption implements Serializable {
         return !((this.idOption == null && other.idOption != null) || (this.idOption != null && !this.idOption.equals(other.idOption)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "test.Option[ idOption=" + idOption + " ]";
@@ -128,8 +138,9 @@ public class ChosenOption implements Serializable {
     }
 
     /**
-     * Method converts {@link org.presentation.persistence.model.ChosenOption} entity class back to {@link java.lang.String}
-     * class which serves as the option name.
+     * Method converts {@link org.presentation.persistence.model.ChosenOption}
+     * entity class back to {@link java.lang.String} class which serves as the
+     * option name.
      *
      * @param chOption Entity class as the source of conversion
      * @return String representing name (unique identifier) of the option

@@ -9,42 +9,42 @@
 
             <h1>#{msg['commonHeader.h1']}</h1>
 
-	    <nav class="navbar navbar-default" role="navigation">
-		<div class="navbar-header">
-		    <span class="navbar-brand">
-			<c:choose>
-			    <c:when test="#{headerBean.loggedIn}">
-				<h:outputFormat value="#{msg['commonHeader.logged_in']}" >
-				    <f:param value="#{headerBean.user.email}" />
-				</h:outputFormat>
-			    </c:when>
-			    <c:otherwise>
-				<h:outputFormat value="#{msg['commonHeader.not_logged_in']}" />
-			    </c:otherwise>
-			</c:choose>
-		    </span>
-		</div>
-		<div class="collapse navbar-collapse">
-		    <h:form>
-			<ul class="Rnav-stacked nav navbar-nav">		
-			    <c:choose>
-				<c:when test="#{headerBean.loggedIn}">
-				    <li>
-					<h:commandLink styleClass="Rbtn Rbtn-primary" action="#{loginBean.logout}" value="#{msg['login.logout']}" >
-					</h:commandLink>						 				    
-				    </li>
-				    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/protected/user/checkupList" value="#{msg['navi.checkup_list']}" /></li>
-				    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/protected/user/newCheckup" value="#{msg['navi.new_checkup']}" /></li>
-				</c:when>
-				<c:otherwise>				
-				    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/public/login" value="#{msg['navi.log_in']}" /></li>
-				    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/public/signUp" value="#{msg['navi.sign_up']}" /></li>
-				</c:otherwise>		    
-			    </c:choose>			
-			</ul>
-		    </h:form>
-		</div>
-	    </nav>	   
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <span class="navbar-brand">
+                        <c:choose>
+                            <c:when test="#{headerBean.loggedIn}">
+                                <h:outputFormat value="#{msg['commonHeader.logged_in']}" >
+                                    <f:param value="#{headerBean.user.email}" />
+                                </h:outputFormat>
+                            </c:when>
+                            <c:otherwise>
+                                <h:outputFormat value="#{msg['commonHeader.not_logged_in']}" />
+                            </c:otherwise>
+                        </c:choose>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <h:form>
+                        <ul class="Rnav-stacked nav navbar-nav">		
+                            <c:choose>
+                                <c:when test="#{headerBean.loggedIn}">
+                                    <li>
+                                        <h:commandLink styleClass="Rbtn Rbtn-primary" action="#{loginBean.logout}" value="#{msg['login.logout']}" >
+                                        </h:commandLink>						 				    
+                                    </li>
+                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/protected/user/checkupList" value="#{msg['navi.checkup_list']}" /></li>
+                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/protected/user/newCheckup" value="#{msg['navi.new_checkup']}" /></li>
+                                </c:when>
+                                <c:otherwise>				
+                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/public/login" value="#{msg['navi.log_in']}" /></li>
+                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/public/signUp" value="#{msg['navi.sign_up']}" /></li>
+                                </c:otherwise>		    
+                            </c:choose>			
+                        </ul>
+                    </h:form>
+                </div>
+            </nav>	   
 
             <ui:insert name="subheader" />
 

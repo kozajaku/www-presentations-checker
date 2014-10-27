@@ -24,46 +24,47 @@ public class CheckupEnvelope implements Serializable {
     protected List<ChosenOption> desiredCheckups;
 
     /**
-     * <p>Constructor for CheckupEnvelope.</p>
+     * <p>
+     * Constructor for CheckupEnvelope.</p>
      *
      * @param ch a {@link org.presentation.persistence.model.Checkup} object.
      * @param domainsAllowed a {@link java.util.List} object.
      * @param desiredCheckups a {@link java.util.List} object.
      */
     public CheckupEnvelope(Checkup ch, List<Domain> domainsAllowed, List<ChosenOption> desiredCheckups) {
-	this.ch = ch;
-	this.domainsAllowed = domainsAllowed;
-	this.desiredCheckups = desiredCheckups;
+        this.ch = ch;
+        this.domainsAllowed = domainsAllowed;
+        this.desiredCheckups = desiredCheckups;
     }
 
     /**
-     * <p>Getter for the field <code>ch</code>.</p>
+     * <p>
+     * Getter for the field <code>ch</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
     public Checkup getCh() {
-	return ch;
+        return ch;
     }
 
     /**
-     * <p>Getter for the field <code>domainsAllowed</code>.</p>
+     * <p>
+     * Getter for the field <code>domainsAllowed</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<Domain> getDomainsAllowed() {
-	return domainsAllowed;
+        return domainsAllowed;
     }
 
     /**
-     * <p>Getter for the field <code>desiredCheckups</code>.</p>
+     * <p>
+     * Getter for the field <code>desiredCheckups</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<ChosenOption> getDesiredCheckups() {
-	return desiredCheckups;
+        return desiredCheckups;
     }
-    
-    
-           
-    
+
 }

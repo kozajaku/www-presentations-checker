@@ -7,22 +7,27 @@ import org.presentation.persistence.integration.DomainDAO;
 import org.presentation.persistence.model.Domain;
 
 /**
- * <p>DomainDAOImpl class.</p>
+ * Implementation of DomainDAO interface which uses specification of JPA to
+ * persist data into database.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class DomainDAOImpl extends AbstractDAOImpl implements DomainDAO {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void create(Domain domain) {
         domain.setIdDomain(null);
         getEntityManager().persist(domain);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Domain> findAllCheckDomains(Integer checkupId) {
         TypedQuery<Domain> q = getEntityManager().createNamedQuery("Domain.findByCheckupId", Domain.class);

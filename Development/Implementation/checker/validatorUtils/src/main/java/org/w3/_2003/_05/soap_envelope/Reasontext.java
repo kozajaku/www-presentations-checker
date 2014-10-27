@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2003._05.soap_envelope;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +12,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * <p>Java class for reasontext complex type.
+ * <p>
+ * Java class for reasontext complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="reasontext"&gt;
@@ -63,9 +63,7 @@ public class Reasontext {
     /**
      * Sets the value of the value property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setValue(String value) {
         this.value = value;
@@ -83,9 +81,7 @@ public class Reasontext {
     /**
      * Sets the value of the lang property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setLang(String value) {
         this.lang = value;

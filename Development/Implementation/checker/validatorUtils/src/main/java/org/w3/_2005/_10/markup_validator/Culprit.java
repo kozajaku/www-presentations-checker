@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:13 PM CEST 
 //
-
-
 package org.w3._2005._10.markup_validator;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +12,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for Culprit complex type.
+ * <p>
+ * Java class for Culprit complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="Culprit"&gt;
@@ -99,9 +99,7 @@ public abstract class Culprit {
     /**
      * Sets the value of the line property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setLine(String value) {
         this.line = value;
@@ -119,9 +117,7 @@ public abstract class Culprit {
     /**
      * Sets the value of the col property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setCol(String value) {
         this.col = value;
@@ -139,9 +135,7 @@ public abstract class Culprit {
     /**
      * Sets the value of the source property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setSource(String value) {
         this.source = value;
@@ -159,9 +153,7 @@ public abstract class Culprit {
     /**
      * Sets the value of the explanation property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setExplanation(String value) {
         this.explanation = value;
@@ -179,9 +171,7 @@ public abstract class Culprit {
     /**
      * Sets the value of the messageid property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setMessageid(String value) {
         this.messageid = value;
@@ -199,9 +189,7 @@ public abstract class Culprit {
     /**
      * Sets the value of the message property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setMessage(String value) {
         this.message = value;

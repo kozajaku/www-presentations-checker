@@ -33,25 +33,26 @@ import org.presentation.utils.OptionContainer;
 @TransactionManagement(TransactionManagementType.BEAN)
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class TestSingletonBean {
+
     private static final Logger LOG = Logger.getLogger(TestSingletonBean.class.getName());
-    
+
     @EJB
     private PersistenceFacade persistenceFacade;
-    
+
     @Resource
     private SessionContext context;
-    
+
     @EJB
     private CheckRequestReceiver receiver;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         //call test asynchronously
         context.getBusinessObject(TestSingletonBean.class).testAsync();
     }
-    
+
     @Asynchronous
-    public void testAsync(){
+    public void testAsync() {
         LOG.log(Level.INFO, "Waiting few seconds to test start");
         try {
             //wait few seconds
@@ -62,8 +63,8 @@ public class TestSingletonBean {
         LOG.log(Level.INFO, "Test started!");
         test();
     }
-    
-    private void test(){
+
+    private void test() {
         CheckingRequest req = new CheckingRequest();
         req.setMaxDepth(10);
         req.setPageLimit(20);
@@ -88,5 +89,5 @@ public class TestSingletonBean {
 //            LOG.log(Level.INFO, "Message: {0} data type: {1}", new Object[]{i.getMessage(), i.getClass().getName()});
 //        }
     }
-    
+
 }

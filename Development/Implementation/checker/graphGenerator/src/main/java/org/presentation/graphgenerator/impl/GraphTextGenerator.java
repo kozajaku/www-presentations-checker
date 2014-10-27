@@ -17,10 +17,14 @@ import org.presentation.model.graph.ValidNode;
  * This class generates graph as text.
  *
  * @author Adam Kugler
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class GraphTextGenerator extends GraphGenerator {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GraphResult generateGraphResult(TraversalGraph graph) {
         StringBuilder tree = new StringBuilder();
@@ -57,7 +61,7 @@ public class GraphTextGenerator extends GraphGenerator {
                 .append("<span class=\"error-code\">")
                 .append(node.getErrorCode().getCode().toString())
                 .append("</span>")
-//                .append(" ")
+                //                .append(" ")
                 .append(node.getUrl().getUrl().replaceAll("&", "&amp;"))
                 .append("</span>");
     }

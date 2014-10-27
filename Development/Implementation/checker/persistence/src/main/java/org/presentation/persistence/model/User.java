@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entity class representing the entity User in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Vetoed
@@ -81,7 +81,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>email</code>.</p>
+     * <p>
+     * Getter for the field <code>email</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,7 +91,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>email</code>.</p>
+     * <p>
+     * Setter for the field <code>email</code>.</p>
      *
      * @param email a {@link java.lang.String} object.
      */
@@ -99,7 +101,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>password</code>.</p>
+     * <p>
+     * Getter for the field <code>password</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -109,7 +112,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>password</code>.</p>
+     * <p>
+     * Setter for the field <code>password</code>.</p>
      *
      * @param password a {@link java.lang.String} object.
      */
@@ -118,7 +122,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>salt</code>.</p>
+     * <p>
+     * Getter for the field <code>salt</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,7 +133,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>salt</code>.</p>
+     * <p>
+     * Setter for the field <code>salt</code>.</p>
      *
      * @param salt a {@link java.lang.String} object.
      */
@@ -137,7 +143,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>name</code>.</p>
+     * <p>
+     * Getter for the field <code>name</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -146,7 +153,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>name</code>.</p>
+     * <p>
+     * Setter for the field <code>name</code>.</p>
      *
      * @param name a {@link java.lang.String} object.
      */
@@ -155,7 +163,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>surname</code>.</p>
+     * <p>
+     * Getter for the field <code>surname</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,7 +173,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>surname</code>.</p>
+     * <p>
+     * Setter for the field <code>surname</code>.</p>
      *
      * @param surname a {@link java.lang.String} object.
      */
@@ -173,7 +183,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>registrationDate</code>.</p>
+     * <p>
+     * Getter for the field <code>registrationDate</code>.</p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -182,7 +193,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>registrationDate</code>.</p>
+     * <p>
+     * Setter for the field <code>registrationDate</code>.</p>
      *
      * @param registrationDate a {@link java.util.Date} object.
      */
@@ -191,7 +203,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>loginList</code>.</p>
+     * <p>
+     * Getter for the field <code>loginList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -201,7 +214,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>loginList</code>.</p>
+     * <p>
+     * Setter for the field <code>loginList</code>.</p>
      *
      * @param loginList a {@link java.util.List} object.
      */
@@ -210,7 +224,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkupList</code>.</p>
+     * <p>
+     * Getter for the field <code>checkupList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -220,7 +235,8 @@ public class User implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkupList</code>.</p>
+     * <p>
+     * Setter for the field <code>checkupList</code>.</p>
      *
      * @param checkupList a {@link java.util.List} object.
      */
@@ -228,13 +244,17 @@ public class User implements Serializable {
         this.checkupList = checkupList;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "User{" + "email=" + email + ", name=" + name + ", surname=" + surname + ", registrationDate=" + registrationDate + '}';
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -242,7 +262,9 @@ public class User implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

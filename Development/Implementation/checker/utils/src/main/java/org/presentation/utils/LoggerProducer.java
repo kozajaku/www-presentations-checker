@@ -8,11 +8,16 @@ import javax.enterprise.inject.spi.InjectionPoint;
  * Logging producer for injectable logger
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public class LoggerProducer {
 
     /**
-     * @param injectionPoint
+     * <p>
+     * produceLogger.</p>
+     *
+     * @param injectionPoint a
+     * {@link javax.enterprise.inject.spi.InjectionPoint} object.
      * @return logger
      */
     @Produces

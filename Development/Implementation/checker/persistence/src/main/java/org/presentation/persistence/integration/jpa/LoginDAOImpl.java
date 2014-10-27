@@ -7,28 +7,35 @@ import org.presentation.persistence.integration.LoginDAO;
 import org.presentation.persistence.model.Login;
 
 /**
- * <p>LoginDAOImpl class.</p>
+ * Implementation of LoginDAO interface which uses specification of JPA to
+ * persist data into database.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void create(Login login) {
         login.setIdLogin(null);
         getEntityManager().persist(login);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Login find(Integer loginId) {
         return getEntityManager().find(Login.class, loginId);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Login> findAllUserLogins(String email) {
         TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserEmail", Login.class);
@@ -36,7 +43,9 @@ public class LoginDAOImpl extends AbstractDAOImpl implements LoginDAO {
         return q.getResultList();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Login findLastUserLogin(String email) {
         TypedQuery<Login> q = getEntityManager().createNamedQuery("Login.findByUserEmail", Login.class);

@@ -8,6 +8,9 @@ package org.presentation.model.logging;
  */
 public class DebugMsg extends Message {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getDefaultPriority() {
         return 1000;

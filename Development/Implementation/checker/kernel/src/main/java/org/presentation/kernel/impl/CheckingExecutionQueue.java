@@ -29,8 +29,11 @@ import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 
 /**
+ * <p>
+ * CheckingExecutionQueue class.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @Singleton
 @Startup
@@ -57,6 +60,10 @@ public class CheckingExecutionQueue {
     @Resource
     private ManagedExecutorService mes;
 
+    /**
+     * <p>
+     * Constructor for CheckingExecutionQueue.</p>
+     */
     public CheckingExecutionQueue() {
         queue = new LinkedBlockingQueue<>();
         runningCheckings = new ConcurrentHashMap<>();
@@ -64,6 +71,10 @@ public class CheckingExecutionQueue {
 
     List<Future<?>> executionThreads = new ArrayList<>();
 
+    /**
+     * <p>
+     * init.</p>
+     */
     @PostConstruct
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     protected void init() {
@@ -97,6 +108,10 @@ public class CheckingExecutionQueue {
 
     private boolean destroyed = false;
 
+    /**
+     * <p>
+     * destroy.</p>
+     */
     @PreDestroy
     protected void destroy() {
         for (Future<?> i : executionThreads) {
@@ -107,6 +122,10 @@ public class CheckingExecutionQueue {
 
     private final Lock newRequestLock = new ReentrantLock();
 
+    /**
+     * <p>
+     * notifyNewRequests.</p>
+     */
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     @SuppressWarnings("SleepWhileInLoop")
@@ -130,6 +149,10 @@ public class CheckingExecutionQueue {
 
     private final Lock stoppingLock = new ReentrantLock();
 
+    /**
+     * <p>
+     * newThread.</p>
+     */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void newThread() {
         LOG.info("Creating new CheckingExecutionQueue thread");
@@ -186,13 +209,19 @@ public class CheckingExecutionQueue {
         }
     }
 
+    /**
+     * <p>
+     * stopRunningChecking.</p>
+     *
+     * @param checkupId a {@link java.lang.Integer} object.
+     */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void stopRunningChecking(Integer checkupId) {
         LOG.info("Called method to stop running checking");
         stoppingLock.lock();
         try {
             CheckingExecutor exec = runningCheckings.get(checkupId);
-            if (exec == null){
+            if (exec == null) {
                 return;//checking already ended
             }
             exec.stopChecking();

@@ -19,7 +19,7 @@ import org.presentation.model.Header;
  * Entity class representing the Header entity in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Table(name = "header")
@@ -64,7 +64,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Constructor for HeaderEntity.</p>
+     * <p>
+     * Constructor for HeaderEntity.</p>
      *
      * @param idHeader a {@link java.lang.Integer} object.
      * @param key a {@link java.lang.String} object.
@@ -77,7 +78,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idHeader</code>.</p>
+     * <p>
+     * Getter for the field <code>idHeader</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -86,7 +88,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idHeader</code>.</p>
+     * <p>
+     * Setter for the field <code>idHeader</code>.</p>
      *
      * @param idHeader a {@link java.lang.Integer} object.
      */
@@ -95,7 +98,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>key</code>.</p>
+     * <p>
+     * Getter for the field <code>key</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,7 +108,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>key</code>.</p>
+     * <p>
+     * Setter for the field <code>key</code>.</p>
      *
      * @param key a {@link java.lang.String} object.
      */
@@ -113,7 +118,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>value</code>.</p>
+     * <p>
+     * Getter for the field <code>value</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,7 +128,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>value</code>.</p>
+     * <p>
+     * Setter for the field <code>value</code>.</p>
      *
      * @param value a {@link java.lang.String} object.
      */
@@ -131,7 +138,8 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkup</code>.</p>
+     * <p>
+     * Getter for the field <code>checkup</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.Checkup} object.
      */
@@ -140,15 +148,19 @@ public class HeaderEntity implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkup</code>.</p>
+     * <p>
+     * Setter for the field <code>checkup</code>.</p>
      *
-     * @param checkup a {@link org.presentation.persistence.model.Checkup} object.
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
      */
     public void setCheckup(Checkup checkup) {
         this.checkup = checkup;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -156,7 +168,9 @@ public class HeaderEntity implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof HeaderEntity)) {
@@ -166,26 +180,29 @@ public class HeaderEntity implements Serializable {
         return !((this.idHeader == null && other.idHeader != null) || (this.idHeader != null && !this.idHeader.equals(other.idHeader)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "test.Header[ idHeader=" + idHeader + " ]";
     }
 
     /**
-     * Method converts {@link org.presentation.persistence.model.HeaderEntity} class to its mapping class
-     * {@link org.presentation.model.Header}.
+     * Method converts {@link org.presentation.persistence.model.HeaderEntity}
+     * class to its mapping class {@link org.presentation.model.Header}.
      *
      * @param headerEntity Entity class as the source of conversion
-     * @return Model class {@link org.presentation.model.Header} as the target of conversion
+     * @return Model class {@link org.presentation.model.Header} as the target
+     * of conversion
      */
     public static Header convert(HeaderEntity headerEntity) {
         return new Header(headerEntity.getKey(), headerEntity.getValue());
     }
 
     /**
-     * Method converts {@link org.presentation.model.Header} class to is mapped entity class
-     * {@link org.presentation.persistence.model.HeaderEntity}.
+     * Method converts {@link org.presentation.model.Header} class to is mapped
+     * entity class {@link org.presentation.persistence.model.HeaderEntity}.
      *
      * @param header Model class @{link Header} as the source of the conversion
      * @return HeaderEntity class as the target of conversion

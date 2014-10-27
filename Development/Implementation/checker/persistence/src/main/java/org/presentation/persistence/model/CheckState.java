@@ -4,7 +4,7 @@ package org.presentation.persistence.model;
  * Enum representing state of the checking persisted in the database table.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public enum CheckState {
 

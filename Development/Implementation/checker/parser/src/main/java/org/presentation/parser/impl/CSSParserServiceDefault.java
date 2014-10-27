@@ -33,6 +33,8 @@ public class CSSParserServiceDefault implements CSSParserService {
     private Logger LOG;
 
     /**
+     * {@inheritDoc}
+     *
      * Default method for parse {@link ParsedLinkResponse} from the CSS
      * {@link PageContent}. Search in code for "url(...)" sytax and extract the
      * URL from it. Then it formats it to absolute URL form and save it to

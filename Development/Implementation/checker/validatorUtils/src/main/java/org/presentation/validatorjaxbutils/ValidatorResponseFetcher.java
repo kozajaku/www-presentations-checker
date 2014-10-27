@@ -10,6 +10,7 @@ import java.net.URL;
  * remote w3c validators.
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public class ValidatorResponseFetcher {
 
@@ -18,15 +19,21 @@ public class ValidatorResponseFetcher {
      */
     private ValidatorResponseFetcher() {
     }
-    
+
     /**
-     * Static method which is cappable to fetch soap xml response from remote w3c validator service.
-     * @param validationService URL address in string representation of specific validator service
-     * @param uriToValidate URI address in string of the page, which should be validated by validator service
-     * @return {@link InputStream} of the successfully fetched soap response
-     * @throws IOException If anything went wrong during fetching request or creating connection with validationService.
+     * Static method which is cappable to fetch soap xml response from remote
+     * w3c validator service.
+     *
+     * @param validationService URL address in string representation of specific
+     * validator service
+     * @param uriToValidate URI address in string of the page, which should be
+     * validated by validator service
+     * @return {@link java.io.InputStream} of the successfully fetched soap
+     * response
+     * @throws java.io.IOException If anything went wrong during fetching
+     * request or creating connection with validationService.
      */
-    public static InputStream fetchSOAPResponse(String validationService, String uriToValidate) throws IOException{
+    public static InputStream fetchSOAPResponse(String validationService, String uriToValidate) throws IOException {
         URL url = new URL(validationService + "?output=soap12&uri=" + uriToValidate);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         return connection.getInputStream();

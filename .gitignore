@@ -247,3 +247,6 @@ pip-log.txt
 /Development/Implementation/checker/target/
 /Development/Implementation/checker/validatorUtils/target/
 /Development/Implementation/tests/CssBoxTest/target/
+/Development/Implementation/checker/wholePresentationController/target/
+/Development/Implementation/checker/cssRedundancyChecker/target/
+/Development/Implementation/tests/htmlParsedStructureMemoryTest/target/

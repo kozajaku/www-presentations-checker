@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Entity class representing the entity Checkup in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Vetoed
@@ -108,7 +108,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idCheckup</code>.</p>
+     * <p>
+     * Getter for the field <code>idCheckup</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -117,7 +118,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idCheckup</code>.</p>
+     * <p>
+     * Setter for the field <code>idCheckup</code>.</p>
      *
      * @param idCheckup a {@link java.lang.Integer} object.
      */
@@ -126,7 +128,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkingCreated</code>.</p>
+     * <p>
+     * Getter for the field <code>checkingCreated</code>.</p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -135,7 +138,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkingCreated</code>.</p>
+     * <p>
+     * Setter for the field <code>checkingCreated</code>.</p>
      *
      * @param checkingCreated a {@link java.util.Date} object.
      */
@@ -144,7 +148,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>state</code>.</p>
+     * <p>
+     * Getter for the field <code>state</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.CheckState} object.
      */
@@ -153,16 +158,19 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>state</code>.</p>
+     * <p>
+     * Setter for the field <code>state</code>.</p>
      *
-     * @param state a {@link org.presentation.persistence.model.CheckState} object.
+     * @param state a {@link org.presentation.persistence.model.CheckState}
+     * object.
      */
     public void setState(CheckState state) {
         this.state = state;
     }
 
     /**
-     * <p>Getter for the field <code>checkingFinished</code>.</p>
+     * <p>
+     * Getter for the field <code>checkingFinished</code>.</p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -171,7 +179,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkingFinished</code>.</p>
+     * <p>
+     * Setter for the field <code>checkingFinished</code>.</p>
      *
      * @param checkingFinished a {@link java.util.Date} object.
      */
@@ -180,7 +189,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>startPoint</code>.</p>
+     * <p>
+     * Getter for the field <code>startPoint</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,7 +199,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>startPoint</code>.</p>
+     * <p>
+     * Setter for the field <code>startPoint</code>.</p>
      *
      * @param startPoint a {@link java.lang.String} object.
      */
@@ -198,7 +209,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>maxDepth</code>.</p>
+     * <p>
+     * Getter for the field <code>maxDepth</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -207,7 +219,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>maxDepth</code>.</p>
+     * <p>
+     * Setter for the field <code>maxDepth</code>.</p>
      *
      * @param maxDepth a {@link java.lang.Integer} object.
      */
@@ -216,7 +229,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>checkingInterval</code>.</p>
+     * <p>
+     * Getter for the field <code>checkingInterval</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -225,7 +239,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>checkingInterval</code>.</p>
+     * <p>
+     * Setter for the field <code>checkingInterval</code>.</p>
      *
      * @param checkingInterval a {@link java.lang.Integer} object.
      */
@@ -234,7 +249,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>optionList</code>.</p>
+     * <p>
+     * Getter for the field <code>optionList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -244,7 +260,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>optionList</code>.</p>
+     * <p>
+     * Setter for the field <code>optionList</code>.</p>
      *
      * @param optionList a {@link java.util.List} object.
      */
@@ -253,7 +270,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>messageEntityList</code>.</p>
+     * <p>
+     * Getter for the field <code>messageEntityList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -263,7 +281,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>setResourceList.</p>
+     * <p>
+     * setResourceList.</p>
      *
      * @param messageEntityList a {@link java.util.List} object.
      */
@@ -272,7 +291,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>domainList</code>.</p>
+     * <p>
+     * Getter for the field <code>domainList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -282,7 +302,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>domainList</code>.</p>
+     * <p>
+     * Setter for the field <code>domainList</code>.</p>
      *
      * @param domainList a {@link java.util.List} object.
      */
@@ -291,7 +312,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>headerList</code>.</p>
+     * <p>
+     * Getter for the field <code>headerList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -301,7 +323,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>headerList</code>.</p>
+     * <p>
+     * Setter for the field <code>headerList</code>.</p>
      *
      * @param headerList a {@link java.util.List} object.
      */
@@ -310,7 +333,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>user</code>.</p>
+     * <p>
+     * Getter for the field <code>user</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.User} object.
      */
@@ -319,7 +343,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>user</code>.</p>
+     * <p>
+     * Setter for the field <code>user</code>.</p>
      *
      * @param user a {@link org.presentation.persistence.model.User} object.
      */
@@ -328,7 +353,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>graphList</code>.</p>
+     * <p>
+     * Getter for the field <code>graphList</code>.</p>
      *
      * @return a {@link java.util.List} object.
      */
@@ -338,7 +364,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>graphList</code>.</p>
+     * <p>
+     * Setter for the field <code>graphList</code>.</p>
      *
      * @param graphList a {@link java.util.List} object.
      */
@@ -346,7 +373,9 @@ public class Checkup implements Serializable {
         this.graphList = graphList;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -354,7 +383,9 @@ public class Checkup implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -365,14 +396,17 @@ public class Checkup implements Serializable {
         return !((this.idCheckup == null && other.idCheckup != null) || (this.idCheckup != null && !this.idCheckup.equals(other.idCheckup)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "test.Checkup[ idCheckup=" + idCheckup + " ]";
     }
 
     /**
-     * <p>Getter for the field <code>pageLimit</code>.</p>
+     * <p>
+     * Getter for the field <code>pageLimit</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -381,7 +415,8 @@ public class Checkup implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>pageLimit</code>.</p>
+     * <p>
+     * Setter for the field <code>pageLimit</code>.</p>
      *
      * @param pageLimit a {@link java.lang.Integer} object.
      */

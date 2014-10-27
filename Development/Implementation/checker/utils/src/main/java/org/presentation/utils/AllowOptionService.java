@@ -1,13 +1,17 @@
 package org.presentation.utils;
 
 /**
+ * <p>
+ * AllowOptionService interface.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public interface AllowOptionService {
 
     /**
      * Method returns unique identifier representing the chosen option.
+     *
      * @return String unique identifier
      */
     public String getID();

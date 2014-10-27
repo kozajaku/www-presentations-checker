@@ -16,6 +16,8 @@ public class ParsedLinkResponse {
     private final String label;
 
     /**
+     * <p>
+     * Constructor for ParsedLinkResponse.</p>
      *
      * @param link URL
      * @param sourceType type of link source
@@ -27,14 +29,32 @@ public class ParsedLinkResponse {
         this.label = label;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>link</code>.</p>
+     *
+     * @return a {@link org.presentation.model.LinkURL} object.
+     */
     public LinkURL getLink() {
         return link;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>sourceType</code>.</p>
+     *
+     * @return a {@link org.presentation.model.graph.LinkSourceType} object.
+     */
     public LinkSourceType getSourceType() {
         return sourceType;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>label</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getLabel() {
         return label;
     }

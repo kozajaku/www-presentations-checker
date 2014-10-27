@@ -4,19 +4,19 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2005._07.css_validator;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for Error complex type.
+ * <p>
+ * Java class for Error complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="Error"&gt;
@@ -44,8 +44,7 @@ import javax.xml.bind.annotation.XmlType;
     "skippedstring"
 })
 public class Error
-    extends Culprit
-{
+        extends Culprit {
 
     protected String errortype;
     protected String errorsubtype;
@@ -64,9 +63,7 @@ public class Error
     /**
      * Sets the value of the errortype property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setErrortype(String value) {
         this.errortype = value;
@@ -84,9 +81,7 @@ public class Error
     /**
      * Sets the value of the errorsubtype property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setErrorsubtype(String value) {
         this.errorsubtype = value;
@@ -104,9 +99,7 @@ public class Error
     /**
      * Sets the value of the context property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setContext(String value) {
         this.context = value;
@@ -124,9 +117,7 @@ public class Error
     /**
      * Sets the value of the skippedstring property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setSkippedstring(String value) {
         this.skippedstring = value;

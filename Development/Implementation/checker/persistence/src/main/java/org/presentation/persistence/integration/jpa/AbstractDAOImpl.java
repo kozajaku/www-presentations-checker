@@ -4,10 +4,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * <p>Abstract AbstractDAOImpl class.</p>
+ * Abstract class which serves as superclass for every DAO JPA implemented
+ * class.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 public abstract class AbstractDAOImpl {
 
@@ -15,7 +16,8 @@ public abstract class AbstractDAOImpl {
     private EntityManager entityManager;
 
     /**
-     * <p>Getter for the field <code>entityManager</code>.</p>
+     * <p>
+     * Getter for the field <code>entityManager</code>.</p>
      *
      * @return a {@link javax.persistence.EntityManager} object.
      */

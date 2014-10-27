@@ -1,6 +1,7 @@
 package org.presentation.model;
 
 import java.util.Objects;
+import org.w3c.dom.Node;
 
 /**
  * This class represents the URL web address.
@@ -20,6 +21,10 @@ public class LinkURL {
      */
     public LinkURL(String url) {
         this.url = url;
+    }
+
+    public LinkURL(Node hrefAttr) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -46,11 +51,17 @@ public class LinkURL {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return url.hashCode(); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

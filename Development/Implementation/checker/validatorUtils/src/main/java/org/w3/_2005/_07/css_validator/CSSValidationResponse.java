@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2005._07.css_validator;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,11 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for CSSValidationResponse complex type.
+ * <p>
+ * Java class for CSSValidationResponse complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="CSSValidationResponse"&gt;
@@ -80,9 +80,7 @@ public class CSSValidationResponse {
     /**
      * Sets the value of the uri property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setUri(String value) {
         this.uri = value;
@@ -100,9 +98,7 @@ public class CSSValidationResponse {
     /**
      * Sets the value of the checkedby property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setCheckedby(String value) {
         this.checkedby = value;
@@ -120,9 +116,7 @@ public class CSSValidationResponse {
     /**
      * Sets the value of the csslevel property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setCsslevel(String value) {
         this.csslevel = value;
@@ -140,9 +134,7 @@ public class CSSValidationResponse {
     /**
      * Sets the value of the date property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setDate(String value) {
         this.date = value;
@@ -178,9 +170,8 @@ public class CSSValidationResponse {
     /**
      * Sets the value of the result property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2005._07.css_validator.Result}
+     * @param value allowed object is
+     * {@link org.w3._2005._07.css_validator.Result}
      */
     public void setResult(Result value) {
         this.result = value;
@@ -198,9 +189,7 @@ public class CSSValidationResponse {
     /**
      * Sets the value of the encodingStyle property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setEncodingStyle(String value) {
         this.encodingStyle = value;

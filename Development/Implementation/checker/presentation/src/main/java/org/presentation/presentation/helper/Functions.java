@@ -20,9 +20,10 @@ import org.presentation.persistence.model.ChosenOption;
  * @version $Id: $Id
  */
 public final class Functions {
-    
-    private Functions () { }
-    
+
+    private Functions() {
+    }
+
     /**
      * This function returns comma-separated list from List of Domain objects
      *
@@ -30,18 +31,22 @@ public final class Functions {
      * @return comma-separated list
      */
     public static String getDomainsConcat(List<Domain> domains) {
-	StringBuilder sb = new StringBuilder();
-	
-	if(domains.isEmpty()) return "any";
-	
-	for(Domain d : domains) {
-	    sb.append(d.getDomain()).append(", ");
-	}
-	
-	if(sb.length()>=2) sb.delete(sb.length()-2, sb.length()-1);
-	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+
+        if (domains.isEmpty()) {
+            return "any";
+        }
+
+        for (Domain d : domains) {
+            sb.append(d.getDomain()).append(", ");
+        }
+
+        if (sb.length() >= 2) {
+            sb.delete(sb.length() - 2, sb.length() - 1);
+        }
+        return sb.toString();
     }
-    
+
     /**
      * This function supports dynamic enum i18n
      *
@@ -50,50 +55,53 @@ public final class Functions {
      * @return translated enum value
      */
     public static String getEnumHumanReadable(ResourceBundle msg, Enum<?> e) {
-	try {
-	    String str = msg.getString(e.getClass().getSimpleName() + '.' + e.name());
-	    return str;
-	}
-	catch(MissingResourceException ex) {
-	    return e.name();
-	}
+        try {
+            String str = msg.getString(e.getClass().getSimpleName() + '.' + e.name());
+            return str;
+        } catch (MissingResourceException ex) {
+            return e.name();
+        }
     }
-    
+
     /**
-     * This function returns comma-separated list from List of ChosenOption objects
+     * This function returns comma-separated list from List of ChosenOption
+     * objects
      *
      * @param msg resource bundle for i18n
      * @param opts option list
      * @return comma-separated list
      */
     public static String getDesiredCheckupsConcat(ResourceBundle msg, List<ChosenOption> opts) {
-	StringBuilder sb = new StringBuilder();
-	String t;
-	for(ChosenOption o : opts) {
-	    try {
-		t = msg.getString("common.ch_" + o.getIdOption().toLowerCase());	    
-		sb.append(t);
-	    } catch(MissingResourceException ex) {
-		sb.append(o.getIdOption());
-	    }
-	    sb.append(", ");
-	}
-	
-	if(sb.length()>=2) sb.delete(sb.length()-2, sb.length()-1);
-	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        String t;
+        for (ChosenOption o : opts) {
+            try {
+                t = msg.getString("common.ch_" + o.getIdOption().toLowerCase());
+                sb.append(t);
+            } catch (MissingResourceException ex) {
+                sb.append(o.getIdOption());
+            }
+            sb.append(", ");
+        }
+
+        if (sb.length() >= 2) {
+            sb.delete(sb.length() - 2, sb.length() - 1);
+        }
+        return sb.toString();
     }
-    
+
     /**
-     * This function allows to user parametrized messages (such as "there is {0} posts")
+     * This function allows to user parametrized messages (such as "there is {0}
+     * posts")
      *
      * @param msg parametrized message
      * @param p1 parameter to be replaced
      * @return formatted message
      */
-    public static String translate(String msg, String p1) {	
-	return MessageFormat.format(msg, p1);
+    public static String translate(String msg, String p1) {
+        return MessageFormat.format(msg, p1);
     }
-    
+
     /**
      * This function translates the message type
      *
@@ -102,24 +110,25 @@ public final class Functions {
      * @return a {@link java.lang.String} object.
      */
     public static String getMessageTypeCaption(ResourceBundle msg, Message messageObject) {
-	String className = messageObject.getClass().getSimpleName();
-	if(msg == null) return className;
-	try {
-	    return msg.getString("common.msg_type_" + className.toLowerCase());
-	}
-	catch(MissingResourceException ex) {
-	    return className;
-	}
+        String className = messageObject.getClass().getSimpleName();
+        if (msg == null) {
+            return className;
+        }
+        try {
+            return msg.getString("common.msg_type_" + className.toLowerCase());
+        } catch (MissingResourceException ex) {
+            return className;
+        }
     }
-    
+
     /**
      * this function replaces all non-alphanumeric characters by '-'
      *
      * @param s input string
      * @return sanitized string
      */
-    public static String normalizeString (String s) {
-	return s.replaceAll("[^a-zA-Z]+", "-");
+    public static String normalizeString(String s) {
+        return s.replaceAll("[^a-zA-Z]+", "-");
     }
-    
+
 }

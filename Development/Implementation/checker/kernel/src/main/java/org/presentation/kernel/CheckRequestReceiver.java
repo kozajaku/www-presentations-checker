@@ -13,8 +13,11 @@ import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 
 /**
+ * <p>
+ * CheckRequestReceiver class.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @LocalBean
 @Stateless
@@ -30,6 +33,14 @@ public class CheckRequestReceiver {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
+    /**
+     * <p>
+     * addNewCheckingRequest.</p>
+     *
+     * @param email a {@link java.lang.String} object.
+     * @param checkingRequest a {@link org.presentation.kernel.CheckingRequest}
+     * object.
+     */
     public void addNewCheckingRequest(String email, CheckingRequest checkingRequest) {
         LOG.log(Level.INFO, "addNewCheckingRequest called for user {0}", email);
         Checkup checkup = new Checkup();
@@ -49,18 +60,24 @@ public class CheckRequestReceiver {
         execQueue.notifyNewRequests();
     }
 
+    /**
+     * <p>
+     * stopSpecificChecking.</p>
+     *
+     * @param checkupId a {@link java.lang.Integer} object.
+     */
     public void stopSpecificChecking(Integer checkupId) {
         LOG.log(Level.INFO, "stopSpecificChecking called");
         Checkup checkup = persistenceFacade.findCheckup(checkupId);
-        if (checkup == null){
+        if (checkup == null) {
             LOG.log(Level.WARNING, "Checkup to stop with specified primary key {0} was not found", checkupId);
             return;
         }
-        if (checkup.getState().isEnded()){
+        if (checkup.getState().isEnded()) {
             LOG.log(Level.INFO, "Unable to stop ended checking");
             return;
         }
-        if (checkup.getState().equals(CheckState.CREATED) || checkup.getState().equals(CheckState.PENDING)){
+        if (checkup.getState().equals(CheckState.CREATED) || checkup.getState().equals(CheckState.PENDING)) {
             checkup.setState(CheckState.STOPPED_BEFORE_START);
             persistenceFacade.updateCheckup(checkup);
         } else {

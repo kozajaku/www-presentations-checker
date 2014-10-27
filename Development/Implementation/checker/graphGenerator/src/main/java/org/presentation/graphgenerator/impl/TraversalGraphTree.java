@@ -12,12 +12,15 @@ import org.presentation.graphgenerator.GraphResult;
  * unordered lists.
  *
  * @author Adam Kugler
+ * @version 1.0-SNAPSHOT
  */
 public class TraversalGraphTree extends GraphResult {
 
     private final String tagTree;
 
     /**
+     * <p>
+     * Constructor for TraversalGraphTree.</p>
      *
      * @param tagTree Tag tree created by graph text generator
      */
@@ -25,11 +28,17 @@ public class TraversalGraphTree extends GraphResult {
         this.tagTree = tagTree;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getResultAsCode() {
         return tagTree;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getResultId() {
         return "Traversal graph tag tree";

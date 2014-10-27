@@ -6,8 +6,11 @@
 package org.presentation.graphgenerator.impl;
 
 /**
+ * <p>
+ * GraphvizUtils class.</p>
  *
  * @author Adam Kugler
+ * @version 1.0-SNAPSHOT
  */
 public class GraphvizUtils {
 }

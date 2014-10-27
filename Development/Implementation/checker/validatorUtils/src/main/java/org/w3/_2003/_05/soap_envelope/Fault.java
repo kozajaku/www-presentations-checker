@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2003._05.soap_envelope;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,15 +12,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
  *
- * 	    Fault reporting structure
+ * Fault reporting structure
  *
  *
- * <p>Java class for Fault complex type.
+ * <p>
+ * Java class for Fault complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="Fault"&gt;
@@ -97,9 +97,8 @@ public class Fault {
     /**
      * Sets the value of the code property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2003._05.soap_envelope.Faultcode}
+     * @param value allowed object is
+     * {@link org.w3._2003._05.soap_envelope.Faultcode}
      */
     public void setCode(Faultcode value) {
         this.code = value;
@@ -117,9 +116,8 @@ public class Fault {
     /**
      * Sets the value of the reason property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2003._05.soap_envelope.Faultreason}
+     * @param value allowed object is
+     * {@link org.w3._2003._05.soap_envelope.Faultreason}
      */
     public void setReason(Faultreason value) {
         this.reason = value;
@@ -137,9 +135,7 @@ public class Fault {
     /**
      * Sets the value of the node property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setNode(String value) {
         this.node = value;
@@ -157,9 +153,7 @@ public class Fault {
     /**
      * Sets the value of the role property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link java.lang.String}
+     * @param value allowed object is {@link java.lang.String}
      */
     public void setRole(String value) {
         this.role = value;
@@ -177,9 +171,8 @@ public class Fault {
     /**
      * Sets the value of the detail property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2003._05.soap_envelope.Detail}
+     * @param value allowed object is
+     * {@link org.w3._2003._05.soap_envelope.Detail}
      */
     public void setDetail(Detail value) {
         this.detail = value;

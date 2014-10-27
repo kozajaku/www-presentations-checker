@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:13 PM CEST 
 //
-
-
 package org.w3._2005._10.markup_validator;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +11,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for ValidationWarnings complex type.
+ * <p>
+ * Java class for ValidationWarnings complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="ValidationWarnings"&gt;
@@ -83,9 +83,8 @@ public class ValidationWarnings {
     /**
      * Sets the value of the warninglist property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2005._10.markup_validator.WarningList}
+     * @param value allowed object is
+     * {@link org.w3._2005._10.markup_validator.WarningList}
      */
     public void setWarninglist(WarningList value) {
         this.warninglist = value;

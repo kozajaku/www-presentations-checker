@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Entity class representing the Login entity in JPA entity architecture.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Entity
 @Vetoed
@@ -69,7 +69,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>idLogin</code>.</p>
+     * <p>
+     * Getter for the field <code>idLogin</code>.</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -78,7 +79,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>idLogin</code>.</p>
+     * <p>
+     * Setter for the field <code>idLogin</code>.</p>
      *
      * @param idLogin a {@link java.lang.Integer} object.
      */
@@ -87,7 +89,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>address</code>.</p>
+     * <p>
+     * Getter for the field <code>address</code>.</p>
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,7 +99,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>address</code>.</p>
+     * <p>
+     * Setter for the field <code>address</code>.</p>
      *
      * @param address a {@link java.lang.String} object.
      */
@@ -105,7 +109,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>time</code>.</p>
+     * <p>
+     * Getter for the field <code>time</code>.</p>
      *
      * @return a {@link java.util.Date} object.
      */
@@ -114,7 +119,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>time</code>.</p>
+     * <p>
+     * Setter for the field <code>time</code>.</p>
      *
      * @param time a {@link java.util.Date} object.
      */
@@ -123,7 +129,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Getter for the field <code>user</code>.</p>
+     * <p>
+     * Getter for the field <code>user</code>.</p>
      *
      * @return a {@link org.presentation.persistence.model.User} object.
      */
@@ -132,7 +139,8 @@ public class Login implements Serializable {
     }
 
     /**
-     * <p>Setter for the field <code>user</code>.</p>
+     * <p>
+     * Setter for the field <code>user</code>.</p>
      *
      * @param user a {@link org.presentation.persistence.model.User} object.
      */
@@ -140,7 +148,9 @@ public class Login implements Serializable {
         this.user = user;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -148,7 +158,9 @@ public class Login implements Serializable {
         return hash;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Login)) {
@@ -158,7 +170,9 @@ public class Login implements Serializable {
         return !((this.idLogin == null && other.idLogin != null) || (this.idLogin != null && !this.idLogin.equals(other.idLogin)));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "testicek.Login[ idLogin=" + idLogin + " ]";

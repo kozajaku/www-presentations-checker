@@ -26,62 +26,61 @@ public class CheckupManipulatorBean extends ProtectedBean {
 
     @NotNull
     protected int checkupId;
-    
+
     // todo
-    
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
-    
+
     /**
      * This action stops specific checkup
      *
      * @return jsf view
      * @throws java.lang.Exception if any.
      */
-    public String stopCheckup() throws Exception{
-	Checkup checkup = persistance.findCheckup(checkupId);
-	User user = null;	
-	
-	if(checkup == null){
-	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
-	    return "";
-	}
-	
-	user = checkup.getUser();	
-	if(user == null || !user.equals(this.getLoggedUser())) {
-	    this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
-	    return "";
-	}
-	
-	if(checkup.getState().isEnded()) {
-	    this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_already_stopped")));
-	    return "";
-	}
-	
-	checkRequestReceiver.stopSpecificChecking(checkup.getIdCheckup());
-		
-	this.addMessage(new FacesMessage(msg.getString("checkupManipulator.stopping_checkup_successful")));
-	return "";
+    public String stopCheckup() throws Exception {
+        Checkup checkup = persistance.findCheckup(checkupId);
+        User user = null;
+
+        if (checkup == null) {
+            this.addMessage(new FacesMessage(msg.getString("common.checkup_not_found")));
+            return "";
+        }
+
+        user = checkup.getUser();
+        if (user == null || !user.equals(this.getLoggedUser())) {
+            this.addMessage(new FacesMessage(msg.getString("common.checkup_not_yours")));
+            return "";
+        }
+
+        if (checkup.getState().isEnded()) {
+            this.addMessage(new FacesMessage(msg.getString("checkupManipulator.checkup_already_stopped")));
+            return "";
+        }
+
+        checkRequestReceiver.stopSpecificChecking(checkup.getIdCheckup());
+
+        this.addMessage(new FacesMessage(msg.getString("checkupManipulator.stopping_checkup_successful")));
+        return "";
     }
 
     /**
-     * <p>Getter for the field <code>checkupId</code>.</p>
+     * <p>
+     * Getter for the field <code>checkupId</code>.</p>
      *
      * @return a int.
      */
     public int getCheckupId() {
-	return checkupId;
+        return checkupId;
     }
 
     /**
-     * <p>Setter for the field <code>checkupId</code>.</p>
+     * <p>
+     * Setter for the field <code>checkupId</code>.</p>
      *
      * @param checkupId a int.
      */
     public void setCheckupId(int checkupId) {
-	this.checkupId = checkupId;
+        this.checkupId = checkupId;
     }
-    
-    
-    
+
 }

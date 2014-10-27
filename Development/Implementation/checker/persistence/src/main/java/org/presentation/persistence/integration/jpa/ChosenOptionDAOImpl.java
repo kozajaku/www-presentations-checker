@@ -9,15 +9,18 @@ import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
 
 /**
- * <p>ChosenOptionDAOImpl class.</p>
+ * Implementation of ChosenOptionDAO interface which uses specification of JPA
+ * to persist data into database.
  *
  * @author radio.koza
- * @version $Id: $Id
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class ChosenOptionDAOImpl extends AbstractDAOImpl implements ChosenOptionDAO {
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ChosenOption> findAllCheckOptions(Integer checkupId) {
         TypedQuery<ChosenOption> q = getEntityManager().createNamedQuery("ChosenOption.findAllInCheckup", ChosenOption.class);
@@ -25,7 +28,9 @@ public class ChosenOptionDAOImpl extends AbstractDAOImpl implements ChosenOption
         return q.getResultList();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addOptionToCheckup(ChosenOption option, Integer checkupId) {
         ChosenOption tmp = getEntityManager().find(ChosenOption.class, option.getIdOption());

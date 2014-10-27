@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:13 PM CEST 
 //
-
-
 package org.w3._2005._10.markup_validator;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +11,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for ValidationErrors complex type.
+ * <p>
+ * Java class for ValidationErrors complex type.
  *
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  *
  * <pre>
  * &lt;complexType name="ValidationErrors"&gt;
@@ -83,9 +83,8 @@ public class ValidationErrors {
     /**
      * Sets the value of the errorlist property.
      *
-     * @param value
-     *     allowed object is
-     *     {@link org.w3._2005._10.markup_validator.ErrorList}
+     * @param value allowed object is
+     * {@link org.w3._2005._10.markup_validator.ErrorList}
      */
     public void setErrorlist(ErrorList value) {
         this.errorlist = value;

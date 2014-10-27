@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:20 PM CEST 
 //
-
-
 package org.w3._2005._07.css_validator;
 
 import javax.xml.bind.JAXBElement;
@@ -13,19 +11,15 @@ import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
-
 /**
- * This object contains factory methods for each
- * Java content interface and Java element interface
- * generated in the org.w3._2005._07.css_validator package.
- * <p>An ObjectFactory allows you to programatically
- * construct new instances of the Java representation
- * for XML content. The Java representation of XML
- * content can consist of schema derived interfaces
- * and classes representing the binding of schema
- * type definitions, element declarations and model
- * groups.  Factory methods for each of these are
- * provided in this class.
+ * This object contains factory methods for each Java content interface and Java
+ * element interface generated in the org.w3._2005._07.css_validator package.
+ * <p>
+ * An ObjectFactory allows you to programatically construct new instances of the
+ * Java representation for XML content. The Java representation of XML content
+ * can consist of schema derived interfaces and classes representing the binding
+ * of schema type definitions, element declarations and model groups. Factory
+ * methods for each of these are provided in this class.
  *
  * @author radio.koza
  * @version $Id: $Id
@@ -36,15 +30,18 @@ public class ObjectFactory {
     private final static QName _Cssvalidationresponse_QNAME = new QName("http://www.w3.org/2005/07/css-validator", "cssvalidationresponse");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.w3._2005._07.css_validator
+     * Create a new ObjectFactory that can be used to create new instances of
+     * schema derived classes for package: org.w3._2005._07.css_validator
      */
     public ObjectFactory() {
     }
 
     /**
-     * Create an instance of {@link org.w3._2005._07.css_validator.CSSValidationResponse}
+     * Create an instance of
+     * {@link org.w3._2005._07.css_validator.CSSValidationResponse}
      *
-     * @return a {@link org.w3._2005._07.css_validator.CSSValidationResponse} object.
+     * @return a {@link org.w3._2005._07.css_validator.CSSValidationResponse}
+     * object.
      */
     public CSSValidationResponse createCSSValidationResponse() {
         return new CSSValidationResponse();
@@ -78,7 +75,8 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link org.w3._2005._07.css_validator.ValidationErrors}
+     * Create an instance of
+     * {@link org.w3._2005._07.css_validator.ValidationErrors}
      *
      * @return a {@link org.w3._2005._07.css_validator.ValidationErrors} object.
      */
@@ -87,9 +85,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link org.w3._2005._07.css_validator.ValidationWarnings}
+     * Create an instance of
+     * {@link org.w3._2005._07.css_validator.ValidationWarnings}
      *
-     * @return a {@link org.w3._2005._07.css_validator.ValidationWarnings} object.
+     * @return a {@link org.w3._2005._07.css_validator.ValidationWarnings}
+     * object.
      */
     public ValidationWarnings createValidationWarnings() {
         return new ValidationWarnings();
@@ -114,9 +114,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2005._07.css_validator.CSSValidationResponse}{@code >}}
+     * Create an instance of
+     * {@link javax.xml.bind.JAXBElement}{@code <}{@link org.w3._2005._07.css_validator.CSSValidationResponse}{@code >}}
      *
-     * @param value a {@link org.w3._2005._07.css_validator.CSSValidationResponse} object.
+     * @param value a
+     * {@link org.w3._2005._07.css_validator.CSSValidationResponse} object.
      * @return a {@link javax.xml.bind.JAXBElement} object.
      */
     @XmlElementDecl(namespace = "http://www.w3.org/2005/07/css-validator", name = "cssvalidationresponse")

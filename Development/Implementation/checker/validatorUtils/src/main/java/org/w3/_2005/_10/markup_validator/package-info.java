@@ -4,6 +4,5 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2014.10.19 at 10:40:13 PM CEST 
 //
-
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.w3.org/2005/10/markup-validator", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package org.w3._2005._10.markup_validator;

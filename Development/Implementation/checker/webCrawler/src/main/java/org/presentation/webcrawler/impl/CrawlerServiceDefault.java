@@ -37,7 +37,8 @@ import org.presentation.webcrawler.CrawlingState;
 import org.presentation.webcrawler.PageCrawlingObserver;
 
 /**
- * Default implementation of {@link CrawlerService} interface.
+ * Default implementation of {@link org.presentation.webcrawler.CrawlerService}
+ * interface.
  *
  * @author Adam Kugler
  * @version 1.0
@@ -71,11 +72,14 @@ public class CrawlerServiceDefault implements CrawlerService {
          *
          * @param label Name of link that points to page; text in link, picture
          * description etc.; information for {@link Node}
-         * @param linkSourceType Type of link source; information for {@link Node}
-         * @param previousNode Node from which was the page found; information for {@link TraversaGraph} connection
+         * @param linkSourceType Type of link source; information for
+         * {@link Node}
+         * @param previousNode Node from which was the page found; information
+         * for {@link TraversalGraph} connection
          * @param linkURL URL of page
          * @param depthFromRoot How long is link connection (number of links)
-         * between root page and this page; depth in {@link TraversaGraph}
+         * between root page and this page; depth in
+         * {@link TraversalGraph}
          */
         public WebPage(String label, LinkSourceType linkSourceType, ValidNode previousNode, LinkURL linkURL, int depthFromRoot) {
             this.label = label;
@@ -245,7 +249,6 @@ public class CrawlerServiceDefault implements CrawlerService {
          * @return <code>true</code> if page limit has been reached.
          */
         public boolean isOverPageLimit() {
-            isOverPageLimit();
             //LOG.info("is over page limit?");
             if (crawlingState.getPagesCrawled() >= pageLimit) {
                 if (completeCrawlingState == CompleteCrawlingState.UNKNOWN) {
@@ -257,12 +260,12 @@ public class CrawlerServiceDefault implements CrawlerService {
         }
     }
 
-    /**
-     * This object is instantiated by registering into MessageLoggerContainer.
-     */
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
+    /**
+     * This object is instantiated by registering into MessageLoggerContainer.
+     */
     private MessageLogger messageLogger;
     private PageCrawlingObserver observer;
     private TraversalGraph graph;
@@ -291,12 +294,18 @@ public class CrawlerServiceDefault implements CrawlerService {
      */
     private Map<LinkURL, Boolean> unreachedURLs;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer container) {
         messageLogger = container.createLogger("Web crawler");
         pageReceiver.offerMsgLoggerContainer(container);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void startBrowsing(LinkURL url, int maximalDepth, int pageLimit, PageCrawlingObserver observer, List<Domain> allowedDomains, int requestTimeout, List<Header> addHeaders) {
         LOG.info("startBrowsing");
@@ -417,12 +426,18 @@ public class CrawlerServiceDefault implements CrawlerService {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         LOG.info("stop checking");
         stopped = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CrawlingState getCrawlingState() {
         return crawlingState;

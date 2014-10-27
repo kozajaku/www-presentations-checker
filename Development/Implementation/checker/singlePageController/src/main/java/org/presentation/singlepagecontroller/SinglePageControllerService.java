@@ -11,6 +11,9 @@ import org.presentation.utils.Stoppable;
  * Interface for every type of single page control.
  *
  * Jindřich Máca
+ *
+ * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public interface SinglePageControllerService extends MessageProducer, Option, Stoppable {
 
@@ -22,10 +25,11 @@ public interface SinglePageControllerService extends MessageProducer, Option, St
      * @param text Content of the page
      */
     void checkPage(ContentType contentType, LinkURL url, PageContent text);
-    
+
     /**
-     * Method quickly response, if page with passed contentType can
-     * be checked by this implementation of SinglePageControllerService.
+     * Method quickly response, if page with passed contentType can be checked
+     * by this implementation of SinglePageControllerService.
+     *
      * @param contentType ContentType of the page
      * @return true if it is applicable; false otherwise
      */
