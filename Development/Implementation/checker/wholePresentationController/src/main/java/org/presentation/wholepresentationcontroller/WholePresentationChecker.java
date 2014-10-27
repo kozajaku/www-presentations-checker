@@ -10,37 +10,34 @@ import org.presentation.parser.HTMLCode;
 import org.presentation.utils.Option;
 import org.presentation.utils.Stoppable;
 
-
 /**
- * @author Adam
+ * @author Adam Kugler
  * @version 1.0
- * @created 25-10-2014 22:43:27
  */
 public interface WholePresentationChecker extends Stoppable, Option, MessageProducer {
 
-	/**
-	 * 
-	 * @param contentType
-	 * @param linkURL
-	 * @param pageContent
-	 * @param cssCode
-	 */
-	public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode);
+    /**
+     *
+     * @param contentType
+     * @param linkURL
+     * @param pageContent
+     * @param cssCode
+     */
+    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode);
 
-	/**
-	 * 
-	 * @param contentType
-	 * @param linkURL
-	 * @param pageContent
-	 * @param htmlCode
-	 */
-	public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode);
+    /**
+     *
+     * @param contentType
+     * @param linkURL
+     * @param pageContent
+     * @param htmlCode
+     */
+    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode);
 
-	/**
-	 * 
-	 * @param traversalGraph
-	 */
-	public void finalizeCheckup(TraversalGraph traversalGraph);
+    /**
+     *
+     * @param traversalGraph
+     */
+    public void finalizeCheckup(TraversalGraph traversalGraph);
 
 }
-
