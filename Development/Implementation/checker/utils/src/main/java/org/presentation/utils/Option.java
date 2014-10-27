@@ -1,16 +1,17 @@
 package org.presentation.utils;
 
 /**
- * Interface of user option for control.
+ * Interface of user option for specific control.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 public interface Option {
 
     /**
-     * Get specific ID of the option.
+     * Get specific {@link String} ID of the option.
      *
-     * @return ID of the option represented by text.
+     * @return {@link String} ID of the option
      */
     public String getID();
 }

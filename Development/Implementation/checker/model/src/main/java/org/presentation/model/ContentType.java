@@ -4,36 +4,37 @@ package org.presentation.model;
  * This class represents the Content-Type attribute in HTTP head.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 public class ContentType {
 
-    /**
-     * Text representaion of Content-Type.
-     */
+    //Text representaion of Content-Type
     private final String contentType;
 
     /**
-     * Constructs a Content-Type.
+     * Creates new instance of {@link ContentType}.
      *
-     * @param contentType Text value of Content-Type.
+     * @param contentType {@link String} representaion of HTTP attribute
+     * Content-Type
      */
     public ContentType(String contentType) {
         this.contentType = contentType;
     }
 
     /**
-     * Returns the text representation of Content-Type.
+     * Returns the {@link String} representation of {@link ContentType}.
      *
-     * @return Text representation of Content-Type.
+     * @return {@link String} representaion of HTTP attribute Content-Type
      */
     public String getContentType() {
         return contentType;
     }
 
     /**
-     * Check if Content-Type is CSS.
+     * Check if {@link ContentType} is CSS.
      *
-     * @return True if Content-Type is CSS.
+     * @return {@code true} if {@link String} representaion of
+     * {@link ContentType} is equal to "text/css"; {@code false} otherwise
      */
     public boolean isCss() {
         switch (contentType) {
@@ -44,9 +45,10 @@ public class ContentType {
     }
 
     /**
-     * Check if Content-Type is HTML.
+     * Check if {@link ContentType} is HTML.
      *
-     * @return True if Content-Type is HTML.
+     * @return {@code true} if {@link String} representaion of
+     * {@link ContentType} is equal to "text/html"; {@code false} otherwise
      */
     public boolean isHtml() {
         switch (contentType) {
@@ -55,9 +57,14 @@ public class ContentType {
         }
         return false;
     }
+
     /**
-     * Decides if type of content can be processed further by any PageController. 
-     * @return True if content is processable.
+     * Decides if {@link ContentType} {@link #isCss()} or {@link #isHtml()} and
+     * can be processed futher.
+     *
+     * @return {@code true} if {@link String} representaion of
+     * {@link ContentType} is equal to "text/css" or "text/html"; {@code false}
+     * otherwise
      */
     public boolean isProcessable() {
         return this.isHtml() || this.isCss();

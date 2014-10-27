@@ -6,36 +6,36 @@ import java.util.Objects;
  * This class represents the URL web address.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 public class LinkURL {
 
-    /**
-     * Text representaion of the URL web address.
-     */
+    //Text representaion of the URL web address
     private final String url;
 
     /**
-     * Constructs the URL web address.
+     * Creates new instance of {@link LinkURL}.
      *
-     * @param url Text value of the URL web address.
+     * @param url {@link String} representation of the URL web address
      */
     public LinkURL(String url) {
         this.url = url;
     }
 
     /**
-     * Returns the text representation of the URL web address.
+     * Returns the {@link String} representation of {@link LinkURL}.
      *
-     * @return Text representaion of the URL web address.
+     * @return {@link String} representaion of the URL web address
      */
     public String getUrl() {
         return url;
     }
 
     /**
-     * Checks if the URL starts with http or https protokol clause.
+     * Checks if {@link LinkURL} starts with http or https protokol clause.
      *
-     * @return True if the URL starts with http or https protokol clause.
+     * @return {@code true} if {@link String} representaion of the URL starts
+     * with "http://" or "https://" protokol clause; {@code false} otherwise
      */
     public boolean checkURL() {
         if (url.length() > 7) {

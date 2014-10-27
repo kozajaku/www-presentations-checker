@@ -17,26 +17,33 @@ import org.presentation.parser.CSSParserService;
 import org.presentation.parser.ParsedLinkResponse;
 
 /**
- * Default implementation of CSSParserService
+ * Default implementation of {@link CSSParserService}. Parses given CSS
+ * {@link PageContent} for {@link List} of {@link ParsedLinkResponse} using
+ * fact, that they are included in "url(...)" syntax.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 @Dependent
 public class CSSParserServiceDefault implements CSSParserService {
 
-    /**
-     * Inject logger.
-     */
+    //Inject logger
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
     /**
-     * Default method for parse links from CSS file.
+     * Default method for parse {@link ParsedLinkResponse} from the CSS
+     * {@link PageContent}. Search in code for "url(...)" sytax and extract the
+     * URL from it. Then it formats it to absolute URL form and save it to
+     * {@link List} as instance of {@link ParsedLinkResponse}, that returns in
+     * the end.
      *
-     * @param sourceCode Source code of the CSS file.
-     * @param baseURL URL link of the CSS file.
-     * @return List of parsed links from the CSS file.
+     * @param sourceCode CSS {@link PageContent}
+     * @param baseURL {@link LinkURL} of the parsed CSS file; it is used to
+     * formats {@link ParsedLinkResponse} addresses to their absolute forms
+     * @return {@link List} of {@link ParsedLinkResponse} parsed from the CSS
+     * {@link PageContent}
      */
     @Override
     public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL) {
@@ -66,11 +73,15 @@ public class CSSParserServiceDefault implements CSSParserService {
     }
 
     /**
-     * Formats relative URL to absolute if necessary.
+     * Formats {@link String} relative URL parsed from the CSS
+     * {@link PageContent} to its absolute form based on base {@link URL}.
      *
-     * @param url Relative URL parsed from the CSS file.
-     * @param baseURL Base URL of the CSS file.
-     * @return Absolute URL generated from relative and base URL.
+     * @param url {@link String} relative URL parsed from the CSS
+     * {@link PageContent}
+     * @param baseURL base {@link URL} of the CSS file
+     * @return absolute {@link LinkURL} formated from relative and base
+     * {@link URL}
+     * @throws MalformedURLException If formating fails.
      */
     private LinkURL formatToAbsURL(String url, URL base) throws MalformedURLException {
         URL abs = new URL(base, url);

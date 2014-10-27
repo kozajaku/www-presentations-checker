@@ -7,27 +7,27 @@ import java.util.List;
  * Represents container for user options.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 public class OptionContainer {
 
-    /**
-     * Array list of user options.
-     */
+    //Array list of user options.
     private final List<String> chosenOptions = new ArrayList<>();
 
     /**
-     * Returns list of all user options.
+     * Returns {@link List} of all user options from this
+     * {@link OptionContainer}.
      *
-     * @return List of all user options.
+     * @return {@link List} of all user options
      */
     public List<String> getChosenOptions() {
         return chosenOptions;
     }
 
     /**
-     * Add user option to this container.
+     * Add user option to this {@link OptionContainer}.
      *
-     * @param option User option.
+     * @param option {@link String} representation of user option
      */
     public void addOption(String option) {
         this.chosenOptions.add(option);

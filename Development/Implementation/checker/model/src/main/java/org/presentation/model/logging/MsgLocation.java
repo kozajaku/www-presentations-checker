@@ -1,26 +1,27 @@
 package org.presentation.model.logging;
 
 /**
- * Represents location of message content.
+ * This class represents location of {@link Message} in page content.
+ * {@link MsgLocation} is given by row and column position of content which is
+ * this {@link Message} related to.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 public class MsgLocation {
 
-    /**
-     * Row on which is message located.
-     */
+    //Row on which is message located
     private final Integer row;
-    /**
-     * Column on which is message located.
-     */
+    //Column on which is message located
     private final Integer column;
 
     /**
-     * Constructs a message location.
+     * Creates new instance of {@link MsgLocation} with row and column position
+     * of {@link Message} in page content.
      *
-     * @param row Row on which is message located.
-     * @param column Column on which is message located.
+     * @param row {@link Integer} row on which is the {@link Message} located
+     * @param column {@link Integer} column on which is the {@link Message}
+     * located
      */
     public MsgLocation(Integer row, Integer column) {
         this.row = row;
@@ -28,18 +29,18 @@ public class MsgLocation {
     }
 
     /**
-     * Returns column on which is message located.
+     * Returns column on which is this {@link Message} located.
      *
-     * @return Column on which is message located.
+     * @return {@link Integer} column on which is the {@link Message} located
      */
     public Integer getColumn() {
         return column;
     }
 
     /**
-     * Returns row on which is message located.
+     * Returns row on which is this {@link Message} located.
      *
-     * @return Row on which is message located.
+     * @return {@link Integer} row on which is the {@link Message} located
      */
     public Integer getRow() {
         return row;

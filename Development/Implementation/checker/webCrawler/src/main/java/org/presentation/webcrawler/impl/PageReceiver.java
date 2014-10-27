@@ -26,56 +26,52 @@ import org.presentation.model.logging.MessageProducer;
 import org.presentation.model.logging.WarningMsg;
 
 /**
- * Default implementation of PageReciever
+ * Class representing page reciever, which can send GET or HEAD HTTP request
+ * with user specified {@link List} of HTTP {@link Header} to web page given by
+ * {@link LinkURL} and returns response in form of {@link ReceiverResponse}. It
+ * can also download page content to {@link PageContent} if the page
+ * Content-Type is HTML or CSS. It handles HTTP and HTTPS protocol.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 @Dependent
 public class PageReceiver implements MessageProducer {
 
-    /**
-     * Inject logger.
-     */
+    //Inject logger
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
-    /**
-     * Message logger for this resource.
-     */
+    //Message logger for this resource
     private MessageLogger messageLogger;
-    /**
-     * Set of already marked hostnames with invalid certificate.
-     */
+    //Set of already marked hostnames with invalid certificate
     private final Set<String> hostnames = new HashSet<>();
 
-    /**
-     * Constant for GET method.
-     */
+    //Constant for GET method
     private static final String GET = "GET";
-    /**
-     * Constant for HEAD method.
-     */
+    //Constant for HEAD method
     private static final String HEAD = "HEAD";
-    /**
-     * Constant for HTTP protocol.
-     */
+    //Constant for HTTP protocol
     private static final String HTTP = "http";
-    /**
-     * Constant fot HTTPS protocol.
-     */
+    //Constant fot HTTPS protocol
     private static final String HTTPS = "https";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         messageLogger = messageLoggerContainer.createLogger("Page Receiver");
     }
 
     /**
-     * Sending HEAD request on the page.
+     * Sends HTTP HEAD request to {@link LinkURL} address, using user specified
+     * {@link List} of HTTP {@link Header}.
      *
-     * @param linkURL URL address of the page.
-     * @param addHeaders Headers attributes specified by user.
-     * @return Response for HEAD request represented by ReceiverResponse.
+     * @param linkURL {@link LinkURL} address of the web page
+     * @param addHeaders {@link List} of HTTP {@link Header}, specified by user,
+     * used for the request
+     * @return {@link ReceiverResponse} for the HTTP HEAD request
      * @throws MalformedURLException If an unknown protocol is specified.
      * @throws IOException If request fails in any way.
      */
@@ -85,12 +81,16 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Sending HEAD request and if it is HTML or CSS, sending GET request and
-     * downloads page content.
+     * Sends HTTP HEAD request to {@link LinkURL} address, using user specified
+     * {@link List} of HTTP {@link Header} and if it is HTML or CSS file,
+     * decided by its Content-Type HTTP attribute, sends also GET request and
+     * downloads {@link PageContent}.
      *
-     * @param linkURL URL address of the page.
-     * @param addHeaders Headers attributes specified by user.
-     * @return Response for request represented by ReceiverResponse.
+     * @param linkURL {@link LinkURL} address of the web page
+     * @param addHeaders {@link List} of HTTP {@link Header}, specified by user,
+     * used for the request
+     * @return {@link ReceiverResponse} for the HTTP request; may contain
+     * {@link PageContent}
      * @throws MalformedURLException If an unknown protocol is specified.
      * @throws IOException If request fails in any way.
      */
@@ -105,13 +105,15 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Short version of connectToPage automaticly defining, if content should be
-     * downloaded.
+     * Short version of {@link #connectToPage(org.presentation.model.LinkURL, java.util.List, java.lang.String, java.lang.Boolean)
+     * } automaticly deciding, if {@link PageContent} should be downloaded.
      *
-     * @param linkURL URL address of the page.
-     * @param addHeaders Headers attributes specified by user.
-     * @param method Name of the selected method.
-     * @return Response for request represented by ReceiverResponse.
+     * @param linkURL {@link LinkURL} address of the web page
+     * @param addHeaders {@link List} of HTTP {@link Header}, specified by user,
+     * used for the request
+     * @param method {@link String} name of the selected HTTP method
+     * @return {@link ReceiverResponse} for the HTTP request; may contain
+     * {@link PageContent}
      * @throws MalformedURLException If an unknown protocol is specified.
      * @throws IOException If request fails in any way.
      */
@@ -120,11 +122,11 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Sets our own certificate verification for the specified HTTPS connection,
-     * which allows to go through any certificate, but invalid certificate sends
-     * warning message.
+     * Sets own certificate verification for the specified HTTPS connection,
+     * which allows to proceed through any certificate, but invalid certificate
+     * sends warning message to {@link MessageLogger}.
      *
-     * @param connection Https connection.
+     * @param connection HTTPS connection to {@link LinkURL} address
      */
     private void setHostnameVerifier(HttpsURLConnection connection) {
         final HostnameVerifier ver = connection.getHostnameVerifier();
@@ -148,13 +150,19 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Sends request to server.
+     * Sends HEAD or GET HTTP request, using user specified {@link List} of HTTP
+     * {@link Header}, to {@link LinkURL} address and returns its response in
+     * {@link ReceiverResponse}, which may also content {@link PageContent}
+     * depending on used method.
      *
-     * @param linkURL URL address of the page.
-     * @param addHeaders Headers attributes specified by user.
-     * @param method Name of the selected method.
-     * @param getContent Indentifier if method should get the page content.
-     * @return Response for request represented by ReceiverResponse.
+     * @param linkURL {@link LinkURL} address of the web page
+     * @param addHeaders {@link List} of HTTP {@link Header}, specified by user,
+     * used for the request
+     * @param method {@link String} name of the selected HTTP method
+     * @param getContent {@link Boolean} indentifing if method should get the
+     * {@link PageContent}
+     * @return {@link ReceiverResponse} for the HTTP request; may contain
+     * {@link PageContent}
      * @throws MalformedURLException If an unknown protocol is specified.
      * @throws IOException If request fails in any way.
      */
@@ -242,11 +250,12 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Downloads page content.
+     * Recieves {@link String} page content from {@link BufferedReader} open to
+     * specified web page.
      *
-     * @param in
-     * @return String
-     * @throws IOException
+     * @param in {@link BufferedReader} from which is content readed
+     * @return {@link String} whole page content
+     * @throws IOException If recieving of content fails in any way.
      */
     private String recievePageContent(BufferedReader in) throws IOException {
         String inputLine;

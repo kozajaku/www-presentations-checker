@@ -1,31 +1,32 @@
 package org.presentation.model.logging;
 
 /**
- * Represents invalid link type of abstract class Message, which is
- * specification of class Error Message.
+ * Represents invalid link type of abstract class {@link Message}, which extends
+ * class {@link ErrorMsg} for {@link ErrorCode}. This class is used for invalid
+ * links in web pages and HTTP status codes, which returns HTTP request sended
+ * to them.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 public class InvalidLinkMsg extends ErrorMsg {
 
-    /**
-     * HTTP error code, which make the link invalid.
-     */
+    //HTTP status code, which make the link invalid
     private ErrorCode errorCode;
 
     /**
-     * Returns HTTP error code of invalid link.
+     * Returns {@link ErrorCode} of this {@link InvalidLinkMsg}.
      *
-     * @return HTTP error code of invalid link.
+     * @return {@link ErrorCode} of invalid link
      */
     public ErrorCode getErrorCode() {
         return errorCode;
     }
 
     /**
-     * Sets the HTTP error code of invalid link.
+     * Sets {@link ErrorCode} of this {@link InvalidLinkMsg}.
      *
-     * @param errorCode HTTP error code.
+     * @param errorCode {@link ErrorCode} of invalid link
      */
     public void setErrorCode(ErrorCode errorCode) {
         this.errorCode = errorCode;

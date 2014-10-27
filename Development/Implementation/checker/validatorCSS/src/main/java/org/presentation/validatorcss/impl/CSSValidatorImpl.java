@@ -33,9 +33,12 @@ import org.w3._2005._07.css_validator.Warning;
 import org.w3._2005._07.css_validator.WarningList;
 
 /**
- * CSS validator service.
+ * {@link SinglePageControllerService} representing CSS validator service. Sends
+ * {@link LinkURL} of CSS file to W3C validation service and processes its SOAP
+ * response to {@link MessageLogger}.
  *
  * @author Jindřich Máca
+ * @version $Id: $Id
  */
 @Dependent
 public class CSSValidatorImpl implements SinglePageControllerService {
@@ -44,28 +47,24 @@ public class CSSValidatorImpl implements SinglePageControllerService {
      * Package friendly constant for option interface.
      */
     static final String SERVICE_NAME = "CSS validator";
-    /**
-     * Constant representing W3C url of validation service for CSS.
-     */
+    //Constant representing W3C url of validation service for CSS
     private static final String VALIDATION_SERVICE = "http://jigsaw.w3.org/css-validator/validator";
 
-    /**
-     * Inject logger.
-     */
+    //Inject logger
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
-    /**
-     * Message logger for this resource.
-     */
+    //Message logger for this control
     private MessageLogger logger;
 
     /**
-     * Returns input stream with SOAP respons of CSS W3C validation service.
+     * Returns {@link InputStream} with SOAP respons of CSS W3C validation
+     * service.
      *
-     * @param urlToValidate URL which will be validated
-     * @return Input stream wich SOAP respons of CSS W3C validation service.
-     * @throws IOException If request fails in any way
+     * @param urlToValidate {@link String} URL which will be validated
+     * @return {@link InputStream} with SOAP respons of CSS W3C validation
+     * service
+     * @throws IOException If request fails in any way.
      */
     private InputStream getSOAPInputStream(String urlToValidate) throws IOException {
         URL url = new URL(VALIDATION_SERVICE + "?output=soap12&uri=" + urlToValidate);
@@ -74,11 +73,12 @@ public class CSSValidatorImpl implements SinglePageControllerService {
     }
 
     /**
-     * Process prepared SOAP response for specific URL to relevant messages for
-     * user.
+     * Process prepared SOAP response of W3C validation service for this
+     * {@link LinkURL} of CSS file to {@link MessageLogger} for this control.
      *
-     * @param cvr Prepared SOAP response
-     * @param url URL releated to validation
+     * @param cvr {@link CSSValidationResponse} of W3C validation service for
+     * this {@link LinkURL} of CSS file
+     * @param url {@link LinkURL} of validated CSS file
      */
     private void processCVR(CSSValidationResponse cvr, LinkURL url) {
         if (!cvr.isValidity()) {
@@ -103,7 +103,7 @@ public class CSSValidatorImpl implements SinglePageControllerService {
                     if (error.getMessage() != null) {
                         //ignore parse errors
                         tmp = error.getMessage().trim();
-                        if (tmp.equals("Parse Error")){
+                        if (tmp.equals("Parse Error")) {
                             continue;
                         }
                         ErrorMsg msg = new ErrorMsg();
@@ -128,7 +128,9 @@ public class CSSValidatorImpl implements SinglePageControllerService {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of css {0}", url.getUrl());
@@ -153,25 +155,33 @@ public class CSSValidatorImpl implements SinglePageControllerService {
 
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         logger = messageLoggerContainer.createLogger("CSS Validator");
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         //nothing to do - body should be empty
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isApplicable(ContentType contentType) {
         return contentType.isCss();

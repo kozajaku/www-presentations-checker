@@ -28,7 +28,9 @@ import org.w3._2005._10.markup_validator.Warning;
 import org.w3._2005._10.markup_validator.WarningList;
 
 /**
- * HTML validator service.
+ * {@link SinglePageControllerService} representing HTML validator service.
+ * Sends {@link LinkURL} of HTML file to W3C validation service and processes
+ * its SOAP response to {@link MessageLogger}.
  *
  * @author Jindřich Máca
  * @version $Id: $Id
@@ -40,39 +42,36 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
      * Package friendly constant for option interface.
      */
     static final String SERVICE_NAME = "HTML validator";
-    /**
-     * Constant representing W3C url of validation service for HTML.
-     */
+    //Constant representing W3C url of validation service for HTML
     private static final String VALIDATION_SERVICE = "http://validator.w3.org/check";
 
-    /**
-     * Inject logger.
-     */
+    //Inject logger
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
-    /**
-     * Message logger for this resource.
-     */
+    //Message logger for this control
     private MessageLogger logger;
 
     /**
-     * Returns input stream with SOAP respons of HTML W3C validation service.
+     * Returns {@link InputStream} with SOAP respons of HTML W3C validation
+     * service.
      *
-     * @param urlToValidate URL which will be validated
-     * @return Input stream wich SOAP respons of HTML W3C validation service.
-     * @throws IOException If request fails in any way
+     * @param urlToValidate {@link String} URL which will be validated
+     * @return {@link InputStream} with SOAP respons of HTML W3C validation
+     * service
+     * @throws IOException If request fails in any way.
      */
     private InputStream getSOAPInputStream(String urlToValidate) throws IOException {
         return ValidatorResponseFetcher.fetchSOAPResponse(VALIDATION_SERVICE, urlToValidate);
     }
 
     /**
-     * Process prepared SOAP response for specific URL to relevant messages for
-     * user.
+     * Process prepared SOAP response of W3C validation service for this
+     * {@link LinkURL} of HTML file to {@link MessageLogger} for this control.
      *
-     * @param mvr Prepared SOAP response
-     * @param url URL releated to validation
+     * @param mvr {@link CSSValidationResponse} of W3C validation service for
+     * this {@link LinkURL} of HTML file
+     * @param url {@link LinkURL} of validated HTML file
      */
     private void processMVR(MarkupValidationResponse mvr, LinkURL url) {
         if (!mvr.isValidity()) {
@@ -111,7 +110,9 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void checkPage(ContentType contentType, LinkURL url, PageContent text) {
         LOG.log(Level.INFO, "Checking validity of html {0}", url.getUrl());
@@ -135,25 +136,33 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
         }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         logger = messageLoggerContainer.createLogger("HTML Validator");
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         //not used method - should have empty body
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isApplicable(ContentType contentType) {
         return contentType.isHtml();
