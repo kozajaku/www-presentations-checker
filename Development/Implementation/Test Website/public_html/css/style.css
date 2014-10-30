@@ -1,22 +1,28 @@
 /* CSS Document */
 body {
   color: white;
+  /* Redundant */
   background-color: black;
 }
 div {
   color: red;
+  /* Redundant */
 }
 #single {
   color: blue;
+  /* Redundant */
 }
 .single {
   color: green;
+  /* Redundant */
 }
 #multi {
   color: purple;
+  /* Redundant */
 }
 .multi {
   color: gray;
+  /* Redundant */
 }
 .multi-inner {
   color: aqua;
