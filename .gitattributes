@@ -21,10 +21,19 @@
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
 
-*.pdf   -text
+*.pdf   binary
 *.txt   text
-*.eap   -text
-*.png   -text
-*.jpg   -text
-*.jpeg  -text
-*.java  text    
+*.eap   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.java  text
+*.sql   text
+*.xml   text
+*.html  text
+*.html  text
+*.ppt   binary
+*.pptx  binary
+*.rtf   text
+*.zip   binary
+*.png   binary    
