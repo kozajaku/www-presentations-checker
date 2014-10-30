@@ -35,6 +35,10 @@ public class CRCCssCode {
 	return cssCode;
     }      
     
+    /**
+     * This method fills up inner structures
+     * @throws CSSException 
+     */
     protected void loadRuleSets() throws CSSException {
 	this.cssRuleBlocks = new ArrayList<>();
 	
@@ -84,7 +88,7 @@ public class CRCCssCode {
 	    }
 	}
     }
-    
+        
     public CSSRule getCssRuleByPosition(DeclarationPosition position) {
 	if(this.declarationPositionMap.containsKey(position)) {
 	    DeclarationSource declarationSource = this.declarationPositionMap.get(position);

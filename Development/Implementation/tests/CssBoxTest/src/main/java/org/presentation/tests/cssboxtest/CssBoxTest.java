@@ -36,6 +36,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.w3c.dom.html.HTMLAnchorElement;
 import org.xml.sax.SAXException;
 
@@ -90,7 +91,6 @@ public class CssBoxTest {
 	
 
 	org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new String(Files.readAllBytes(Paths.get(docFilename))));	
-	//org.jsoup.nodes.Document jsoupDocument = Jsoup.parse(new URL("http://webzdarma.cz/"), 1000);	
 	
 	Document doc = DOMBuilder.jsoup2DOM(jsoupDocument);
 	
@@ -109,6 +109,10 @@ public class CssBoxTest {
 	Logger.getLogger(CssBoxTest.class.getName()).log(Level.INFO, "WRITING LOG TO {0}", outputFilename);	
 	PrintWriter writer = new PrintWriter(outputFilename, "UTF-8");
 	
+	
+	walkThroughDoc(doc.getDocumentElement(), 0);
+	return;
+	
 	long startTime = System.currentTimeMillis();		
 		
 	String spaces = "                                                                                                                                              ";
@@ -116,9 +120,9 @@ public class CssBoxTest {
 	for (int i = 0; i < nodeList.getLength(); i++) {
 	    Node node = nodeList.item(i);
 	    	    
-	    if (node.getNodeType() == Node.ELEMENT_NODE) {
-		ndata = da.getElementStyleInherited((Element) node);		
-						
+	    if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.TEXT_NODE) {	
+		ndata = da.getElementStyleInherited((Element) node);		    		
+								
 		writer.println(getNodeCaption(node));
 			
 		Collection<String> propertyNames = ndata.getPropertyNames();
@@ -175,7 +179,9 @@ public class CssBoxTest {
 	boolean first = true;
 	Node node = n;
 	StringBuilder sb = new StringBuilder();
-	while(node != null) {	    
+	while(node != null) {	  
+	    if(node.getNodeType() == Node.TEXT_NODE) return node.getNodeValue();
+	    
 	    NamedNodeMap attrList = node.getAttributes();	    
 	    Node classItem = null;
 	    if(attrList != null) {
@@ -186,6 +192,55 @@ public class CssBoxTest {
 	    first = false;
 	}
 	return sb.toString();
+    }
+    
+    protected static void walkThroughDoc(Node n, int depth) {
+	String tab = "   ";	
+	if(n.getNodeType() == Node.TEXT_NODE) {
+	    if(getNodeCaption(n).trim().length() > 0){
+		for(int i = 0; i < depth; i++) System.out.print(tab);
+		System.out.print(getNodeCaption(n));
+		System.out.println();
+	    }
+	}
+	
+	NodeList children = n.getChildNodes();
+	for(int i = 0; i < children.getLength(); i++){
+	    walkThroughDoc(children.item(i), depth+1);
+	}
+	
+    }
+    
+    public static void dfs(Document parsedDocument){
+	Node curNode;
+	
+	curNode = parsedDocument.getDocumentElement();
+	
+	while(curNode != null) {
+	    if(curNode.hasChildNodes()) {
+		Node nextNode = curNode.getFirstChild();
+		
+		// text child identified, we mark his parent as "has_text_content"
+		if(nextNode.getNodeType() == Node.TEXT_NODE) {
+		    if(curNode.getNodeType() == Node.ELEMENT_NODE) {
+			((Element)curNode).setAttribute("____CSSRC____has_test_content", "1");
+		    }		    
+		    curNode.removeChild(nextNode);  // we don't care about the text element any more
+		} else if(nextNode.getNodeType() == Node.ELEMENT_NODE) {
+		    // other than text element discovered, let's go deep
+		    curNode = nextNode;
+		} else {
+		    // do nothing
+		    curNode.removeChild(nextNode);
+		}
+	    } else {
+		// this node is already empty, youpee!
+		Node nextNode = curNode.getParentNode();
+		if(curNode.getParentNode() != null) curNode.getParentNode().removeChild(curNode);
+		if(curNode.getNodeType() == Node.ELEMENT_NODE) System.out.println(getNodeCaption(curNode));
+		curNode = nextNode;
+	    }
+	}	
     }
        
     

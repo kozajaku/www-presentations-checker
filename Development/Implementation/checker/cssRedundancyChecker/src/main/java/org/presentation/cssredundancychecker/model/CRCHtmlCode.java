@@ -44,7 +44,10 @@ public class CRCHtmlCode {
 	return stylesheetFilesRequired;
     }
         
-    
+    /**
+     * This method retrieves required stylesheet URLs from the document.
+     * The URLs are retrieved from &lt;link&gt; tags.
+     */
     private void loadStylesheetsRequiredFromDocument() {
 	Elements links = this.htmlCode.getParsedHTML().select("link[href]");
 	for (Element link : links) {

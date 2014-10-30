@@ -5,15 +5,12 @@ import cz.vutbr.web.css.Declaration;
 import cz.vutbr.web.css.NodeData;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.fit.cssbox.css.DOMAnalyzer;
@@ -51,8 +48,6 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
     Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
     Map<LinkURL, CRCCssCode> stylesheetsByURL;
-    List<CRCCssCode> cssCodes;
-    List<CRCHtmlCode> htmlCodes;
 
     @Inject
     @SuppressWarnings("NonConstantLogger")
@@ -63,8 +58,6 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
     public CSSRedundancyChecker() {
         this.stylesheetDependencies = new HashMap<>();
-        this.cssCodes = new ArrayList<>();
-        this.htmlCodes = new ArrayList<>();
     }
 
     @Override
@@ -83,14 +76,13 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         stopped = true;
     }
 
-    @Override
+    @Override 
     public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode) {
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
         
 	CRCCssCode crcCssCode;
 	try {
 	    crcCssCode = new CRCCssCode(cssCode);
-	    this.cssCodes.add(crcCssCode);
 	    this.stylesheetsByURL.put(linkURL, crcCssCode);
 
 	    if (this.stylesheetDependencies.containsKey(linkURL)) {
@@ -124,25 +116,54 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                 }
                 ((List<CRCHtmlCode>) this.stylesheetDependencies.get(missingStylesheet)).add(document);
             }
-            this.htmlCodes.add(document);
         }
     }
 
+    /**
+     * This method frees resources allocated by HTML document caching.     
+     * @param documents list of documents to be removed from the cache list
+     */
     private void freeDocumentsFromPrison(List<CRCHtmlCode> documents) {
-        this.htmlCodes.removeAll(documents);
         for (List<CRCHtmlCode> stylesheetDepencyList : this.stylesheetDependencies.values()) {
             stylesheetDepencyList.removeAll(documents);
         }
     }
 
+    /**
+     * Return URLs of all stylesheet documents that are missing for the given document.
+     * This method compares the list of stylesheet documents that have been already
+     * supplied by the crawler and the list of stylesheets that are required by 
+     * the document itself (provided by CRCHtmlCode).
+     * @param document
+     * @return 
+     */
     private List<LinkURL> getMissingStylesheetsForDocument(CRCHtmlCode document) {
-        return new ArrayList<>();
+        List<LinkURL> stylesheetsMissing = new ArrayList<>();
+	for(LinkURL stylesheetRequired : document.getStylesheetFilesRequired()) {
+	    if(!this.stylesheetsByURL.containsKey(stylesheetRequired)) {
+		stylesheetsMissing.add(stylesheetRequired);
+	    }
+	}
+	return stylesheetsMissing;
     }
 
+    /**
+     * Checks if all the stylesheet files required by the particular document are 
+     * available (have been provided by WebCrawler)
+     * @param document
+     * @return 
+     */
     private boolean areAllStylesheetsForDocumentAvailable(CRCHtmlCode document) {
         return this.getMissingStylesheetsForDocument(document).isEmpty();
     }
 
+    /**
+     * This metod is called to process a single HTML page. It must be called AFTER
+     * all required stylesheets are loaded. It prepares the document to be analyzed 
+     * by DOMAnalyzer. Then it calls doTheCheck method that actually walks through 
+     * the HTML DOM and evaluates HTML elements;
+     * @param document 
+     */
     private void processSinglePage(CRCHtmlCode document) {
 	Document parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
 	
@@ -172,16 +193,102 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	}
 	domAnalyzer.getStyleSheets();	
 	
-	// walk through all elements
-	NodeList allElements = parsedDocument.getElementsByTagName("*");
+	doTheCheck(parsedDocument, domAnalyzer, document);	
+    }
+    
+    /**
+     * Process the element's rules and add an usage for each of the rules.
+     * @param element Element to be processed
+     * @param hasTextContent True if the element contains any text itself (contains at least one Text Node)
+     * @param domAnalyzer Dom analyzer for the given document
+     * @param ruleUsage Usage to be added to the usage list for each rule
+     */
+    protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzer domAnalyzer, CSSRuleUsage ruleUsage){
 	NodeData nodeData;
-	Collection<String> cssPropertyNames;
+	nodeData = domAnalyzer.getElementStyleInherited((Element) element);		
+	if(nodeData != null) {		
+	    Collection<String> cssPropertyNames;
+	    cssPropertyNames = nodeData.getPropertyNames();
+
+	    // load properties
+	    for(String cssPropertyName : cssPropertyNames) {
+
+		// check the property is not inheritable (is applied without text contnet) or the element contains text
+		if(!nodeData.getProperty(cssPropertyName).inherited() || hasTextContent) {
+
+		    // load declaration sources
+		    Declaration sourceDeclaration = nodeData.getSourceDeclaration(cssPropertyName, true);
+		    if(sourceDeclaration != null) {
+			Declaration.Source source = sourceDeclaration.getSource();
+			if(source != null) {
+
+			    // CRCCssCode resolve by url
+			    LinkURL sourceUrl = new LinkURL(source.getUrl().toString());
+			    if(this.stylesheetsByURL.containsKey(sourceUrl)) {
+				CRCCssCode cssDocument = this.stylesheetsByURL.get(sourceUrl);
+
+				// get particular CSS rule and add the usage
+				CSSRule cssRule = cssDocument.getCssRuleByPosition(new DeclarationPosition(source.getLine(), source.getPosition()));
+				if(cssRule != null && ruleUsage != null) {
+				    cssRule.addRuleUsage(ruleUsage);					
+				}
+			    }
+			}
+		    }
+		}
+		
+	    }
+	}
+	    	
+    }
+    
+    /**
+     * This function iterates over the HTML DOM tree and call applyDiscoveredRules on each Element Node
+     * @param parsedDocument Parsed document
+     * @param domAnalyzer Dom analyzer for the given document
+     * @param document Html document
+     */
+    protected void doTheCheck (Document parsedDocument, DOMAnalyzer domAnalyzer, CRCHtmlCode document) {
+	// walk through all elements (DFS)
+	Node curNode;
 	
+	curNode = parsedDocument.getDocumentElement();
+	
+	while(curNode != null) {
+	    if(curNode.hasChildNodes()) {
+		Node nextNode = curNode.getFirstChild();
+		
+		// text child identified, we mark his parent as "has_text_content"
+		if(nextNode.getNodeType() == Node.TEXT_NODE) {
+		    if(curNode.getNodeType() == Node.ELEMENT_NODE) {
+			((Element)curNode).setAttribute("____CSSRC____has_test_content", "1");
+		    }		    
+		    curNode.removeChild(nextNode);  // we don't care about the text element any more
+		} else if(nextNode.getNodeType() == Node.ELEMENT_NODE) {
+		    // other than text element discovered, let's go deep
+		    curNode = nextNode;
+		} else {
+		    // do nothing
+		    curNode.removeChild(nextNode);
+		}
+	    } else {
+		// this node is already empty, youpee!
+		Node nextNode = curNode.getParentNode();
+		if(curNode.getParentNode() != null) curNode.getParentNode().removeChild(curNode);
+		if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLinkHTML()) );
+		curNode = nextNode;
+	    }
+	}
+	
+	    
+	  /*  
 	for (int i = 0; i < allElements.getLength(); i++) {
 	    Node curNode = allElements.item(i);
 	    if (curNode.getNodeType() == Node.ELEMENT_NODE) { 		
+		NodeData nodeData;
 		nodeData = domAnalyzer.getElementStyleInherited((Element) curNode);		
 		if(nodeData != null) {		
+		    Collection<String> cssPropertyNames;
 		    cssPropertyNames = nodeData.getPropertyNames();
 		
 		    // load properties
@@ -198,7 +305,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 				if(this.stylesheetsByURL.containsKey(sourceUrl)) {
 				    CRCCssCode cssDocument = this.stylesheetsByURL.get(sourceUrl);
 				    
-				    // get concrete CSS rule and add the usage
+				    // get particular CSS rule and add the usage
 				    CSSRule cssRule = cssDocument.getCssRuleByPosition(new DeclarationPosition(source.getLine(), source.getPosition()));
 				    if(cssRule != null) {
 					cssRule.addRuleUsage(new CSSRuleUsage(
@@ -211,22 +318,30 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		    }
 		}
 	    }
-	}
-	
+	}	
+		  */
     }
+      
 
+    /**
+     * This function is called when the checkup is finished. It sums up the results, generates
+     * result messages and also process the rest of the documents (those with missing stylesheets)
+     * @param traversalGraph unused
+     */
     @Override
     public void finalizeCheckup(TraversalGraph traversalGraph) {
         // if some files are still waiting for some missing stylesheets, let's process them at the end of checkup
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
-        for (CRCHtmlCode document : htmlCodes) {
-            processSinglePage(document);
-            documentsProcessed.add(document);
-        }
-        this.freeDocumentsFromPrison(documentsProcessed);
-
-        // todo generate messages
-	for(CRCCssCode cssDocument : this.cssCodes) {
+        for (List<CRCHtmlCode> documentList : this.stylesheetDependencies.values()) {
+	    for (CRCHtmlCode document : documentList) {
+		processSinglePage(document);
+		documentsProcessed.add(document);
+	    }
+	}
+	this.freeDocumentsFromPrison(documentsProcessed);
+	    
+	// todo generate messages
+	for(CRCCssCode cssDocument : this.stylesheetsByURL.values()) {
 	    List<CSSRuleSet> cssRuleBlocks = cssDocument.getCssRuleBlocks();
 	    for(CSSRuleSet cssRuleBlock : cssRuleBlocks)  {
 		
