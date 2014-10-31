@@ -15,7 +15,6 @@ import javax.ejb.Singleton;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import org.presentation.graphgenerator.impl.GraphGenerator;
 import org.presentation.model.graph.TraversalGraph;
 
 /**

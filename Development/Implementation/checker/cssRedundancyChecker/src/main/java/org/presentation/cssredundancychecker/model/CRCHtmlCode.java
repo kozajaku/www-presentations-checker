@@ -5,6 +5,7 @@
  */
 package org.presentation.cssredundancychecker.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ public class CRCHtmlCode {
 
     public CRCHtmlCode(HTMLCode htmlCode) {
 	this.htmlCode = htmlCode;	
+	this.stylesheetFilesRequired = new ArrayList<>();
 	this.loadStylesheetsRequiredFromDocument();
     }
     
@@ -50,10 +52,13 @@ public class CRCHtmlCode {
             String type = link.attr("type");
 	    String rel = link.attr("rel");
 	    if((type != null && (type.toLowerCase().equals("text/css"))) || (rel != null && (rel.toLowerCase().equals("stylesheet")))) {
-		LinkURL stylesheetResource = new LinkURL(link.attr("abs:href").split("#")[0]);
-		LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());	    		
-		if (stylesheetResource.checkURL()) {
-		    this.stylesheetFilesRequired.add(stylesheetResource);
+		String cssHref = link.attr("abs:href");
+		if(cssHref != null) {
+		    LinkURL stylesheetResource = new LinkURL(cssHref.split("#")[0]);
+		    if(LOG != null) LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());	    		
+		    if (stylesheetResource.checkURL()) {
+			this.stylesheetFilesRequired.add(stylesheetResource);
+		    }
 		}
 	    }
         }

@@ -5,6 +5,7 @@
  */
 package org.presentation.graphgenerator.impl;
 
+import org.presentation.graphgenerator.GraphGenerator;
 import javax.enterprise.context.Dependent;
 import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.graph.Edge;

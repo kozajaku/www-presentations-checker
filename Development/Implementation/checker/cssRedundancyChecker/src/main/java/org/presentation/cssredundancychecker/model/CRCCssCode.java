@@ -12,6 +12,7 @@ import cz.vutbr.web.css.RuleBlock;
 import cz.vutbr.web.css.RuleSet;
 import cz.vutbr.web.css.StyleSheet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.presentation.parser.CSSCode;
@@ -28,6 +29,8 @@ public class CRCCssCode {
     
     public CRCCssCode(CSSCode cssCode) throws CSSException {
 	this.cssCode = cssCode;
+	this.cssRuleBlocks = new ArrayList<>();
+	this.declarationPositionMap = new HashMap<>();
 	loadRuleSets();
     }
 
@@ -39,9 +42,7 @@ public class CRCCssCode {
      * This method fills up inner structures
      * @throws CSSException 
      */
-    private void loadRuleSets() throws CSSException {
-	this.cssRuleBlocks = new ArrayList<>();
-	
+    private void loadRuleSets() throws CSSException {	
 	StyleSheet stylesheet = cssCode.getParsedCSS();
 	for(RuleBlock block : stylesheet) {
 	    if(block instanceof RuleSet) {
