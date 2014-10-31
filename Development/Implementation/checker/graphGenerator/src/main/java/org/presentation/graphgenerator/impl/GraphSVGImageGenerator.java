@@ -5,8 +5,10 @@
  */
 package org.presentation.graphgenerator.impl;
 
+import java.util.Map;
 import org.presentation.graphgenerator.GraphGenerator;
 import org.presentation.graphgenerator.GraphResult;
+import org.presentation.model.graph.Node;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
@@ -18,12 +20,24 @@ import org.presentation.model.graph.TraversalGraph;
 //@Dependent //TODO - uncomment after implementation
 public class GraphSVGImageGenerator extends GraphGenerator {
 
+    Map<Node, Integer> nodeNumbers;
+    int nodeCounter;
     /**
      * {@inheritDoc}
      */
     @Override
     public GraphResult generateGraphResult(TraversalGraph graph) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nodeCounter = 0;
+        StringBuilder nodes = new StringBuilder();
+        StringBuilder edges = new StringBuilder();
+        writeNode(nodes, edges, graph.getRoot());
+        return null;
     }
-
+    private void writeNode(StringBuilder nodes, StringBuilder edges, Node node) {
+        Integer nodeNumber = nodeNumbers.get(node);
+        if (nodeNumber == null) {
+            nodeCounter++;
+            nodeNumbers.put(node, nodeCounter);
+        }
+    }
 }

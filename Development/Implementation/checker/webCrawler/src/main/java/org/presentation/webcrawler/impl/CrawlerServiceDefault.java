@@ -22,7 +22,7 @@ import org.presentation.model.graph.Node;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.graph.ValidNode;
-import org.presentation.model.logging.ErrorCode;
+import org.presentation.model.logging.ResponseCode;
 import org.presentation.model.logging.ErrorMsg;
 import org.presentation.model.logging.InvalidLinkMsg;
 import org.presentation.model.logging.MessageLoggerContainer;
@@ -214,7 +214,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                 }
             } else {
                 LOG.info("create invalid node");
-                InvalidNode node = new InvalidNode(linkURL, new ErrorCode(receiverResponse.getStateCode()));
+                InvalidNode node = new InvalidNode(linkURL, new ResponseCode(receiverResponse.getStateCode()));
                 //connect with graph
                 if (previousNode != null) {
                     previousNode.addEdge(new Edge(node, label, linkSourceType, true));
@@ -222,7 +222,7 @@ public class CrawlerServiceDefault implements CrawlerService {
                     graph = new TraversalGraph(node);
                 }
                 visitedURLs.put(linkURL, node);
-                sendInvalidLinkMsg(linkURL, new ErrorCode(receiverResponse.getStateCode()));
+                sendInvalidLinkMsg(linkURL, new ResponseCode(receiverResponse.getStateCode()));
             }
             return foundPages;
         }
@@ -380,7 +380,7 @@ public class CrawlerServiceDefault implements CrawlerService {
      * @param url Location of invalid link
      * @param errorCode Code of error (HTTP)
      */
-    private void sendInvalidLinkMsg(LinkURL url, ErrorCode errorCode) {
+    private void sendInvalidLinkMsg(LinkURL url, ResponseCode errorCode) {
         InvalidLinkMsg invalidLinkMsg = new InvalidLinkMsg();
         invalidLinkMsg.setMessage("invalid link");
         invalidLinkMsg.setPage(url);

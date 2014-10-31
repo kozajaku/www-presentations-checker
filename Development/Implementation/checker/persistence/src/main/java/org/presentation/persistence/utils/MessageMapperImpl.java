@@ -1,7 +1,7 @@
 package org.presentation.persistence.utils;
 
 import org.presentation.model.LinkURL;
-import org.presentation.model.logging.ErrorCode;
+import org.presentation.model.logging.ResponseCode;
 import org.presentation.model.logging.MessageMapper;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.persistence.model.MessageEntity;
@@ -60,7 +60,7 @@ public class MessageMapperImpl implements MessageMapper {
      * {@inheritDoc}
      */
     @Override
-    public void setErrorCode(ErrorCode errorCode) {
+    public void setErrorCode(ResponseCode errorCode) {
         messageEntity.setErrorCode(errorCode.getCode());
     }
 
@@ -95,8 +95,8 @@ public class MessageMapperImpl implements MessageMapper {
      * {@inheritDoc}
      */
     @Override
-    public ErrorCode getErrorCode() {
-        return new ErrorCode(messageEntity.getErrorCode());
+    public ResponseCode getErrorCode() {
+        return new ResponseCode(messageEntity.getErrorCode());
     }
 
     /**

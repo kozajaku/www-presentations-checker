@@ -1,7 +1,9 @@
 package org.presentation.model.graph;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.presentation.model.LinkURL;
-import org.presentation.model.logging.ErrorCode;
+import org.presentation.model.logging.ResponseCode;
 
 /**
  * This class represents invalid node (invalid link) in
@@ -15,7 +17,7 @@ public class InvalidNode extends Node {
     /**
      * Reason why the link is invalid. HTTP error code.
      */
-    private final ErrorCode errorCode;
+    private final ResponseCode errorCode;
 
     /**
      * Creates invalid node.
@@ -23,19 +25,13 @@ public class InvalidNode extends Node {
      * @param url An absolute URL representing link
      * @param errorCode Reason why the link is invalid
      */
-    public InvalidNode(LinkURL url, ErrorCode errorCode) {
+    public InvalidNode(LinkURL url, ResponseCode errorCode) {
         this.url = url;
         this.inputDegree = 0;
         this.errorCode = errorCode;
     }
 
-    /**
-     * <p>
-     * Getter for the field <code>errorCode</code>.</p>
-     *
-     * @return a {@link org.presentation.model.logging.ErrorCode} object.
-     */
-    public ErrorCode getErrorCode() {
+    public ResponseCode getResponseCode() {
         return errorCode;
     }
 
@@ -45,6 +41,11 @@ public class InvalidNode extends Node {
     @Override
     public boolean isValid() {
         return false;
+    }
+
+    @Override
+    public List<Edge> getOrientedEdges() {
+        return new ArrayList<>();
     }
 
 }

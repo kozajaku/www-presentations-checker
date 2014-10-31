@@ -1,6 +1,9 @@
 package org.presentation.model.graph;
 
+import java.util.List;
+import java.util.Objects;
 import org.presentation.model.LinkURL;
+import org.presentation.model.logging.ResponseCode;
 
 /**
  * This class represents node in
@@ -33,7 +36,12 @@ public abstract class Node {
     public void incInputDegree() {
         inputDegree++;
     }
-
+    public abstract ResponseCode getResponseCode();
+    /**
+     * Gets oriented edges which goes from this node.
+     * @return List of oriented {@link Edge}s or empty collection if node has no succesors.
+     */
+    public abstract List<Edge> getOrientedEdges();
     /**
      * <p>
      * Getter for the field <code>url</code>.</p>
@@ -52,6 +60,16 @@ public abstract class Node {
      */
     public int getInputDegree() {
         return inputDegree;
+    }
+
+    @Override
+    public int hashCode() {
+        return url.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return url.equals(obj);
     }
 
 }
