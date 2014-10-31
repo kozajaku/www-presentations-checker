@@ -39,7 +39,7 @@ public class CRCCssCode {
      * This method fills up inner structures
      * @throws CSSException 
      */
-    protected void loadRuleSets() throws CSSException {
+    private void loadRuleSets() throws CSSException {
 	this.cssRuleBlocks = new ArrayList<>();
 	
 	StyleSheet stylesheet = cssCode.getParsedCSS();

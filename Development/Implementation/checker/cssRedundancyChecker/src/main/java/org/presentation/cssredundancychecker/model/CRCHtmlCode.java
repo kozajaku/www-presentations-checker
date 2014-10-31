@@ -5,7 +5,6 @@
  */
 package org.presentation.cssredundancychecker.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,10 +12,7 @@ import javax.inject.Inject;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.presentation.model.LinkURL;
-import org.presentation.model.graph.LinkSourceType;
 import org.presentation.parser.HTMLCode;
-import org.presentation.parser.ParsedLinkResponse;
-import org.presentation.parser.helper.DOMBuilder;
 
 /**
  *

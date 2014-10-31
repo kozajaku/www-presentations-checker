@@ -46,15 +46,15 @@ import org.w3c.dom.NodeList;
  */
 public class CSSRedundancyChecker implements WholePresentationChecker {
 
-    Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
-    Map<LinkURL, CRCCssCode> stylesheetsByURL;
+    protected Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
+    protected Map<LinkURL, CRCCssCode> stylesheetsByURL;
 
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
-    MessageLogger messageLogger;
-    boolean stopped;
+    private MessageLogger messageLogger;
+    private boolean stopped;
 
     public CSSRedundancyChecker() {
         this.stylesheetDependencies = new HashMap<>();
