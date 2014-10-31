@@ -128,7 +128,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     @Override
     public void processOnePage(LinkURL pageUrl, PageContent pageSourceCode, ContentType contentType) {
         LOG.log(Level.INFO, "Processing page with url: {0}", pageUrl.getUrl());
-        singlePageController.checkPage(contentType, pageUrl, pageSourceCode);
+        singlePageController.checkPage(contentType, pageUrl, pageSourceCode);//in future releases non-blocking
+        wholePresentationController.addPage(pageSourceCode, pageUrl, contentType);//this is be non-blocking op
     }
 
     /**
@@ -139,8 +140,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
         LOG.log(Level.INFO, "Called crawling done method. State: {0}", crawlingState.name());
         //asynchronous generating graphs
         futureGraphResults = graphGenerator.drawGraph(traversalGraph);
-        //TODO implement calling whole page controllers
-        //consider it done
+        //asynchronous finishing wholePresentationController
+        wholePresentationController.checkPresentation(traversalGraph);
     }
 
     /**
