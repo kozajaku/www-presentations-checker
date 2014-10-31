@@ -2,6 +2,7 @@ package org.presentation.wholepresentationcontroller.impl;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.logging.Logger;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
@@ -16,7 +17,11 @@ public class AsyncWholeCheckerExecutor implements Runnable {
 
     private final List<WholePresentationChecker> checkers;
     private final LinkedBlockingQueue<WholeExecQueueElement> queue;
+    
+    private static final Logger LOG = Logger.getLogger(AsyncWholeCheckerExecutor.class.getName());
 
+    
+    
     public AsyncWholeCheckerExecutor(List<WholePresentationChecker> checkers) {
         this.checkers = checkers;
         queue = new LinkedBlockingQueue<>();
@@ -40,8 +45,10 @@ public class AsyncWholeCheckerExecutor implements Runnable {
                 queueElement = queue.take();
                 //check last element
                 if (queueElement.isEndOfQueue()){
+                    LOG.info("Retrieving final element from wpc queue");
                     break;
                 }
+                LOG.info("Retrieving new page from wpc queue");
                 //page element is valid
                 AbstractCode abstractCode = AbstractCode.createCode(queueElement.getContentType(), queueElement.getLink(), queueElement.getPageContent());
                 for (WholePresentationChecker i: checkers){

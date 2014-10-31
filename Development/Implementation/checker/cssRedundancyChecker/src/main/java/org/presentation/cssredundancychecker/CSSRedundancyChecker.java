@@ -100,7 +100,6 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
     public void addCSSPage(CSSCode cssCode) {
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
-
         LOG.log(Level.INFO, "Adding CSS page {0}", cssCode.getLink().getUrl());
 
         CRCCssCode crcCssCode;
