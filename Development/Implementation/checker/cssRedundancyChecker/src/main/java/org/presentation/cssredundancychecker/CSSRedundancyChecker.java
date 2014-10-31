@@ -48,7 +48,8 @@ import org.w3c.dom.NodeList;
  * @author Adam
  */
 public class CSSRedundancyChecker implements WholePresentationChecker {
-
+    static final String SERVICE_NAME = "CSS redundancy checker";
+    
     protected Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
     protected Map<LinkURL, CRCCssCode> stylesheetsByURL;
 
@@ -74,7 +75,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
     @Override
     public String getID() {
-        return "CSS redundancy checker";
+        return SERVICE_NAME;
     }
 
     @Override
@@ -185,7 +186,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     private void processSinglePage(CRCHtmlCode document) {
 	Document parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
 	
-	LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLinkHTML());
+	LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLink());
 	LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*").getLength());
 	
 	// remove stylesheet from the dom
@@ -325,7 +326,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		// this node is already empty, youpee!
 		Node nextNode = curNode.getParentNode();
 		if(curNode.getParentNode() != null) curNode.getParentNode().removeChild(curNode);
-		if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLinkHTML()) );
+		if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLink()) );
 		curNode = nextNode;
 	    }
 	}
@@ -410,7 +411,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		
 		if(cssRuleBlock.isRedundant()) {
 		    
-		    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLinkCSS(),
+		    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLink(),
 			    "Whole rule block \"" + cssRuleBlock.toString() + "\" is redundant"
 			    , blockMsgLocation, 10));
 		} else {
@@ -418,7 +419,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		    // not whole CSS block is redundant, let's list only redundant css properties
 		    for(CSSRule cssRule : cssRuleBlock.getCssRules()) {
 			if(cssRule.isRedundant()) {
-			    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLinkCSS(),
+			    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLink(),
 				    "Redundant rule \"" + cssRule.getName() + "\" in \"" + cssRuleBlock.toString() + "\""
 				    , new MsgLocation(cssRule.getDeclarationPosition().getLine(), cssRule.getDeclarationPosition().getCol()), 10));			    
 			}
@@ -431,7 +432,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 			    usageCounts.add(cssRule.getCssRuleUsages().size());
 			}
 		    }
-		    this.messageLogger.addMessage(this.fillMessage(new InfoMsg(), cssDocument.getCssCode().getLinkCSS(), "Rule block \"" + cssRuleBlock.toString() + "\" has " + Collections.max(usageCounts) + " usages", blockMsgLocation, 0));
+		    this.messageLogger.addMessage(this.fillMessage(new InfoMsg(), cssDocument.getCssCode().getLink(), "Rule block \"" + cssRuleBlock.toString() + "\" has " + Collections.max(usageCounts) + " usages", blockMsgLocation, 0));
 		}
 	    }
 	}

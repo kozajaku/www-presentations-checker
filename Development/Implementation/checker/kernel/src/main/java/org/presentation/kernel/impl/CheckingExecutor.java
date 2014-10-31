@@ -30,6 +30,7 @@ import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
 import org.presentation.webcrawler.CrawlingState;
 import org.presentation.webcrawler.PageCrawlingObserver;
+import org.presentation.wholepresentationcontroller.WholePresentationController;
 
 /**
  * <p>
@@ -60,8 +61,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
 
     @Inject
     private SinglePageController singlePageController;
-//    @Inject
-//    private WholePresentationController wholePresentationController;
+    @Inject
+    private WholePresentationController wholePresentationController;
 
     @EJB
     private GraphGeneratorQueue graphGenerator;
@@ -88,6 +89,8 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             }
             singlePageController.initializeControllers(oc);
             singlePageController.offerMsgLoggerContainer(messageLoggerContainer);
+            wholePresentationController.initializeControllers(oc);
+            wholePresentationController.offerMsgLoggerContainer(messageLoggerContainer);
             //this method blocks to the end of web crawling
             crawlerService.startBrowsing(new LinkURL(checkup.getStartPoint()),
                     checkup.getMaxDepth(), checkup.getPageLimit(), this,
@@ -97,7 +100,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             //now crawling is done
             CrawlingState state = crawlerService.getCrawlingState();
             LOG.log(Level.INFO, "Crawling of checkup with id {0} has ended. Pages crawled: {1}", new Object[]{checkup.getIdCheckup(), state.getPagesCrawled()});
-            //TODO wait for controllers
+            wholePresentationController.getExecutionFuture().get();
             //persist results to database
             MsgReport report = messageLoggerContainer.generateMsgReport();
             for (Map.Entry<String, List<Message>> i : report.getMsgGroups().entrySet()) {
