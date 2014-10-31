@@ -12,7 +12,8 @@
         <dependency>
             <groupId>org.picketbox</groupId>
             <artifactId>picketbox</artifactId>
-            <version>4.0.19.Final</version>
+            <version>4.0.15.Final</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

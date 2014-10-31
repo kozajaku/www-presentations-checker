@@ -34,7 +34,7 @@ public class HTMLCode extends AbstractCode {
      * if you don't need parsed code.at org.presentation.parser.HTMLCode.parse(HTMLCode.java:37)
      */
     private void parse() {
-        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), this.pageLink.getUrl());
+        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), pageLink.getUrl());
         this.parsedHTML = jsoupDocument;
     }
 

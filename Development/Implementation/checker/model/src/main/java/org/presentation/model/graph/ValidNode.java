@@ -3,6 +3,7 @@ package org.presentation.model.graph;
 import java.util.ArrayList;
 import java.util.List;
 import org.presentation.model.LinkURL;
+import org.presentation.model.logging.ResponseCode;
 
 /**
  * This class represents valid node in
@@ -36,12 +37,7 @@ public class ValidNode extends Node {
         orientedEdges.add(edge);
     }
 
-    /**
-     * <p>
-     * Getter for the field <code>orientedEdges</code>.</p>
-     *
-     * @return a {@link java.util.List} object.
-     */
+    @Override
     public List<Edge> getOrientedEdges() {
         return orientedEdges;
     }
@@ -52,5 +48,10 @@ public class ValidNode extends Node {
     @Override
     public boolean isValid() {
         return true;
+    }
+
+    @Override
+    public ResponseCode getResponseCode() {
+        return new ResponseCode(200);
     }
 }
