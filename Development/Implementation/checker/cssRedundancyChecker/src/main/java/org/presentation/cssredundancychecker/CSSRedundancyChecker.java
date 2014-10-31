@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.fit.cssbox.css.DOMAnalyzer;
@@ -80,12 +83,15 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode) {
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
         
+	LOG.log(Level.INFO, "Adding CSS page {0}", linkURL.getUrl());
+	
 	CRCCssCode crcCssCode;
 	try {
 	    crcCssCode = new CRCCssCode(cssCode);
 	    this.stylesheetsByURL.put(linkURL, crcCssCode);
 
-	    if (this.stylesheetDependencies.containsKey(linkURL)) {
+	    if (this.stylesheetDependencies.containsKey(linkURL)) {		
+		LOG.log(Level.INFO, "{0} HTML documents have been waiting for this stylesheet!", (((List<CRCHtmlCode>) this.stylesheetDependencies.get(linkURL)).size()));
 		for (CRCHtmlCode waitingDocument : ((List<CRCHtmlCode>) this.stylesheetDependencies.get(linkURL))) {
 		    if (this.areAllStylesheetsForDocumentAvailable(waitingDocument)) {
 			processSinglePage(waitingDocument);
@@ -97,6 +103,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	    this.freeDocumentsFromPrison(documentsProcessed);
 	} catch (CSSException ex) {
 	    ErrorMsg errMsg = new ErrorMsg();
+	    LOG.info("CSS document cannot be parsed!");
 	    errMsg.setMessage("CSS document cannot be parsed!");
 	    errMsg.setPage(linkURL);
 	    this.messageLogger.addMessage(errMsg);
@@ -105,15 +112,22 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
     @Override
     public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode) {
-        CRCHtmlCode document = new CRCHtmlCode(htmlCode);
+        LOG.log(Level.INFO, "Adding HTML page {0}", linkURL.getUrl());
+	
+	CRCHtmlCode document = new CRCHtmlCode(htmlCode);
+	
         if (this.areAllStylesheetsForDocumentAvailable(document)) {
+	    LOG.log(Level.INFO, "All styles are ready! Let's process this page");
             this.processSinglePage(document);
         } else {
             List<LinkURL> missingStylesheets = this.getMissingStylesheetsForDocument(document);
-            for (LinkURL missingStylesheet : missingStylesheets) {
+            LOG.log(Level.INFO, "There are {0} missing stylesheets!", missingStylesheets.size());
+	    for (LinkURL missingStylesheet : missingStylesheets) {
                 if (!this.stylesheetDependencies.containsKey(missingStylesheet)) {
                     this.stylesheetDependencies.put(missingStylesheet, new ArrayList<CRCHtmlCode>());
+		    LOG.log(Level.INFO, "Creating new dependency list for {0}", missingStylesheet.getUrl());
                 }
+		LOG.log(Level.INFO, "Adding this document to the dependency list of {0}", missingStylesheet.getUrl());
                 ((List<CRCHtmlCode>) this.stylesheetDependencies.get(missingStylesheet)).add(document);
             }
         }
@@ -167,6 +181,9 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     private void processSinglePage(CRCHtmlCode document) {
 	Document parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
 	
+	LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLinkHTML());
+	LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*"));
+	
 	// remove stylesheet from the dom
 	NodeList linkElements = parsedDocument.getElementsByTagName("link");
 	for(int i = 0; i < linkElements.getLength(); i++) {
@@ -178,20 +195,24 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		}
 	    }
 	}
+	LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*"));
 	
 	// add custom stylesheets
 	DOMAnalyzer domAnalyzer = new DOMAnalyzer(parsedDocument);
+	int logCustomElementsAdded = 0;
 	
 	for(LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
 	    if(this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)){
 		try {
 		    domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzer.Origin.AUTHOR);
+		    logCustomElementsAdded++;
 		} catch (MalformedURLException ex) {
 		    // that cannot happen (valid url set)
 		}
 	    }
 	}
-	domAnalyzer.getStyleSheets();	
+	domAnalyzer.getStyleSheets();
+	LOG.log(Level.INFO, "{0} stylesheets RE-ADDED into DOM", logCustomElementsAdded);
 	
 	doTheCheck(parsedDocument, domAnalyzer, document);	
     }
@@ -331,16 +352,22 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     @Override
     public void finalizeCheckup(TraversalGraph traversalGraph) {
         // if some files are still waiting for some missing stylesheets, let's process them at the end of checkup
-        List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
+        Set<CRCHtmlCode> documentsToBeProcessed = new HashSet<>();
         for (List<CRCHtmlCode> documentList : this.stylesheetDependencies.values()) {
 	    for (CRCHtmlCode document : documentList) {
-		processSinglePage(document);
-		documentsProcessed.add(document);
+		documentsToBeProcessed.add(document);
 	    }
 	}
+	LOG.log(Level.INFO, "{0} documents have still missing stylesheet(s). Let''s process them now", documentsToBeProcessed.size());
+	for(CRCHtmlCode documentToBeProcessed : documentsToBeProcessed) {
+	    processSinglePage(documentToBeProcessed);
+	}
+			
+	// frees up memory
+	List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
+	documentsProcessed.addAll(documentsToBeProcessed);
 	this.freeDocumentsFromPrison(documentsProcessed);
 	    
-	// todo generate messages
 	for(CRCCssCode cssDocument : this.stylesheetsByURL.values()) {
 	    List<CSSRuleSet> cssRuleBlocks = cssDocument.getCssRuleBlocks();
 	    for(CSSRuleSet cssRuleBlock : cssRuleBlocks)  {
@@ -381,6 +408,15 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	}
     }
     
+    /**
+     * This is a helper method to create Message using inline style
+     * @param message Empty message to be filled with given data (ex. new ErrorMsg())
+     * @param url URL of the document
+     * @param text Text of the message
+     * @param location Message location, can be null
+     * @param priorityBoost priority boost of the message, default 0
+     * @return The message filled with given arguments
+     */
     protected Message fillMessage(Message message, LinkURL url, String text, MsgLocation location, int priorityBoost) {
 	message.setPage(url);
 	message.setMessage(text);
