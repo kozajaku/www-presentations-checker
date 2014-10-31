@@ -35,5 +35,10 @@ public class CSSRuleSet {
 	}
 	return true;
     }
-    
+
+    @Override
+    public String toString() {
+	return selectorString;
+    }
+           
 }

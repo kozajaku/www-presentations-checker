@@ -35,7 +35,7 @@ public class HTMLCode implements ParsedCode {
      * if you don't need parsed code.
      */
     private void parse() {
-        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent());
+        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), this.linkHTML.getUrl());
         this.parsedHTML = jsoupDocument;
     }
 

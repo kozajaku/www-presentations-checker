@@ -13,10 +13,7 @@ import javax.inject.Inject;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.presentation.model.LinkURL;
-import org.presentation.model.graph.LinkSourceType;
 import org.presentation.parser.HTMLCode;
-import org.presentation.parser.ParsedLinkResponse;
-import org.presentation.parser.helper.DOMBuilder;
 
 /**
  *
@@ -33,6 +30,7 @@ public class CRCHtmlCode {
 
     public CRCHtmlCode(HTMLCode htmlCode) {
 	this.htmlCode = htmlCode;	
+	this.stylesheetFilesRequired = new ArrayList<>();
 	this.loadStylesheetsRequiredFromDocument();
     }
     
@@ -54,10 +52,13 @@ public class CRCHtmlCode {
             String type = link.attr("type");
 	    String rel = link.attr("rel");
 	    if((type != null && (type.toLowerCase().equals("text/css"))) || (rel != null && (rel.toLowerCase().equals("stylesheet")))) {
-		LinkURL stylesheetResource = new LinkURL(link.attr("abs:href").split("#")[0]);
-		LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());	    		
-		if (stylesheetResource.checkURL()) {
-		    this.stylesheetFilesRequired.add(stylesheetResource);
+		String cssHref = link.attr("abs:href");
+		if(cssHref != null) {
+		    LinkURL stylesheetResource = new LinkURL(cssHref.split("#")[0]);
+		    if(LOG != null) LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());	    		
+		    if (stylesheetResource.checkURL()) {
+			this.stylesheetFilesRequired.add(stylesheetResource);
+		    }
 		}
 	    }
         }
