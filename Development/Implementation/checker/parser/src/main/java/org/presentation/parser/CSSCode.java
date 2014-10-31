@@ -16,7 +16,6 @@ import java.io.IOException;
 public class CSSCode extends AbstractCode {
 
     private final PageContent codeCSS;
-    private final LinkURL linkCSS;
     private StyleSheet parsedCSS;
 
     /**
@@ -28,7 +27,7 @@ public class CSSCode extends AbstractCode {
      */
     protected CSSCode(PageContent codeCSS, LinkURL linkCSS) {
         this.codeCSS = codeCSS;
-        this.linkCSS = linkCSS;
+        this.pageLink = linkCSS;
         parsedCSS = null;
     }
 

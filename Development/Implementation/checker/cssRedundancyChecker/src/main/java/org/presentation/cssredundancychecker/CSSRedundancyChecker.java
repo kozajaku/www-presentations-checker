@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import org.fit.cssbox.css.DOMAnalyzer;
+import org.presentation.cssredundancychecker.cssboxHelper.DOMAnalyzerEnhanced;
 import org.presentation.cssredundancychecker.model.CRCCssCode;
 import org.presentation.cssredundancychecker.model.CRCHtmlCode;
 import org.presentation.cssredundancychecker.model.CSSRule;
@@ -42,6 +43,7 @@ import org.presentation.parser.helper.DOMBuilder;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -211,14 +213,14 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*").getLength());
 	
 	// add custom stylesheets
-	DOMAnalyzer domAnalyzer = new DOMAnalyzer(parsedDocument);
+	DOMAnalyzerEnhanced domAnalyzer = new DOMAnalyzerEnhanced(parsedDocument);
 	int logCustomElementsAdded = 0;
 	
 	for(LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
 	    if(this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)){
 		try {
 		    LOG.log(Level.INFO, "Adding custom stylesheet - {0}", (new URL(stylesheetRequiredUrl.getUrl())).toString());
-		    domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzer.Origin.AUTHOR);
+		    domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzerEnhanced.Origin.AUTHOR);
 		    logCustomElementsAdded++;
 		} catch (MalformedURLException ex) {
 		    // that cannot happen (valid url set)
@@ -238,7 +240,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @param domAnalyzer Dom analyzer for the given document
      * @param ruleUsage Usage to be added to the usage list for each rule
      */
-    protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzer domAnalyzer, CSSRuleUsage ruleUsage){
+    protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzerEnhanced domAnalyzer, CSSRuleUsage ruleUsage){
 	NodeData nodeData;
 	nodeData = domAnalyzer.getElementStyleInherited((Element) element);		
 	
@@ -252,6 +254,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	    for(String cssPropertyName : cssPropertyNames) {
 
 		// check the property is not inheritable (is applied without text contnet) or the element contains text
+		
 		if(!nodeData.getProperty(cssPropertyName).inherited() || hasTextContent) {
 
 		    logPropertiesNotRedundant++;
@@ -307,7 +310,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @param domAnalyzer Dom analyzer for the given document
      * @param document Html document
      */
-    protected void doTheCheck (Document parsedDocument, DOMAnalyzer domAnalyzer, CRCHtmlCode document) {
+    protected void doTheCheck (Document parsedDocument, DOMAnalyzerEnhanced domAnalyzer, CRCHtmlCode document) {
 	// walk through all elements (DFS)
 	Node curNode;
 	
@@ -319,7 +322,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		
 		// text child identified, we mark his parent as "has_text_content"
 		if(nextNode.getNodeType() == Node.TEXT_NODE) {
-		    if(curNode.getNodeType() == Node.ELEMENT_NODE) {
+		    if(curNode.getNodeType() == Node.ELEMENT_NODE && nextNode.getNodeValue().trim().length() > 0) {
 			((Element)curNode).setAttribute("____CSSRC____has_test_content", "1");
 		    }		    
 		    curNode.removeChild(nextNode);  // we don't care about the text element any more
@@ -461,6 +464,6 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	message.setMsgLocation(location);
 	message.setPriorityBoost(priorityBoost);
 	return message;
-    }
+    }  
     
 }

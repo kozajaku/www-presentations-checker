@@ -19,6 +19,7 @@ import org.presentation.model.PageContent;
 import org.presentation.model.logging.Message;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
+import org.presentation.parser.AbstractCode;
 import org.presentation.parser.CSSCode;
 import org.presentation.parser.HTMLCode;
 
@@ -44,11 +45,11 @@ public class CSSRCTest {
 
 	pc = new PageContent(new String(Files.readAllBytes(Paths.get(docFilename))));
 	lu = new LinkURL("http://mojestranka.cz");
-	cssrc.addPage(new ContentType("text/html"), lu, pc, new HTMLCode(pc, lu));
+	cssrc.addPage(AbstractCode.createCode(new ContentType("text/html"), lu, pc));
 
 	pc = new PageContent(new String(Files.readAllBytes(Paths.get(cssFilename))));
 	lu = new LinkURL("http://mojestranka.cz/css/style.css");
-	cssrc.addPage(new ContentType("text/html"), lu, pc, new CSSCode(pc, lu));
+	cssrc.addPage(AbstractCode.createCode(new ContentType("text/css"), lu, pc));
 	
 	cssrc.finalizeCheckup(null);
 	

@@ -31,10 +31,10 @@ public class HTMLCode extends AbstractCode {
 
     /**
      * Parses {@link PageContent} into {@link Document}. Don't call this method
-     * if you don't need parsed code.
+     * if you don't need parsed code.at org.presentation.parser.HTMLCode.parse(HTMLCode.java:37)
      */
     private void parse() {
-        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), this.linkHTML.getUrl());
+        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), this.pageLink.getUrl());
         this.parsedHTML = jsoupDocument;
     }
 
