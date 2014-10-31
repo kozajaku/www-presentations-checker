@@ -34,7 +34,9 @@ import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
+import org.presentation.parser.AbstractCode;
 import org.presentation.parser.CSSCode;
+import org.presentation.parser.CodeType;
 import org.presentation.parser.HTMLCode;
 import org.presentation.parser.helper.DOMBuilder;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
@@ -49,18 +51,22 @@ import org.w3c.dom.NodeList;
  */
 public class CSSRedundancyChecker implements WholePresentationChecker {
 
-    Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
-    Map<LinkURL, CRCCssCode> stylesheetsByURL;
+    protected Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
+    protected Map<LinkURL, CRCCssCode> stylesheetsByURL;
 
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
-    MessageLogger messageLogger;
-    boolean stopped;
+    private MessageLogger messageLogger;
+    private boolean stopped;
 
     public CSSRedundancyChecker() {
         this.stylesheetDependencies = new HashMap<>();
+	this.stylesheetsByURL = new HashMap<>();
+	
+	// todo delete
+	if(this.LOG == null) this.LOG = Logger.getLogger(CSSRedundancyChecker.class.getName());
     }
 
     @Override
@@ -79,40 +85,47 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         stopped = true;
     }
 
-    @Override 
-    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode) {
+    @Override
+    public void addPage(AbstractCode code) {
+	if(code.getType() == CodeType.HTML_CODE) {
+	    addHTMLPage((HTMLCode) code);
+	} else if(code.getType() == CodeType.CSS_CODE) {
+	    addCSSPage((CSSCode) code);
+	}
+    }
+    
+    public void addCSSPage(CSSCode cssCode) {
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
         
-	LOG.log(Level.INFO, "Adding CSS page {0}", linkURL.getUrl());
+	LOG.log(Level.INFO, "Adding CSS page {0}", cssCode.getLink().getUrl());
 	
 	CRCCssCode crcCssCode;
 	try {
 	    crcCssCode = new CRCCssCode(cssCode);
-	    this.stylesheetsByURL.put(linkURL, crcCssCode);
+	    this.stylesheetsByURL.put(cssCode.getLink(), crcCssCode);
 
-	    if (this.stylesheetDependencies.containsKey(linkURL)) {		
-		LOG.log(Level.INFO, "{0} HTML documents have been waiting for this stylesheet!", (((List<CRCHtmlCode>) this.stylesheetDependencies.get(linkURL)).size()));
-		for (CRCHtmlCode waitingDocument : ((List<CRCHtmlCode>) this.stylesheetDependencies.get(linkURL))) {
+	    if (this.stylesheetDependencies.containsKey(cssCode.getLink())) {		
+		LOG.log(Level.INFO, "{0} HTML documents have been waiting for this stylesheet!", (((List<CRCHtmlCode>) this.stylesheetDependencies.get(cssCode.getLink())).size()));
+		for (CRCHtmlCode waitingDocument : ((List<CRCHtmlCode>) this.stylesheetDependencies.get(cssCode.getLink()))) {
 		    if (this.areAllStylesheetsForDocumentAvailable(waitingDocument)) {
 			processSinglePage(waitingDocument);
 			documentsProcessed.add(waitingDocument);
 		    }
 		}
 	    }
-	    this.stylesheetDependencies.remove(linkURL);
+	    this.stylesheetDependencies.remove(cssCode.getLink());
 	    this.freeDocumentsFromPrison(documentsProcessed);
 	} catch (CSSException ex) {
 	    ErrorMsg errMsg = new ErrorMsg();
 	    LOG.info("CSS document cannot be parsed!");
 	    errMsg.setMessage("CSS document cannot be parsed!");
-	    errMsg.setPage(linkURL);
+	    errMsg.setPage(cssCode.getLink());
 	    this.messageLogger.addMessage(errMsg);
 	}	    
     }
 
-    @Override
-    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode) {
-        LOG.log(Level.INFO, "Adding HTML page {0}", linkURL.getUrl());
+    public void addHTMLPage(HTMLCode htmlCode) {
+        LOG.log(Level.INFO, "Adding HTML page {0}", htmlCode.getLink().getUrl());
 	
 	CRCHtmlCode document = new CRCHtmlCode(htmlCode);
 	
@@ -181,8 +194,8 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     private void processSinglePage(CRCHtmlCode document) {
 	Document parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
 	
-	LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLinkHTML());
-	LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*"));
+	LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLink());
+	LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*").getLength());
 	
 	// remove stylesheet from the dom
 	NodeList linkElements = parsedDocument.getElementsByTagName("link");
@@ -195,7 +208,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		}
 	    }
 	}
-	LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*"));
+	LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*").getLength());
 	
 	// add custom stylesheets
 	DOMAnalyzer domAnalyzer = new DOMAnalyzer(parsedDocument);
@@ -204,6 +217,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 	for(LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
 	    if(this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)){
 		try {
+		    LOG.log(Level.INFO, "Adding custom stylesheet - {0}", (new URL(stylesheetRequiredUrl.getUrl())).toString());
 		    domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzer.Origin.AUTHOR);
 		    logCustomElementsAdded++;
 		} catch (MalformedURLException ex) {
@@ -211,7 +225,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		}
 	    }
 	}
-	domAnalyzer.getStyleSheets();
+	//domAnalyzer.getStyleSheets();
 	LOG.log(Level.INFO, "{0} stylesheets RE-ADDED into DOM", logCustomElementsAdded);
 	
 	doTheCheck(parsedDocument, domAnalyzer, document);	
@@ -227,6 +241,9 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzer domAnalyzer, CSSRuleUsage ruleUsage){
 	NodeData nodeData;
 	nodeData = domAnalyzer.getElementStyleInherited((Element) element);		
+	
+	int logPropertiesNotRedundant = 0;
+	
 	if(nodeData != null) {		
 	    Collection<String> cssPropertyNames;
 	    cssPropertyNames = nodeData.getPropertyNames();
@@ -237,6 +254,9 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		// check the property is not inheritable (is applied without text contnet) or the element contains text
 		if(!nodeData.getProperty(cssPropertyName).inherited() || hasTextContent) {
 
+		    logPropertiesNotRedundant++;
+		    LOG.log(Level.INFO, "{0} is not redundant", nodeData.getValue(cssPropertyName, true).toString());
+		    
 		    // load declaration sources
 		    Declaration sourceDeclaration = nodeData.getSourceDeclaration(cssPropertyName, true);
 		    if(sourceDeclaration != null) {
@@ -244,12 +264,28 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 			if(source != null) {
 
 			    // CRCCssCode resolve by url
-			    LinkURL sourceUrl = new LinkURL(source.getUrl().toString());
-			    if(this.stylesheetsByURL.containsKey(sourceUrl)) {
+			    LinkURL sourceUrl;
+			    if(source.getUrl() == null) {   // inline style
+				LOG.info("This is AN inline style");
+				if(ruleUsage != null) sourceUrl = ruleUsage.getUrl(); // not so nice
+				else sourceUrl = null;
+			    } else {
+				sourceUrl = new LinkURL(source.getUrl().toString());
+			    }
+			    
+			    LOG.log(Level.INFO, "That was at {0} - {1}:{2}", new Object[]{sourceUrl.getUrl(), source.getLine(), source.getPosition()})	;		    
+			    if(sourceUrl != null && this.stylesheetsByURL.containsKey(sourceUrl)) {
 				CRCCssCode cssDocument = this.stylesheetsByURL.get(sourceUrl);
 
 				// get particular CSS rule and add the usage
 				CSSRule cssRule = cssDocument.getCssRuleByPosition(new DeclarationPosition(source.getLine(), source.getPosition()));
+				
+				if(cssRule != null) {
+				    LOG.info("This property NOT found by position map");
+				} else {
+				    LOG.info("This property FOUND by position map");
+				}
+				
 				if(cssRule != null && ruleUsage != null) {
 				    cssRule.addRuleUsage(ruleUsage);					
 				}
@@ -260,6 +296,8 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		
 	    }
 	}
+	
+	LOG.log(Level.INFO, "{0} marked as not redundant", logPropertiesNotRedundant);
 	    	
     }
     
@@ -296,7 +334,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		// this node is already empty, youpee!
 		Node nextNode = curNode.getParentNode();
 		if(curNode.getParentNode() != null) curNode.getParentNode().removeChild(curNode);
-		if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLinkHTML()) );
+		if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLink()) );
 		curNode = nextNode;
 	    }
 	}
@@ -381,7 +419,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		
 		if(cssRuleBlock.isRedundant()) {
 		    
-		    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLinkCSS(),
+		    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLink(),
 			    "Whole rule block \"" + cssRuleBlock.toString() + "\" is redundant"
 			    , blockMsgLocation, 10));
 		} else {
@@ -389,7 +427,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 		    // not whole CSS block is redundant, let's list only redundant css properties
 		    for(CSSRule cssRule : cssRuleBlock.getCssRules()) {
 			if(cssRule.isRedundant()) {
-			    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLinkCSS(),
+			    this.messageLogger.addMessage(this.fillMessage( new WarningMsg(), cssDocument.getCssCode().getLink(),
 				    "Redundant rule \"" + cssRule.getName() + "\" in \"" + cssRuleBlock.toString() + "\""
 				    , new MsgLocation(cssRule.getDeclarationPosition().getLine(), cssRule.getDeclarationPosition().getCol()), 10));			    
 			}
@@ -402,7 +440,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 			    usageCounts.add(cssRule.getCssRuleUsages().size());
 			}
 		    }
-		    this.messageLogger.addMessage(this.fillMessage(new InfoMsg(), cssDocument.getCssCode().getLinkCSS(), "Rule block \"" + cssRuleBlock.toString() + "\" has " + Collections.max(usageCounts) + " usages", blockMsgLocation, 0));
+		    this.messageLogger.addMessage(this.fillMessage(new InfoMsg(), cssDocument.getCssCode().getLink(), "Rule block \"" + cssRuleBlock.toString() + "\" has " + Collections.max(usageCounts) + " usages", blockMsgLocation, 0));
 		}
 	    }
 	}

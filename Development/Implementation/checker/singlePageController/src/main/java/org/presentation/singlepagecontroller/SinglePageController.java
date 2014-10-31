@@ -110,7 +110,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
     /**
      * {@inheritDoc}
      *
-     * Setting messageLogger to chosen controllers. Note that
+     * Method sets messageLogger to chosen controllers. Note that
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * must be called before this or IllegalStateException will be thrown.
      */

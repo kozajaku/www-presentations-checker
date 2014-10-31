@@ -11,10 +11,9 @@ import org.presentation.model.PageContent;
  * @author Adam
  * @version 1.0-SNAPSHOT
  */
-public class HTMLCode implements ParsedCode {
+public class HTMLCode extends AbstractCode {
 
     protected final PageContent codeHTML;
-    protected final LinkURL linkHTML;
     protected Document parsedHTML;
 
     /**
@@ -24,9 +23,9 @@ public class HTMLCode implements ParsedCode {
      * @param linkHTML Link to HTML page
      * @see #parse()
      */
-    public HTMLCode(PageContent codeHTML, LinkURL linkHTML) {
+    protected HTMLCode(PageContent codeHTML, LinkURL linkHTML) {
         this.codeHTML = codeHTML;
-        this.linkHTML = linkHTML;
+        this.pageLink = linkHTML;
         parsedHTML = null;
     }
 
@@ -35,7 +34,7 @@ public class HTMLCode implements ParsedCode {
      * if you don't need parsed code.
      */
     private void parse() {
-        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent());
+        Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), this.linkHTML.getUrl());
         this.parsedHTML = jsoupDocument;
     }
 
@@ -47,16 +46,6 @@ public class HTMLCode implements ParsedCode {
      */
     public PageContent getCodeHTML() {
         return codeHTML;
-    }
-
-    /**
-     * <p>
-     * Getter for the field <code>linkHTML</code>.</p>
-     *
-     * @return a {@link org.presentation.model.LinkURL} object.
-     */
-    public LinkURL getLinkHTML() {
-        return linkHTML;
     }
 
     /**
@@ -73,8 +62,8 @@ public class HTMLCode implements ParsedCode {
     }
 
     @Override
-    public ParsedCodeType getType() {
-        return ParsedCodeType.HTML_CODE;
+    public CodeType getType() {
+        return CodeType.HTML_CODE;
     }
 
 }

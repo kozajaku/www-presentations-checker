@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Adam
  * @version 1.0-SNAPSHOT
  */
-public class CSSCode implements ParsedCode {
+public class CSSCode extends AbstractCode {
 
     private final PageContent codeCSS;
     private final LinkURL linkCSS;
@@ -26,7 +26,7 @@ public class CSSCode implements ParsedCode {
      * @param linkCSS Link to CSS page
      * @see #parse()
      */
-    public CSSCode(PageContent codeCSS, LinkURL linkCSS) {
+    protected CSSCode(PageContent codeCSS, LinkURL linkCSS) {
         this.codeCSS = codeCSS;
         this.linkCSS = linkCSS;
         parsedCSS = null;
@@ -59,16 +59,6 @@ public class CSSCode implements ParsedCode {
     }
 
     /**
-     * <p>
-     * Getter for the field <code>linkCSS</code>.</p>
-     *
-     * @return a {@link org.presentation.model.LinkURL} object.
-     */
-    public LinkURL getLinkCSS() {
-        return linkCSS;
-    }
-
-    /**
      * Gets the parsed document. If the document hasn't been already parsed, it
      * gets parsed within this call.
      *
@@ -83,8 +73,8 @@ public class CSSCode implements ParsedCode {
     }
 
     @Override
-    public ParsedCodeType getType() {
-        return ParsedCodeType.CSS_CODE;
+    public CodeType getType() {
+        return CodeType.CSS_CODE;
     }
 
 }

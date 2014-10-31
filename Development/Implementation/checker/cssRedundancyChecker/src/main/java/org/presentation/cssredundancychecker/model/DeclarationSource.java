@@ -11,8 +11,8 @@ package org.presentation.cssredundancychecker.model;
  */
 public class DeclarationSource {
 
-    CSSRuleSet cssRuleSet;
-    CSSRule cssRule;
+    private CSSRuleSet cssRuleSet;
+    private CSSRule cssRule;
 
     public DeclarationSource(CSSRuleSet cssRuleSet, CSSRule cssRule) {
 	this.cssRuleSet = cssRuleSet;

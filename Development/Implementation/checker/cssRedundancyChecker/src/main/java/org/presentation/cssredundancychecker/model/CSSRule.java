@@ -5,6 +5,7 @@
  */
 package org.presentation.cssredundancychecker.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,12 +23,14 @@ public class CSSRule {
 	this.name = name;
 	this.value = value;
 	this.declarationPosition = declarationPosition;
+	this.cssRuleUsages = new ArrayList<>();
     }
 
     public CSSRule(String name, String value) {
 	this.name = name;
 	this.value = value;
 	this.declarationPosition = null;
+	this.cssRuleUsages = new ArrayList<>();
     }        
 
     @Override

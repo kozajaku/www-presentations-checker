@@ -1,38 +1,23 @@
 package org.presentation.wholepresentationcontroller;
 
-import org.presentation.model.ContentType;
-import org.presentation.model.LinkURL;
-import org.presentation.model.PageContent;
 import org.presentation.model.graph.TraversalGraph;
 import org.presentation.model.logging.MessageProducer;
-import org.presentation.parser.CSSCode;
-import org.presentation.parser.HTMLCode;
+import org.presentation.parser.AbstractCode;
 import org.presentation.utils.Option;
 import org.presentation.utils.Stoppable;
 
 /**
- * @author Adam Kugler
+ * @author radio.koza
  * @version 1.0
  */
 public interface WholePresentationChecker extends Stoppable, Option, MessageProducer {
 
     /**
-     *
-     * @param contentType
-     * @param linkURL
-     * @param pageContent
-     * @param cssCode
+     * 
+     * @param code 
      */
-    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode);
+    public void addPage(AbstractCode code);
 
-    /**
-     *
-     * @param contentType
-     * @param linkURL
-     * @param pageContent
-     * @param htmlCode
-     */
-    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode);
 
     /**
      *

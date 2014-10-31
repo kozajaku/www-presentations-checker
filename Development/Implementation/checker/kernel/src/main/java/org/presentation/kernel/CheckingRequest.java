@@ -8,8 +8,8 @@ import org.presentation.model.LinkURL;
 import org.presentation.utils.OptionContainer;
 
 /**
- * <p>
- * CheckingRequest class.</p>
+ * This class serves as holder for passing information about new checking
+ * request to {@link CheckRequestReceiver}.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT
