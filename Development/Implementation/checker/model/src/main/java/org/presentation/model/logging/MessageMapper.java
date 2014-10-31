@@ -44,10 +44,10 @@ public interface MessageMapper {
      * calling this method, because this argument is voluntary in some kinds of
      * message implementations.
      *
-     * @param errorCode ErrorCode class instance representing the error code
-     * number. (e.g. 404 for Not Found)
+     * @param errorCode ResponseCode class instance representing the error code
+ number. (e.g. 404 for Not Found)
      */
-    void setErrorCode(ErrorCode errorCode);
+    void setErrorCode(ResponseCode errorCode);
 
     /**
      * Set priority for this message.
@@ -88,9 +88,9 @@ public interface MessageMapper {
      * case the mapped message object is not representing implementation of
      * message which does not have error code by itself.
      *
-     * @return ErrorCode class instance representing error code.
+     * @return ResponseCode class instance representing error code.
      */
-    ErrorCode getErrorCode();
+    ResponseCode getErrorCode();
 
     /**
      * Retrieve priority of the message.

@@ -34,7 +34,9 @@ import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
+import org.presentation.parser.AbstractCode;
 import org.presentation.parser.CSSCode;
+import org.presentation.parser.CodeType;
 import org.presentation.parser.HTMLCode;
 import org.presentation.parser.helper.DOMBuilder;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
@@ -84,40 +86,47 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         stopped = true;
     }
 
-    @Override 
-    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, CSSCode cssCode) {
+    @Override
+    public void addPage(AbstractCode code) {
+	if(code.getType() == CodeType.HTML_CODE) {
+	    addHTMLPage((HTMLCode) code);
+	} else if(code.getType() == CodeType.CSS_CODE) {
+	    addCSSPage((CSSCode) code);
+	}
+    }
+    
+    public void addCSSPage(CSSCode cssCode) {
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
         
-	LOG.log(Level.INFO, "Adding CSS page {0}", linkURL.getUrl());
+	LOG.log(Level.INFO, "Adding CSS page {0}", cssCode.getLink().getUrl());
 	
 	CRCCssCode crcCssCode;
 	try {
 	    crcCssCode = new CRCCssCode(cssCode);
-	    this.stylesheetsByURL.put(linkURL, crcCssCode);
+	    this.stylesheetsByURL.put(cssCode.getLink(), crcCssCode);
 
-	    if (this.stylesheetDependencies.containsKey(linkURL)) {		
-		LOG.log(Level.INFO, "{0} HTML documents have been waiting for this stylesheet!", (((List<CRCHtmlCode>) this.stylesheetDependencies.get(linkURL)).size()));
-		for (CRCHtmlCode waitingDocument : ((List<CRCHtmlCode>) this.stylesheetDependencies.get(linkURL))) {
+	    if (this.stylesheetDependencies.containsKey(cssCode.getLink())) {		
+		LOG.log(Level.INFO, "{0} HTML documents have been waiting for this stylesheet!", (((List<CRCHtmlCode>) this.stylesheetDependencies.get(cssCode.getLink())).size()));
+		for (CRCHtmlCode waitingDocument : ((List<CRCHtmlCode>) this.stylesheetDependencies.get(cssCode.getLink()))) {
 		    if (this.areAllStylesheetsForDocumentAvailable(waitingDocument)) {
 			processSinglePage(waitingDocument);
 			documentsProcessed.add(waitingDocument);
 		    }
 		}
 	    }
-	    this.stylesheetDependencies.remove(linkURL);
+	    this.stylesheetDependencies.remove(cssCode.getLink());
 	    this.freeDocumentsFromPrison(documentsProcessed);
 	} catch (CSSException ex) {
 	    ErrorMsg errMsg = new ErrorMsg();
 	    LOG.info("CSS document cannot be parsed!");
 	    errMsg.setMessage("CSS document cannot be parsed!");
-	    errMsg.setPage(linkURL);
+	    errMsg.setPage(cssCode.getLink());
 	    this.messageLogger.addMessage(errMsg);
 	}	    
     }
 
-    @Override
-    public void addPage(ContentType contentType, LinkURL linkURL, PageContent pageContent, HTMLCode htmlCode) {
-        LOG.log(Level.INFO, "Adding HTML page {0}", linkURL.getUrl());
+    public void addHTMLPage(HTMLCode htmlCode) {
+        LOG.log(Level.INFO, "Adding HTML page {0}", htmlCode.getLink().getUrl());
 	
 	CRCHtmlCode document = new CRCHtmlCode(htmlCode);
 	

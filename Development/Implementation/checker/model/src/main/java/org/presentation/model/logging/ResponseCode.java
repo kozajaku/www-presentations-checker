@@ -7,9 +7,9 @@ package org.presentation.model.logging;
  * @author Jindřich Máca
  * @version $Id: $Id
  */
-public class ErrorCode {
+public class ResponseCode {
 
-    //Integer representation of the HTTP error code
+    //Integer representation of the HTTP response code
     private Integer code;
 
     /**
@@ -17,12 +17,12 @@ public class ErrorCode {
      *
      * @param code {@link Integer} representation of the HTTP status code
      */
-    public ErrorCode(Integer code) {
+    public ResponseCode(Integer code) {
         this.code = code;
     }
 
     /**
-     * Returns the {@link Integer} representation of {@link ErrorCode}.
+     * Returns the {@link Integer} representation of {@link ResponseCode}.
      *
      * @return {@link Integer} representation of the HTTP status code
      */
@@ -31,7 +31,7 @@ public class ErrorCode {
     }
 
     /**
-     * Sets the {@link Integer} representation of {@link ErrorCode}.
+     * Sets the {@link Integer} representation of {@link ResponseCode}.
      *
      * @param code {@link Integer} representation of the HTTP status code
      */
@@ -40,7 +40,7 @@ public class ErrorCode {
     }
 
     /**
-     * Returns the {@link String} explanation of {@link ErrorCode}.
+     * Returns the {@link String} explanation of {@link ResponseCode}.
      *
      * @return {@link String} explanation of HTTP status code
      */
