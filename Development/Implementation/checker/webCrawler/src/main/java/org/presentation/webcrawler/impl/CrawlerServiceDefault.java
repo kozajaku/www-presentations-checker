@@ -47,22 +47,6 @@ import org.presentation.webcrawler.PageCrawlingObserver;
 @Default
 @Dependent
 public class CrawlerServiceDefault implements CrawlerService {
-    static final String EXTERNAL_LINKS_OPTION = "external links";
-    /**
-     * Timeout to head request in ms.S
-     */
-    private static final int HEAD_TIMEOUT = 500;
-
-    @Override
-    public void initializeCrawler(OptionContainer options) {
-        for (String i: options.getChosenOptions()){
-            if (i.equals(EXTERNAL_LINKS_OPTION)){
-                //TODO set some flag that external links should be crawled 
-            }
-            //more options in future releases can be used
-        }
-        //TODO set flag that external links should NOT be crawled
-    }
 
     /**
      * This class helps web crawler to crawl the web presentation and to create
@@ -90,8 +74,7 @@ public class CrawlerServiceDefault implements CrawlerService {
          * for {@link TraversalGraph} connection
          * @param linkURL URL of page
          * @param depthFromRoot How long is link connection (number of links)
-         * between root page and this page; depth in
-         * {@link TraversalGraph}
+         * between root page and this page; depth in {@link TraversalGraph}
          */
         public WebPage(String label, LinkSourceType linkSourceType, ValidNode previousNode, LinkURL linkURL, int depthFromRoot) {
             this.label = label;
@@ -131,6 +114,9 @@ public class CrawlerServiceDefault implements CrawlerService {
             //stop conditions
             //LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
             if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
+                if (!checkLinks) {
+                    return foundPages;
+                }
                 //check page
                 LOG.info("just check page (HEAD)");
                 try {
@@ -271,7 +257,11 @@ public class CrawlerServiceDefault implements CrawlerService {
             return false;
         }
     }
-
+    static final String CHECK_LINKS_OPTION = "check links";
+    /**
+     * Timeout to head request in ms.
+     */
+    private static final int HEAD_TIMEOUT = 500;
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
@@ -294,6 +284,8 @@ public class CrawlerServiceDefault implements CrawlerService {
     private int requestTimeout;
     private List<Header> headers;
     private int pageLimit;
+    //flags
+    private boolean checkLinks;
     private boolean stopped = false;
     CompleteCrawlingState completeCrawlingState;
 
@@ -305,6 +297,17 @@ public class CrawlerServiceDefault implements CrawlerService {
      * (<code>false</code>).
      */
     private Map<LinkURL, Boolean> unreachedURLs;
+
+    @Override
+    public void initializeCrawler(OptionContainer options) {
+        checkLinks = false;
+        for (String i : options.getChosenOptions()) {
+            if (i.equals(CHECK_LINKS_OPTION)) {
+                checkLinks = true;
+            }
+            //more options in future releases can be used
+        }
+    }
 
     /**
      * {@inheritDoc}

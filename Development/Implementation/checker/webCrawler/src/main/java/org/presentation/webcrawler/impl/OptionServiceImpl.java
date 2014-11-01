@@ -1,6 +1,5 @@
 package org.presentation.webcrawler.impl;
 
-
 import javax.enterprise.context.Dependent;
 import org.presentation.utils.AllowOptionService;
 
@@ -18,7 +17,7 @@ public class OptionServiceImpl implements AllowOptionService {
      */
     @Override
     public String getID() {
-        return CrawlerServiceDefault.EXTERNAL_LINKS_OPTION;
+        return CrawlerServiceDefault.CHECK_LINKS_OPTION;
     }
 
     /**
@@ -26,8 +25,7 @@ public class OptionServiceImpl implements AllowOptionService {
      */
     @Override
     public String getDestription() {
-        return "Check external links";//finally this method should not be used in final version
+        return "Check links";//finally this method should not be used in final version
     }
 
 }
-
