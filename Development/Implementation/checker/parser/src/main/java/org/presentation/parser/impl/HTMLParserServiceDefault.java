@@ -52,14 +52,6 @@ public class HTMLParserServiceDefault implements HTMLParserService {
                 parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF, "import"));
             }
         }
-        for (Element link : links) {
-            LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:href")));
-            //log
-            //LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
-            if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
-            }
-        }
         for (Element link : images) {
             LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:src")));
             //log
@@ -74,6 +66,14 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
             if (destination.checkURL()) {
                 parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "script"));
+            }
+        }
+        for (Element link : links) {
+            LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:href")));
+            //log
+            //LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
+            if (destination.checkURL()) {
+                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
             }
         }
         LOG.info("parsing finished");
