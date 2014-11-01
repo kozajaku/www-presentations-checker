@@ -73,7 +73,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             //log
             //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
             if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "import"));
+                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF, "import"));
             }
         }
         LOG.info("parsing finished");
