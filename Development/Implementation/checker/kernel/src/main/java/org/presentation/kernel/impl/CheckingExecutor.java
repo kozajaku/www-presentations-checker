@@ -87,6 +87,7 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             for (ChosenOption i : options) {
                 oc.addOption(i.getIdOption());
             }
+            crawlerService.initializeCrawler(oc);
             singlePageController.initializeControllers(oc);
             singlePageController.offerMsgLoggerContainer(messageLoggerContainer);
             wholePresentationController.initializeControllers(oc);

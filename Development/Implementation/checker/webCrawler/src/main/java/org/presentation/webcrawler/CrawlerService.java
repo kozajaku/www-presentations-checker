@@ -6,6 +6,7 @@ import org.presentation.model.Domain;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.logging.MessageProducer;
+import org.presentation.utils.OptionContainer;
 
 /**
  * Interface for web crawler service. Every module, that want to serve as web
@@ -15,6 +16,15 @@ import org.presentation.model.logging.MessageProducer;
  * @version 1.0
  */
 public interface CrawlerService extends MessageProducer, Stoppable {
+
+    /**
+     * Initialize web crawler service by using options set by user when creating
+     * new checking request.
+     *
+     * @param options {@link OptionContainer} object representing options set by
+     * user
+     */
+    void initializeCrawler(OptionContainer options);
 
     /**
      * Starts browsing. Sends messages about valid/invalid links. Modifies

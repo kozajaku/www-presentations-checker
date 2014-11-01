@@ -31,6 +31,7 @@ import org.presentation.model.logging.DebugMsg;
 import org.presentation.parser.CSSParserService;
 import org.presentation.parser.HTMLParserService;
 import org.presentation.parser.ParsedLinkResponse;
+import org.presentation.utils.OptionContainer;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
 import org.presentation.webcrawler.CrawlingState;
@@ -46,11 +47,22 @@ import org.presentation.webcrawler.PageCrawlingObserver;
 @Default
 @Dependent
 public class CrawlerServiceDefault implements CrawlerService {
-
+    static final String EXTERNAL_LINKS_OPTION = "external links";
     /**
      * Timeout to head request in ms.S
      */
     private static final int HEAD_TIMEOUT = 500;
+
+    @Override
+    public void initializeCrawler(OptionContainer options) {
+        for (String i: options.getChosenOptions()){
+            if (i.equals(EXTERNAL_LINKS_OPTION)){
+                //TODO set some flag that external links should be crawled 
+            }
+            //more options in future releases can be used
+        }
+        //TODO set flag that external links should NOT be crawled
+    }
 
     /**
      * This class helps web crawler to crawl the web presentation and to create
