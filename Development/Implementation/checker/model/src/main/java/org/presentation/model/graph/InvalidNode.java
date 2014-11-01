@@ -17,7 +17,7 @@ public class InvalidNode extends Node {
     /**
      * Reason why the link is invalid. HTTP error code.
      */
-    private final ResponseCode errorCode;
+    private final ResponseCode responseCode;
 
     /**
      * Creates invalid node.
@@ -28,15 +28,17 @@ public class InvalidNode extends Node {
     public InvalidNode(LinkURL url, ResponseCode errorCode) {
         this.url = url;
         this.inputDegree = 0;
-        this.errorCode = errorCode;
+        this.responseCode = errorCode;
     }
 
+    @Override
     public ResponseCode getResponseCode() {
-        return errorCode;
+        return responseCode;
     }
 
     /**
      * {@inheritDoc}
+     * @return This implementation returns always <code>false</code>
      */
     @Override
     public boolean isValid() {
