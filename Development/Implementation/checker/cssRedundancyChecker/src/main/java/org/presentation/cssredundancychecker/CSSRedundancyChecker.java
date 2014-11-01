@@ -334,7 +334,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
                 // text child identified, we mark his parent as "has_text_content"
                 if (nextNode.getNodeType() == Node.TEXT_NODE) {
-                    if (curNode.getNodeType() == Node.ELEMENT_NODE) {
+                    if (curNode.getNodeType() == Node.ELEMENT_NODE && nextNode.getNodeValue().trim().length() > 0) {
                         ((Element) curNode).setAttribute("____CSSRC____has_test_content", "1");
                     }
                     curNode.removeChild(nextNode);  // we don't care about the text element any more
