@@ -111,9 +111,9 @@ public class CrawlerServiceDefault implements CrawlerService {
             if (tryToReach != null && tryToReach == false) {
                 return foundPages;
             }
-            //stop conditions
+            //stop conditions (always get CSS)
             //LOG.log(Level.INFO, "test condition - pageLimit: {0}, maxDepth: {1}, !allowedURL: {2}", new Object[]{Boolean.toString(isOverPageLimit()), Boolean.toString(isOverMaximalDepth()), Boolean.toString(!isAllowedURL(linkURL))});
-            if (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL)) {
+            if ((linkSourceType != LinkSourceType.LINK_HREF_CSS) && (isOverPageLimit() || isOverMaximalDepth() || !isAllowedURL(linkURL))) {
                 if (!checkLinks) {
                     return foundPages;
                 }

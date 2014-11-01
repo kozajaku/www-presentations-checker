@@ -17,9 +17,13 @@ public enum LinkSourceType {
      */
     IMG_SRC,
     /**
-     * Link from &lt;link href=...&gt;.
+     * Link from &lt;link href=... type!=text/css &gt;.
      */
     LINK_HREF,
+    /**
+     * Link from &lt;link href=... type=text/css &gt;.
+     */
+    LINK_HREF_CSS,
     /**
      * Link from &lt;script src=...&gt;.
      */

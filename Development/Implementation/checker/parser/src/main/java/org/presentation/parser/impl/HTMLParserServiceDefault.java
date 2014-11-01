@@ -46,10 +46,17 @@ public class HTMLParserServiceDefault implements HTMLParserService {
         Elements imports = doc.select("link[href]");
         for (Element link : imports) {
             LinkURL destination = new LinkURL(removeHashFromURL(link.attr("abs:href")));
-            //log
             //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC import", destination.getUrl());
-            if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF, "import"));
+            if (link.attr("type").equals("text/css")) {
+                //CSS
+                if (destination.checkURL()) {
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF_CSS, "import"));
+                }
+            } else {
+                //not CSS
+                if (destination.checkURL()) {
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF, "import"));
+                }
             }
         }
         for (Element link : images) {
