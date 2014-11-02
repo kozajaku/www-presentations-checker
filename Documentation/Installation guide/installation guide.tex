@@ -1,0 +1,88 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\author{Koza Jakub}
+\usepackage[czech]{babel}
+\usepackage{hyperref}
+\usepackage{listings}
+\author{Jakub Koza}
+\title{Installation guide\\\textit{Web presentation checker}}
+
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Purpose}
+This document is provided to serve as installation guide for project named Web presentation checker. The document explains how to configure necessary application server with database and how to configure them properly. The document also explains process of building project with Maven tool and deployment to the application server.
+\section{Pre-requisites}
+The application was developed on Java EE WildFly 8.0 application server with MySQL database system. This guide covers installation of these servers and necessary JDK but it is also possible to port application on any Java EE application server with EJB and CDI technologies support, and any database system supported by used application server.
+
+\subsection{Java environment}
+Java SE 7 JDK or later version is necessary for compilation of the project with Maven tool and for WildFly application server. It is highly recommended to use the latest update available (project was tested with Java SE JDK version 1.8.0\_25). 
+
+New Java JDK can be downloaded from Oracle \href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}{download page}.
+
+\subsection{Maven}
+Apache Maven is a software project management and comprehension tool that is used for compilation and building deployable enterprise archive from project source codes. This tool is not necessary if you already own built project enterprise archive (*.ear file). 
+
+To install Maven tool please follow instructions on \url{http://maven.apache.org/download.cgi}. It is recommended to add \textit{bin} directory of installed Maven to your system \textit{PATH} environment variable.
+
+\subsection{MySQL database}
+The project was developed on MySQL database system and so it is recommended to use this database system, although it should not be difficult to port application on any other database system, that is supported by application server.
+
+To install MySQL database please follow the \href{http://dev.mysql.com/doc/refman/5.6/en/installing.html}{MySQL installation guide}. Do not forget to remember root login credentials and the port, that the database server will be listening on.
+
+\subsection{WildFly application server}
+The project was developed and tested on WildFly application server version 8.1.0.Final and this guide covers configuration of application server of this version. It is also possible to use other versions (8+) of WildFly, but the reality between configuration of real application server and this guide could be different.
+To install WildFly application server simply download archive from \url{http://wildfly.org/downloads/} and extract in a suitable folder.
+
+\section{Configuration}
+\subsection{Database configuration}
+To configure database first start the MySQL service and then connect to the running database server with your favourite query tool. You can also use command line application \textit{mysql} that comes with MySQL installation.
+To connect with \textit{mysql} application to MySQL server
+open shell (or command line in Windows) and type:
+\begin{lstlisting}
+mysql -u rootUserName -P port -p
+\end{lstlisting}
+, where \textit{rootUserName} is the name of the root user created in time of database server installation and the \textit{port} is the TCP port the server is listening on.
+After executing this command you will be requested to type root's password.
+
+After connecting with your query tool first create new user by executing following query:
+\lstset{language=SQL}
+\begin{lstlisting}
+CREATE USER webchecker IDENTIFIED BY 'secretPassword';
+\end{lstlisting}
+where \textit{secretPassword} is password of new user named webChecker.
+
+Then create new database and grant privileges to newly created user:
+\begin{lstlisting}
+CREATE DATABASE checker CHARACTER SET utf8;
+GRANT ALL ON checker.* TO webchecker;
+\end{lstlisting}
+
+Finally use project SQL create script to create required database tables in newly created database schema:
+\begin{lstlisting}
+source [project_root]/Development/Implementation/create_script.sql
+\end{lstlisting}
+where \textit{[project\_root]} replace by path to the project root directory.
+
+\subsection{WildFly configuration}
+\subsubsection{First start}
+During first start of WildFly application server it is necessary to create new management user that will be used for signing in to server administration. 
+
+Start \textit{add-user.sh} (or \textit{add-user.bat} on Windows)script in WildFly bin directory. Select Management User and add username and password of new management user. Groups selection let empty and on the final question type \textit{no}.
+
+Now you can start your WildFly application server by executing script \textit{standalone.sh} (\textit{standalone.bat} on Windows). If everything goes well, you should see welcome web page \url{http://127.0.0.1:8080} when you put address into your browser. You can also get to server management by typing address \url{http://127.0.0.1:9990}. You have to log in by credentials of user created in previous step.
+
+\subsubsection{Deployment of JDBC connector}
+WildFly application server requires JDBC connector to be able to create datasource with your database server. If you follow this tutorial, you use MySQL database server and so you need MySQL JDBC connector. The connector often comes with installation of your database server, but you can also download it from \href{http://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.33}{Maven repository}. Simply select the latest connector for your version of database system and then download artifact JAR. 
+Now navigate to WildFly server management page (\url{http://127.0.0.1:9990}), login with your management user, select Runtime $\Rightarrow$ Manage Deployments. Now select Add and put in path to the MySQL connector JAR file, and select Deploy $\Rightarrow$ Enable. Do not change name and runtime name.
+
+\subsubsection{Creating datasource}
+
+
+
+\end{document}
