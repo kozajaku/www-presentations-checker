@@ -50,7 +50,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             if (link.attr("type").equals("text/css") || link.attr("rel").equals("stylesheet")) {
                 //CSS
                 if (destination.checkURL()) {
-                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF_CSS, "import"));
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF_CSS, "style"));
                 }
             } else {
                 //not CSS
