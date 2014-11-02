@@ -294,9 +294,9 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                                 CSSRule cssRule = cssDocument.getCssRuleByPosition(new DeclarationPosition(source.getLine(), source.getPosition()));
 
                                 if (cssRule != null) {
-                                    LOG.info("This property NOT found by position map");
+				    LOG.info("This property FOUND by position map");
                                 } else {
-                                    LOG.info("This property FOUND by position map");
+                                    LOG.info("This property NOT found by position map");
                                 }
 
                                 if (cssRule != null && ruleUsage != null) {

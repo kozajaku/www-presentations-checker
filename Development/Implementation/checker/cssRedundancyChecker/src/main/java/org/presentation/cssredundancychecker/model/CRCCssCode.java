@@ -13,6 +13,7 @@ import cz.vutbr.web.css.RuleSet;
 import cz.vutbr.web.css.StyleSheet;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.presentation.parser.CSSCode;
@@ -51,9 +52,11 @@ public class CRCCssCode {
 		RuleSet ruleSet = (RuleSet) block;	
 						
 		List<CombinedSelector> selectors = ruleSet.getSelectors();
-		for(CombinedSelector selector : selectors) {
+		Iterator<CombinedSelector> selectorsIterator = selectors.iterator();
+		while(selectorsIterator.hasNext()) {
+		    CombinedSelector selector = selectorsIterator.next();
 		    selectorString.append(selector.toString());
-		    selectorString.append(", ");
+		    if(selectorsIterator.hasNext()) selectorString.append(", ");
 		}	
 		
 		List<CSSRule> cssRules = new ArrayList<>();		
