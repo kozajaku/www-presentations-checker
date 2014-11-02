@@ -1,9 +1,9 @@
-digraph {
+digraph "a b"{
    //velikost uzlu zavisi (logaritmicky) na poctu hran vedouci do nej
-   "www.example.cz/home" [fixedsize=true, shape=circle, width=2, color = "green", URL = "http://www.seznam.cz/", tooltip = "http://www.seznam.cz/", style = "filled", fillcolor = "green"] //starting link
+   1 [fixedsize=true, shape=circle, width=2.5, color = "green", URL = "http://www.seznam.cz/", tooltip = "http://www.seznam.cz/", style = "filled", fillcolor = "green"] //starting link
   
-   "www.example.cz/home" -> "www.example.cz/a" [label="go to a"]
-   "www.example.cz/home" -> "www.example.cz/b" [label="go to b"]
+   1 -> "www.example.cz/a" [edgetooltip="go to a"]
+   "www.example.cz/home" -> "www.example.cz/b" [label="go to b", color ="green"]
    "www.example.cz/home" -> "www.example.cz/e" [label="go to b"]
    "www.example.cz/home" -> "www.example.cz/b" [label="go to b2"]
    "www.example.cz/a" -> "www.example.cz/home" [label="back to home"]
