@@ -21,8 +21,8 @@ public interface CrawlerService extends MessageProducer, Stoppable {
      * Initialize web crawler service by using options set by user when creating
      * new checking request.
      *
-     * @param options {@link OptionContainer} object representing options set by
-     * user
+     * @param options {@link org.presentation.utils.OptionContainer} object
+     * representing options set by user
      */
     void initializeCrawler(OptionContainer options);
 

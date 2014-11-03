@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that represents logger for {@link Message}, which gathers messages from
+ * Class that represents logger for
+ * {@link org.presentation.model.logging.Message}, which gathers messages from
  * the resource. Every control, which wants to produce messages for user output,
- * must first register its own {@link MessageLogger} to
- * {@link MessageLoggerContainer} under resource name specific for this control.
- * In this {@link MessageLogger} are then saved all its messages.
+ * must first register its own
+ * {@link org.presentation.model.logging.MessageLogger} to
+ * {@link org.presentation.model.logging.MessageLoggerContainer} under resource
+ * name specific for this control. In this
+ * {@link org.presentation.model.logging.MessageLogger} are then saved all its
+ * messages.
  *
  * @author Jindřich Máca
  * @version $Id: $Id
@@ -21,30 +25,35 @@ public class MessageLogger {
     private final String resource;
 
     /**
-     * Creates new instance of {@link MessageLogger} with specific resource
-     * name.
+     * Creates new instance of
+     * {@link org.presentation.model.logging.MessageLogger} with specific
+     * resource name.
      *
-     * @param resource {@link String} name of the resource
+     * @param resource {@link java.lang.String} name of the resource
      */
     public MessageLogger(String resource) {
         this.resource = resource;
     }
 
     /**
-     * Add {@link Message} to this {@link MessageLogger}.
+     * Add {@link org.presentation.model.logging.Message} to this
+     * {@link org.presentation.model.logging.MessageLogger}.
      *
-     * @param message any known type of {@link Message}
+     * @param message any known type of
+     * {@link org.presentation.model.logging.Message}
      */
     public void addMessage(Message message) {
         this.messages.add(message);
     }
 
     /**
-     * Push list of {@link Message}, if there is any, from this
-     * {@link MessageLogger} to given {@link MsgReport} under its resource name.
+     * Push list of {@link org.presentation.model.logging.Message}, if there is
+     * any, from this {@link org.presentation.model.logging.MessageLogger} to
+     * given {@link org.presentation.model.logging.MsgReport} under its resource
+     * name.
      *
-     * @param report {@link MsgReport} to which will be list of {@link Message}
-     * pushed
+     * @param report {@link org.presentation.model.logging.MsgReport} to which
+     * will be list of {@link org.presentation.model.logging.Message} pushed
      */
     public void pushToMsgReport(MsgReport report) {
         if (messages.isEmpty()) {

@@ -17,9 +17,10 @@ import org.presentation.parser.CSSParserService;
 import org.presentation.parser.ParsedLinkResponse;
 
 /**
- * Default implementation of {@link CSSParserService}. Parses given CSS
- * {@link PageContent} for {@link List} of {@link ParsedLinkResponse} using
- * fact, that they are included in "url(...)" syntax.
+ * Default implementation of {@link org.presentation.parser.CSSParserService}.
+ * Parses given CSS {@link org.presentation.model.PageContent} for
+ * {@link java.util.List} of {@link org.presentation.parser.ParsedLinkResponse}
+ * using fact, that they are included in "url(...)" syntax.
  *
  * @author Jindřich Máca
  * @version $Id: $Id
@@ -40,12 +41,6 @@ public class CSSParserServiceDefault implements CSSParserService {
      * URL from it. Then it formats it to absolute URL form and save it to
      * {@link List} as instance of {@link ParsedLinkResponse}, that returns in
      * the end.
-     *
-     * @param sourceCode CSS {@link PageContent}
-     * @param baseURL {@link LinkURL} of the parsed CSS file; it is used to
-     * formats {@link ParsedLinkResponse} addresses to their absolute forms
-     * @return {@link List} of {@link ParsedLinkResponse} parsed from the CSS
-     * {@link PageContent}
      */
     @Override
     public List<ParsedLinkResponse> parseLinks(PageContent sourceCode, LinkURL baseURL) {

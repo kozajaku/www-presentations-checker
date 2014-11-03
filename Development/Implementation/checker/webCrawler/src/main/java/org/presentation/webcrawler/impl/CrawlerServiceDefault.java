@@ -298,6 +298,9 @@ public class CrawlerServiceDefault implements CrawlerService {
      */
     private Map<LinkURL, Boolean> unreachedURLs;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initializeCrawler(OptionContainer options) {
         checkLinks = false;

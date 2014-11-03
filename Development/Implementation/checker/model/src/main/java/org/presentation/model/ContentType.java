@@ -12,29 +12,32 @@ public class ContentType {
     private final String contentType;
 
     /**
-     * Creates new instance of {@link ContentType}.
+     * Creates new instance of {@link org.presentation.model.ContentType}.
      *
-     * @param contentType {@link String} representaion of HTTP attribute
-     * Content-Type
+     * @param contentType {@link java.lang.String} representaion of HTTP
+     * attribute Content-Type
      */
     public ContentType(String contentType) {
         this.contentType = contentType;
     }
 
     /**
-     * Returns the {@link String} representation of {@link ContentType}.
+     * Returns the {@link java.lang.String} representation of
+     * {@link org.presentation.model.ContentType}.
      *
-     * @return {@link String} representaion of HTTP attribute Content-Type
+     * @return {@link java.lang.String} representaion of HTTP attribute
+     * Content-Type
      */
     public String getContentType() {
         return contentType;
     }
 
     /**
-     * Check if {@link ContentType} is CSS.
+     * Check if {@link org.presentation.model.ContentType} is CSS.
      *
-     * @return {@code true} if {@link String} representaion of
-     * {@link ContentType} is equal to "text/css"; {@code false} otherwise
+     * @return {@code true} if {@link java.lang.String} representaion of
+     * {@link org.presentation.model.ContentType} is equal to "text/css";
+     * {@code false} otherwise
      */
     public boolean isCss() {
         switch (contentType) {
@@ -45,10 +48,11 @@ public class ContentType {
     }
 
     /**
-     * Check if {@link ContentType} is HTML.
+     * Check if {@link org.presentation.model.ContentType} is HTML.
      *
-     * @return {@code true} if {@link String} representaion of
-     * {@link ContentType} is equal to "text/html"; {@code false} otherwise
+     * @return {@code true} if {@link java.lang.String} representaion of
+     * {@link org.presentation.model.ContentType} is equal to "text/html";
+     * {@code false} otherwise
      */
     public boolean isHtml() {
         switch (contentType) {
@@ -59,12 +63,12 @@ public class ContentType {
     }
 
     /**
-     * Decides if {@link ContentType} {@link #isCss()} or {@link #isHtml()} and
-     * can be processed futher.
+     * Decides if {@link org.presentation.model.ContentType} {@link #isCss()} or
+     * {@link #isHtml()} and can be processed futher.
      *
-     * @return {@code true} if {@link String} representaion of
-     * {@link ContentType} is equal to "text/css" or "text/html"; {@code false}
-     * otherwise
+     * @return {@code true} if {@link java.lang.String} representaion of
+     * {@link org.presentation.model.ContentType} is equal to "text/css" or
+     * "text/html"; {@code false} otherwise
      */
     public boolean isProcessable() {
         return this.isHtml() || this.isCss();

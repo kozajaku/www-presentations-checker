@@ -30,6 +30,7 @@ import org.presentation.wholepresentationcontroller.impl.AsyncWholeCheckerExecut
  * submodules.
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class WholePresentationController implements Stoppable, MessageProducer {
@@ -92,6 +93,9 @@ public class WholePresentationController implements Stoppable, MessageProducer {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         if (wholePresentationCheckers == null) {
@@ -125,7 +129,8 @@ public class WholePresentationController implements Stoppable, MessageProducer {
      * Method is called for every new page, the web crawler browse. Pages are
      * asynchronously delegated to implementing submodules. Note that
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
-     * must be called first or {@link IllegalStateException} will be thrown.
+     * must be called first or {@link java.lang.IllegalStateException} will be
+     * thrown.
      *
      * @param pageContent Content of the page itself
      * @param linkURL Source of the page
@@ -147,8 +152,8 @@ public class WholePresentationController implements Stoppable, MessageProducer {
     /**
      * Final method called when the crawling is done.
      *
-     * @param traversalGraph {@link TraversalGraph} object that can be used for
-     * more information for implemented submodules
+     * @param traversalGraph {@link org.presentation.model.graph.TraversalGraph}
+     * object that can be used for more information for implemented submodules
      */
     public void checkPresentation(TraversalGraph traversalGraph) {
         LOG.info("Calling checkPresentation on WholePresentationController");
@@ -166,11 +171,12 @@ public class WholePresentationController implements Stoppable, MessageProducer {
     }
 
     /**
-     * Method returns {@link Future} object connected to the asynchronous
-     * execution queue. Owner of this instance can then block and wait to the
-     * end of the queue thread.
+     * Method returns {@link java.util.concurrent.Future} object connected to
+     * the asynchronous execution queue. Owner of this instance can then block
+     * and wait to the end of the queue thread.
      *
-     * @return {@link Future} connected to asynchronous queue thread
+     * @return {@link java.util.concurrent.Future} connected to asynchronous
+     * queue thread
      */
     public Future<?> getExecutionFuture() {
         startedThreadLock.lock();//wait till start of the thread

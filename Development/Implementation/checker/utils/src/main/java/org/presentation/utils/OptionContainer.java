@@ -15,19 +15,19 @@ public class OptionContainer {
     private final List<String> chosenOptions = new ArrayList<>();
 
     /**
-     * Returns {@link List} of all user options from this
-     * {@link OptionContainer}.
+     * Returns {@link java.util.List} of all user options from this
+     * {@link org.presentation.utils.OptionContainer}.
      *
-     * @return {@link List} of all user options
+     * @return {@link java.util.List} of all user options
      */
     public List<String> getChosenOptions() {
         return chosenOptions;
     }
 
     /**
-     * Add user option to this {@link OptionContainer}.
+     * Add user option to this {@link org.presentation.utils.OptionContainer}.
      *
-     * @param option {@link String} representation of user option
+     * @param option {@link java.lang.String} representation of user option
      */
     public void addOption(String option) {
         this.chosenOptions.add(option);

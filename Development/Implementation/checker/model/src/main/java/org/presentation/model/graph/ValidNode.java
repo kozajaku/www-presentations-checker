@@ -37,6 +37,9 @@ public class ValidNode extends Node {
         orientedEdges.add(edge);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Edge> getOrientedEdges() {
         return orientedEdges;
@@ -50,6 +53,9 @@ public class ValidNode extends Node {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseCode getResponseCode() {
         return new ResponseCode(200);

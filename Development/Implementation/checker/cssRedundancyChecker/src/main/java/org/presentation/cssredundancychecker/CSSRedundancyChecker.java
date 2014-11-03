@@ -46,8 +46,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
+ * <p>
+ * CSSRedundancyChecker class.</p>
  *
  * @author Adam
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class CSSRedundancyChecker implements WholePresentationChecker {
@@ -64,6 +67,10 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     private MessageLogger messageLogger;
     private boolean stopped;
 
+    /**
+     * <p>
+     * Constructor for CSSRedundancyChecker.</p>
+     */
     public CSSRedundancyChecker() {
         this.stylesheetDependencies = new HashMap<>();
         this.stylesheetsByURL = new HashMap<>();
@@ -74,22 +81,34 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void offerMsgLoggerContainer(MessageLoggerContainer messageLoggerContainer) {
         messageLogger = messageLoggerContainer.createLogger("CSS redundancy checker");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getID() {
         return SERVICE_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void stopChecking() {
         LOG.info("stop checking");
         stopped = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPage(AbstractCode code) {
         if (code.getType() == CodeType.HTML_CODE) {
@@ -99,6 +118,12 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         }
     }
 
+    /**
+     * <p>
+     * addCSSPage.</p>
+     *
+     * @param cssCode a {@link org.presentation.parser.CSSCode} object.
+     */
     public void addCSSPage(CSSCode cssCode) {
         List<CRCHtmlCode> documentsProcessed = new ArrayList<>();
         LOG.log(Level.INFO, "Adding CSS page {0}", cssCode.getLink().getUrl());
@@ -128,6 +153,12 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         }
     }
 
+    /**
+     * <p>
+     * addHTMLPage.</p>
+     *
+     * @param htmlCode a {@link org.presentation.parser.HTMLCode} object.
+     */
     public void addHTMLPage(HTMLCode htmlCode) {
         LOG.log(Level.INFO, "Adding HTML page {0}", htmlCode.getLink().getUrl());
 
@@ -200,54 +231,56 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @param document
      */
     private void processSinglePage(CRCHtmlCode document) {
-	Document parsedDocument;
-	
-	try {
-	    parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
-	} catch(org.w3c.dom.DOMException ex) {
-	    parsedDocument = null;
-	}
-	
-	if(parsedDocument == null) {
-	    if(this.messageLogger != null) this.messageLogger.addMessage(this.fillMessage(new ErrorMsg(), document.getHtmlCode().getLink(), "Cannot parse HTML document", null, 0));
-	} else {
-	
-	    LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLink());
-	    LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*").getLength());
+        Document parsedDocument;
 
-	    // remove stylesheet from the dom
-	    NodeList linkElements = parsedDocument.getElementsByTagName("link");
-	    for(int i = 0; i < linkElements.getLength(); i++) {
-		if (linkElements.item(i).getNodeType() == Node.ELEMENT_NODE) {
-		    Element linkElement = ((Element) linkElements.item(i));
-		    if( (linkElement.hasAttribute("rel") && linkElement.getAttribute("rel").toLowerCase().equals("stylesheet")) ||
-			(linkElement.hasAttribute("type") && linkElement.getAttribute("type").toLowerCase().equals("text/css"))) {		    
-			    linkElement.getParentNode().removeChild(linkElement);
-		    }
-		}
-	    }
-	    LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*").getLength());
+        try {
+            parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
+        } catch (org.w3c.dom.DOMException ex) {
+            parsedDocument = null;
+        }
 
-	    // add custom stylesheets
-	    DOMAnalyzerEnhanced domAnalyzer = new DOMAnalyzerEnhanced(parsedDocument);
-	    int logCustomElementsAdded = 0;
+        if (parsedDocument == null) {
+            if (this.messageLogger != null) {
+                this.messageLogger.addMessage(this.fillMessage(new ErrorMsg(), document.getHtmlCode().getLink(), "Cannot parse HTML document", null, 0));
+            }
+        } else {
 
-	    for(LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
-		if(this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)){
-		    try {
-			LOG.log(Level.INFO, "Adding custom stylesheet - {0}", (new URL(stylesheetRequiredUrl.getUrl())).toString());
-			domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzerEnhanced.Origin.AUTHOR);
-			logCustomElementsAdded++;
-		    } catch (MalformedURLException ex) {
-			// that cannot happen (valid url set)
-		    }
-		}
-	    }
-	    domAnalyzer.getStyleSheets();
-	    LOG.log(Level.INFO, "{0} stylesheets RE-ADDED into DOM", logCustomElementsAdded);
+            LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLink());
+            LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*").getLength());
 
-	    doTheCheck(parsedDocument, domAnalyzer, document);
-	}
+            // remove stylesheet from the dom
+            NodeList linkElements = parsedDocument.getElementsByTagName("link");
+            for (int i = 0; i < linkElements.getLength(); i++) {
+                if (linkElements.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    Element linkElement = ((Element) linkElements.item(i));
+                    if ((linkElement.hasAttribute("rel") && linkElement.getAttribute("rel").toLowerCase().equals("stylesheet"))
+                            || (linkElement.hasAttribute("type") && linkElement.getAttribute("type").toLowerCase().equals("text/css"))) {
+                        linkElement.getParentNode().removeChild(linkElement);
+                    }
+                }
+            }
+            LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*").getLength());
+
+            // add custom stylesheets
+            DOMAnalyzerEnhanced domAnalyzer = new DOMAnalyzerEnhanced(parsedDocument);
+            int logCustomElementsAdded = 0;
+
+            for (LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
+                if (this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)) {
+                    try {
+                        LOG.log(Level.INFO, "Adding custom stylesheet - {0}", (new URL(stylesheetRequiredUrl.getUrl())).toString());
+                        domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzerEnhanced.Origin.AUTHOR);
+                        logCustomElementsAdded++;
+                    } catch (MalformedURLException ex) {
+                        // that cannot happen (valid url set)
+                    }
+                }
+            }
+            domAnalyzer.getStyleSheets();
+            LOG.log(Level.INFO, "{0} stylesheets RE-ADDED into DOM", logCustomElementsAdded);
+
+            doTheCheck(parsedDocument, domAnalyzer, document);
+        }
     }
 
     /**
@@ -259,17 +292,17 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @param domAnalyzer Dom analyzer for the given document
      * @param ruleUsage Usage to be added to the usage list for each rule
      */
-    protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzerEnhanced domAnalyzer, CSSRuleUsage ruleUsage){
-	NodeData nodeData;
-	nodeData = domAnalyzer.getElementStyleInherited((Element) element);		
-	
-	int logPropertiesNotRedundant = 0;
-	
-	if(nodeData != null) {		
-	    Collection<String> cssPropertyNames;
-	    cssPropertyNames = nodeData.getPropertyNames();
+    protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzerEnhanced domAnalyzer, CSSRuleUsage ruleUsage) {
+        NodeData nodeData;
+        nodeData = domAnalyzer.getElementStyleInherited((Element) element);
 
-	    // load properties
+        int logPropertiesNotRedundant = 0;
+
+        if (nodeData != null) {
+            Collection<String> cssPropertyNames;
+            cssPropertyNames = nodeData.getPropertyNames();
+
+            // load properties
             for (String cssPropertyName : cssPropertyNames) {
 
                 // check the property is not inheritable (is applied without text contnet) or the element contains text
@@ -305,7 +338,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                                 CSSRule cssRule = cssDocument.getCssRuleByPosition(new DeclarationPosition(source.getLine(), source.getPosition()));
 
                                 if (cssRule != null) {
-				    LOG.info("This property FOUND by position map");
+                                    LOG.info("This property FOUND by position map");
                                 } else {
                                     LOG.info("This property NOT found by position map");
                                 }
@@ -333,15 +366,15 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @param domAnalyzer Dom analyzer for the given document
      * @param document Html document
      */
-    protected void doTheCheck (Document parsedDocument, DOMAnalyzerEnhanced domAnalyzer, CRCHtmlCode document) {
-	// walk through all elements (DFS)
-	Node curNode;
-	
-	curNode = parsedDocument.getDocumentElement();
-	
-	while(curNode != null) {
-	    if(curNode.hasChildNodes()) {
-		Node nextNode = curNode.getFirstChild();
+    protected void doTheCheck(Document parsedDocument, DOMAnalyzerEnhanced domAnalyzer, CRCHtmlCode document) {
+        // walk through all elements (DFS)
+        Node curNode;
+
+        curNode = parsedDocument.getDocumentElement();
+
+        while (curNode != null) {
+            if (curNode.hasChildNodes()) {
+                Node nextNode = curNode.getFirstChild();
 
                 // text child identified, we mark his parent as "has_text_content"
                 if (nextNode.getNodeType() == Node.TEXT_NODE) {
@@ -378,48 +411,48 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
          if(nodeData != null) {		
          Collection<String> cssPropertyNames;
          cssPropertyNames = nodeData.getPropertyNames();
->>>>>>> branch 'dev-v0.3' of https://github.com/kozajaku/www-presentations-checker.git
+         >>>>>>> branch 'dev-v0.3' of https://github.com/kozajaku/www-presentations-checker.git
 		
-<<<<<<< HEAD
-		// text child identified, we mark his parent as "has_text_content"
-		if(nextNode.getNodeType() == Node.TEXT_NODE) {
-		    if(curNode.getNodeType() == Node.ELEMENT_NODE && nextNode.getNodeValue().trim().length() > 0) {
-			((Element)curNode).setAttribute("____CSSRC____has_test_content", "1");
-		    }		    
-		    curNode.removeChild(nextNode);  // we don't care about the text element any more
-		} else if(nextNode.getNodeType() == Node.ELEMENT_NODE) {
-		    // other than text element discovered, let's go deep
-		    curNode = nextNode;
-		} else {
-		    // do nothing
-		    curNode.removeChild(nextNode);
-		}
-	    } else {
-		// this node is already empty, youpee!
-		Node nextNode = curNode.getParentNode();
-		if(curNode.getParentNode() != null) curNode.getParentNode().removeChild(curNode);
-		if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLink()) );
-		curNode = nextNode;
-	    }
-	}
+         <<<<<<< HEAD
+         // text child identified, we mark his parent as "has_text_content"
+         if(nextNode.getNodeType() == Node.TEXT_NODE) {
+         if(curNode.getNodeType() == Node.ELEMENT_NODE && nextNode.getNodeValue().trim().length() > 0) {
+         ((Element)curNode).setAttribute("____CSSRC____has_test_content", "1");
+         }		    
+         curNode.removeChild(nextNode);  // we don't care about the text element any more
+         } else if(nextNode.getNodeType() == Node.ELEMENT_NODE) {
+         // other than text element discovered, let's go deep
+         curNode = nextNode;
+         } else {
+         // do nothing
+         curNode.removeChild(nextNode);
+         }
+         } else {
+         // this node is already empty, youpee!
+         Node nextNode = curNode.getParentNode();
+         if(curNode.getParentNode() != null) curNode.getParentNode().removeChild(curNode);
+         if(curNode.getNodeType() == Node.ELEMENT_NODE) applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLink()) );
+         curNode = nextNode;
+         }
+         }
 	
 	    
-	  /*  
-	for (int i = 0; i < allElements.getLength(); i++) {
-	    Node curNode = allElements.item(i);
-	    if (curNode.getNodeType() == Node.ELEMENT_NODE) { 		
-		NodeData nodeData;
-		nodeData = domAnalyzer.getElementStyleInherited((Element) curNode);		
-		if(nodeData != null) {		
-		    Collection<String> cssPropertyNames;
-		    cssPropertyNames = nodeData.getPropertyNames();
+         /*  
+         for (int i = 0; i < allElements.getLength(); i++) {
+         Node curNode = allElements.item(i);
+         if (curNode.getNodeType() == Node.ELEMENT_NODE) { 		
+         NodeData nodeData;
+         nodeData = domAnalyzer.getElementStyleInherited((Element) curNode);		
+         if(nodeData != null) {		
+         Collection<String> cssPropertyNames;
+         cssPropertyNames = nodeData.getPropertyNames();
 		
-		    // load properties
-		    for(String cssPropertyName : cssPropertyNames) {
-=======
          // load properties
          for(String cssPropertyName : cssPropertyNames) {
->>>>>>> branch 'dev-v0.3' of https://github.com/kozajaku/www-presentations-checker.git
+         =======
+         // load properties
+         for(String cssPropertyName : cssPropertyNames) {
+         >>>>>>> branch 'dev-v0.3' of https://github.com/kozajaku/www-presentations-checker.git
 			
          // load declaration sources
          Declaration sourceDeclaration = nodeData.getSourceDeclaration(cssPropertyName, true);
@@ -450,11 +483,11 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * This function is called when the checkup is finished. It sums up the
      * results, generates result messages and also process the rest of the
      * documents (those with missing stylesheets)
-     *
-     * @param traversalGraph unused
      */
     @Override
     public void finalizeCheckup(TraversalGraph traversalGraph) {
@@ -518,7 +551,8 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     /**
      * This is a helper method to create Message using inline style
      *
-     * @param message Empty message to be filled with given data (ex. new ErrorMsg())
+     * @param message Empty message to be filled with given data (ex. new
+     * ErrorMsg())
      * @param url URL of the document
      * @param text Text of the message
      * @param location Message location, can be null
@@ -526,10 +560,10 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @return The message filled with given arguments
      */
     protected Message fillMessage(Message message, LinkURL url, String text, MsgLocation location, int priorityBoost) {
-	message.setPage(url);
-	message.setMessage(text);
-	message.setMsgLocation(location);
-	message.setPriorityBoost(priorityBoost);
-	return message;
-    }  
+        message.setPage(url);
+        message.setMessage(text);
+        message.setMsgLocation(location);
+        message.setPriorityBoost(priorityBoost);
+        return message;
+    }
 }

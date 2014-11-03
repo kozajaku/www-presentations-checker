@@ -16,6 +16,7 @@ import org.presentation.wholepresentationcontroller.WholePresentationChecker;
  * to submodule implementations.
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public class AsyncWholeCheckerExecutor implements Runnable {
 
@@ -49,8 +50,8 @@ public class AsyncWholeCheckerExecutor implements Runnable {
     /**
      * Delegate finalization to the implemented allowed submodules.
      *
-     * @param traversalGraph {@link TraversalGraph} that can be used as source
-     * for more information
+     * @param traversalGraph {@link org.presentation.model.graph.TraversalGraph}
+     * that can be used as source for more information
      */
     public void finalizeCheckup(TraversalGraph traversalGraph) {
         WholeExecQueueElement finalElement = new WholeExecQueueElement(traversalGraph);
@@ -58,6 +59,8 @@ public class AsyncWholeCheckerExecutor implements Runnable {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * Method is called in the new thread. It is implemented on blocking queue
      * that receives new requests for asynchronous processing.
      */

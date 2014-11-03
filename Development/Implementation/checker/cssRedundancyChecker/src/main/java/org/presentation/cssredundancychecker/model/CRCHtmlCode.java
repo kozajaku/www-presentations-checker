@@ -16,8 +16,11 @@ import org.presentation.model.LinkURL;
 import org.presentation.parser.HTMLCode;
 
 /**
+ * <p>
+ * CRCHtmlCode class.</p>
  *
  * @author petrof
+ * @version 1.0-SNAPSHOT
  */
 public class CRCHtmlCode {
 
@@ -28,16 +31,34 @@ public class CRCHtmlCode {
     protected List<LinkURL> stylesheetFilesRequired;
     protected HTMLCode htmlCode;
 
+    /**
+     * <p>
+     * Constructor for CRCHtmlCode.</p>
+     *
+     * @param htmlCode a {@link org.presentation.parser.HTMLCode} object.
+     */
     public CRCHtmlCode(HTMLCode htmlCode) {
         this.htmlCode = htmlCode;
         this.stylesheetFilesRequired = new ArrayList<>();
         this.loadStylesheetsRequiredFromDocument();
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>htmlCode</code>.</p>
+     *
+     * @return a {@link org.presentation.parser.HTMLCode} object.
+     */
     public HTMLCode getHtmlCode() {
         return htmlCode;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>stylesheetFilesRequired</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<LinkURL> getStylesheetFilesRequired() {
         return stylesheetFilesRequired;
     }

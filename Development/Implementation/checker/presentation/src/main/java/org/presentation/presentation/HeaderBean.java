@@ -38,9 +38,6 @@ public class HeaderBean extends ProtectedBean {
      * Get user that is currently logged in
      *
      * @return currently logged-in user
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     public User getUser() throws UserAuthorizationException {
         try {

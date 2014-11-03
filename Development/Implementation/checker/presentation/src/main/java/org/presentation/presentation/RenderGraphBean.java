@@ -62,9 +62,6 @@ public class RenderGraphBean extends ProtectedBean {
      * involved.
      *
      * @return success
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     protected boolean loadCheckup() throws UserAuthorizationException {
         Checkup c = this.persistance.findCheckup(checkupId);
@@ -105,10 +102,6 @@ public class RenderGraphBean extends ProtectedBean {
 
     /**
      * This action prepares the bean for graph rendering
-     *
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     public void showGraph() throws UserAuthorizationException {
         if (!this.loadCheckup()) {
@@ -121,10 +114,6 @@ public class RenderGraphBean extends ProtectedBean {
 
     /**
      * This action prepares the bean for graph list rendering
-     *
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     public void showGraphList() throws UserAuthorizationException {
         if (!this.loadCheckup()) {
@@ -136,9 +125,6 @@ public class RenderGraphBean extends ProtectedBean {
      * This action brings the ability to download graphs
      *
      * @throws java.io.IOException if any.
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     public void download() throws IOException, UserAuthorizationException {
         this.showGraph();
@@ -224,9 +210,6 @@ public class RenderGraphBean extends ProtectedBean {
      * getAvailableGraphs.</p>
      *
      * @return a {@link java.util.List} object.
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     public List<Graph> getAvailableGraphs() throws UserAuthorizationException {
         if (this.checkup == null) {

@@ -71,6 +71,9 @@ public class CSSCode extends AbstractCode {
         return parsedCSS;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CodeType getType() {
         return CodeType.CSS_CODE;

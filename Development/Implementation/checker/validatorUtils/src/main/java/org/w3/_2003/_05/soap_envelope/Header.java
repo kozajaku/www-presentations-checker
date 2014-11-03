@@ -78,7 +78,7 @@ public class Header {
      *
      *
      * <p>
-     * Objects of the following type(s) are allowed in the list null     {@link org.w3c.dom.Element}
+     * Objects of the following type(s) are allowed in the list null null null     {@link org.w3c.dom.Element}
      * {@link java.lang.Object}
      *
      * @return a {@link java.util.List} object.

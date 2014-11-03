@@ -8,6 +8,7 @@ import org.presentation.utils.AllowOptionService;
  * OptionServiceImpl class.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class OptionServiceImpl implements AllowOptionService {

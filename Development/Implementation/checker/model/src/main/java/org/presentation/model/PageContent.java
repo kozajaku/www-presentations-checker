@@ -12,18 +12,19 @@ public class PageContent {
     private final String content;
 
     /**
-     * Creates new instance of {@link PageContent}.
+     * Creates new instance of {@link org.presentation.model.PageContent}.
      *
-     * @param content {@link String} representaion of the page content
+     * @param content {@link java.lang.String} representaion of the page content
      */
     public PageContent(String content) {
         this.content = content;
     }
 
     /**
-     * Returns the {@link String} representation of {@link PageContent}.
+     * Returns the {@link java.lang.String} representation of
+     * {@link org.presentation.model.PageContent}.
      *
-     * @return {@link String} representaion of the page content
+     * @return {@link java.lang.String} representaion of the page content
      */
     public String getContent() {
         return content;

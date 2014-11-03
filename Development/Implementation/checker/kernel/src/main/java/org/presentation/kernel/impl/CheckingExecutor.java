@@ -70,12 +70,13 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     private GraphGeneratorQueue graphGenerator;
 
     /**
-     * Simply start checking of {@link Checkup} passed as parameter. Method has
-     * very long duration and is blocking.
+     * Simply start checking of
+     * {@link org.presentation.persistence.model.Checkup} passed as parameter.
+     * Method has very long duration and is blocking.
      *
      * @param checkup A {@link org.presentation.persistence.model.Checkup}
      * object representing information about check that should be executed by
-     * this {@link CheckingExecutor}
+     * this {@link org.presentation.kernel.impl.CheckingExecutor}
      */
     @SuppressWarnings("UseSpecificCatch")
     public void startChecking(Checkup checkup) {

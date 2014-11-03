@@ -1,7 +1,8 @@
 package org.presentation.model.logging;
 
 /**
- * Represents infomation type of abstract class {@link Message}.
+ * Represents infomation type of abstract class
+ * {@link org.presentation.model.logging.Message}.
  *
  * @author Jindřch Máca
  * @version $Id: $Id

@@ -221,7 +221,7 @@ public class CheckingExecutionQueue {
      * Method is called by {@link CheckRequestReceiver} when it is necessary to
      * stop already running checkup.
      *
-     * @param checkupId
+     * @param checkupId a {@link java.lang.Integer} object.
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void stopRunningChecking(Integer checkupId) {

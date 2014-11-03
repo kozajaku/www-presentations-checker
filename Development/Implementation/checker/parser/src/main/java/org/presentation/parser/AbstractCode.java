@@ -15,21 +15,35 @@ public abstract class AbstractCode {
 
     protected LinkURL pageLink;
 
+    /**
+     * <p>
+     * getLink.</p>
+     *
+     * @return a {@link org.presentation.model.LinkURL} object.
+     */
     public LinkURL getLink() {
         return pageLink;
     }
 
+    /**
+     * <p>
+     * getType.</p>
+     *
+     * @return a {@link org.presentation.parser.CodeType} object.
+     */
     public abstract CodeType getType();
 
     /**
      * Factory method for creating new specific implementation of
-     * {@link AbstractCode}. Specific implementation is resolved and decided by
-     * {@link ContentType} passed as method parameter.
+     * {@link org.presentation.parser.AbstractCode}. Specific implementation is
+     * resolved and decided by {@link org.presentation.model.ContentType} passed
+     * as method parameter.
      *
-     * @param type {@link ContentType} representing type of the code
+     * @param type {@link org.presentation.model.ContentType} representing type
+     * of the code
      * @param linkURL Source address of the link
      * @param content Source content of the page itself
-     * @return
+     * @return a {@link org.presentation.parser.AbstractCode} object.
      */
     public static AbstractCode createCode(ContentType type, LinkURL linkURL, PageContent content) {
         if (type.isHtml()) {

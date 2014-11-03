@@ -1,10 +1,12 @@
 package org.presentation.model.logging;
 
 /**
- * Represents invalid link type of abstract class {@link Message}, which extends
- * class {@link ErrorMsg} for {@link ResponseCode}. This class is used for invalid
- * links in web pages and HTTP status codes, which returns HTTP request sended
- * to them.
+ * Represents invalid link type of abstract class
+ * {@link org.presentation.model.logging.Message}, which extends class
+ * {@link org.presentation.model.logging.ErrorMsg} for
+ * {@link org.presentation.model.logging.ResponseCode}. This class is used for
+ * invalid links in web pages and HTTP status codes, which returns HTTP request
+ * sended to them.
  *
  * @author Jindřich Máca
  * @version $Id: $Id
@@ -15,18 +17,22 @@ public class InvalidLinkMsg extends ErrorMsg {
     private ResponseCode errorCode;
 
     /**
-     * Returns {@link ResponseCode} of this {@link InvalidLinkMsg}.
+     * Returns {@link org.presentation.model.logging.ResponseCode} of this
+     * {@link org.presentation.model.logging.InvalidLinkMsg}.
      *
-     * @return {@link ResponseCode} of invalid link
+     * @return {@link org.presentation.model.logging.ResponseCode} of invalid
+     * link
      */
     public ResponseCode getErrorCode() {
         return errorCode;
     }
 
     /**
-     * Sets {@link ResponseCode} of this {@link InvalidLinkMsg}.
+     * Sets {@link org.presentation.model.logging.ResponseCode} of this
+     * {@link org.presentation.model.logging.InvalidLinkMsg}.
      *
-     * @param errorCode {@link ResponseCode} of invalid link
+     * @param errorCode {@link org.presentation.model.logging.ResponseCode} of
+     * invalid link
      */
     public void setErrorCode(ResponseCode errorCode) {
         this.errorCode = errorCode;

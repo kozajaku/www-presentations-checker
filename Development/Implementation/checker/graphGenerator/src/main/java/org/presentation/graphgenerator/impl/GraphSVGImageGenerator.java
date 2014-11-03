@@ -24,6 +24,7 @@ import org.presentation.model.graph.TraversalGraph;
  */
 //@Dependent //TODO - uncomment after implementation
 public class GraphSVGImageGenerator extends GraphGenerator {
+
     //constants
     static final String VALID_COLOR = "\"green\"";
     static final String INVALID_COLOR = "\"red\"";
@@ -33,7 +34,7 @@ public class GraphSVGImageGenerator extends GraphGenerator {
     static final String FROM_CSS_COLOR = "\"orange\"";
     static final String IMPORT_COLOR = "\"deeppink\"";
     static final String SCRIPT_COLOR = "\"purple\"";
-    
+
     Map<Node, Integer> nodeNumbers;
     int nodeCounter;
 
@@ -136,6 +137,6 @@ public class GraphSVGImageGenerator extends GraphGenerator {
     }
 
     private double countNodeSize(Node node) {
-        return Math.log(node.getInputDegree()+1);
+        return Math.log(node.getInputDegree() + 1);
     }
 }

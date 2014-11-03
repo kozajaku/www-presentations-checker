@@ -47,9 +47,10 @@ public class CheckRequestReceiver {
      * implemented in tier calling this method.
      *
      * @param email Email of the user requesting new checking request; email is
-     * represented by {@link String} instance
-     * @param checkingRequest Instance of {@link CheckingRequest} holding
-     * information about new checking request
+     * represented by {@link java.lang.String} instance
+     * @param checkingRequest Instance of
+     * {@link org.presentation.kernel.CheckingRequest} holding information about
+     * new checking request
      */
     public void addNewCheckingRequest(String email, CheckingRequest checkingRequest) {
         LOG.log(Level.INFO, "addNewCheckingRequest called for user {0}", email);

@@ -36,12 +36,23 @@ public abstract class Node {
     public void incInputDegree() {
         inputDegree++;
     }
+
+    /**
+     * <p>
+     * getResponseCode.</p>
+     *
+     * @return a {@link org.presentation.model.logging.ResponseCode} object.
+     */
     public abstract ResponseCode getResponseCode();
+
     /**
      * Gets oriented edges which goes from this node.
-     * @return List of oriented {@link Edge}s or empty collection if node has no succesors.
+     *
+     * @return List of oriented {@link org.presentation.model.graph.Edge}s or
+     * empty collection if node has no succesors.
      */
     public abstract List<Edge> getOrientedEdges();
+
     /**
      * <p>
      * Getter for the field <code>url</code>.</p>
@@ -62,11 +73,17 @@ public abstract class Node {
         return inputDegree;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return url.hashCode();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         return url.equals(obj);

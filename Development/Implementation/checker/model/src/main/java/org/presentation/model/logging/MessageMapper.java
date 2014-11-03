@@ -45,7 +45,7 @@ public interface MessageMapper {
      * message implementations.
      *
      * @param errorCode ResponseCode class instance representing the error code
- number. (e.g. 404 for Not Found)
+     * number. (e.g. 404 for Not Found)
      */
     void setErrorCode(ResponseCode errorCode);
 

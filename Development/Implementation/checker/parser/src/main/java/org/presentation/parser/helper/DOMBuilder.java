@@ -37,13 +37,12 @@ import org.w3c.dom.Node;
  * @version 1.0-SNAPSHOT
  */
 public final class DOMBuilder {
- 
-    
+
     /**
      * Restrict instantiation
      */
     private DOMBuilder() {
-    }    
+    }
 
     /**
      * Returns a W3C DOM that exposes the same content as the supplied Jsoup
@@ -92,43 +91,43 @@ public final class DOMBuilder {
 
         } else if (node instanceof org.jsoup.nodes.Element) {
 
-	    org.jsoup.nodes.Element e = ((org.jsoup.nodes.Element) node);
-	    
-	    org.w3c.dom.Element _e;
-	    
-	    try {	    
-		_e = doc.createElement(e.tagName());
-	    } catch(org.w3c.dom.DOMException ex) {
-		_e = doc.createElement("div");
-	    }
+            org.jsoup.nodes.Element e = ((org.jsoup.nodes.Element) node);
 
-	    out.appendChild(_e);
-	    org.jsoup.nodes.Attributes atts = e.attributes();
+            org.w3c.dom.Element _e;
 
-	    for (org.jsoup.nodes.Attribute a : atts) {
-		String attName = a.getKey();
-		//omit xhtml namespace
-		if (attName.equals("xmlns")) {
-		    continue;
-		}
-		String attPrefix = getNSPrefix(attName);
-		if (attPrefix != null) {
-		    if (attPrefix.equals("xmlns")) {
-			ns.put(getLocalName(attName), a.getValue());
-		    } else if (!attPrefix.equals("xml")) {
-			String namespace = ns.get(attPrefix);
-			if (namespace == null) {
-			    //fix attribute names looking like qnames
-			    attName = attName.replace(':', '_');
-			}
-		    }
-		}
-		_e.setAttribute(attName, a.getValue());
-	    }
+            try {
+                _e = doc.createElement(e.tagName());
+            } catch (org.w3c.dom.DOMException ex) {
+                _e = doc.createElement("div");
+            }
 
-	    for (org.jsoup.nodes.Node n : e.childNodes()) {
-		createDOM(n, _e, doc, ns);
-	    }
+            out.appendChild(_e);
+            org.jsoup.nodes.Attributes atts = e.attributes();
+
+            for (org.jsoup.nodes.Attribute a : atts) {
+                String attName = a.getKey();
+                //omit xhtml namespace
+                if (attName.equals("xmlns")) {
+                    continue;
+                }
+                String attPrefix = getNSPrefix(attName);
+                if (attPrefix != null) {
+                    if (attPrefix.equals("xmlns")) {
+                        ns.put(getLocalName(attName), a.getValue());
+                    } else if (!attPrefix.equals("xml")) {
+                        String namespace = ns.get(attPrefix);
+                        if (namespace == null) {
+                            //fix attribute names looking like qnames
+                            attName = attName.replace(':', '_');
+                        }
+                    }
+                }
+                _e.setAttribute(attName, a.getValue());
+            }
+
+            for (org.jsoup.nodes.Node n : e.childNodes()) {
+                createDOM(n, _e, doc, ns);
+            }
 
         } else if (node instanceof org.jsoup.nodes.TextNode) {
 

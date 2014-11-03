@@ -22,7 +22,8 @@ public interface WholePresentationChecker extends Stoppable, Option, MessageProd
      * to submodules itself. It is not necessary for submodules to be thread
      * safe.
      *
-     * @param code {@link AbstractCode} representing new page
+     * @param code {@link org.presentation.parser.AbstractCode} representing new
+     * page
      */
     public void addPage(AbstractCode code);
 

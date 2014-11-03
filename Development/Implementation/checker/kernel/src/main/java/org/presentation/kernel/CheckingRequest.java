@@ -9,7 +9,7 @@ import org.presentation.utils.OptionContainer;
 
 /**
  * This class serves as holder for passing information about new checking
- * request to {@link CheckRequestReceiver}.
+ * request to {@link org.presentation.kernel.CheckRequestReceiver}.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT

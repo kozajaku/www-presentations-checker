@@ -7,11 +7,14 @@ import org.presentation.model.graph.TraversalGraph;
 
 /**
  * This class represents immutable holder which serves as element in the queue
- * in {@link AsyncWholeCheckerExecutor}. Either holder holds instances of
- * objects representing page itself (content, source link and content type), or
- * holder represents final element of the queue and holds TraversalGraph
+ * in
+ * {@link org.presentation.wholepresentationcontroller.impl.AsyncWholeCheckerExecutor}.
+ * Either holder holds instances of objects representing page itself (content,
+ * source link and content type), or holder represents final element of the
+ * queue and holds TraversalGraph
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public class WholeExecQueueElement {
 
@@ -59,18 +62,42 @@ public class WholeExecQueueElement {
         return endFlag;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>pageContent</code>.</p>
+     *
+     * @return a {@link org.presentation.model.PageContent} object.
+     */
     public PageContent getPageContent() {
         return pageContent;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>link</code>.</p>
+     *
+     * @return a {@link org.presentation.model.LinkURL} object.
+     */
     public LinkURL getLink() {
         return link;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>contentType</code>.</p>
+     *
+     * @return a {@link org.presentation.model.ContentType} object.
+     */
     public ContentType getContentType() {
         return contentType;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>traversalGraph</code>.</p>
+     *
+     * @return a {@link org.presentation.model.graph.TraversalGraph} object.
+     */
     public TraversalGraph getTraversalGraph() {
         return traversalGraph;
     }

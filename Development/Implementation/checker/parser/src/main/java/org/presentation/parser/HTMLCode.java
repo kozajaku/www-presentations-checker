@@ -31,7 +31,8 @@ public class HTMLCode extends AbstractCode {
 
     /**
      * Parses {@link PageContent} into {@link Document}. Don't call this method
-     * if you don't need parsed code.at org.presentation.parser.HTMLCode.parse(HTMLCode.java:37)
+     * if you don't need parsed code.at
+     * org.presentation.parser.HTMLCode.parse(HTMLCode.java:37)
      */
     private void parse() {
         Document jsoupDocument = Jsoup.parse(this.codeHTML.getContent(), pageLink.getUrl());
@@ -61,6 +62,9 @@ public class HTMLCode extends AbstractCode {
         return parsedHTML;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CodeType getType() {
         return CodeType.HTML_CODE;

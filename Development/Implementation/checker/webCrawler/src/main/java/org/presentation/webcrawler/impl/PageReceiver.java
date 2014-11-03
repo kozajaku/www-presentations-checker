@@ -27,10 +27,12 @@ import org.presentation.model.logging.WarningMsg;
 
 /**
  * Class representing page reciever, which can send GET or HEAD HTTP request
- * with user specified {@link List} of HTTP {@link Header} to web page given by
- * {@link LinkURL} and returns response in form of {@link ReceiverResponse}. It
- * can also download page content to {@link PageContent} if the page
- * Content-Type is HTML or CSS. It handles HTTP and HTTPS protocol.
+ * with user specified {@link java.util.List} of HTTP
+ * {@link org.presentation.model.Header} to web page given by
+ * {@link org.presentation.model.LinkURL} and returns response in form of
+ * {@link org.presentation.webcrawler.impl.ReceiverResponse}. It can also
+ * download page content to {@link org.presentation.model.PageContent} if the
+ * page Content-Type is HTML or CSS. It handles HTTP and HTTPS protocol.
  *
  * @author Jindřich Máca
  * @version $Id: $Id
@@ -65,15 +67,20 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Sends HTTP HEAD request to {@link LinkURL} address, using user specified
-     * {@link List} of HTTP {@link Header}.
+     * Sends HTTP HEAD request to {@link org.presentation.model.LinkURL}
+     * address, using user specified {@link java.util.List} of HTTP
+     * {@link org.presentation.model.Header}.
      *
-     * @param linkURL {@link LinkURL} address of the web page
-     * @param addHeaders {@link List} of HTTP {@link Header}, specified by user,
-     * used for the request
-     * @return {@link ReceiverResponse} for the HTTP HEAD request
-     * @throws MalformedURLException If an unknown protocol is specified.
-     * @throws IOException If request fails in any way.
+     * @param linkURL {@link org.presentation.model.LinkURL} address of the web
+     * page
+     * @param addHeaders {@link java.util.List} of HTTP
+     * {@link org.presentation.model.Header}, specified by user, used for the
+     * request
+     * @return {@link org.presentation.webcrawler.impl.ReceiverResponse} for the
+     * HTTP HEAD request
+     * @throws java.net.MalformedURLException If an unknown protocol is
+     * specified.
+     * @throws java.io.IOException If request fails in any way.
      */
     public ReceiverResponse checkPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting checkPage(HEAD) on {0}", linkURL.getUrl());
@@ -81,18 +88,22 @@ public class PageReceiver implements MessageProducer {
     }
 
     /**
-     * Sends HTTP HEAD request to {@link LinkURL} address, using user specified
-     * {@link List} of HTTP {@link Header} and if it is HTML or CSS file,
+     * Sends HTTP HEAD request to {@link org.presentation.model.LinkURL}
+     * address, using user specified {@link java.util.List} of HTTP
+     * {@link org.presentation.model.Header} and if it is HTML or CSS file,
      * decided by its Content-Type HTTP attribute, sends also GET request and
-     * downloads {@link PageContent}.
+     * downloads {@link org.presentation.model.PageContent}.
      *
-     * @param linkURL {@link LinkURL} address of the web page
-     * @param addHeaders {@link List} of HTTP {@link Header}, specified by user,
-     * used for the request
-     * @return {@link ReceiverResponse} for the HTTP request; may contain
-     * {@link PageContent}
-     * @throws MalformedURLException If an unknown protocol is specified.
-     * @throws IOException If request fails in any way.
+     * @param linkURL {@link org.presentation.model.LinkURL} address of the web
+     * page
+     * @param addHeaders {@link java.util.List} of HTTP
+     * {@link org.presentation.model.Header}, specified by user, used for the
+     * request
+     * @return {@link org.presentation.webcrawler.impl.ReceiverResponse} for the
+     * HTTP request; may contain {@link org.presentation.model.PageContent}
+     * @throws java.net.MalformedURLException If an unknown protocol is
+     * specified.
+     * @throws java.io.IOException If request fails in any way.
      */
     public ReceiverResponse getPage(LinkURL linkURL, List<Header> addHeaders) throws MalformedURLException, IOException {
         LOG.log(Level.INFO, "Starting getPage(HEAD) on {0}", linkURL.getUrl());

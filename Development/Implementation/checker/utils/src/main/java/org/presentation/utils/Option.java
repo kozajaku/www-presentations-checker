@@ -9,9 +9,9 @@ package org.presentation.utils;
 public interface Option {
 
     /**
-     * Get specific {@link String} ID of the option.
+     * Get specific {@link java.lang.String} ID of the option.
      *
-     * @return {@link String} ID of the option
+     * @return {@link java.lang.String} ID of the option
      */
     public String getID();
 }

@@ -8,23 +8,42 @@ package org.presentation.cssredundancychecker.model;
 import org.presentation.model.LinkURL;
 
 /**
+ * <p>
+ * CSSRuleUsage class.</p>
  *
  * @author petrof
+ * @version 1.0-SNAPSHOT
  */
 public class CSSRuleUsage {
+
     protected LinkURL url;
 
+    /**
+     * <p>
+     * Constructor for CSSRuleUsage.</p>
+     *
+     * @param url a {@link org.presentation.model.LinkURL} object.
+     */
     public CSSRuleUsage(LinkURL url) {
-	this.url = url;
+        this.url = url;
     }
 
+    /**
+     * <p>
+     * Getter for the field <code>url</code>.</p>
+     *
+     * @return a {@link org.presentation.model.LinkURL} object.
+     */
     public LinkURL getUrl() {
-	return url;
+        return url;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
-	return url.toString();
-    }    
-    
+        return url.toString();
+    }
+
 }

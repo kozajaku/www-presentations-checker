@@ -31,6 +31,9 @@ public class InvalidNode extends Node {
         this.responseCode = errorCode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ResponseCode getResponseCode() {
         return responseCode;
@@ -38,13 +41,15 @@ public class InvalidNode extends Node {
 
     /**
      * {@inheritDoc}
-     * @return This implementation returns always <code>false</code>
      */
     @Override
     public boolean isValid() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Edge> getOrientedEdges() {
         return new ArrayList<>();

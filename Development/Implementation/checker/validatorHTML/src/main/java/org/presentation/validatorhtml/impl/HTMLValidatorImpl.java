@@ -28,9 +28,11 @@ import org.w3._2005._10.markup_validator.Warning;
 import org.w3._2005._10.markup_validator.WarningList;
 
 /**
- * {@link SinglePageControllerService} representing HTML validator service.
- * Sends {@link LinkURL} of HTML file to W3C validation service and processes
- * its SOAP response to {@link MessageLogger}.
+ * {@link org.presentation.singlepagecontroller.SinglePageControllerService}
+ * representing HTML validator service. Sends
+ * {@link org.presentation.model.LinkURL} of HTML file to W3C validation service
+ * and processes its SOAP response to
+ * {@link org.presentation.model.logging.MessageLogger}.
  *
  * @author Jindřich Máca
  * @version $Id: $Id
