@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import java.net.HttpURLConnection;
+import java.nio.CharBuffer;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -269,10 +270,12 @@ public class PageReceiver implements MessageProducer {
      * @throws IOException If recieving of content fails in any way.
      */
     private String recievePageContent(BufferedReader in) throws IOException {
-        String inputLine;
         StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
+        CharBuffer buffer = CharBuffer.allocate(2048);
+        while (in.read(buffer) != -1) {
+            buffer.flip();
+            response.append(buffer);
+            buffer.clear();
         }
         LOG.info("Content successfuly loaded.");
         return response.toString();
