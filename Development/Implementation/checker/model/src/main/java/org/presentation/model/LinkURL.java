@@ -1,5 +1,7 @@
 package org.presentation.model;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 import org.w3c.dom.Node;
 
@@ -20,7 +22,7 @@ public class LinkURL {
      * @param url {@link java.lang.String} representation of the URL web address
      */
     public LinkURL(String url) {
-        this.url = url;
+        this.url = normalize(url);
     }
 
     /**
@@ -31,6 +33,22 @@ public class LinkURL {
      */
     public LinkURL(Node hrefAttr) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Method used for normalization of {@link String} representation of URL
+     * address by using {@link URI#normalize() } method.
+     *
+     * @param url {@link String} representation of URL address
+     * @return {@link String} normalized URL address; {@link String} same url
+     * address as given, because it is not normalizable
+     */
+    private String normalize(String url) {
+        try {
+            return new URI(url).normalize().toString();
+        } catch (URISyntaxException ex) {
+            return url; //return same url as given, becaused it is not normalizable
+        }
     }
 
     /**

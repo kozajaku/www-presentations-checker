@@ -75,7 +75,7 @@ public class CRCHtmlCode {
             if ((type != null && (type.toLowerCase().equals("text/css"))) || (rel != null && (rel.toLowerCase().equals("stylesheet")))) {
                 String cssHref = link.attr("abs:href");
                 if (cssHref != null) {
-                    cssHref = cssHref.replaceAll("[/][.]+", "");  // normalize the path (ex http://example.com/./style.css -> http://example.com/style.css)
+                    //cssHref = cssHref.replaceAll("[/][.]+", "");  // normalize the path (ex http://example.com/./style.css -> http://example.com/style.css)
                     LinkURL stylesheetResource = new LinkURL(cssHref.split("#")[0]);
                     if (LOG != null) {
                         LOG.log(Level.INFO, "CSSRC - found CSS: {0}", stylesheetResource.getUrl());
