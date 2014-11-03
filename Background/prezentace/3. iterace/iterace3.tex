@@ -1,0 +1,206 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{times}
+\usetheme{PaloAlto}
+
+\setbeamertemplate{frametitle continuation}[from second][]
+
+\begin{document}
+\title [NKWP]{Nástroj na kontrolu WWW prezentací}
+\author[J.~ Koza, A.~ Kugler, J.~Máca, P.~Svoboda]{Jakub~Koza \and Adam~Kugler \and Jindřich~Máca \and Petr~Svoboda}
+
+%číslo následujicí iterace
+\subtitle{3. iterace}
+\frame{\titlepage}
+\begin{frame}[allowframebreaks]\frametitle{Co jsme dělali}
+   \begin{itemize}
+   %vyplníme dohromady hlavně podle harmonogramu
+		\item WholePresentationController
+		\item CSSRedundancyChecker
+		\item Parser
+		\item Kernel
+		\item Presentation
+		\item Instalační příručka
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]\frametitle{Kdo co dělal} 
+  \begin{itemize}
+    \item Jakub Koza
+      \begin{itemize}
+       %vyplní Kozík
+       \item Kubova práce (počet hodin)
+     \end{itemize}
+
+    \item Adam Kugler
+      \begin{itemize}
+      %vyplní Adam
+       \item Oprava starší dokumentace (1 hodina)
+			 \item Úprava EA modelu (1 hodina)
+       \item WholePresentationChecker (1 hodina)
+			 \item CSSCode a HTMLCode (2 hodiny)
+       \item Začátek CSSRedundancyChecker (3 hodiny)
+       \item Volba kontroly externích linků (0.5 hodiny)
+			 \item Úprava webcrawleru pro potřeby CRC (1.5 hodiny)
+			 \item Návrh grafu v Graphvizu (2 hodiny)
+       \item Refaktoring - zrušení nutnosti přetypovávání Node na Invalid/ValidNode (1 hodina)
+			 \item GraphSVGImageGenerator (3 hodiny)
+     \end{itemize}
+
+    \item Jindřich Máca
+      \begin{itemize}
+      %vyplní Tuník 
+       \item Administrace Redminu (1.6 hodiny)
+			 \item Dostylování prezentační vrstvy (0.5 hodiny)
+			 \item Oprava starší dokumentace podle nových programátorských konvencí (4 hodina)
+			 \item Testovací webová stránka (0.5 hodiny)
+     \end{itemize}
+
+    \item Petr Svoboda
+      \begin{itemize}
+      %vyplní Petr
+       \item Petrova práce (počet hodin)
+     \end{itemize}
+   \end{itemize}  
+\end{frame} 
+
+\begin{frame}[allowframebreaks]\frametitle{Důležité fragmenty naší práce}
+  \begin{itemize}
+    %vylpníme dohromady
+    \item WholePresentationController
+		\item CSSRedundancyChecker
+		\item Instalační příručka
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]\frametitle{Na co jsme hrdí} 
+  \begin{itemize}
+    \item Jakub Koza
+      \begin{itemize}
+       %vyplní Kozík
+       \item Kubova hrdost
+     \end{itemize}
+   
+    \item Adam Kugler
+      \begin{itemize}
+      %vyplní Adam
+       \item SVG graf je skoro hotov, tím pádem máme téměř hotovou další iteraci a vypadá opravdu dobře.
+     \end{itemize}
+
+    \item Jindřich Máca
+      \begin{itemize}
+      %vyplní Tuník 
+       \item Jsem rád, že se nám podařilo vyřešit CSSRedundancyChecker, protože ze začátku jsme si jím nebyli moc jistí.
+      \end{itemize}  
+   
+    \item Petr Svoboda
+      \begin{itemize}
+      %vyplní Petr
+       \item Petrova hrdost
+     \end{itemize}
+   \end{itemize}  
+\end{frame}
+
+\begin{frame}[allowframebreaks]\frametitle{Co jak šlo}
+  \begin{itemize}
+    \item Jakub Koza
+     %vyplní Kozík
+     \begin{block}{Špatně} %co nešlo
+       \begin{itemize}
+        \item Těžké věci
+       \end{itemize}
+     \end{block}
+     \begin{block}{Průměrně} %co šlo
+        \begin{itemize}
+        \item Střední věci
+       \end{itemize}
+     \end{block}
+     \begin{block}{Dobře} %co šlo dobře
+       \begin{itemize}
+        \item Lehké věci
+       \end{itemize}
+     \end{block}
+   
+    \item Adam Kugler
+      %vyplní Adam
+      \begin{block}{Špatně} %co nešlo
+       \begin{itemize}
+        \item CSSRedundancyChecker
+       \end{itemize}
+     \end{block}
+     \begin{block}{Průměrně} %co šlo
+        \begin{itemize}
+         \item SVG graf
+       \end{itemize}
+     \end{block}
+     \begin{block}{Dobře} %co šlo dobře
+       \begin{itemize}
+        \item Refaktoring
+       \end{itemize}
+     \end{block}
+  
+    \item Jindřich Máca
+      %vyplní Tuník 
+      \begin{block}{Špatně} %co nešlo
+       \begin{itemize}
+        \item Nedělal jsem nic, co by bylo těžké.
+       \end{itemize}
+     \end{block}
+     \begin{block}{Průměrně} %co šlo
+        \begin{itemize}
+         \item Oprava dokumentace podle nových programátorských konvencí.
+       \end{itemize}
+     \end{block}
+     \begin{block}{Dobře} %co šlo dobře
+       \begin{itemize}
+        \item Testovací webová stránka.
+       \end{itemize}
+     \end{block}
+   
+    \item Petr Svoboda
+      %vyplní Petr
+      \begin{block}{Špatně} %co nešlo
+       \begin{itemize}
+        \item Těžké věci
+       \end{itemize}
+     \end{block}
+     \begin{block}{Průměrně} %co šlo
+        \begin{itemize}
+        \item Střední věci
+       \end{itemize}
+     \end{block}
+     \begin{block}{Dobře} %co šlo dobře
+       \begin{itemize}
+        \item Lehké věci
+       \end{itemize}
+     \end{block}
+   \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]\frametitle{Plán do příští iterace}
+  \begin{itemize}
+    %vylpní vedoucí podle harmonogramu + se mohou věci přidat
+		\item Grafická prezentace TraversalGraph pomocí Graphvizu
+		\item GraphGenerator
+		\item Presentation
+		\item Uživatelská příručka
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]\frametitle{Přerozdělení bodů}
+    
+    \begin{center}
+  \begin{tabular}{| c | c | c | c |}
+    \hline
+     J.~Koza & A.~Kugler & J.~Máca & P.~Svoboda \\
+    \hline
+    %vylpní vedoucí
+     2 & 0 & -4 & 2 \\
+    \hline
+  \end{tabular}     
+   \end{center}
+\end{frame}
+
+\end{document}
