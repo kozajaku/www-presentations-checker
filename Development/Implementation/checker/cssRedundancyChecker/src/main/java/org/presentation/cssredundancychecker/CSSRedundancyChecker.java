@@ -200,43 +200,54 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
      * @param document
      */
     private void processSinglePage(CRCHtmlCode document) {
-	Document parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
+	Document parsedDocument;
 	
-	LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLink());
-	LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*").getLength());
+	try {
+	    parsedDocument = DOMBuilder.jsoup2DOM(document.getHtmlCode().getParsedHTML());
+	} catch(org.w3c.dom.DOMException ex) {
+	    parsedDocument = null;
+	}
 	
-	// remove stylesheet from the dom
-	NodeList linkElements = parsedDocument.getElementsByTagName("link");
-	for(int i = 0; i < linkElements.getLength(); i++) {
-	    if (linkElements.item(i).getNodeType() == Node.ELEMENT_NODE) {
-		Element linkElement = ((Element) linkElements.item(i));
-		if( (linkElement.hasAttribute("rel") && linkElement.getAttribute("rel").toLowerCase().equals("stylesheet")) ||
-		    (linkElement.hasAttribute("type") && linkElement.getAttribute("type").toLowerCase().equals("text/css"))) {		    
-			linkElement.getParentNode().removeChild(linkElement);
+	if(parsedDocument == null) {
+	    if(this.messageLogger != null) this.messageLogger.addMessage(this.fillMessage(new ErrorMsg(), document.getHtmlCode().getLink(), "Cannot parse HTML document", null, 0));
+	} else {
+	
+	    LOG.log(Level.INFO, "Processing HTML {0}", document.getHtmlCode().getLink());
+	    LOG.log(Level.INFO, "{0} elements discovered", parsedDocument.getElementsByTagName("*").getLength());
+
+	    // remove stylesheet from the dom
+	    NodeList linkElements = parsedDocument.getElementsByTagName("link");
+	    for(int i = 0; i < linkElements.getLength(); i++) {
+		if (linkElements.item(i).getNodeType() == Node.ELEMENT_NODE) {
+		    Element linkElement = ((Element) linkElements.item(i));
+		    if( (linkElement.hasAttribute("rel") && linkElement.getAttribute("rel").toLowerCase().equals("stylesheet")) ||
+			(linkElement.hasAttribute("type") && linkElement.getAttribute("type").toLowerCase().equals("text/css"))) {		    
+			    linkElement.getParentNode().removeChild(linkElement);
+		    }
 		}
 	    }
-	}
-	LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*").getLength());
-	
-	// add custom stylesheets
-	DOMAnalyzerEnhanced domAnalyzer = new DOMAnalyzerEnhanced(parsedDocument);
-	int logCustomElementsAdded = 0;
-	
-	for(LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
-	    if(this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)){
-		try {
-		    LOG.log(Level.INFO, "Adding custom stylesheet - {0}", (new URL(stylesheetRequiredUrl.getUrl())).toString());
-		    domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzerEnhanced.Origin.AUTHOR);
-		    logCustomElementsAdded++;
-		} catch (MalformedURLException ex) {
-		    // that cannot happen (valid url set)
+	    LOG.log(Level.INFO, "{0} elements discovered AFTER CSS REMOVAL", parsedDocument.getElementsByTagName("*").getLength());
+
+	    // add custom stylesheets
+	    DOMAnalyzerEnhanced domAnalyzer = new DOMAnalyzerEnhanced(parsedDocument);
+	    int logCustomElementsAdded = 0;
+
+	    for(LinkURL stylesheetRequiredUrl : document.getStylesheetFilesRequired()) {
+		if(this.stylesheetsByURL.containsKey(stylesheetRequiredUrl)){
+		    try {
+			LOG.log(Level.INFO, "Adding custom stylesheet - {0}", (new URL(stylesheetRequiredUrl.getUrl())).toString());
+			domAnalyzer.addStyleSheet(new URL(stylesheetRequiredUrl.getUrl()), this.stylesheetsByURL.get(stylesheetRequiredUrl).getCssCode().getCodeCSS().getContent(), DOMAnalyzerEnhanced.Origin.AUTHOR);
+			logCustomElementsAdded++;
+		    } catch (MalformedURLException ex) {
+			// that cannot happen (valid url set)
+		    }
 		}
 	    }
+	    domAnalyzer.getStyleSheets();
+	    LOG.log(Level.INFO, "{0} stylesheets RE-ADDED into DOM", logCustomElementsAdded);
+
+	    doTheCheck(parsedDocument, domAnalyzer, document);
 	}
-	domAnalyzer.getStyleSheets();
-	LOG.log(Level.INFO, "{0} stylesheets RE-ADDED into DOM", logCustomElementsAdded);
-	
-	doTheCheck(parsedDocument, domAnalyzer, document);	
     }
 
     /**
