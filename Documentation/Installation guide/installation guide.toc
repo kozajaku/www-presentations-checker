@@ -11,3 +11,8 @@
 \contentsline {subsection}{\numberline {3.2}WildFly configuration}{4}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}First start}{4}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}Deployment of JDBC connector}{4}{subsubsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.3}Creating datasource}{4}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.4}Security subsystem}{5}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.5}Certificate and HTTPS settings}{5}{subsubsection.3.2.5}
+\contentsline {section}{\numberline {4}Project building}{7}{section.4}
+\contentsline {section}{\numberline {5}Project deployment}{7}{section.5}

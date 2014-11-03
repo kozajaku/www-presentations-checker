@@ -82,7 +82,103 @@ WildFly application server requires JDBC connector to be able to create datasour
 Now navigate to WildFly server management page (\url{http://127.0.0.1:9990}), login with your management user, select Runtime $\Rightarrow$ Manage Deployments. Now select Add and put in path to the MySQL connector JAR file, and select Deploy $\Rightarrow$ Enable. Do not change name and runtime name.
 
 \subsubsection{Creating datasource}
+Now you are able to create datasource to database schema. In server management navigate to Configuration $\Rightarrow$ Connector $\Rightarrow$ Datasources. Now click Add to create new datasource. Type \textit{checkerDB} to Name and \textit{java:jboss/checkerDS}. Now select driver from your MySQL JDBC connector. It should be something like \textit{mysql-connector-java-5.1.31-bin.jar\_com.mysql.jdbc.Driver\_5\_1}. In the final window type \textit{jdbc:mysql://127.0.0.1:3306/checker} to Connection URL where 3306 is the default port of MySQL server and it should be replaced, if your database server uses different one. Type \textit{webchecker} to Username and to Password type the same password, that was used during creation of database user \textit{webchecker}. Security Domain leave empty and press Done.
 
+Now select your newly created datasource and click on Connection $\Rightarrow$ Edit. Now tick Use JTA option and Transaction Isolation set to \\TRANSACTION\_READ\_COMMITED and click Save.
 
+Now it is necessary to reload your WildFly server. You can do it by simply shutting it down (Ctrl+C in window with started \textit{standalone} script) and then starting server again. Log again to server management, navigate back to datasources and select \textit{checkerDB} and click enable.
 
+Now you have successfully created your datasource. You can test it by clicking Test Connection button in Connection tab of your datasource.
+
+\subsubsection{Security subsystem}
+To allow singing in to the application, it is necessary to create new security subsystem domain in WildFly server management.
+
+Log in to server management and navigate to Configuration $\Rightarrow$ Security $\Rightarrow$ Security Domains. Click Add and create new security domain named \textit{PresentationCheckerSecurityDomain}. Now select newly created domain and click View. In Authentication tab click Add and type
+\begin{lstlisting}
+org.presentation.securitydomain.SaltLoginModule
+\end{lstlisting}
+to Code and set Flag to required. Click Save and select newly created module. Now select Module Options tab and add new following key-value pairs to the module:
+\begin{figure}[htbp]
+\centering
+\begin{tabular}{| l | l |}
+\hline
+Key & Value \\
+\hline
+dsJndiName & java:jboss/checkerDS \\
+principalsQuery & select password from user where email=? \\
+rolesQuery & select 'user', 'Roles' from user where email=? \\
+hashAlgorithm & SHA-256 \\
+hashEncoding & hex \\
+hashUserPassword & true \\
+saltQuery & select salt from user where email=? \\
+\hline
+\end{tabular}
+\end{figure}
+
+Now it is necessary to reload WildFly server to save the changes.
+
+\subsubsection{Certificate and HTTPS settings}
+It is necessary to configure encrypted connection between clients and server, not to be able to intercept client's username and password for "Man In The Middle". You will have to enable HTTPS protocol on your server to enable this feature. 
+
+At first you will need certificate for your WildFly server. Usually you have to create certificate by help of the Certificate Authority, but you can also use your untrusted self signed certificate for test purposes. Note that in browsers of clients browsing pages of application, the client browser throws warning, that the page is not trusted.
+
+There are many ways to create your own self signed certificate. For example you can use Java \href{http://docs.oracle.com/javase/6/docs/technotes/tools/windows/keytool.html}{keytool} utility to create one. 
+
+For example to create new self signed certificate saved in Java keystore protected with password \textit{secret}, you can use following command in console:
+\begin{lstlisting}
+keytool -genkey -keyalg RSA -alias selfsigned 
+	-keystore keystore.jks -storepass secret 
+	-validity 360 -keysize 2048
+\end{lstlisting}
+You will be requested to type certificate information and optionally to type password to moreover protect certificate in keystore itself. 
+
+Now you have to copy newly created \textit{keystore.jks} to 
+\\\textit{[WildFly\_root]/standalone/configuration} directory. Next it is necessary to configure server configuration file. First stop running WildFly server. Next open configuration file \textit{standalone.xml} (\textit{[WildFly\_root]/standalone/configuration} directory) in your favourite text editor. Find row with content:
+\lstset{language=XML}
+\begin{lstlisting}
+<security-realm name="ApplicationRealm">
+\end{lstlisting}
+and under this row paste following lines:
+\begin{lstlisting}
+<server-identities>
+	<ssl protocol="TLS">
+		<keystore path="keystore.jks"
+		relative-to="jboss.server.config.dir"
+		keystore-password="secret" 
+		alias="selfsigned"
+		key-password="certpass"/>
+	</ssl>
+</server-identities>
+\end{lstlisting}
+Replace \textit{secret} by your keystore password and \textit{certpass} by your certificate password.
+
+Now you have to allow https protocol. Find following line:
+\begin{lstlisting}
+<http-listener name="default" socket-binding="http"/>
+\end{lstlisting}
+and right under this line paste new line:
+\begin{lstlisting}
+<https-listener name="default-https" 
+	socket-binding="https" 
+	security-realm="ApplicationRealm"/>
+\end{lstlisting}
+
+Now save the file and start WildFly server. Your server should now listen for https requests on address \url{https://127.0.0.1:8443}.
+
+\section{Project building}
+This step is not necessary if you do not want to build enterprise archive from sources, but you already have one.
+
+To build whole project start your shell (command line) navigate to \\\textit{[project\_root]/Development/Implementation/checker} and type command:
+\begin{lstlisting}
+mvn package
+\end{lstlisting}
+
+Project is compiled and built by Maven tool and after this process you can find final deployable enterprise archive (ear file) in folder \\\textit{[project\_root]/Development/Implementation/checker/checker-ear/target}
+
+\section{Project deployment}
+There are many ways to deploy project on WildFly server. The simplest way is to copy built EAR archive to \textit{[wildfly\_root/standalone/deployments]} folder. 
+
+Another way is to log in to server management and navigate Runtime $\Rightarrow$ Server $\Rightarrow$ Manage Deployments and deploy enterprise archive with deployment wizard.
+
+When project is deployed, you can open it in browser on \\\url{http://127.0.0.1:8080/presentation}.
 \end{document}
