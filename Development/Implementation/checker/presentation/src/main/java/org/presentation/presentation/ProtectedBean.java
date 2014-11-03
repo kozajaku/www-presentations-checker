@@ -22,6 +22,7 @@ public class ProtectedBean extends CommonBean {
      * This method returns the instance of currently logged user
      *
      * @return user that is logged in in current session
+     * @throws org.presentation.presentation.exception.UserAuthorizationException
      */
     protected User getLoggedUser() throws UserAuthorizationException {
 

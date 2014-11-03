@@ -218,8 +218,8 @@ public class CheckingExecutionQueue {
     }
 
     /**
-     * Method is called by {@link CheckRequestReceiver} when it is necessary to
-     * stop already running checkup.
+     * Method is called by {@link org.presentation.kernel.CheckRequestReceiver}
+     * when it is necessary to stop already running checkup.
      *
      * @param checkupId a {@link java.lang.Integer} object.
      */

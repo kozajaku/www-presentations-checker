@@ -86,6 +86,7 @@ public class CheckupResultBean extends ProtectedBean {
 
     /**
      * This action performs show-result-related operations
+     * @throws org.presentation.presentation.exception.UserAuthorizationException
      */
     public void showResult() throws UserAuthorizationException {
         if (this.checkup != null) {
@@ -108,6 +109,7 @@ public class CheckupResultBean extends ProtectedBean {
      * This getter gets the messages by filter selected
      *
      * @return a {@link java.util.List} object.
+     * @throws org.presentation.presentation.exception.UserAuthorizationException
      */
     public List<Message> getMessages() throws UserAuthorizationException {
         if (this.checkup == null) {
