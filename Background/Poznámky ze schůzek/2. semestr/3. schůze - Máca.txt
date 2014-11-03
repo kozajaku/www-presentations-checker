@@ -1,0 +1,5 @@
+Poznámky ze třetí schůze
+1) napsat Ing. Hunkovi email ohledně nástroje CSSBox
+  - co to je, kdo to napsal, kde to najít atd.
+2) CRC by měl rozlišovat jestli je styl přepsaný nebo jestli nebyl vůbec použit
+3) na výpis zpráv by bylo lepší použít nějaké pokročilé JS filtrování
