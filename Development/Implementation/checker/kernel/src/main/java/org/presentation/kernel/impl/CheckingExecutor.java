@@ -33,8 +33,10 @@ import org.presentation.webcrawler.PageCrawlingObserver;
 import org.presentation.wholepresentationcontroller.WholePresentationController;
 
 /**
- * <p>
- * CheckingExecutor class.</p>
+ * Class realizes flow of execution of one single checkup. Checking executor has
+ * provided one thread to work but it can also create new threads (or submodules
+ * can) if it is necessary. Note that pool of threads is limited and so one
+ * checking should NOT use more threads then 5 at one time.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT
@@ -68,11 +70,12 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
     private GraphGeneratorQueue graphGenerator;
 
     /**
-     * <p>
-     * startChecking.</p>
+     * Simply start checking of {@link Checkup} passed as parameter. Method has
+     * very long duration and is blocking.
      *
-     * @param checkup a {@link org.presentation.persistence.model.Checkup}
-     * object.
+     * @param checkup A {@link org.presentation.persistence.model.Checkup}
+     * object representing information about check that should be executed by
+     * this {@link CheckingExecutor}
      */
     @SuppressWarnings("UseSpecificCatch")
     public void startChecking(Checkup checkup) {

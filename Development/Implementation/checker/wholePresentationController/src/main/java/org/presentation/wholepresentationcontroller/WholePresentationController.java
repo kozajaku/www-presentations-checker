@@ -26,6 +26,9 @@ import org.presentation.utils.Stoppable;
 import org.presentation.wholepresentationcontroller.impl.AsyncWholeCheckerExecutor;
 
 /**
+ * Main class of this module that serves as delegator to the implemented
+ * submodules.
+ *
  * @author radio.koza
  */
 @Dependent
@@ -99,6 +102,10 @@ public class WholePresentationController implements Stoppable, MessageProducer {
         }
     }
 
+    /**
+     * Method thread-safely instantiates new asyncExecutionQueue, if it is not
+     * instantiated already.
+     */
     private void instantiateAsyncExecutionQueue() {
         instantiationLock.lock();
         try {
@@ -114,6 +121,16 @@ public class WholePresentationController implements Stoppable, MessageProducer {
         }
     }
 
+    /**
+     * Method is called for every new page, the web crawler browse. Pages are
+     * asynchronously delegated to implementing submodules. Note that
+     * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
+     * must be called first or {@link IllegalStateException} will be thrown.
+     *
+     * @param pageContent Content of the page itself
+     * @param linkURL Source of the page
+     * @param contentType Type of the page
+     */
     public void addPage(PageContent pageContent, LinkURL linkURL, ContentType contentType) {
         if (wholePresentationCheckers == null) {
             throw new IllegalStateException("Call initializedControllers method first!");
@@ -127,6 +144,12 @@ public class WholePresentationController implements Stoppable, MessageProducer {
         asyncExec.enqueueNewPage(pageContent, linkURL, contentType);
     }
 
+    /**
+     * Final method called when the crawling is done.
+     *
+     * @param traversalGraph {@link TraversalGraph} object that can be used for
+     * more information for implemented submodules
+     */
     public void checkPresentation(TraversalGraph traversalGraph) {
         LOG.info("Calling checkPresentation on WholePresentationController");
         if (wholePresentationCheckers == null) {
@@ -142,6 +165,13 @@ public class WholePresentationController implements Stoppable, MessageProducer {
         asyncExec.finalizeCheckup(traversalGraph);
     }
 
+    /**
+     * Method returns {@link Future} object connected to the asynchronous
+     * execution queue. Owner of this instance can then block and wait to the
+     * end of the queue thread.
+     *
+     * @return {@link Future} connected to asynchronous queue thread
+     */
     public Future<?> getExecutionFuture() {
         startedThreadLock.lock();//wait till start of the thread
         try {

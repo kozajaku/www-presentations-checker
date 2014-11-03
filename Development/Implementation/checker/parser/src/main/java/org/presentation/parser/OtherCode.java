@@ -5,7 +5,7 @@ import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
 
 /**
- *
+ * Implementation of {@link AbstractCode} representing code that is neither html, nor css.
  * @author radio.koza
  */
 public class OtherCode extends AbstractCode {

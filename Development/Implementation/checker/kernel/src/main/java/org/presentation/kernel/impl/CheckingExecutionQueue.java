@@ -29,8 +29,12 @@ import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 
 /**
- * <p>
- * CheckingExecutionQueue class.</p>
+ * This EJB Singleton class serves as thread manager for execution of checking
+ * threads. The purpose is simple - create threads that are able to do some jobs
+ * and freeze threads until there is some job to be done. When it is, creates
+ * new CheckingExecutor and gives him one free thread to work. After job is
+ * complete, this class returns thread to the queue and wait for new job to be
+ * done.
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT
@@ -72,8 +76,11 @@ public class CheckingExecutionQueue {
     List<Future<?>> executionThreads = new ArrayList<>();
 
     /**
-     * <p>
-     * init.</p>
+     * Init method that is called right after calling constructor when every
+     * needed dependency is injected. Thanks to eager singleton loading, this is
+     * done only once at the time of application start (server start,
+     * deployment). Method is used to regenerate checkup requests that was not
+     * done properly from database and to complete them.
      */
     @PostConstruct
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -105,12 +112,13 @@ public class CheckingExecutionQueue {
         }
         LOG.log(Level.INFO, "Execution threads created");
     }
-
+    //this flag is set when project is undeploying or server is shutting down
     private boolean destroyed = false;
 
     /**
-     * <p>
-     * destroy.</p>
+     * Method is called before shutting down ejb singleton bean and this is done
+     * where server is shutting down or the application is going to be
+     * undeployed.
      */
     @PreDestroy
     protected void destroy() {
@@ -123,8 +131,8 @@ public class CheckingExecutionQueue {
     private final Lock newRequestLock = new ReentrantLock();
 
     /**
-     * <p>
-     * notifyNewRequests.</p>
+     * Asynchronous method which is called by CheckRequestReceiver as
+     * notification that new checkup is stored in database.
      */
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -150,8 +158,8 @@ public class CheckingExecutionQueue {
     private final Lock stoppingLock = new ReentrantLock();
 
     /**
-     * <p>
-     * newThread.</p>
+     * Method called during ejb initialization to create one new working thread.
+     * The whole logic of this singleton class is implemented in this method.
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void newThread() {
@@ -210,10 +218,10 @@ public class CheckingExecutionQueue {
     }
 
     /**
-     * <p>
-     * stopRunningChecking.</p>
+     * Method is called by {@link CheckRequestReceiver} when it is necessary to
+     * stop already running checkup.
      *
-     * @param checkupId a {@link java.lang.Integer} object.
+     * @param checkupId
      */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public void stopRunningChecking(Integer checkupId) {
