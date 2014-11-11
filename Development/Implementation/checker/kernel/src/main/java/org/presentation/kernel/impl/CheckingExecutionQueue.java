@@ -27,7 +27,6 @@ import javax.inject.Inject;
 import org.presentation.persistence.business.PersistenceFacade;
 import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
-import org.presentation.utils.HiddenLogger;
 
 /**
  * This EJB Singleton class serves as thread manager for execution of checking

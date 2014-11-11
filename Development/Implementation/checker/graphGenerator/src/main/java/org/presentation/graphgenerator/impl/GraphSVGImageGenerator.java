@@ -1,5 +1,10 @@
 package org.presentation.graphgenerator.impl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import org.presentation.graphgenerator.GraphGenerator;
@@ -26,6 +31,13 @@ public class GraphSVGImageGenerator extends GraphGenerator {
         }
         String svgSource = graphvizUtils.executeGraphviz(GraphvizUtils.GraphvizType.DOT, graphvizSource);
         if (svgSource == null){
+            //=============debug================
+            try (PrintStream ps = new PrintStream(new File("wrongGraphvizSource.txt"))){
+                ps.println(graphvizSource);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(GraphSVGImageGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //=============/debug===============
             return null;//no GraphResult will be saved in database
         }
         return new SVGImage(svgSource);
