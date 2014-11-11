@@ -75,7 +75,6 @@ public class GraphvizUtils {
         StringBuilder codeGraph = new StringBuilder();
         StringBuilder nodes = new StringBuilder();
         StringBuilder edges = new StringBuilder();
-        writeSubgraph(nodes, edges, graph.getRoot());
         Queue<Node> nodeQueue = new LinkedList<>();
         nodeQueue.add(graph.getRoot());
         while (!nodeQueue.isEmpty()) {
@@ -95,10 +94,6 @@ public class GraphvizUtils {
         codeGraph.append(edges);
         codeGraph.append("}\n");
         return codeGraph.toString();
-    }
-    
-    private void writeSubgraph(StringBuilder nodes, StringBuilder edges, Node node) {
-        //writeNode(nodes, node);
     }
     
     private void writeNode(StringBuilder nodes, Node node, int nodeId) {
