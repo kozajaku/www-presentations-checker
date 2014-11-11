@@ -97,9 +97,11 @@ public class GraphvizUtils {
     }
     
     private void writeNode(StringBuilder nodes, Node node, int nodeId) {
+        //graphviz escape
+        String stringURL = node.getUrl().toString().replaceAll("\"", "\\\"");
         nodes.append(nodeId)
                 .append(" [fixedsize=true, shape=circle, style = \"filled\", ")
-                .append("URL=\"").append(node.getUrl()).append("\", tooltip=\"").append(node.getUrl()).append('"');
+                .append("URL=\"").append(stringURL).append("\", tooltip=\"").append(stringURL).append('"');
         if (node.isValid()) {
             nodes.append(", fillcolor = ").append(VALID_COLOR);
         } else {
@@ -111,8 +113,10 @@ public class GraphvizUtils {
 
     private void writeEdge(StringBuilder edges, Edge edge, int NodeId) {
         Node targetNode = edge.getNode();
+        //graphviz escape
+        String stringName = edge.getName().replaceAll("\"", "\\\"");
         edges.append(NodeId).append(" -> ").append(getNodeId(targetNode));
-        edges.append("[tooltip=\"").append(edge.getName()).append('"');
+        edges.append("[tooltip=\"").append(stringName).append('"');
         edges.append(", color=");
         if (!targetNode.isValid()) {
             edges.append(INVALID_COLOR);
