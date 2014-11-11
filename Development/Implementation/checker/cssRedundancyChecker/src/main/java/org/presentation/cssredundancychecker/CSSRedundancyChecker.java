@@ -41,7 +41,6 @@ import org.presentation.parser.helper.DOMBuilder;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -74,11 +73,6 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     public CSSRedundancyChecker() {
         this.stylesheetDependencies = new HashMap<>();
         this.stylesheetsByURL = new HashMap<>();
-
-        // todo delete
-        if (this.LOG == null) {
-            this.LOG = Logger.getLogger(CSSRedundancyChecker.class.getName());
-        }
     }
 
     /**
