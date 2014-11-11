@@ -101,4 +101,9 @@ public class LinkURL {
         return Objects.equals(this.url, other.url);
     }
 
+    @Override
+    public String toString() {
+        return url;
+    }
+
 }
