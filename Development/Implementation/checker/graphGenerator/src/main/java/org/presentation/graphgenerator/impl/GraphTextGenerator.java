@@ -9,10 +9,8 @@ import org.presentation.graphgenerator.GraphGenerator;
 import javax.enterprise.context.Dependent;
 import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.graph.Edge;
-import org.presentation.model.graph.InvalidNode;
 import org.presentation.model.graph.Node;
 import org.presentation.model.graph.TraversalGraph;
-import org.presentation.model.graph.ValidNode;
 
 /**
  * This class generates graph as text.

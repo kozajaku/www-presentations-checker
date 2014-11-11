@@ -52,8 +52,12 @@ public class GraphGeneratorQueue {
         List<GraphResult> results = new ArrayList<>();
         queueLock.lock();
         try {
+            GraphResult tmp;
             for (GraphGenerator i : graphGenerators) {
-                results.add(i.generateGraphResult(graph));
+                tmp = i.generateGraphResult(graph);
+                if (tmp != null){
+                    results.add(tmp);
+                }
             }
         } finally {
             queueLock.unlock();

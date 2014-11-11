@@ -16,7 +16,7 @@ import org.presentation.graphgenerator.GraphResult;
  */
 public class SVGImage extends GraphResult {
 
-    String image;
+    protected String image;
 
     /**
      * <p>
