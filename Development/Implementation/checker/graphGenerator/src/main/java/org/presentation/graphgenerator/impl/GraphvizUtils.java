@@ -90,6 +90,8 @@ public class GraphvizUtils {
             }
         }
         codeGraph.append("digraph \"Traversal Graph\"{\n");
+        codeGraph.append("graph [splines=true, overlap=false];\n");
+        codeGraph.append("root=1;\n");
         codeGraph.append(nodes);
         codeGraph.append(edges);
         codeGraph.append("}\n");
@@ -100,8 +102,9 @@ public class GraphvizUtils {
         //graphviz escape
         String stringURL = node.getUrl().toString().replaceAll("\"", "\\\"");
         nodes.append(nodeId)
-                .append(" [fixedsize=true, shape=circle, style = \"filled\", ")
-                .append("URL=\"").append(stringURL).append("\", tooltip=\"").append(stringURL).append('"');
+                .append(" [fixedsize=true, shape=circle, style = \"filled\"")
+                .append(", URL=\"").append(stringURL).append("\", tooltip=\"").append(stringURL).append('"')
+                .append(", target=\"_blank\"");
         if (node.isValid()) {
             nodes.append(", fillcolor = ").append(VALID_COLOR);
         } else {
@@ -117,6 +120,7 @@ public class GraphvizUtils {
         String stringName = edge.getName().replaceAll("\"", "\\\"");
         edges.append(NodeId).append(" -> ").append(getNodeId(targetNode));
         edges.append("[tooltip=\"").append(stringName).append('"');
+        edges.append(", penwidth=2"); //edge width 
         edges.append(", color=");
         if (!targetNode.isValid()) {
             edges.append(INVALID_COLOR);
@@ -163,7 +167,7 @@ public class GraphvizUtils {
     }
 
     private double countNodeSize(Node node) {
-        return Math.log(node.getInputDegree() + 1);
+        return (Math.log(node.getInputDegree() + 1) + 1)/2;
     }
     
     public String executeGraphviz(GraphvizType execType, String gvSource){

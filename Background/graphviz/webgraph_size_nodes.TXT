@@ -2,7 +2,7 @@ digraph "a b"{
    //velikost uzlu zavisi (logaritmicky) na poctu hran vedouci do nej
    1 [fixedsize=true, shape=circle, width=2.5, color = "green", URL = "http://www.seznam.cz/", tooltip = "http://www.seznam.cz/", style = "filled", fillcolor = "green"] //starting link
   
-   1 -> "www.example.cz/a" [edgetooltip="go to a"]
+   1 -> "www.example.cz/a" [edgetooltip="go to a", penwidth = 2]
    "www.example.cz/home" -> "www.example.cz/b" [label="go to b", color ="green"]
    "www.example.cz/home" -> "www.example.cz/e" [label="go to b"]
    "www.example.cz/home" -> "www.example.cz/b" [label="go to b2"]

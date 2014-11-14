@@ -50,12 +50,12 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             if (link.attr("type").equals("text/css") || link.attr("rel").equals("stylesheet")) {
                 //CSS
                 if (destination.checkURL()) {
-                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF_CSS, "style"));
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF_CSS, "<style>"));
                 }
             } else {
                 //not CSS
                 if (destination.checkURL()) {
-                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF, "import"));
+                    parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.LINK_HREF, "<import>"));
                 }
             }
         }
@@ -64,7 +64,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             //log
             //LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
             if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, link.attr("alt")));
+                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, "<image> " + link.attr("alt")));
             }
         }
         for (Element link : scripts) {
@@ -72,7 +72,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             //log
             //LOG.log(Level.INFO, "Link found: {0} SCRIPT_SRC script", destination.getUrl());
             if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "script"));
+                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.SCRIPT_SRC, "<script>"));
             }
         }
         for (Element link : links) {

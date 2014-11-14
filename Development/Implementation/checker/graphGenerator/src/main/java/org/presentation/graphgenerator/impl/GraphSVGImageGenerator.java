@@ -29,7 +29,7 @@ public class GraphSVGImageGenerator extends GraphGenerator {
         if (graphvizSource == null) {
             return null;//no GraphResult will be saved in database
         }
-        String svgSource = graphvizUtils.executeGraphviz(GraphvizUtils.GraphvizType.DOT, graphvizSource);
+        String svgSource = graphvizUtils.executeGraphviz(GraphvizUtils.GraphvizType.TWOPI, graphvizSource);
         if (svgSource == null){
             //=============debug================
             try (PrintStream ps = new PrintStream(new File("wrongGraphvizSource.txt"))){
