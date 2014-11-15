@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -133,7 +134,7 @@ public class GraphvizUtils {
         } else {
             nodes.append(", fillcolor = ").append(INVALID_COLOR);
         }
-        nodes.append(", width=").append(String.format("%.2f", countNodeSize(node)));
+        nodes.append(", width=").append(String.format(Locale.US, "%.2f", countNodeSize(node)));
         nodes.append("]\n");//end
     }//width, color = \"green\", URL = \"http://www.seznam.cz/\", tooltip = \"http://www.seznam.cz/\", fillcolor = \"green\"]
 
