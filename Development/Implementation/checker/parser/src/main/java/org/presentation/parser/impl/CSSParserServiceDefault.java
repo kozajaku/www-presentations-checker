@@ -57,7 +57,7 @@ public class CSSParserServiceDefault implements CSSParserService {
             while (m.find()) {
                 //LOG.log(Level.INFO, "Link found in CSS: {0}", m.group(1));
                 try {
-                    parsedLinks.add(new ParsedLinkResponse(formatToAbsURL(m.group(1), base), LinkSourceType.INSIDE_CSS, "")); //posible to fill label in form of CSS atribute
+                    parsedLinks.add(new ParsedLinkResponse(formatToAbsURL(m.group(1), base), LinkSourceType.INSIDE_CSS, "<css import>")); //posible to fill label in form of CSS atribute
                 } catch (MalformedURLException ex) {
                     LOG.log(Level.WARNING, "Can not convert relative URL to absolute: {1}", ex.getMessage());
                 }
