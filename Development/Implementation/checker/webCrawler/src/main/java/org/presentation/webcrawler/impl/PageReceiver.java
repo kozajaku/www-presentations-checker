@@ -17,6 +17,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
+import org.jsoup.Jsoup;
 import org.presentation.model.ContentType;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
@@ -178,9 +179,10 @@ public class PageReceiver implements MessageProducer {
      * @throws MalformedURLException If an unknown protocol is specified.
      * @throws IOException If request fails in any way.
      */
+    @SuppressWarnings("null")
     private ReceiverResponse connectToPage(LinkURL linkURL, List<Header> addHeaders, String method, Boolean getContent) throws MalformedURLException, IOException {
         URL url = new URL(linkURL.getUrl());
-        HttpURLConnection connection;
+        HttpURLConnection connection = null;
         switch (url.getProtocol().toLowerCase()) {
             case HTTP: {
                 connection = (HttpURLConnection) url.openConnection();
@@ -203,62 +205,73 @@ public class PageReceiver implements MessageProducer {
         for (Header addHeader : addHeaders) {
             connection.setRequestProperty(addHeader.getKey(), addHeader.getValue());
         }
-        connection.connect();
-        LOG.info("Request sent.");
+        try { //try-finally block to ensure proper closing of connection and input stream
+            connection.connect();
+            LOG.info("Request sent.");
 
-        //parts of response
-        int stateCode = connection.getResponseCode();
-        ContentType contentType = new ContentType("");
-        PageContent pageContent = new PageContent("");
+            //parts of response
+            int stateCode = connection.getResponseCode();
+            ContentType contentType = new ContentType("");
+            PageContent pageContent = new PageContent("");
 
-        LOG.log(Level.INFO, "Response code is {0}", connection.getResponseCode());
-        switch (connection.getResponseCode()) {
-            case 200: {
-                String contentTypeS = connection.getHeaderField("Content-Type");
-                String[] split;
-                split = contentTypeS.split(";\\s*(charset=)?");
-                contentType = new ContentType(split[0]);
-                LOG.log(Level.INFO, "Content-Type is {0}", split[0]);
+            LOG.log(Level.INFO, "Response code is {0}", connection.getResponseCode());
+            switch (connection.getResponseCode()) {
+                case 200: {
+                    String contentTypeS = connection.getHeaderField("Content-Type");
+                    String[] split;
+                    split = contentTypeS.split(";\\s*(charset=)?");
+                    contentType = new ContentType(split[0]);
+                    LOG.log(Level.INFO, "Content-Type is {0}", split[0]);
 
-                if (getContent && method.equals(GET)) {
-                    String coding;
-                    if (split.length == 2) {
-                        coding = split[1];
-                    } else {
-                        coding = "UTF-8";
+                    if (getContent && method.equals(GET)) {
+                        String encoding;
+                        if (split.length == 2) {
+                            encoding = split[1];
+                        } else {
+                            encoding = null;
+                        }
+                        if (contentType.isHtml()) {
+                            //use JSoup to create String from InputStream of the connection
+                            pageContent = new PageContent(Jsoup.parse(connection.getInputStream(), encoding, linkURL.getUrl()).html());
+                        } else {
+                            encoding = encoding == null ? "UTF-8" : encoding;
+                            pageContent = new PageContent(recievePageContent(new BufferedReader(new InputStreamReader(connection.getInputStream(), encoding))));
+                        }
                     }
-                    LOG.log(Level.INFO, "Coding is {0}", coding);
-                    pageContent = new PageContent(recievePageContent(new BufferedReader(new InputStreamReader(connection.getInputStream(), coding))));
+                    break;
                 }
-                break;
+                case 301: {
+                    String location = connection.getHeaderField("Location");
+                    if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
+                        LOG.log(Level.INFO, "Redirect 301 to {0}", location);
+                        return connectToPage(new LinkURL(location), addHeaders, method, getContent);
+                    }
+                    break;
+                }
+                case 302: {
+                    String location = connection.getHeaderField("Location");
+                    if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
+                        LOG.log(Level.INFO, "Redirect 302 to {0}", location);
+                        return connectToPage(new LinkURL(location), addHeaders, method, getContent);
+                    }
+                    break;
+                }
+                case 405: {
+                    if (method.equals(HEAD)) {
+                        LOG.info("Server refused HEAD, trying GET.");
+                        return connectToPage(linkURL, addHeaders, GET, false);
+                    }
+                    break;
+                }
             }
-            case 301: {
-                String location = connection.getHeaderField("Location");
-                if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
-                    LOG.log(Level.INFO, "Redirect 301 to {0}", location);
-                    return connectToPage(new LinkURL(location), addHeaders, method, getContent);
-                }
-                break;
-            }
-            case 302: {
-                String location = connection.getHeaderField("Location");
-                if (!(location.isEmpty() || location.equals(linkURL.getUrl()))) {
-                    LOG.log(Level.INFO, "Redirect 302 to {0}", location);
-                    return connectToPage(new LinkURL(location), addHeaders, method, getContent);
-                }
-                break;
-            }
-            case 405: {
-                if (method.equals(HEAD)) {
-                    LOG.info("Server refused HEAD, trying GET.");
-                    return connectToPage(linkURL, addHeaders, GET, false);
-                }
-                break;
+
+            LOG.log(Level.INFO, "Finished request on {0}", linkURL.getUrl());
+            return new ReceiverResponse(contentType, pageContent, stateCode);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();//this will close all connection streams and free connection resources
             }
         }
-
-        LOG.log(Level.INFO, "Finished request on {0}", linkURL.getUrl());
-        return new ReceiverResponse(contentType, pageContent, stateCode);
     }
 
     /**
