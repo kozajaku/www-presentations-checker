@@ -74,7 +74,8 @@ public class GraphvizUtils {
 
     /**
      * Generates source code for Graphviz tool. {@link TraversalGraph} is
-     * converted in nodes and edges.
+     * converted into nodes and edges. Does nothing and returns null if graph is
+     * null.
      *
      * @param graph {@link TraversalGraph} to generate source code from.
      * @return Source code for Graphviz or null if graph is null.
@@ -103,7 +104,7 @@ public class GraphvizUtils {
             }
         }
         codeGraph.append("digraph \"Traversal Graph\"{\n");
-        codeGraph.append("graph [splines=true, overlap=false];\n");
+        codeGraph.append("graph [overlap=false];\n"); //dont use splines=true with overlap=false
         codeGraph.append("root=1;\n");
         codeGraph.append(nodes);
         codeGraph.append(edges);
@@ -114,10 +115,11 @@ public class GraphvizUtils {
     /**
      * Writes informations about node in Graphviz syntax.
      *
-     * @param nodes {@link StringBuilder} where to append node. Schould not be
-     * null.
+     * @param nodes {@link StringBuilder} where to append node informations.
+     * Schould not be null.
      * @param node {@link Node} to write. Schould not be null.
-     * @param nodeId Node unique identificator. Schould not be negative.
+     * @param nodeId Node unique identifier. Schould not be negative. Use
+     * {@link #getNodeId(org.presentation.model.graph.Node)} before.
      */
     private void writeNode(StringBuilder nodes, Node node, int nodeId) {
         //graphviz escape
@@ -131,10 +133,20 @@ public class GraphvizUtils {
         } else {
             nodes.append(", fillcolor = ").append(INVALID_COLOR);
         }
-        nodes.append(", width=").append(countNodeSize(node));
+        nodes.append(", width=").append(String.format("%.2f", countNodeSize(node)));
         nodes.append("]\n");//end
     }//width, color = \"green\", URL = \"http://www.seznam.cz/\", tooltip = \"http://www.seznam.cz/\", fillcolor = \"green\"]
 
+    /**
+     * Writes informations about edge in Graphviz syntax.
+     *
+     * @param edges {@link StringBuilder} where to append edge informations.
+     * Schould not be null.
+     * @param edge {@link Edge} to write. Schould not be null.
+     * @param NodeId Unique identifier of node from where goes the edge. Schould
+     * not be negative. Use
+     * {@link #getNodeId(org.presentation.model.graph.Node)} before.
+     */
     private void writeEdge(StringBuilder edges, Edge edge, int NodeId) {
         Node targetNode = edge.getNode();
         //graphviz escape
@@ -177,6 +189,14 @@ public class GraphvizUtils {
         edges.append("]\n");//end
     }
 
+    /**
+     * Gets unique identifier of node. If node is unknown it creates new greater
+     * identifier else it returns previously created identifier.
+     *
+     * @param node {@link Node} that identifier is returned. Schould not be
+     * null.
+     * @return Unique identifier of node based on {@link #nodeCounter}.
+     */
     private int getNodeId(Node node) {
         Integer nodeNumber = nodeNumbers.get(node);
         if (nodeNumber == null) {
@@ -187,6 +207,13 @@ public class GraphvizUtils {
         return nodeNumber;
     }
 
+    /**
+     * Counts size of node based on node input degree. Node size is growing
+     * logarithmically.
+     *
+     * @param node {@link Node} that size is counted. Schould not be null.
+     * @return Size of node.
+     */
     private double countNodeSize(Node node) {
         return (Math.log(node.getInputDegree() + 1) + 1) / 2;
     }
