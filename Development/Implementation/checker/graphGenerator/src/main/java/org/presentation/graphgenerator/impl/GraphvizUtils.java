@@ -21,40 +21,44 @@ import org.presentation.model.graph.Node;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
- *
+ * This class can work with Graphviz, tool for generating graphs.
  *
  * @author radio.koza, Adam Kugler
  * @version 1.0-SNAPSHOT
  */
 @Dependent
 public class GraphvizUtils {
-   
+
     public enum GraphvizType {
+
         DOT,
         NEATO,
         TWOPI,
         CIRCO;
-        
-        public String execString(){
-            switch (this){
-                case DOT: return "dot -Tsvg";
-                case NEATO: return "neato -Tsvg";
-                case TWOPI: return "twopi -Tsvg";
-                case CIRCO: return "circo -Tsvg";
+
+        public String execString() {
+            switch (this) {
+                case DOT:
+                    return "dot -Tsvg";
+                case NEATO:
+                    return "neato -Tsvg";
+                case TWOPI:
+                    return "twopi -Tsvg";
+                case CIRCO:
+                    return "circo -Tsvg";
             }
             //else fail
-            assert false: "Missing enum value";
+            assert false : "Missing enum value";
             return null;
         }
     }
-    
-    
+
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
     @Resource
     private ManagedExecutorService mes;
-    
+
     //constants
     protected static final String VALID_COLOR = "\"green\"";
     protected static final String INVALID_COLOR = "\"red\"";
@@ -67,9 +71,18 @@ public class GraphvizUtils {
 
     protected Map<Node, Integer> nodeNumbers;
     protected int nodeCounter;
-    
-    
-    public String generateSource(TraversalGraph graph){
+
+    /**
+     * Generates source code for Graphviz tool. {@link TraversalGraph} is
+     * converted in nodes and edges.
+     *
+     * @param graph {@link TraversalGraph} to generate source code from.
+     * @return Source code for Graphviz or null if graph is null.
+     */
+    public String generateSource(TraversalGraph graph) {
+        if (graph == null) {
+            return null;
+        }
         nodeNumbers = new HashMap<>();
         nodeCounter = 0;
         StringBuilder codeGraph = new StringBuilder();
@@ -97,10 +110,18 @@ public class GraphvizUtils {
         codeGraph.append("}\n");
         return codeGraph.toString();
     }
-    
+
+    /**
+     * Writes informations about node in Graphviz syntax.
+     *
+     * @param nodes {@link StringBuilder} where to append node. Schould not be
+     * null.
+     * @param node {@link Node} to write. Schould not be null.
+     * @param nodeId Node unique identificator. Schould not be negative.
+     */
     private void writeNode(StringBuilder nodes, Node node, int nodeId) {
         //graphviz escape
-        String stringURL = node.getUrl().toString().replaceAll("\"", "\\\"");
+        String stringURL = node.getUrl().toString().replace("\"", "\\\""); //need \" in code
         nodes.append(nodeId)
                 .append(" [fixedsize=true, shape=circle, style = \"filled\"")
                 .append(", URL=\"").append(stringURL).append("\", tooltip=\"").append(stringURL).append('"')
@@ -117,7 +138,7 @@ public class GraphvizUtils {
     private void writeEdge(StringBuilder edges, Edge edge, int NodeId) {
         Node targetNode = edge.getNode();
         //graphviz escape
-        String stringName = edge.getName().replaceAll("\"", "\\\"");
+        String stringName = edge.getName().replace("\"", "\\\""); //need \" in code
         edges.append(NodeId).append(" -> ").append(getNodeId(targetNode));
         edges.append("[tooltip=\"").append(stringName).append('"');
         edges.append(", penwidth=2"); //edge width 
@@ -155,7 +176,7 @@ public class GraphvizUtils {
         }
         edges.append("]\n");//end
     }
-    
+
     private int getNodeId(Node node) {
         Integer nodeNumber = nodeNumbers.get(node);
         if (nodeNumber == null) {
@@ -167,14 +188,14 @@ public class GraphvizUtils {
     }
 
     private double countNodeSize(Node node) {
-        return (Math.log(node.getInputDegree() + 1) + 1)/2;
+        return (Math.log(node.getInputDegree() + 1) + 1) / 2;
     }
-    
-    public String executeGraphviz(GraphvizType execType, String gvSource){
+
+    public String executeGraphviz(GraphvizType execType, String gvSource) {
         Process p;
         try {
             p = Runtime.getRuntime().exec(execType.execString());
-        } catch (IOException ex){
+        } catch (IOException ex) {
             LOG.severe("Exception during calling graphviz process - is graphviz bin folder in your PATH?");
             return null;
         }
@@ -189,15 +210,15 @@ public class GraphvizUtils {
         mes.submit(new ErrorStreamConsumer(p.getErrorStream()));
         boolean writeFlag = false;//unnecessary information could be in the beginning of output
         try {
-            while ((tmp = reader.readLine()) != null){
-                if (tmp.matches("^<svg.+")){//start reading from <svg tag
+            while ((tmp = reader.readLine()) != null) {
+                if (tmp.matches("^<svg.+")) {//start reading from <svg tag
                     writeFlag = true;
                 }
-                if (writeFlag){
+                if (writeFlag) {
                     res.append(tmp);
                 }
             }
-            if (p.waitFor() != 0){
+            if (p.waitFor() != 0) {
                 //log wrong error output
                 LOG.log(Level.SEVERE, "Grapviz process returned {0} error code", p.waitFor());
                 return null;
@@ -208,9 +229,9 @@ public class GraphvizUtils {
         }
         return res.toString();
     }
-    
+
     private class ErrorStreamConsumer extends Thread {
-        
+
         private final BufferedReader errorStream;
 
         public ErrorStreamConsumer(InputStream errStream) {
@@ -221,22 +242,20 @@ public class GraphvizUtils {
         public void run() {
             String line;
             try {
-                while ((line = errorStream.readLine()) != null){
+                while ((line = errorStream.readLine()) != null) {
                     LOG.log(Level.SEVERE, "graphviz error: {0}", line);
                 }
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, "Exception while reading graphviz error stream", ex);
             } finally {
                 try {
-                errorStream.close();
-                } catch (IOException ex){
+                    errorStream.close();
+                } catch (IOException ex) {
                     //not necessary to inform
                 }
             }
         }
-        
-        
-        
+
     }
-    
+
 }
