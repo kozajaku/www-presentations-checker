@@ -1,5 +1,8 @@
 package org.presentation.parser.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,7 +67,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             //log
             //LOG.log(Level.INFO, "Link found: {0} IMG_SRC {1}", new Object[]{destination.getUrl(), link.attr("alt")});
             if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, "<image> " + link.attr("alt")));
+                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.IMG_SRC, "<image> " + link.attr("alt").replace('\u00a0', ' ')));
             }
         }
         for (Element link : scripts) {
@@ -80,7 +83,7 @@ public class HTMLParserServiceDefault implements HTMLParserService {
             //log
             //LOG.log(Level.INFO, "Link found: {0} A_HREF {1}", new Object[]{destination.getUrl(), link.text()});
             if (destination.checkURL()) {
-                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text()));
+                parsedLinks.add(new ParsedLinkResponse(destination, LinkSourceType.A_HREF, link.text().replace('\u00a0', ' ')));
             }
         }
         LOG.info("parsing finished");
