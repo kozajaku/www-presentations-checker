@@ -6,15 +6,22 @@ ul {
     list-style-type: none;
 }
 #page {
-    max-width: 960px;
-    margin: 0 auto;
+    margin: 20px;
+    margin-top: 0;
 }
 #header h1 {
     text-align: center;
     font-size: 36pt;
 }
-#content, #header h2 {
+#content {
+    clear: both;
+}
+#content, #header h2, .navbar {
     text-align: center;
+}
+.navbar-brand {
+    display: block;
+    float: none;
 }
 .alert {
     padding: 5px;
@@ -46,10 +53,6 @@ ul {
 .bold {
     font-weight: 700;
 }
-.message-table tr td:first-child {
-    max-width: 730px;
-    word-wrap: break-word;
-}
 .alert-info {
     display: block;
     margin-top: 10px;
@@ -70,11 +73,9 @@ ul {
 .retry {
     margin-bottom: 20px;
 }
-.graph {    
-    text-align: left;
-}
 .render {
     margin-right: 20px;
+    margin-left: -20px;
 }
 .error-code {
     display: inline;
@@ -89,4 +90,113 @@ ul {
     border-radius: .25em;
     background-color: #d9534f;
     margin-right: 10px;
+}
+.table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+.table th {
+    text-align: center;
+}
+.svg-graph svg {    
+    width: 100%;
+    height: 100%;
+}
+
+/*resolution widder than 768xp*/
+@media (min-width: 768px) {
+    .form-horizontal {
+        margin: 0 auto;
+        float: none;
+    }
+    .form-login {
+        width: 500px;
+    }
+    .form-signup {
+        width: 730px;
+    }
+}
+/*Table responsive layout*/
+@media (max-width: 1024px) {
+    /* Generic Styling, for Desktops/Laptops */
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+    }
+    /* Zebra striping */
+    tr:nth-of-type(odd) { 
+        background: #eee; 
+    }
+    th { 
+        background: #333; 
+        color: white; 
+        font-weight: bold; 
+    }
+    td, th { 
+        padding: 6px; 
+        border: 1px solid #ccc; 
+        text-align: left; 
+    }
+
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr { border: 1px solid #ccc; }
+
+    td { 
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee; 
+        position: relative; 
+    }
+    .table > tbody > tr > td {
+        padding-left: 50%;
+    }
+
+    .table .buttons br {
+        display: none;
+    }
+
+    .table-hover>tbody>tr:hover>td {
+        background-color: inherit;
+    }
+
+    .table .btn {
+        margin: 0 10px 0 0;
+    }
+
+    td:before { 
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%; 
+        padding-right: 10px; 
+        white-space: nowrap;
+    }
+
+    /* Label the data */
+    .checkup-table td:nth-of-type(1):before { content: "#"; }
+    .checkup-table td:nth-of-type(2):before { content: "Start URL"; }
+    .checkup-table td:nth-of-type(3):before { content: "State"; }
+    .checkup-table td:nth-of-type(4):before { content: "Date created"; }
+    .checkup-table td:nth-of-type(5):before { content: "Desired tests"; }
+    .checkup-table td:nth-of-type(6):before { content: "Max depth"; }
+    .checkup-table td:nth-of-type(7):before { content: "Page limit"; }
+    .checkup-table td:nth-of-type(8):before { content: "Domain allowed"; }
+    .checkup-table td:nth-of-type(9):before { content: "Actions"; }
+    .message-table td:nth-of-type(1):before { content: "URL"; }
+    .message-table td:nth-of-type(2):before { content: "Type"; }
+    .message-table td:nth-of-type(3):before { content: "Message"; }
+    .message-table td:nth-of-type(4):before { content: "Location"; }
 }

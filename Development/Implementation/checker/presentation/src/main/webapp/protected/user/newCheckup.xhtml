@@ -22,19 +22,19 @@
                     <h2><h:outputLabel value="#{msg['newCheckup.caption']}" /></h2>
                 </ui:define>
 
-                <h:form styleClass="form-horizontal" role="form">		   
+                <h:form styleClass="form-new-checkup form-horizontal" role="form">		   
 
                     <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.starting_link']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.starting_link']}:" />
                         <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{newCheckupBean.startingLink}" label="#{msg['newCheckup.starting_link']}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.desired_checkups']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.desired_checkups']}:" />
                         <div class="col-sm-8 checkbox">
                             <h:selectManyCheckbox value="#{newCheckupBean.desiredCheckups}" label="#{msg['newCheckup.desired_checkups']}" >
                                 <f:selectItems value="#{newCheckupBean.checkupsAvailable}" />
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.allowed_domains']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.allowed_domains']}:" />
                         <div class="col-sm-8">
                             <h:inputTextarea styleClass="form-control" value="#{newCheckupBean.domainsAllowed}" label="#{msg['newCheckup.allowed_domains']}">		
                                 <f:converter converterId="DomainListConverter" />
@@ -52,21 +52,21 @@
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.max_crawling_depth']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.max_crawling_depth']}:" />
                         <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{newCheckupBean.maxCrawlingDepth}" label="#{msg['newCheckup.max_crawling_depth']}" />	
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.min_request_interval']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.min_request_interval']}:" />
                         <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{newCheckupBean.minRequestInterval}" label="#{msg['newCheckup.min_request_interval']}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.page_limit']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.page_limit']}:" />
                         <div class="col-sm-8">
                             <h:inputText styleClass="form-control" value="#{newCheckupBean.pageLimit}" label="#{msg['newCheckup.page_limit']}" />	
                         </div>
@@ -74,7 +74,7 @@
 
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['newCheckup.http_headers']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['newCheckup.http_headers']}:" />
                         <div class="col-sm-8">
                             <h:inputTextarea styleClass="form-control" value="#{newCheckupBean.httpHeaders}" label="#{msg['newCheckup.http_headers']}" >		
                                 <f:converter converterId="HttpHeadersConverter" />
