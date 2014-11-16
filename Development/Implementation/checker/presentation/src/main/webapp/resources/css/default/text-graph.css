@@ -1,7 +1,23 @@
+/* 
+    Created on : 9.11.2014, 21:44:13
+    Author     : Adam Kugler, Jindřich Máca
+*/
 .validnode {
     color: green;
 }
 .invalidnode {
     color: red;
 }
-
+.graph span {
+    cursor: default;
+}
+.arrow {
+    display: inline-block;
+    background: transparent url("https://code.jquery.com/ui/1.11.2/themes/smoothness/images/ui-icons_454545_256x240.png") no-repeat;
+    background-position: -32px -16px;
+    width: 16px;
+    height: 16px;
+    margin-left: -16px;
+    position: relative;
+    top: 3px;
+}

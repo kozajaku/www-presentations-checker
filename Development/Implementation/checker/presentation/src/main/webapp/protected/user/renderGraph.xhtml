@@ -67,6 +67,7 @@
 
                             <c:choose>
                                 <c:when test="#{not empty renderGraphBean.selectedGraph}">
+                                    <hr />
                                     <div class="graph #{func:normalizeString(renderGraphBean.selectedGraph.graphType)}">										
                                         <h:outputText value="#{renderGraphBean.selectedGraph.output}" escape="false" /> 
                                     </div>

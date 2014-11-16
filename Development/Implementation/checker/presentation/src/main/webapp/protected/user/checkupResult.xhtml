@@ -10,8 +10,8 @@
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">	    
 
-	    <ui:param name="title" value="Checkup results" />
-	    
+            <ui:param name="title" value="Checkup results" />
+
             <c:if test="#{not empty checkupResultBean.checkup}">
                 <ui:define name="subheader">
                     <h2>
@@ -63,7 +63,6 @@
 
                         </h:form>
 
-                        <hr />
                     </ui:fragment>
 
                     <c:choose>
@@ -107,7 +106,7 @@
                         </c:otherwise>
                     </c:choose>
                 </ui:fragment>
-
+                <hr />
                 <h:link outcome="checkupList" value="#{func:translate(msg['navi.back'], msg['navi.checkup_list'])}" />
             </ui:define>
 
