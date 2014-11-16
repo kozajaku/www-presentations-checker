@@ -18,6 +18,7 @@ import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import org.presentation.model.graph.Edge;
+import org.presentation.model.graph.LinkSourceType;
 import org.presentation.model.graph.Node;
 import org.presentation.model.graph.TraversalGraph;
 
@@ -69,6 +70,7 @@ public class GraphvizUtils {
     protected static final String FROM_CSS_COLOR = "\"orange\"";
     protected static final String IMPORT_COLOR = "\"deeppink\"";
     protected static final String SCRIPT_COLOR = "\"purple\"";
+    protected static final String DEFAULT_COLOR = "\"black\"";
 
     protected Map<Node, Integer> nodeNumbers;
     protected int nodeCounter;
@@ -81,7 +83,38 @@ public class GraphvizUtils {
      * @param graph {@link TraversalGraph} to generate source code from.
      * @return Source code for Graphviz or null if graph is null.
      */
-    public String generateSource(TraversalGraph graph) {
+//    public String generateSource(TraversalGraph graph) {
+//        if (graph == null) {
+//            return null;
+//        }
+//        nodeNumbers = new HashMap<>();
+//        nodeCounter = 0;
+//        StringBuilder codeGraph = new StringBuilder();
+//        StringBuilder nodes = new StringBuilder();
+//        StringBuilder edges = new StringBuilder();
+//        Queue<Node> nodeQueue = new LinkedList<>();
+//        nodeQueue.add(graph.getRoot());
+//        while (!nodeQueue.isEmpty()) {
+//            Node node = nodeQueue.poll();
+//            int nodeId = getNodeId(node);
+//            writeNode(nodes, node, nodeId);
+//            List<Edge> nodeEdges = node.getOrientedEdges();
+//            for (Edge nodeEdge : nodeEdges) {
+//                writeEdge(edges, nodeEdge, nodeId);
+//                if (nodeEdge.isTreeEdge()) {
+//                    nodeQueue.add(nodeEdge.getNode());
+//                }
+//            }
+//        }
+//        codeGraph.append("digraph \"Traversal Graph\"{\n");
+//        codeGraph.append("graph [overlap=false];\n"); //dont use splines=true with overlap=false
+//        codeGraph.append("root=1;\n");
+//        codeGraph.append(nodes);
+//        codeGraph.append(edges);
+//        codeGraph.append("}\n");
+//        return codeGraph.toString();
+//    }
+    String generateSource(TraversalGraph graph, boolean reduced) {
         if (graph == null) {
             return null;
         }
@@ -97,8 +130,13 @@ public class GraphvizUtils {
             int nodeId = getNodeId(node);
             writeNode(nodes, node, nodeId);
             List<Edge> nodeEdges = node.getOrientedEdges();
+            if (reduced) {
+                writeReducedEdges(edges, nodeEdges, nodeId);
+            }
             for (Edge nodeEdge : nodeEdges) {
-                writeEdge(edges, nodeEdge, nodeId);
+                if (!reduced) {
+                    writeEdge(edges, nodeEdge, nodeId, null);
+                }
                 if (nodeEdge.isTreeEdge()) {
                     nodeQueue.add(nodeEdge.getNode());
                 }
@@ -111,6 +149,100 @@ public class GraphvizUtils {
         codeGraph.append(edges);
         codeGraph.append("}\n");
         return codeGraph.toString();
+    }
+
+    private void writeReducedEdges(StringBuilder edges, List<Edge> nodeEdges, int nodeId) {
+        class EdgeMapper {
+
+            private final int from;
+            private final int nodeTo;
+
+            public EdgeMapper(int from, int nodeTo) {
+                this.from = from;
+                this.nodeTo = nodeTo;
+            }
+
+            @Override
+            public int hashCode() {
+                int hash = 3;
+                hash = 97 * hash + this.from;
+                hash = 97 * hash + this.nodeTo;
+                return hash;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (obj == null) {
+                    return false;
+                }
+                if (getClass() != obj.getClass()) {
+                    return false;
+                }
+                final EdgeMapper other = (EdgeMapper) obj;
+                if (this.from != other.from) {
+                    return false;
+                }
+                if (this.nodeTo != other.nodeTo) {
+                    return false;
+                }
+                return true;
+            }
+
+        }
+        class ReducedEdge {
+
+            private final int from;
+            //private int to;
+            private final Node nodeTo;
+            private int count;
+            private String name;
+
+            public ReducedEdge(int from, Node nodeTo, String name) {
+                this.from = from;
+                //this.to = to;
+                this.nodeTo = nodeTo;
+                this.count = 1;
+                this.name = name;
+            }
+
+            public void integrateEdge(Edge edge) {
+                count++;
+                name = name + "; " + edge.getName();
+            }
+
+            public int getFrom() {
+                return from;
+            }
+
+            public Node getNodeTo() {
+                return nodeTo;
+            }
+
+            public int getCount() {
+                return count;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+        }
+        Map<EdgeMapper, ReducedEdge> reducedEdges = new HashMap();
+        for (Edge nodeEdge : nodeEdges) {
+            Node nodeTo = nodeEdge.getNode();
+            int nodeId2 = getNodeId(nodeTo);
+            EdgeMapper edgeMapper = new EdgeMapper(nodeId, nodeId2);
+            ReducedEdge reducedEdge = reducedEdges.get(edgeMapper);
+            if (reducedEdge == null) {
+                reducedEdges.put(edgeMapper, new ReducedEdge(nodeId, nodeTo, nodeEdge.getName()));
+            } else {
+                reducedEdge.integrateEdge(nodeEdge);
+            }
+        }
+        for (ReducedEdge reducedEdge : reducedEdges.values()) {
+            Edge edge = new Edge(reducedEdge.getNodeTo(), reducedEdge.getName(), LinkSourceType.UNKNOWN, false);
+            writeEdge(edges, edge, nodeId, Integer.toString(reducedEdge.getCount()));
+        }
     }
 
     /**
@@ -148,12 +280,15 @@ public class GraphvizUtils {
      * not be negative. Use
      * {@link #getNodeId(org.presentation.model.graph.Node)} before.
      */
-    private void writeEdge(StringBuilder edges, Edge edge, int NodeId) {
+    private void writeEdge(StringBuilder edges, Edge edge, int nodeId, String edgeLabel) {
         Node targetNode = edge.getNode();
         //graphviz escape
         String stringName = edge.getName().replace("\"", "\\\""); //need \" in code
-        edges.append(NodeId).append(" -> ").append(getNodeId(targetNode));
+        edges.append(nodeId).append(" -> ").append(getNodeId(targetNode));
         edges.append("[tooltip=\"").append(stringName).append('"');
+        if (edgeLabel != null) {
+            edges.append(", label=\"").append(edgeLabel).append('"');
+        }
         edges.append(", penwidth=2"); //edge width 
         edges.append(", color=");
         if (!targetNode.isValid()) {
@@ -185,6 +320,9 @@ public class GraphvizUtils {
             case SCRIPT_SRC: {
                 edges.append(SCRIPT_COLOR);
                 break;
+            }
+            default: {
+                edges.append(DEFAULT_COLOR);
             }
         }
         edges.append("]\n");//end
