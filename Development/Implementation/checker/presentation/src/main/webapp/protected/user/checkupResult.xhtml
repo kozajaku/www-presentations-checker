@@ -96,10 +96,17 @@
 
                                 <h:column>
                                     <f:facet name="header">#{msg['checkupResult.col_location']}</f:facet>
-                                    <h:outputFormat value="#{msg['checkupResult.msg_location']}">
-                                        <f:param value="#{o.msgLocation.row}" />
-                                        <f:param value="#{o.msgLocation.column}" />
-                                    </h:outputFormat>				
+                                    <c:choose>
+					<c:when test="#{o.msgLocation.column != null || o.msgLocation.row != null}">
+					    <h:outputFormat value="#{msg['checkupResult.msg_location']}">
+						<f:param value="#{o.msgLocation.row}" />
+						<f:param value="#{o.msgLocation.column}" />
+					    </h:outputFormat>				
+					</c:when>
+					<c:otherwise>
+					    <h:outputFormat value="#{msg['checkupResult.msg_location_na']}" />
+					</c:otherwise>
+				    </c:choose>
                                 </h:column>
 
                             </h:dataTable>			    			    
