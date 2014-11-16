@@ -10,8 +10,9 @@
         <h:outputStylesheet name="css/default/style.css" />
         <h:outputStylesheet name="css/default/text-graph.css" />
         <h:outputScript library="primefaces" name="jquery/jquery.js" />
+        <h:outputScript name="js/primefaces2bootstrap.js" />
         <h:outputScript name='js/main.js' />
-        <title>#{title}#{title.length() == 0 ? '' : ' - '}WWW presentations checker</title>
+	<title>#{title}#{title == null || title.length() == 0 ? '' : ' - '}WWW presentations checker</title>
     </h:head>
 
     <h:body>
