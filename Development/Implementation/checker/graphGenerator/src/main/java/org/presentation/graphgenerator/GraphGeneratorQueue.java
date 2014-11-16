@@ -57,6 +57,7 @@ public class GraphGeneratorQueue {
                 tmp = i.generateGraphResult(graph);
                 if (tmp != null){
                     results.add(tmp);
+                    LOG.log(Level.INFO, "{0} created", tmp.getResultId());
                 }
             }
         } finally {

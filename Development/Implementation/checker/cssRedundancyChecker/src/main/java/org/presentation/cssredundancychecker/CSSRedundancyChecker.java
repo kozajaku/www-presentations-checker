@@ -324,17 +324,17 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                                 sourceUrl = new LinkURL(source.getUrl().toString());
                             }
 
-                            LOG.log(Level.INFO, "That was at {0} - {1}:{2}", new Object[]{sourceUrl.getUrl(), source.getLine(), source.getPosition()});
                             if (sourceUrl != null && this.stylesheetsByURL.containsKey(sourceUrl)) {
+                                LOG.log(Level.FINER, "That was at {0} - {1}:{2}", new Object[]{sourceUrl.getUrl(), source.getLine(), source.getPosition()});
                                 CRCCssCode cssDocument = this.stylesheetsByURL.get(sourceUrl);
 
                                 // get particular CSS rule and add the usage
                                 CSSRule cssRule = cssDocument.getCssRuleByPosition(new DeclarationPosition(source.getLine(), source.getPosition()));
 
                                 if (cssRule != null) {
-                                    LOG.info("This property FOUND by position map");
+                                    LOG.log(Level.FINER, "This property FOUND by position map");
                                 } else {
-                                    LOG.info("This property NOT found by position map");
+                                    LOG.log(Level.FINER, "This property NOT found by position map");
                                 }
 
                                 if (cssRule != null && ruleUsage != null) {
@@ -348,7 +348,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
             }
         }
 
-        LOG.log(Level.INFO, "{0} marked as not redundant", logPropertiesNotRedundant);
+        LOG.log(Level.FINER, "{0} marked as not redundant", logPropertiesNotRedundant);
 
     }
 
