@@ -11,15 +11,13 @@
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
 
-	    <ui:param name="title" value="Checkup list" />
-	    
+            <ui:param name="title" value="Checkup list" />
+
             <ui:define name="content">
 
                 <ui:define name="subheader">
                     <h2>#{msg['checkupList.caption']}</h2>
                 </ui:define>				
-
-                <hr />
 
                 <h:form>
                     <p:dataTable 

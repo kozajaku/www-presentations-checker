@@ -52,6 +52,7 @@ ul {
 }
 .alert-info {
     display: block;
+    margin-top: 10px;
 }
 .padding {
     padding-left: 40px;
