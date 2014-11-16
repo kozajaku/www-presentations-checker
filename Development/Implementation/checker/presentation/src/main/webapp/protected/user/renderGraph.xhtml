@@ -14,6 +14,8 @@
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+	    
+	    <ui:param name="title" value="Checkup graph" />
 
 
             <c:if test="#{not empty renderGraph.checkup}">

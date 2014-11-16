@@ -7,7 +7,7 @@
     <body>
         <ui:composition>
 
-            <h1>#{msg['commonHeader.h1']}</h1>
+            <h1>#{msg['commonHeader.h1']}</h1>	    
 
             <nav class="navbar navbar-default" role="navigation">
                 <div class="navbar-header">
@@ -24,25 +24,24 @@
                         </c:choose>
                     </span>
                 </div>
-                <div class="collapse navbar-collapse">
-                    <h:form>
-                        <ul class="Rnav-stacked nav navbar-nav">		
-                            <c:choose>
-                                <c:when test="#{headerBean.loggedIn}">
+                <div>
+		    <ul class="nav navbar-nav">		
+			<ui:repeat value="#{headerBean.mainMenu}" var="link">
+			    <li class="#{view.viewId.equals(link.view) ? 'active' : ''}"><h:link outcome="#{link.view}" value="#{link.caption}" /></li>			   
+			</ui:repeat>
+		    </ul>
+		    <c:choose>
+			<c:when test="#{headerBean.loggedIn}">
+			    <h:form>
+				<ul class="nav navbar-nav navbar-right">
                                     <li>
-                                        <h:commandLink styleClass="Rbtn Rbtn-primary" action="#{loginBean.logout}" value="#{msg['login.logout']}" >
+                                        <h:commandLink action="#{loginBean.logout}" value="#{msg['login.logout']}" >
                                         </h:commandLink>						 				    
                                     </li>
-                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/protected/user/checkupList" value="#{msg['navi.checkup_list']}" /></li>
-                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/protected/user/newCheckup" value="#{msg['navi.new_checkup']}" /></li>
-                                </c:when>
-                                <c:otherwise>				
-                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/public/login" value="#{msg['navi.log_in']}" /></li>
-                                    <li><h:link styleClass="Rbtn Rbtn-primary" outcome="/public/signUp" value="#{msg['navi.sign_up']}" /></li>
-                                </c:otherwise>		    
-                            </c:choose>			
-                        </ul>
-                    </h:form>
+				</ul>
+			    </h:form>
+			</c:when>
+		    </c:choose>
                 </div>
             </nav>	   
 

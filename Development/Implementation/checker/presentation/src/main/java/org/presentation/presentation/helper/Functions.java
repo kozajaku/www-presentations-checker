@@ -128,7 +128,7 @@ public final class Functions {
      * @return sanitized string
      */
     public static String normalizeString(String s) {
-        return s.replaceAll("[^a-zA-Z]+", "-");
+        return s.replaceAll("[^a-zA-Z]+", "-").toLowerCase();
     }
 
 }
