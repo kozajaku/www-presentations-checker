@@ -8,23 +8,19 @@ package org.presentation.graphgenerator.impl;
 import org.presentation.graphgenerator.GraphResult;
 
 /**
- * <p>
- * SVGImage class.</p>
  *
  * @author Adam Kugler
  * @version 1.0-SNAPSHOT
  */
-public class SVGImage extends GraphResult {
+public class ReducedGraphImage extends GraphResult {
 
     protected String image;
 
     /**
-     * <p>
-     * Constructor for SVGImage.</p>
      *
      * @param image a SVG image.
      */
-    public SVGImage(String image) {
+    public ReducedGraphImage(String image) {
         this.image = image;
     }
 
@@ -41,7 +37,7 @@ public class SVGImage extends GraphResult {
      */
     @Override
     public String getResultId() {
-        return "SVG graph";
+        return "Reduced SVG graph";
     }
 
 }

@@ -81,39 +81,10 @@ public class GraphvizUtils {
      * null.
      *
      * @param graph {@link TraversalGraph} to generate source code from.
+     * @param reduced <code>true<code> if multiedges schould be reduced. See {@link #writeReducedEdges(java.lang.StringBuilder, java.util.List, int)
+     * }.
      * @return Source code for Graphviz or null if graph is null.
      */
-//    public String generateSource(TraversalGraph graph) {
-//        if (graph == null) {
-//            return null;
-//        }
-//        nodeNumbers = new HashMap<>();
-//        nodeCounter = 0;
-//        StringBuilder codeGraph = new StringBuilder();
-//        StringBuilder nodes = new StringBuilder();
-//        StringBuilder edges = new StringBuilder();
-//        Queue<Node> nodeQueue = new LinkedList<>();
-//        nodeQueue.add(graph.getRoot());
-//        while (!nodeQueue.isEmpty()) {
-//            Node node = nodeQueue.poll();
-//            int nodeId = getNodeId(node);
-//            writeNode(nodes, node, nodeId);
-//            List<Edge> nodeEdges = node.getOrientedEdges();
-//            for (Edge nodeEdge : nodeEdges) {
-//                writeEdge(edges, nodeEdge, nodeId);
-//                if (nodeEdge.isTreeEdge()) {
-//                    nodeQueue.add(nodeEdge.getNode());
-//                }
-//            }
-//        }
-//        codeGraph.append("digraph \"Traversal Graph\"{\n");
-//        codeGraph.append("graph [overlap=false];\n"); //dont use splines=true with overlap=false
-//        codeGraph.append("root=1;\n");
-//        codeGraph.append(nodes);
-//        codeGraph.append(edges);
-//        codeGraph.append("}\n");
-//        return codeGraph.toString();
-//    }
     String generateSource(TraversalGraph graph, boolean reduced) {
         if (graph == null) {
             return null;
@@ -151,7 +122,22 @@ public class GraphvizUtils {
         return codeGraph.toString();
     }
 
+    /**
+     * Writes node edges with reduced multiedges. Multiedges are converted into
+     * 1 edge with count of multiedges and name of multiedges are concatenated.
+     * Be sure to use right nodeId that belongs to edges.
+     *
+     * @param edges {@link StringBuilder} where to append edge informations.
+     * Schould not be null.
+     * @param nodeEdges List of {@link Edge}s going from same node.
+     * @param nodeId Node unique identifier. Schould not be negative. Use
+     * {@link #getNodeId(org.presentation.model.graph.Node)} before. Identifier
+     * of node that belong to nodeEdges.
+     */
     private void writeReducedEdges(StringBuilder edges, List<Edge> nodeEdges, int nodeId) {
+        /**
+         * Class that allow working with map of {@link ReducedEdge}.
+         */
         class EdgeMapper {
 
             private final int from;
@@ -189,6 +175,10 @@ public class GraphvizUtils {
             }
 
         }
+        /**
+         * Class that represent reduced multiedge and is used to create that
+         * {@link Edge} for further usage.
+         */
         class ReducedEdge {
 
             private final int from;
@@ -204,7 +194,10 @@ public class GraphvizUtils {
                 this.count = 1;
                 this.name = name;
             }
-
+            /**
+             * Interagete edge into this {@link ReducedEdge}.
+             * @param edge {@link Edge} to integrate.
+             */
             public void integrateEdge(Edge edge) {
                 count++;
                 name = name + "; " + edge.getName();

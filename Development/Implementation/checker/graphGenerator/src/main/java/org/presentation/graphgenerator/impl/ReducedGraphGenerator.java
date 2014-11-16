@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.presentation.graphgenerator.impl;
 
 import java.io.File;
@@ -12,13 +17,13 @@ import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
- * This class can convert graph into SVG image.
+ * This class can convert graph into SVG image with reduced multiedges.
  *
- * @author radio.koza
+ * @author Adam Kugler
  * @version 1.0-SNAPSHOT
  */
 @Dependent
-public class GraphSVGImageGenerator extends GraphGenerator {
+public class ReducedGraphGenerator  extends GraphGenerator {
 
     @Inject
     private GraphvizUtils graphvizUtils;
@@ -29,7 +34,7 @@ public class GraphSVGImageGenerator extends GraphGenerator {
 
     @Override
     public GraphResult generateGraphResult(TraversalGraph traversalGraph) {
-        String graphvizSource = graphvizUtils.generateSource(traversalGraph, false);
+        String graphvizSource = graphvizUtils.generateSource(traversalGraph, true);
         if (graphvizSource == null) {
             LOG.severe("Generation of graphviz source failed!");
             return null;//no GraphResult will be saved in database
@@ -50,6 +55,6 @@ public class GraphSVGImageGenerator extends GraphGenerator {
             LOG.severe("Generation of SVG source from graphviz source failed!");
             return null;//no GraphResult will be saved in database
         }
-        return new SVGImage(svgSource);
+        return new ReducedGraphImage(svgSource);
     }
 }
