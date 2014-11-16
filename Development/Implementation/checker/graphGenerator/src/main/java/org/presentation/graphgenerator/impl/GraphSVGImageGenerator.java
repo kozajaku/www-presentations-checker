@@ -29,7 +29,7 @@ public class GraphSVGImageGenerator extends GraphGenerator {
 
     @Override
     public GraphResult generateGraphResult(TraversalGraph traversalGraph) {
-        String graphvizSource = graphvizUtils.generateSource(traversalGraph);
+        String graphvizSource = graphvizUtils.generateSource(traversalGraph, true);
         if (graphvizSource == null) {
             LOG.severe("Generation of graphviz source failed!");
             return null;//no GraphResult will be saved in database

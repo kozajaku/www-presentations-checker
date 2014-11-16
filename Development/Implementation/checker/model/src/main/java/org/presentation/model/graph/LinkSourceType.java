@@ -31,5 +31,9 @@ public enum LinkSourceType {
     /**
      * Link from CSS file.
      */
-    INSIDE_CSS
+    INSIDE_CSS,
+    /**
+     * Unknown source.
+     */
+    UNKNOWN
 }
