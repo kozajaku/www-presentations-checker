@@ -8,8 +8,12 @@
 .invalidnode {
     color: red;
 }
+.graph {    
+    text-align: left;
+}
 .graph span {
     cursor: default;
+    word-wrap: break-word;
 }
 .arrow {
     display: inline-block;

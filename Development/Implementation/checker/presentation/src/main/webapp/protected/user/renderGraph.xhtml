@@ -14,8 +14,8 @@
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
-	    
-	    <ui:param name="title" value="Checkup graph" />
+
+            <ui:param name="title" value="Checkup graph" />
 
 
             <c:if test="#{not empty renderGraph.checkup}">
@@ -39,11 +39,11 @@
                             <h:outputLabel styleClass="alert alert-info" value="#{msg['renderGraph.no_graphs']}" />
                         </c:when>
                         <c:otherwise>
-                            <h:form styleClass="form-horizontal" role="form">		   
+                            <h:form styleClass="form-graph" role="form">		   
 
                                 <div class="form-group">
-                                    <h:outputLabel styleClass="col-sm-4 control-label" value="#{msg['renderGraph.inp_graph_select']}" />
-                                    <div class="col-sm-4 checkbox">
+                                    <h:outputLabel styleClass="control-label" value="#{msg['renderGraph.inp_graph_select']}" />
+                                    <div class="checkbox">
 
                                         <h:selectOneMenu value="#{renderGraphBean.graphType}" label="#{msg['renderGraph.inp_graph_select']}:" >
                                             <f:selectItems value="#{renderGraphBean.availableGraphs}" var="o"
