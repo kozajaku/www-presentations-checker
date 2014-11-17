@@ -98,7 +98,7 @@ ul {
 .table th {
     text-align: center;
 }
-.svg-graph svg {    
+.reduced-svg-graph svg, .svg-graph svg {    
     width: 100%;
     height: 100%;
 }

@@ -38,6 +38,7 @@ import org.presentation.parser.CSSCode;
 import org.presentation.parser.CodeType;
 import org.presentation.parser.HTMLCode;
 import org.presentation.parser.helper.DOMBuilder;
+import org.presentation.utils.HiddenLogger;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,6 +62,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
     @Inject
     @SuppressWarnings("NonConstantLogger")
+    @HiddenLogger
     private Logger LOG;
 
     private MessageLogger messageLogger;
@@ -314,7 +316,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                             // CRCCssCode resolve by url
                             LinkURL sourceUrl;
                             if (source.getUrl() == null) {   // inline style
-                                LOG.info("This is AN inline style");
+                                LOG.log(Level.FINER, "This is AN inline style");
                                 if (ruleUsage != null) {
                                     sourceUrl = ruleUsage.getUrl(); // not so nice
                                 } else {

@@ -31,8 +31,11 @@ import org.presentation.model.graph.TraversalGraph;
 @Dependent
 public class GraphvizUtils {
 
+    /**
+     * Enum object for identifying graphviz process.
+     */
     public enum GraphvizType {
-
+        //enum names are self-describing...
         DOT,
         NEATO,
         TWOPI,
@@ -194,8 +197,10 @@ public class GraphvizUtils {
                 this.count = 1;
                 this.name = name;
             }
+
             /**
              * Interagete edge into this {@link ReducedEdge}.
+             *
              * @param edge {@link Edge} to integrate.
              */
             public void integrateEdge(Edge edge) {
@@ -350,6 +355,16 @@ public class GraphvizUtils {
         return (Math.log(node.getInputDegree() + 1) + 1) / 2;
     }
 
+    /**
+     * Execute specified graphviz process to transfer input graphviz source to
+     * svg output.
+     *
+     * @param execType Type of graphviz process to be started (eg. dot, neato,
+     * twopi,...)
+     * @param gvSource Graphviz source to be transformed
+     * @return SVG of the rendered graph of {@code null} if graphiz process
+     * failed (reason should be logged)
+     */
     public String executeGraphviz(GraphvizType execType, String gvSource) {
         Process p;
         try {
@@ -389,14 +404,27 @@ public class GraphvizUtils {
         return res.toString();
     }
 
+    /**
+     * Private class which serves as helper for consumption and logging error
+     * stream from the process.
+     */
     private class ErrorStreamConsumer extends Thread {
 
         private final BufferedReader errorStream;
 
+        /**
+         * Constructor takes error stream represented by {@link InputStream}.
+         *
+         * @param errStream Error stream to be consumed and printed to logger
+         */
         public ErrorStreamConsumer(InputStream errStream) {
             this.errorStream = new BufferedReader(new InputStreamReader(errStream));
         }
 
+        /**
+         * Method that is called in new thread which implements functionality of
+         * this class.
+         */
         @Override
         public void run() {
             String line;

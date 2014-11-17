@@ -22,6 +22,8 @@ import org.presentation.model.ContentType;
 import org.presentation.model.Header;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
+import org.presentation.model.logging.ErrorMsg;
+import org.presentation.model.logging.InvalidLinkMsg;
 import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MessageProducer;
@@ -218,6 +220,19 @@ public class PageReceiver implements MessageProducer {
             switch (connection.getResponseCode()) {
                 case 200: {
                     String contentTypeS = connection.getHeaderField("Content-Type");
+                    if (contentTypeS == null){
+                        if (method.equals(HEAD)){
+                            //try GET
+                            return connectToPage(linkURL, addHeaders, GET, false);
+                        } else {
+                            LOG.warning("Page does not contain Content-Type header - page is invalid");
+                            ErrorMsg msg = new ErrorMsg();
+                            msg.setMessage("Unable to process page - Content-Type header is missing");
+                            msg.setPage(linkURL);
+                            messageLogger.addMessage(msg);
+                            throw new IOException("Content-Type header is not available");
+                        }
+                    }
                     String[] split;
                     split = contentTypeS.split(";\\s*(charset=)?");
                     contentType = new ContentType(split[0]);

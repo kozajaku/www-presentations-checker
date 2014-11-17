@@ -18,8 +18,8 @@ import javax.inject.Inject;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
- * <p>
- * GraphGeneratorQueue class.</p>
+ * EJB Singleton class which serves as queue for creating graphical representation
+ * of {@link TraversalGraph}. 
  *
  * @author radio.koza
  * @version 1.0-SNAPSHOT
@@ -39,12 +39,18 @@ public class GraphGeneratorQueue {
     private final Lock queueLock = new ReentrantLock(true);
 
     /**
-     * <p>
-     * drawGraph.</p>
+     * Asynchronous method that is called with {@link TraversalGraph} argument to render
+     * all possible implementations of {@link GraphResult} throught {@link GraphGenerator} 
+     * implemented classes. Note that graphs are generated sequentially.
      *
-     * @param graph a {@link org.presentation.model.graph.TraversalGraph}
-     * object.
-     * @return a {@link java.util.concurrent.Future} object.
+     * @param graph A {@link org.presentation.model.graph.TraversalGraph}
+     * object which should be transformed to possible {@link GraphResult} implementations.
+     * @return A {@link java.util.concurrent.Future} object which serves as holder for
+     * information about asynchronous method execution. When rendering is finished, list of {@link GraphResul} is
+     * added to the {@link Future} object and can be retreived by method {@link Future#get()}.
+     * 
+     * @see Future
+     * @see Future#get() 
      */
     @Asynchronous
     public Future<List<GraphResult>> drawGraph(TraversalGraph graph) {
