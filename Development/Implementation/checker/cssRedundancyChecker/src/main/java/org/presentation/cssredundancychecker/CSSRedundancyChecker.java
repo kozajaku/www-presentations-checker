@@ -61,8 +61,8 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     protected Map<LinkURL, CRCCssCode> stylesheetsByURL;
 
     @Inject
-    @SuppressWarnings("NonConstantLogger")
     @HiddenLogger
+    @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
     private MessageLogger messageLogger;
@@ -280,18 +280,43 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
     }
 
     /**
+     * Apply discovered rules in a complex way. It accepts the element itself and other important arguments 
+     * 
+     * @param element The element to be processed
+     * @param hasTextContent True if the element contains some text
+     * @param domAnalyzer DomAnalyzer instance
+     * @param ruleUsage Rule usage pointing to the document where the element is contained
+     */
+    protected void applyDiscoveredRulesComplex(Element element, boolean hasTextContent, DOMAnalyzerEnhanced domAnalyzer, final CSSRuleUsage ruleUsage){
+	NodeData nodeData;
+        
+	nodeData = domAnalyzer.getElementStyleInherited((Element) element);
+	applyDiscoveredRules(nodeData, new CSSRuleHandler(){    
+	    @Override
+	    public void addRuleUsage(CSSRule rule) {
+		rule.addRuleUsage(ruleUsage);
+	    }	    
+	}, hasTextContent);
+	
+	nodeData = domAnalyzer.getElementStyle((Element) element);
+	applyDiscoveredRules(nodeData, new CSSRuleHandler(){    
+	    @Override
+	    public void addRuleUsage(CSSRule rule) {
+		rule.addRuleDirectUsage(ruleUsage);
+	    }	    
+	}, hasTextContent);	
+
+    }
+    
+    /**
      * Process the element's rules and add an usage for each of the rules.
      *
-     * @param element Element to be processed
+     * @param nodeData Node data of the element
+     * @param ruleHandler Rule handler for the discovered css rules
      * @param hasTextContent True if the element contains any text itself
      * (contains at least one Text Node)
-     * @param domAnalyzer Dom analyzer for the given document
-     * @param ruleUsage Usage to be added to the usage list for each rule
      */
-    protected void applyDiscoveredRules(Element element, boolean hasTextContent, DOMAnalyzerEnhanced domAnalyzer, CSSRuleUsage ruleUsage) {
-        NodeData nodeData;
-        nodeData = domAnalyzer.getElementStyleInherited((Element) element);
-
+    protected void applyDiscoveredRules(NodeData nodeData, CSSRuleHandler ruleHandler, boolean hasTextContent) {
         int logPropertiesNotRedundant = 0;
 
         if (nodeData != null) {
@@ -303,7 +328,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
                 // check the property is not inheritable (is applied without text contnet) or the element contains text
                 if (!nodeData.getProperty(cssPropertyName).inherited() || hasTextContent) {
-
+		    		    
                     logPropertiesNotRedundant++;
                     //LOG.log(Level.INFO, "{0} is not redundant", nodeData.getValue(cssPropertyName, true).toString());
 
@@ -312,19 +337,21 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                     if (sourceDeclaration != null) {
                         Declaration.Source source = sourceDeclaration.getSource();
                         if (source != null) {
-
+			    
                             // CRCCssCode resolve by url
-                            LinkURL sourceUrl;
+                            LinkURL sourceUrl = null;
                             if (source.getUrl() == null) {   // inline style
-                                LOG.log(Level.FINER, "This is AN inline style");
+                                /*LOG.log(Level.FINER, "This is AN inline style");
                                 if (ruleUsage != null) {
                                     sourceUrl = ruleUsage.getUrl(); // not so nice
                                 } else {
                                     sourceUrl = null;
-                                }
+                                }*/
                             } else {
                                 sourceUrl = new LinkURL(source.getUrl().toString());
                             }
+
+                            //LOG.log(Level.INFO, "That was at {0} - {1}:{2}", new Object[]{sourceUrl.getUrl(), source.getLine(), source.getPosition()});
 
                             if (sourceUrl != null && this.stylesheetsByURL.containsKey(sourceUrl)) {
                                 LOG.log(Level.FINER, "That was at {0} - {1}:{2}", new Object[]{sourceUrl.getUrl(), source.getLine(), source.getPosition()});
@@ -339,8 +366,8 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                                     LOG.log(Level.FINER, "This property NOT found by position map");
                                 }
 
-                                if (cssRule != null && ruleUsage != null) {
-                                    cssRule.addRuleUsage(ruleUsage);
+                                if (cssRule != null) {                                    
+				    ruleHandler.addRuleUsage(cssRule);
                                 }
                             }
                         }
@@ -348,9 +375,10 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                 }
 
             }
-        }
+        }     
 
         LOG.log(Level.FINER, "{0} marked as not redundant", logPropertiesNotRedundant);
+
 
     }
 
@@ -392,7 +420,7 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
                     curNode.getParentNode().removeChild(curNode);
                 }
                 if (curNode.getNodeType() == Node.ELEMENT_NODE) {
-                    applyDiscoveredRules((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLink()));
+                    applyDiscoveredRulesComplex((Element) curNode, ((Element) curNode).hasAttribute("____CSSRC____has_test_content"), domAnalyzer, new CSSRuleUsage(document.getHtmlCode().getLink()));
                 }
                 curNode = nextNode;
             }
@@ -519,15 +547,26 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
 
                 if (cssRuleBlock.isRedundant()) {
 
-                    this.messageLogger.addMessage(this.fillMessage(new WarningMsg(), cssDocument.getCssCode().getLink(),
-                            "Whole rule block \"" + cssRuleBlock.toString() + "\" is redundant", blockMsgLocation, 10));
+		    if(!cssRuleBlock.isUnused()) {
+			this.messageLogger.addMessage(this.fillMessage(new WarningMsg(), cssDocument.getCssCode().getLink(),
+				"Whole rule block \"" + cssRuleBlock.toString() + "\" is redundant", blockMsgLocation, 10));
+		    } else {
+			this.messageLogger.addMessage(this.fillMessage(new WarningMsg(), cssDocument.getCssCode().getLink(),
+				"Whole rule block \"" + cssRuleBlock.toString() + "\" is redundant (unused)", blockMsgLocation, 9));			
+		    }
+		    
                 } else {
 
                     // not whole CSS block is redundant, let's list only redundant css properties
                     for (CSSRule cssRule : cssRuleBlock.getCssRules()) {
                         if (cssRule.isRedundant()) {
-                            this.messageLogger.addMessage(this.fillMessage(new WarningMsg(), cssDocument.getCssCode().getLink(),
-                                    "Redundant rule \"" + cssRule.getName() + "\" in \"" + cssRuleBlock.toString() + "\"", new MsgLocation(cssRule.getDeclarationPosition().getLine(), cssRule.getDeclarationPosition().getCol()), 10));
+			    if(cssRule.isUnused()) {
+				this.messageLogger.addMessage(this.fillMessage(new WarningMsg(), cssDocument.getCssCode().getLink(),
+					"Redundant rule \"" + cssRule.getName() + "\" in \"" + cssRuleBlock.toString() + "\"", new MsgLocation(cssRule.getDeclarationPosition().getLine(), cssRule.getDeclarationPosition().getCol()), 10));			   				
+			    } else {
+				this.messageLogger.addMessage(this.fillMessage(new WarningMsg(), cssDocument.getCssCode().getLink(),
+					"Redundant (unused) rule \"" + cssRule.getName() + "\" in \"" + cssRuleBlock.toString() + "\"", new MsgLocation(cssRule.getDeclarationPosition().getLine(), cssRule.getDeclarationPosition().getCol()), 9));
+			    }
                         }
                     }
 
@@ -561,5 +600,10 @@ public class CSSRedundancyChecker implements WholePresentationChecker {
         message.setMsgLocation(location);
         message.setPriorityBoost(priorityBoost);
         return message;
+    }
+    
+    
+    interface CSSRuleHandler {			
+	public void addRuleUsage(CSSRule rule);
     }
 }

@@ -21,6 +21,7 @@ public class CSSRule {
     protected String value;
     protected DeclarationPosition declarationPosition;
     protected List<CSSRuleUsage> cssRuleUsages;
+    protected List<CSSRuleUsage> cssRuleDirectUsages;
 
     /**
      * <p>
@@ -37,6 +38,7 @@ public class CSSRule {
         this.value = value;
         this.declarationPosition = declarationPosition;
         this.cssRuleUsages = new ArrayList<>();
+	this.cssRuleDirectUsages = new ArrayList<>();
     }
 
     /**
@@ -51,6 +53,7 @@ public class CSSRule {
         this.value = value;
         this.declarationPosition = null;
         this.cssRuleUsages = new ArrayList<>();
+	this.cssRuleDirectUsages = new ArrayList<>();
     }
 
     /**
@@ -102,6 +105,17 @@ public class CSSRule {
     public boolean isRedundant() {
         return cssRuleUsages.isEmpty();
     }
+    
+    /**
+     * <p>
+     * Returns true if there are no direct usages of this rule (without inheritance applied)
+     * </p>
+     * 
+     * @return a boolean
+     */
+    public boolean isUnused(){
+	return cssRuleDirectUsages.isEmpty();
+    }
 
     /**
      * <p>
@@ -117,7 +131,7 @@ public class CSSRule {
 
     /**
      * <p>
-     * addRuleUsage.</p>
+     * Adds rule usage (with inheritance applied).</p>
      *
      * @param usage a
      * {@link org.presentation.cssredundancychecker.model.CSSRuleUsage} object.
@@ -125,6 +139,17 @@ public class CSSRule {
     public void addRuleUsage(CSSRuleUsage usage) {
         this.cssRuleUsages.add(usage);
     }
+    
+    /**
+     * <p>
+     * Adds direct rule usage (without inheritance applied).</p>
+     *
+     * @param usage a
+     * {@link org.presentation.cssredundancychecker.model.CSSRuleUsage} object.
+     */
+    public void addRuleDirectUsage(CSSRuleUsage usage) {
+        this.cssRuleDirectUsages.add(usage);
+    }    
 
     /**
      * <p>
@@ -135,5 +160,15 @@ public class CSSRule {
     public List<CSSRuleUsage> getCssRuleUsages() {
         return cssRuleUsages;
     }
+    
+     /**
+     * <p>
+     * Getter for the field <code>cssRuleDirectUsages</code>.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
+    public List<CSSRuleUsage> getCssRuleDirectUsages() {
+        return cssRuleDirectUsages;
+    }   
 
 }

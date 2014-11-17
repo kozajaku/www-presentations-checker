@@ -65,6 +65,21 @@ public class CSSRuleSet {
         }
         return true;
     }
+    
+    /**
+     * <p>
+     * isUnused.</p>
+     *
+     * @return a boolean.
+     */
+    public boolean isUnused() {
+        for (CSSRule rule : cssRules) {
+            if (!rule.isUnused()) {
+                return false;
+            }
+        }
+        return true;
+    }    
 
     /**
      * {@inheritDoc}
