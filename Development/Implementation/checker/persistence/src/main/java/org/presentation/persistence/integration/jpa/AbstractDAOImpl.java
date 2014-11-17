@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
  */
 public abstract class AbstractDAOImpl {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "checkerPU")
     private EntityManager entityManager;
 
     /**
