@@ -220,8 +220,8 @@ public class PageReceiver implements MessageProducer {
             switch (connection.getResponseCode()) {
                 case 200: {
                     String contentTypeS = connection.getHeaderField("Content-Type");
-                    if (contentTypeS == null){
-                        if (method.equals(HEAD)){
+                    if (contentTypeS == null) {
+                        if (method.equals(HEAD)) {
                             //try GET
                             return connectToPage(linkURL, addHeaders, GET, false);
                         } else {

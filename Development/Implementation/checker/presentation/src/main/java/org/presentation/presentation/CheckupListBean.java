@@ -55,7 +55,9 @@ public class CheckupListBean extends ProtectedBean {
      * This getter creates a lazydata model for primefaces pagination
      *
      * @return lazy data model
-     * @throws org.presentation.presentation.exception.UserAuthorizationException
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {
         if (lazyCheckupList != null) {

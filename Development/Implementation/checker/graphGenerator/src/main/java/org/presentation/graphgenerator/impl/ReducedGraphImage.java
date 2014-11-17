@@ -8,6 +8,8 @@ package org.presentation.graphgenerator.impl;
 import org.presentation.graphgenerator.GraphResult;
 
 /**
+ * <p>
+ * ReducedGraphImage class.</p>
  *
  * @author Adam Kugler
  * @version 1.0-SNAPSHOT
@@ -17,6 +19,8 @@ public class ReducedGraphImage extends GraphResult {
     protected String image;
 
     /**
+     * <p>
+     * Constructor for ReducedGraphImage.</p>
      *
      * @param image a SVG image.
      */

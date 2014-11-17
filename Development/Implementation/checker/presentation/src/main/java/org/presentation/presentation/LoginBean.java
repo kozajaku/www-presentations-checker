@@ -41,6 +41,18 @@ public class LoginBean extends CommonBean {
      * @throws javax.servlet.ServletException if any.
      * @throws javax.servlet.ServletException if any.
      * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
+     * @throws javax.servlet.ServletException if any.
      * @throws java.lang.Exception if any.
      */
     public String login() throws ServletException, Exception {

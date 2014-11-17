@@ -281,7 +281,9 @@ public class NewCheckupBean extends ProtectedBean {
      * creation)
      *
      * @return jsf view
-     * @throws org.presentation.presentation.exception.UserAuthorizationException
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      * @throws java.net.MalformedURLException if any.
      */
     public String startValidation() throws UserAuthorizationException, MalformedURLException {
@@ -321,7 +323,10 @@ public class NewCheckupBean extends ProtectedBean {
 
     /**
      * This action loads params from previous checkup to the web-form
-     * @throws org.presentation.presentation.exception.UserAuthorizationException
+     *
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public void loadPreviousCheckup() throws UserAuthorizationException {
         if (this.previousCheckupId > 0) {

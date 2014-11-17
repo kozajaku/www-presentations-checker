@@ -23,7 +23,7 @@ import org.presentation.model.graph.TraversalGraph;
  * @version 1.0-SNAPSHOT
  */
 @Dependent
-public class ReducedGraphGenerator  extends GraphGenerator {
+public class ReducedGraphGenerator extends GraphGenerator {
 
     @Inject
     private GraphvizUtils graphvizUtils;
@@ -32,6 +32,9 @@ public class ReducedGraphGenerator  extends GraphGenerator {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GraphResult generateGraphResult(TraversalGraph traversalGraph) {
         String graphvizSource = graphvizUtils.generateSource(traversalGraph, true);
@@ -42,7 +45,7 @@ public class ReducedGraphGenerator  extends GraphGenerator {
         String svgSource = graphvizUtils.executeGraphviz(GraphvizUtils.GraphvizType.TWOPI, graphvizSource);
         //=============debug================
         File debug = new File("wrongGraphvizSource.txt");
-        if (debug.exists()){
+        if (debug.exists()) {
             debug.delete();
         }
         try (PrintStream ps = new PrintStream(debug)) {

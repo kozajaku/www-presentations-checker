@@ -95,11 +95,11 @@
 
                                 <h:column>
                                     <f:facet name="header">#{msg['checkupResult.col_location']}</f:facet>
-				    <h:outputFormat rendered="#{not empty o.msgLocation}" value="#{msg['checkupResult.msg_location']}">
-					<f:param value="#{o.msgLocation.row}" />
-					<f:param value="#{o.msgLocation.column}" />
-				    </h:outputFormat>				
-				    <h:outputFormat rendered="#{empty o.msgLocation}" value="#{msg['checkupResult.msg_location_na']}" />
+                                    <h:outputFormat rendered="#{not empty o.msgLocation}" value="#{msg['checkupResult.msg_location']}">
+                                        <f:param value="#{o.msgLocation.row}" />
+                                        <f:param value="#{o.msgLocation.column}" />
+                                    </h:outputFormat>				
+                                    <h:outputFormat rendered="#{empty o.msgLocation}" value="#{msg['checkupResult.msg_location_na']}" />
                                 </h:column>
 
                             </h:dataTable>			    			    

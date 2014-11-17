@@ -23,6 +23,8 @@ public class DeclarationSource {
      *
      * @param cssRuleSet a
      * {@link org.presentation.cssredundancychecker.model.CSSRuleSet} object.
+     * @param cssRuleSet a
+     * {@link org.presentation.cssredundancychecker.model.CSSRuleSet} object.
      * @param cssRule a
      * {@link org.presentation.cssredundancychecker.model.CSSRule} object.
      */

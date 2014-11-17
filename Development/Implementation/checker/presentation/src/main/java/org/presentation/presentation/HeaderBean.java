@@ -42,7 +42,9 @@ public class HeaderBean extends ProtectedBean {
      * Get user that is currently logged in
      *
      * @return currently logged-in user
-     * @throws org.presentation.presentation.exception.UserAuthorizationException
+     * @throws
+     * org.presentation.presentation.exception.UserAuthorizationException if
+     * any.
      */
     public User getUser() throws UserAuthorizationException {
         try {
@@ -51,28 +53,43 @@ public class HeaderBean extends ProtectedBean {
             return null;
         }
     }
-    
+
+    /**
+     * <p>
+     * getMainMenu.</p>
+     *
+     * @return a {@link java.util.List} object.
+     */
     public List<PageLink> getMainMenu() {
-	List<PageLink> pages = new ArrayList<>();
-	
-	if(this.isLoggedIn()) {
-	    pages.add(new PageLink("/protected/user/checkupList.xhtml", getMenuItemTranslation("checkup_list")));
-	    pages.add(new PageLink("/protected/user/newCheckup.xhtml", getMenuItemTranslation("new_checkup")));
-	} else {
-	    pages.add(new PageLink("/public/login.xhtml", getMenuItemTranslation("log_in")));	    
-	    pages.add(new PageLink("/public/signUp.xhtml", getMenuItemTranslation("sign_up")));	    	    
-	}
-	
-	return pages;
+        List<PageLink> pages = new ArrayList<>();
+
+        if (this.isLoggedIn()) {
+            pages.add(new PageLink("/protected/user/checkupList.xhtml", getMenuItemTranslation("checkup_list")));
+            pages.add(new PageLink("/protected/user/newCheckup.xhtml", getMenuItemTranslation("new_checkup")));
+        } else {
+            pages.add(new PageLink("/public/login.xhtml", getMenuItemTranslation("log_in")));
+            pages.add(new PageLink("/public/signUp.xhtml", getMenuItemTranslation("sign_up")));
+        }
+
+        return pages;
     }
-    
+
+    /**
+     * <p>
+     * getMenuItemTranslation.</p>
+     *
+     * @param menuItemId a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     protected String getMenuItemTranslation(String menuItemId) {
-	try {
-	    String s = msg.getString("navi." + menuItemId);	
-	    if(s != null) return s;
-	}
-	catch(MissingResourceException e) { }
-	return menuItemId;
+        try {
+            String s = msg.getString("navi." + menuItemId);
+            if (s != null) {
+                return s;
+            }
+        } catch (MissingResourceException e) {
+        }
+        return menuItemId;
     }
 
 }

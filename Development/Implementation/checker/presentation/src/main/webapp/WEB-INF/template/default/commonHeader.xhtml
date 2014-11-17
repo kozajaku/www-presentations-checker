@@ -25,23 +25,23 @@
                     </span>
                 </div>
                 <div>
-		    <ul class="nav navbar-nav">		
-			<ui:repeat value="#{headerBean.mainMenu}" var="link">
-			    <li class="#{view.viewId.equals(link.view) ? 'active' : ''}"><h:link outcome="#{link.view}" value="#{link.caption}" /></li>			   
-			</ui:repeat>
-		    </ul>
-		    <c:choose>
-			<c:when test="#{headerBean.loggedIn}">
-			    <h:form>
-				<ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">		
+                        <ui:repeat value="#{headerBean.mainMenu}" var="link">
+                            <li class="#{view.viewId.equals(link.view) ? 'active' : ''}"><h:link outcome="#{link.view}" value="#{link.caption}" /></li>			   
+                        </ui:repeat>
+                    </ul>
+                    <c:choose>
+                        <c:when test="#{headerBean.loggedIn}">
+                            <h:form>
+                                <ul class="nav navbar-nav navbar-right">
                                     <li>
                                         <h:commandLink action="#{loginBean.logout}" value="#{msg['login.logout']}" >
                                         </h:commandLink>						 				    
                                     </li>
-				</ul>
-			    </h:form>
-			</c:when>
-		    </c:choose>
+                                </ul>
+                            </h:form>
+                        </c:when>
+                    </c:choose>
                 </div>
             </nav>	   
 

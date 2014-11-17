@@ -31,9 +31,9 @@ public interface WholePresentationChecker extends Stoppable, Option, MessageProd
      * This is final step - method is called when checkup crawling is done and
      * the collected information should be converted to results.
      *
-     * @param traversalGraph {@link TraversalGraph} created by web crawler that
-     * can be used as additional information for submodule of
-     * WholePresentationController module
+     * @param traversalGraph {@link org.presentation.model.graph.TraversalGraph}
+     * created by web crawler that can be used as additional information for
+     * submodule of WholePresentationController module
      */
     public void finalizeCheckup(TraversalGraph traversalGraph);
 

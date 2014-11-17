@@ -10,12 +10,15 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 /**
+ * <p>
+ * HiddenLogger class.</p>
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 @Qualifier
 @Retention(RUNTIME)
 @Target({FIELD, TYPE, METHOD, PARAMETER})
 public @interface HiddenLogger {
-    
+
 }

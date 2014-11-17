@@ -101,6 +101,9 @@ public class LinkURL {
         return Objects.equals(this.url, other.url);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return url;

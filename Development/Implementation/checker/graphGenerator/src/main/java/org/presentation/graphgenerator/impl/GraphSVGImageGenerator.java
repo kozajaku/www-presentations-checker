@@ -27,6 +27,9 @@ public class GraphSVGImageGenerator extends GraphGenerator {
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GraphResult generateGraphResult(TraversalGraph traversalGraph) {
         String graphvizSource = graphvizUtils.generateSource(traversalGraph, false);
@@ -37,7 +40,7 @@ public class GraphSVGImageGenerator extends GraphGenerator {
         String svgSource = graphvizUtils.executeGraphviz(GraphvizUtils.GraphvizType.TWOPI, graphvizSource);
         //=============debug================
         File debug = new File("wrongGraphvizSource.txt");
-        if (debug.exists()){
+        if (debug.exists()) {
             debug.delete();
         }
         try (PrintStream ps = new PrintStream(debug)) {

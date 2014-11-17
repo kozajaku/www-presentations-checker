@@ -25,13 +25,21 @@ public class LoggerProducer {
     public Logger produceLogger(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }
-    
-    @Produces @HiddenLogger
-    public Logger produceHiddenLogger(InjectionPoint injectionPoiont){
+
+    /**
+     * <p>
+     * produceHiddenLogger.</p>
+     *
+     * @param injectionPoiont a
+     * {@link javax.enterprise.inject.spi.InjectionPoint} object.
+     * @return a {@link java.util.logging.Logger} object.
+     */
+    @Produces
+    @HiddenLogger
+    public Logger produceHiddenLogger(InjectionPoint injectionPoiont) {
         Logger logger = Logger.getLogger("HiddenLogger");
         logger.setLevel(Level.OFF);
         return logger;
     }
-    
-    
+
 }

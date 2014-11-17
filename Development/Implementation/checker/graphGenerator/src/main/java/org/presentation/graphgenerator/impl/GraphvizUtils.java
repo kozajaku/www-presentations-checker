@@ -25,7 +25,6 @@ import org.presentation.model.graph.TraversalGraph;
 /**
  * This class can work with Graphviz, tool for generating graphs.
  *
- * @author radio.koza, Adam Kugler
  * @version 1.0-SNAPSHOT
  */
 @Dependent
@@ -35,6 +34,7 @@ public class GraphvizUtils {
      * Enum object for identifying graphviz process.
      */
     public enum GraphvizType {
+
         //enum names are self-describing...
         DOT,
         NEATO,
@@ -65,14 +65,41 @@ public class GraphvizUtils {
     private ManagedExecutorService mes;
 
     //constants
+    /**
+     * Constant <code>VALID_COLOR="\"green\""</code>
+     */
     protected static final String VALID_COLOR = "\"green\"";
+    /**
+     * Constant <code>INVALID_COLOR="\"red\""</code>
+     */
     protected static final String INVALID_COLOR = "\"red\"";
+    /**
+     * Constant <code>LINK_COLOR="\"black\""</code>
+     */
     protected static final String LINK_COLOR = "\"black\"";
+    /**
+     * Constant <code>IMG_COLOR="\"blue\""</code>
+     */
     protected static final String IMG_COLOR = "\"blue\"";
+    /**
+     * Constant <code>CSS_COLOR="\"yellow\""</code>
+     */
     protected static final String CSS_COLOR = "\"yellow\"";
+    /**
+     * Constant <code>FROM_CSS_COLOR="\"orange\""</code>
+     */
     protected static final String FROM_CSS_COLOR = "\"orange\"";
+    /**
+     * Constant <code>IMPORT_COLOR="\"deeppink\""</code>
+     */
     protected static final String IMPORT_COLOR = "\"deeppink\"";
+    /**
+     * Constant <code>SCRIPT_COLOR="\"purple\""</code>
+     */
     protected static final String SCRIPT_COLOR = "\"purple\"";
+    /**
+     * Constant <code>DEFAULT_COLOR="\"black\""</code>
+     */
     protected static final String DEFAULT_COLOR = "\"black\"";
 
     protected Map<Node, Integer> nodeNumbers;
