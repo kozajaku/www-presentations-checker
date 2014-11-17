@@ -1,0 +1,67 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{hyperref}
+\usepackage{listings}
+\author{Jindřich Máca}
+\title{Installation guide\\\textit{Web presentation checker}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This document is provided to serve as user guide for Web presentation checker tool. This tool was designed to run controls on whole websites a check their links, validity and CSS redundancy and also to give users complete textual and even graphical report about their structures. This is a simple guide, which shows to users, what is possible to do with this tool and how should they use it. It is understood, that you have already installed the tool or you use it as an external service via its web interface. If you have not installed it yet, you are welcome to use our provided Installation guide. Either way, you should start this guide with prepared web address, where the tool is running and its ready for use.
+\section{Sign up and Log in}
+\subsection{Sign up} \label{signup}
+First of all, when you use Web presentation checker for the first time, you have to sign up to it. This step is very important, because \textbf{you can't run this tool without signing up}! But don't be afraid, because signing up is there actually for you advantage and with it, you can run your controls asynchronously. So, when you're ready and you have Welcome page of Web presentation checker tool before you, click on the Sign up button in the top menu as it is show in the picture bellow. Now, you should see a registration form to which please fill your user account information such as your name, surname, email address and password and click on Sign up button under the registration form. When everything went right, you should be able to \nameref{login} now. If you are not, please contact service administrator or once more look closely to Installation guide and try solve the problem by proper setting of the tool.
+\subsection{Log in} \label{login}
+If you have already \nameref{signup}, you should be able to log in. To do so, click on the Log in button in the top menu, as you can see in the picture bellow. Now fill your user account information, which you filled on signing up, into the log in form and finally click on the Log in button under the log in form. Then you should find yourself again on the Welcome page, but now there should be a welcome message in the left part of the top menu. If there is, you are now able to create your control.
+\subsection{Log out} \label{logout}
+When you are done with the tool for the day, you should \textbf{always log out}. You can do it by Log out button situated in right part of the top menu. Just click on it and you should see a message, that you was successfully log out. You can do this anytime you want.
+\section{Create a control} \label{create}
+For creating a control you must first \nameref{login}. Then you click on New control button in the top menu. Now you should see a control form same as in the picture bellow. Now you fill you desired control options, click on the Start control button under the control form and if everything is set properly, you should see the message, that your control was successfully started. It usually take some time to finish the control, but, as was said in \nameref{signup}, it is running asynchronously. That means, that you can easily \nameref{logout} for the moment close entire page and return for the \nameref{results} later.
+\subsection{Control option} \label{options}
+There are many option and several very important rules for them, so lets go through it in order as it is in picture above. Basic rule is, that if your control is not working, in the most cases its caused by wrong control options, so please check them carefully.
+\subsubsection{URL address} \label{address}
+URL address is website address of the page, you want to run your control on. This is the starting point of the whole control, so put there the most basic URL address you want to start the control from. It also must be always entered in its full formatting. That means mainly you to \textbf{not forget about http:\\\\ or http:\\\\ protocols} as well, because they must always be there. It is also possible to put a port in there, if your selected website runs on different port then standard 80. You can read more about URL address formatting on \url{http://en.wikipedia.org/wiki/Uniform_resource_locator}.
+\subsubsection{Types of controls}
+This is the main part, where you check the types of control you are interested in and you want them proceed by the control. Mainly only invalid links are checked.
+There follows the description of single options.
+\begin{itemize}
+	\item HTML validation - If this control is checked, every HTML page, that goes through the control is send for HTML validation to W3C validation service. You can read more about this service here \url{http://validator.w3.org/about.html}
+	\item CSS validation - If this control is checked, every CSS file, that goes through the control is send for CSS validation to W3C validation service. You can read more about this service here \url{http://jigsaw.w3.org/css-validator/manual.html}
+	\item
+\end{itemize}
+
+\subsubsection{Domains}
+It is possible, that one web page runs on multiple domains or you simply want to run the control on multiple websites connected together. This is done by Domains option. You can put there list of allowed domains on which will the Web presentation checker tool continues running the control. But there are two basic rules, in which the most users made mistakes, so read carefully. First rule is, that these domains unlike \nameref{address} are \textbf{put there only by their names}. So no protocols, no sub-domains, no ports, no ending like .com, .org, .net etc, just a simple domain name as you can see in the picture bellow. Second rule is, that \textbf{there always must be domain of \nameref{address} starting point}. Simply, if there is no domain, no control will run. Please, keep these two basic rules in mind and you can avoid a lot a trouble.
+\subsubsection{Page limit}
+This is the number, that represents number of pages, which the control runs fully through. The bigger the number is, longer will the control take. There is no option to set this number to infinite, because, that might cause, that the control never end, but there can be set a pretty big number.
+\subsubsection{Depth}
+This number represents the depth, to which the controls goes. That is decides on length of its URL address path. But the last layer of the control is also validated for example for invalid links, but the pages bellow are no longer downloaded and proceed for example by HTML or CSS validation, even there are HTML page or CSS files.
+\subsubsection{Time limit}
+This number represents number of seconds the control waits before it asks the one concrete domain for the next page. It is place there, because if you will `bomb` certain domain with too many request in short time, it might place you on some sort of black list and block your access to it completely. Of course the bigger the number is, longer will the control take. It is recommended not to place there lower value than the default one.
+\section{Check the control results} \label{results}
+If you want to see the control result, that specific control must be already finished. To check that click on Controls list button in the top menu and you get yourself to list of all your controls. Look at the column Status by the control you want to check and if there is status `Finished`, you are good to go, else you must wait a little bit longer for the control to finish its job. You will also recognize this, by buttons on the right side, because if there is only button Stop, the control still running, otherwise, you are also good to go. Then you have a choice from two types of results \nameref{messages}, which is list of all important messages from all types of control you checked in options or \nameref{graph}, where you can see graph of crawling through the website in its text or graphical form. If you want do display \nameref{messages}, click on the Results button on the right side of the control, you want to see the results from. For the \nameref{graph} if Graph results button right next to it.
+\subsection{Stop the control}
+You can of course stop any running control. For that, if you click on Controls list button in the top menu, you get yourself to list of all your controls as you can see in the picture bellow. There, if the control is still running, you will see the Red stop button on the right side of it. Just click it and control will automatically stop and you can \nameref{results}, but remember it will be just partial.
+\subsection{Repeat the control}
+Also if you want to repeat the same control as you already did, you can just click on Controls list button in the top menu and get yourself to list of all your controls, where you then just click on the Repeat button on the right side of control you want to repeat. You will then see typical Create control form from \nameref{create}, but with prefilled values from that previous selected control. You can also change some or all of them, if you want to.
+\subsection{Message results} \label{messages}
+Message results represents the list of all important messages from all types of control you checked in options for the specific control. For example you can find there message from invalid links, invalid HTML pages or CSS files etc. Its format is specific and you can see it in the picture bellow. First is index of the message, then URL address to which is this message related, then type of the message, then type of control from which this message comes from and in the end position of the message in the files, which it comes from, if it can be specified.
+And here is the list of message types.
+\begin{itemize}
+	\item Info - Message with lowest weight, its purpose is to inform you about something.
+	\item Debug - Not so serious error, but you should pay your attention to it.
+	\item Error - Very serious error, which should be fixed.
+\end{itemize}
+
+\subsection{Graph results} \label{graph}
+There are two types of \nameref{graph}. Both are graphs representing crawling through the selected website in this specific control, but one \nameref{text} is in text represented form and the other \nameref{graphical} is in graphical represented form. If you follow \nameref{results}, you should now find yourself on page for displaying \nameref{graph} as you can see in the picture bellow. You can now select the type of graph you want to display from the select box in the middle of the page and then render it bellow by clicking in Render button or downloaded it to you computer by clicking on the Download button.
+\subsubsection{Text graph result} \label{text}
+This is the structured list of URL addresses crawled in this specific control. In the begging it is collapsed, but by clicking on underlined URL addresses with little arrow on theirs left side, you can easily click yourself through it and see how controlled web presentation is organized and also where are invalid links, because they are here highlighted by red color and have theirs HTTP error code by left side. All this you can again see in the picture bellow.
+\subsubsection{Graphical graph result} \label{graphical}
+This is the graphical representation of crawled URL addresses in this specific control and its presented by oriented graph. All the nodes represent URL addresses, are also clickable and by theirs colors, you can also recognize, which of them are invalid. The edges then represents the specific way of the connection between these two URL addresses displayed by nodes. More about these graph you can read here \url{http://en.wikipedia.org/wiki/Directed_graph} a example of the one is also here bellow.
+\end{document}
