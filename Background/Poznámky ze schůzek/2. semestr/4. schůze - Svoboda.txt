@@ -1,0 +1,19 @@
+Poznámky ze čtvrté schůze
+1) Vytvořit chlubící prezentaci
+  - seznam funkcí
+  - román, jak je to všechno super
+2) Uživatelská příručka
+  - uvést do aktuálního stavu po úpravách app (bude kontrolována)
+  - uvést min. & max. limity pro formuláře (popř. jiná podobná omezení)
+  - není nutné, aby user zadal doménu
+  - opravit "kečup"
+3) Příští schůze bude delší tj. být tam přesně 9:15 a mít vše připravené
+4) Těsně před schůzkou ověřit, že vše skutečně funguje...
+5) Zdroják pro graf ke stažení? (graphviz)
+6) Opravit bug prázného ul elementů v textovém grafu
+7) Ve STŘEDU před odevzdáním zdeployovat funkční verzi na Redmine a informovat o tom Ing. Hunku
+8) Různé konstanty jako max. počet paralelních kontrol atd. odsunout do konfiguráku
+9) Nastínit další vývoj projektu
+10) Soupis špatně navržených věci a popis proč jsou špatně, jak by měly být dobře
+11) Asi bychom měli zkusit pustit třeba 100 kontrol naráz v rámci testování aplikace
+12) Asi bychom měli zpětně upravit EA modely, aby v tom nebyl bordel
