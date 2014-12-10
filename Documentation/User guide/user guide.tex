@@ -75,7 +75,7 @@ There follows the description of single tests.
 \end{itemize}
 
 \subsubsection{Allowed domains (each on new line)}
-It is possible, that one web page runs on multiple domains or you simply want to run the checkup on multiple websites connected together. This is done by Allowed domains, which, logically by its name, specifies list of domains, on which is this checkup allowed. You can simply put there list of allowed domains on which will the Web presentation checker tool continues running the checkup. But there are two basic rules, in which the most users made mistakes, so read carefully. First rule is, that these domains unlike \nameref{address} are \textbf{put there only by their names}. So no protocols and no ports, just a simple domain name as you can see in the picture bellow. Second rule is, that \textbf{there always must be domain of \nameref{address} starting point}. Simply, if there is no domain, no checkup will run. Please, keep these two basic rules in mind and you can avoid a lot a trouble.
+It is possible, that one web page runs on multiple domains or you simply want to run the checkup on multiple websites connected together. This is done by Allowed domains, which, logically by its name, specifies list of domains, on which is this checkup allowed. You can simply put there list of allowed domains on which will the Web presentation checker tool continues running the checkup. But there is one basic rule, in which the most users made mistakes, so read carefully. These domains unlike \nameref{address} are \textbf{put there only by their names}. So no protocols and no ports, just a simple domain name as you can see in the picture bellow. You don't need to put there domain from \nameref{address}, this is done automatically.
 
 \subsubsection{Crawling depth limit}
 This number represents the depth, to which the checkup goes. That is decides on length of its URL address path. But the last layer of the checkup is also validated for example for invalid links, but the pages bellow are no longer downloaded and proceed for example by HTML or CSS validation, even there are HTML page or CSS files.
@@ -99,13 +99,13 @@ You can of course stop any running checkup. For that, go to \nameref{list} and t
 		\label{fig:stop}
 \end{figure}
 
-\subsection{Chechup list} \label{list}
+\subsection{Checkup list} \label{list}
 You also have a complete list of all your checkups. If you wish to see them, click on Checkup list button in the top menu as you can see in the picture bellow. This site is divided to pages, that you can navigate through by page navigation on the top and on the bottom as you can also see on the picture bellow. The checkup list has its specific format. First column is unique ID of the control, then all well known \nameref{options} with extra column State, which show the status of the checkup and in the last column are Actions, which you can do with this checkup.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{pictures/list.png}
-		\caption{Chechup list}
+		\caption{Checkup list}
 		\label{fig:list}
 \end{figure}
 
