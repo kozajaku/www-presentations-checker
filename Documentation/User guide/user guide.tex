@@ -5,6 +5,7 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{float}
+
 \author{Jindřich Máca}
 \title{Installation guide\\\textit{Web presentation checker}}
 
@@ -70,7 +71,7 @@ There follows the description of single tests.
 \begin{itemize}
 	\item \textbf{HTML validation} - If this test is checked, every HTML page, that goes through the checkup is send for HTML validation to W3C validation service. You can read more about this service here \url{http://validator.w3.org/about.html}
 	\item \textbf{CSS redundancy checker} - If this test is checked, the tool controls if CSS styles with their attributes are redundant in selected web presentation.
-	\item \textbf{ckeck links} - If this test is checked, the tool checks validity of all URL links, that appear in selected web presentation.
+	\item \textbf{check links} - If this test is checked, the tool checks validity of all URL links, that appear in selected web presentation.
 	\item \textbf{CSS validation} - If this test is checked, every CSS file, that goes through the checkup is send for CSS validation to W3C validation service. You can read more about this service here \url{http://jigsaw.w3.org/css-validator/manual.html}
 \end{itemize}
 
@@ -127,8 +128,8 @@ Message results represents the list of all important messages from all types of 
 \begin{itemize}
 	\item \textbf{Info} - Message with lowest weight, its purpose is to inform you about something.
 	\item \textbf{Warning} - Message with a little bigger weight, this is harmless, but it could have been done better.
-	\item \textbf{Debug} - Not so serious error, but you should pay your attention to it.
-	\item \textbf{Error} - Very serious error, which should be fixed.
+	\item \textbf{Error} - Serious error, which should be fixed.
+	\item \textbf{Debug} - Not an error. This is used for debugging the aplication, schould not appear in production.
 \end{itemize}
 
 \begin{figure}[H]
@@ -139,7 +140,7 @@ Message results represents the list of all important messages from all types of 
 \end{figure}
 
 \subsection{Graph results} \label{graph}
-There are two types of \nameref{graph}. Both representing crawling through the selected website in this specific checkup, but one \nameref{text} is in text represented form and the other \nameref{graphical} is in graphical represented form. If you follow \nameref{results}, you should now find yourself on page for displaying \nameref{graph} as you can see in the picture bellow. You can now select the type of graph you want to display from the select box in the middle of the page on top and then render it by clicking on Render button or downloaded it to you computer by clicking on the Download button bellow.
+There are two main types of \nameref{graph}. Both representing crawling through the selected website in this specific checkup, but one \nameref{text} is in text represented form and the other \nameref{graphical} is in graphical represented form. If you follow \nameref{results}, you should now find yourself on page for displaying \nameref{graph} as you can see in the picture bellow. You can now select the type of graph you want to display from the select box in the middle of the page on top and then render it by clicking on Render button or downloaded it to you computer by clicking on the Download button bellow.
 
 \begin{figure}[H]
     \centering
@@ -149,7 +150,7 @@ There are two types of \nameref{graph}. Both representing crawling through the s
 \end{figure}
 
 \subsubsection{Text graph result} \label{text}
-This is the structured list of URL addresses crawled in this specific checkup. In the begging it is collapsed, but by clicking on underlined URL addresses with little arrow on theirs left side, you can easily click yourself through it and see how checked web presentation is organized and also where are invalid links, because they are here highlighted by red color and have theirs HTTP error code by left side. All this you can again see in the picture bellow.
+This graph represents crawling tree with starting url as root. Text graph result is the structured list of URL addresses crawled in this specific checkup. In the begging it is collapsed, but by clicking on underlined URL addresses with little arrow on theirs left side, you can easily click yourself through it and see how checked web presentation is organized and also where are invalid links, because they are here highlighted by red color and have theirs HTTP error code by left side. All this you can again see in the picture bellow.
 
 \begin{figure}[H]
     \centering
@@ -159,7 +160,10 @@ This is the structured list of URL addresses crawled in this specific checkup. I
 \end{figure}
 
 \subsubsection{Graphical graph result} \label{graphical}
-This is the graphical representation of URL addresses crawled in this specific checkup and its presented by oriented graph. All the nodes represent URL addresses, are also clickable, and by theirs colors you can also recognize, which of them are invalid. The edges then represents the specific way of the connection between two URL addresses displayed by nodes. More about these graph you can read here \url{http://en.wikipedia.org/wiki/Directed_graph} a example of the one is also here bellow.
+This is the graphical representation of URL addresses crawled in this specific checkup and its presented by oriented graph. More about these graph you can read here \url{http://en.wikipedia.org/wiki/Directed_graph} a example of the one is also here bellow.
+
+\paragraph{Full graph} \label{full graph}
+All the nodes represent URL addresses. Nodes are clickable, and by theirs colors and size you can recognize, which of them are valid (green) or invalid (red) and how important (size) the node is. The edges then represents the specific way of the connection between two URL addresses displayed by nodes, tooltip shows you informations about the link between two nodes and color represents the source type.
 
 \begin{figure}[H]
     \centering
@@ -167,5 +171,10 @@ This is the graphical representation of URL addresses crawled in this specific c
 		\caption{Graphical graph result}
 		\label{fig:graphical}
 \end{figure}
+
+\paragraph{Reduced graph}
+This graph is same as \nameref{full graph}, but it has fewer edges, because multiedges are transformed into one edge with number, which says, how many edges the reduced edge represents. All edges have the same color (black), because they possibly can have more source types.
+
+
 
 \end{document}
