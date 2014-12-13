@@ -8,22 +8,22 @@ package org.presentation.graphgenerator.impl;
 import org.presentation.graphgenerator.GraphResult;
 
 /**
- * This class represents SVG image from {@link ReducedGraphGenerator}.
+ * This class represents SVG image from {@link FullGraphGenerator}.
  *
  * @author Adam Kugler
  * @version 1.0-SNAPSHOT
  */
-public class ReducedGraphImage extends GraphResult {
+public class FullGraphImage extends GraphResult {
 
     protected String image;
 
     /**
      * <p>
-     * Constructor for ReducedGraphImage.</p>
+     * Constructor for SVGImage.</p>
      *
      * @param image a SVG image.
      */
-    public ReducedGraphImage(String image) {
+    public FullGraphImage(String image) {
         this.image = image;
     }
 
@@ -40,7 +40,7 @@ public class ReducedGraphImage extends GraphResult {
      */
     @Override
     public String getResultId() {
-        return "Reduced SVG graph";
+        return "Full SVG graph";
     }
 
 }
