@@ -37,7 +37,11 @@ public enum CheckState {
      * Checkup was successfully finished and its results are persisted in the
      * database.
      */
-    FINISHED;
+    FINISHED,
+    /**
+     * Exception was thrown during execution.
+     */
+    ERROR;
 
     /**
      * Method checks that execution of checkup was ended.
@@ -49,6 +53,7 @@ public enum CheckState {
             case FINISHED:
             case STOPPED_AFTER_START:
             case STOPPED_BEFORE_START:
+            case ERROR:
                 return true;
         }
         return false;

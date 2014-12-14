@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import org.presentation.kernel.impl.CheckingExecutionQueue;
 import org.presentation.persistence.business.PersistenceFacade;
@@ -96,5 +98,20 @@ public class CheckRequestReceiver {
         } else {
             execQueue.stopRunningChecking(checkupId);
         }
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Progress getPagesCrawled(Integer checkupId) throws NoSuchFieldException{
+        Checkup checkup = persistenceFacade.findCheckup(checkupId);
+        if (checkup == null){
+            throw new NoSuchFieldException("Checkup with specified primary key was not found");
+        }
+        if (checkup.getState().isEnded()){
+            return new Progress(checkup.getPageLimit(), checkup.getPageLimit());
+        }
+        if (checkup.getState() != CheckState.CHECKING){
+            return new Progress(checkup.getPageLimit(), 0);
+        }
+        return execQueue.getCheckupProgress(checkup);
     }
 }
