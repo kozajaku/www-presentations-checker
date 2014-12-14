@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:func="http://example.com/functions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+
+            <ui:param name="title" value="Login history" />
+
+            <ui:define name="content">
+
+                <ui:define name="subheader">
+                    <h2>#{msg['loginHistory.caption']}</h2>
+                </ui:define>				
+
+                <h:form>
+                    <p:dataTable 
+                        value="#{loginHistoryBean.lazyLoginHistory}" var="o"
+                        tableStyleClass="table table-hover login-history-table"				 
+                        paginator="true"
+                        lazy="true"
+                        rows="10"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                        paginatorAlwaysVisible="false"
+                        >
+
+                        <p:column>
+                            <f:facet name="header">#{msg['loginHistory.col_time']}</f:facet>
+                                #{o.time}
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">#{msg['loginHistory.col_address']}</f:facet>
+                                #{o.address}
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+
+</html>
