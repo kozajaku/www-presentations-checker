@@ -90,8 +90,8 @@ public class CheckupDAOImpl extends AbstractDAOImpl implements CheckupDAO {
      * {@inheritDoc}
      */
     @Override
-    public int countUserChecks(String email) {
-        TypedQuery<Integer> q = getEntityManager().createNamedQuery("Checkup.countUserCheckups", Integer.class);
+    public long countUserChecks(String email) {
+        TypedQuery<Long> q = getEntityManager().createNamedQuery("Checkup.countUserCheckups", Long.class);
         q.setParameter("email", email);
         return q.getSingleResult();
     }

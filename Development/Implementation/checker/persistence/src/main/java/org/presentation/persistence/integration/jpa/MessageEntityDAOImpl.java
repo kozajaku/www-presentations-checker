@@ -118,8 +118,8 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
      * {@inheritDoc}
      */
     @Override
-    public int countCheckMessages(Integer checkupId) {
-        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessages", Integer.class);
+    public long countCheckMessages(Integer checkupId) {
+        TypedQuery<Long> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessages", Long.class);
         q.setParameter("checkupId", checkupId);
         return q.getSingleResult();
     }
@@ -128,8 +128,8 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
      * {@inheritDoc}
      */
     @Override
-    public int countCheckMessagesFromResources(Integer checkupId, List<String> resources) {
-        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesFromResource", Integer.class);
+    public long countCheckMessagesFromResources(Integer checkupId, List<String> resources) {
+        TypedQuery<Long> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesFromResource", Long.class);
         q.setParameter("checkupId", checkupId);
         q.setParameter("resources", resources);
         return q.getSingleResult();
@@ -139,8 +139,8 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
      * {@inheritDoc}
      */
     @Override
-    public int countCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators) {
-        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesByDiscriminators", Integer.class);
+    public long countCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators) {
+        TypedQuery<Long> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesByDiscriminators", Long.class);
         q.setParameter("checkupId", checkupId);
         q.setParameter("discriminators", discriminators);
         return q.getSingleResult();
@@ -150,8 +150,8 @@ public class MessageEntityDAOImpl extends AbstractDAOImpl implements MessageEnti
      * {@inheritDoc}
      */
     @Override
-    public int countCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators) {
-        TypedQuery<Integer> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesByResourcesDiscriminators", Integer.class);
+    public long countCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators) {
+        TypedQuery<Long> q = getEntityManager().createNamedQuery("MessageEntity.countCheckupMessagesByResourcesDiscriminators", Long.class);
         q.setParameter("checkupId", checkupId);
         q.setParameter("resources", resources);
         q.setParameter("discriminators", discriminators);
