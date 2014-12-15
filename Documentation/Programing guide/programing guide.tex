@@ -1,0 +1,46 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{hyperref}
+\usepackage{listings}
+\author{Adam Kugler}
+\title{Programing guide\\\textit{Web presentation checker}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section {Introduction}
+This guide schould help programmers that want to continue working on this tool. This tool is build upon
+\href{http://www.oracle.com/technetwork/java/javaee/overview/index.html}{Java EE} technology.
+
+\section {Development environment}
+As a team you schould have the most similar development environment as possible. It's up to you which tools you use, because you can't work with our team these days. But for inspiration we used \textbf{Netbeans} as our programing environment, \textbf{Git} as version control system and \textbf{Redmine} for task distribution and monitoring spent time.
+
+\section{Programing conventions}
+At first you schould read basic \href{http://www.oracle.com/technetwork/java/codeconvtoc-136057.html}{Java conventions}.
+\begin{itemize}
+\item You schould write all class names, variable names, etc. in code and all coments in English.
+\item Use logger for important steps. Write short and meaningful messages.
+\item Remove logging messages that you used just for debugging.
+\item Don't use redundant imports.
+\item Format your code (press ALT+SHIFT+F in NetBeans).
+\end{itemize}
+\subsection{JavaDoc}
+\begin{itemize}
+\item Use the JavaDoc comments for every class and method except setters and getters. You schould comment also unprivate variables.
+\item It is better to comment definitions rather than implementations.
+\item Use link within the comments (\{@link class\#method\}).
+\end{itemize}
+
+\section {Used tools and libraries}
+\subsection{\href{http://graphviz.org/}{Graphviz}}
+Graphviz is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. We use it for drawing web presentation graphs.
+\subsection{\href{http://cssbox.sourceforge.net/}{CSSBox}}
+CSSBox is a Java library which brings the ability of applying CSS rules on HTML DOM. It is strongly bonded to \href{http://cssbox.sourceforge.net/jstyleparser/}{JStyleParser} which is CSS rules parser. Without using it, it would be much more difficult to implement our famous CSS Redundancy Checker.
+
+\section{Tool extension}
+This tool was designed as easy extendable by using interfaces.
+
+\end{document}
