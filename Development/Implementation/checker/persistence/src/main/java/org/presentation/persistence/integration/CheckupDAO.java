@@ -99,5 +99,5 @@ public interface CheckupDAO {
      * @param email Email of the user whose checkups should be counted.
      * @return Count of user's checkups
      */
-    int countUserChecks(String email);
+    long countUserChecks(String email);
 }

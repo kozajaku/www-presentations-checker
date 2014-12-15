@@ -121,7 +121,7 @@ public interface MessageEntityDAO {
      * @param checkupId Primary key of the checkup
      * @return Count of the messages
      */
-    int countCheckMessages(Integer checkupId);
+    long countCheckMessages(Integer checkupId);
 
     /**
      * Method counts {@link org.presentation.persistence.model.MessageEntity}
@@ -134,7 +134,7 @@ public interface MessageEntityDAO {
      * {@link org.presentation.persistence.model.MessageEntity} instances
      * matching the filter
      */
-    int countCheckMessagesFromResources(Integer checkupId, List<String> resources);
+    long countCheckMessagesFromResources(Integer checkupId, List<String> resources);
 
     /**
      * Method counts {@link org.presentation.persistence.model.MessageEntity}
@@ -150,7 +150,7 @@ public interface MessageEntityDAO {
      * {@link org.presentation.persistence.model.MessageEntity} instances
      * matching the filter
      */
-    int countCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators);
+    long countCheckMessagesByDiscriminators(Integer checkupId, List<String> discriminators);
 
     /**
      * Method merges functionality of
@@ -168,7 +168,7 @@ public interface MessageEntityDAO {
      * {@link org.presentation.persistence.model.MessageEntity} instances
      * matching the filter
      */
-    int countCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators);
+    long countCheckMessagesByResourcesDiscriminators(Integer checkupId, List<String> resources, List<String> discriminators);
 
     /**
      * Method finds all {@link org.presentation.persistence.model.MessageEntity}

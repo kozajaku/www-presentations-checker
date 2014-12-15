@@ -546,7 +546,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
      */
     @Override
     public int countUserCheckups(User user) {
-        return checkupDAO.countUserChecks(user.getEmail());
+        return (int) checkupDAO.countUserChecks(user.getEmail());
     }
 
     /**
@@ -554,7 +554,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
      */
     @Override
     public int countCheckupMessages(Checkup checkup) {
-        return messageDAO.countCheckMessages(checkup.getIdCheckup());
+        return (int) messageDAO.countCheckMessages(checkup.getIdCheckup());
     }
 
     /**
@@ -562,7 +562,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
      */
     @Override
     public int countCheckupMessagesWithResources(Checkup checkup, List<String> resources) {
-        return messageDAO.countCheckMessagesFromResources(checkup.getIdCheckup(), resources);
+        return (int) messageDAO.countCheckMessagesFromResources(checkup.getIdCheckup(), resources);
     }
 
     /**
@@ -622,7 +622,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
      */
     @Override
     public int countCheckupMessagesWithDiscriminators(Checkup checkup, List<String> discriminators) {
-        return messageDAO.countCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
+        return (int) messageDAO.countCheckMessagesByDiscriminators(checkup.getIdCheckup(), discriminators);
     }
 
     /**
@@ -630,7 +630,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
      */
     @Override
     public int countCheckupMessagesWithResourcesDiscriminators(Checkup checkup, List<String> resources, List<String> discriminators) {
-        return messageDAO.countCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);
+        return (int) messageDAO.countCheckMessagesByResourcesDiscriminators(checkup.getIdCheckup(), resources, discriminators);
     }
 
 }

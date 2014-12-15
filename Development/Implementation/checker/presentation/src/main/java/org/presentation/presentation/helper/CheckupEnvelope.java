@@ -7,6 +7,7 @@ package org.presentation.presentation.helper;
 
 import java.io.Serializable;
 import java.util.List;
+import org.presentation.kernel.Progress;
 import org.presentation.model.Domain;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.ChosenOption;
@@ -22,7 +23,8 @@ public class CheckupEnvelope implements Serializable {
     protected Checkup ch;
     protected List<Domain> domainsAllowed;
     protected List<ChosenOption> desiredCheckups;
-
+    protected Progress progress;
+    
     /**
      * <p>
      * Constructor for CheckupEnvelope.</p>
@@ -30,11 +32,13 @@ public class CheckupEnvelope implements Serializable {
      * @param ch a {@link org.presentation.persistence.model.Checkup} object.
      * @param domainsAllowed a {@link java.util.List} object.
      * @param desiredCheckups a {@link java.util.List} object.
+     * @param progress a {@link org.presentation.kernel.Progress} object.
      */
-    public CheckupEnvelope(Checkup ch, List<Domain> domainsAllowed, List<ChosenOption> desiredCheckups) {
+    public CheckupEnvelope(Checkup ch, List<Domain> domainsAllowed, List<ChosenOption> desiredCheckups, Progress progress) {
         this.ch = ch;
         this.domainsAllowed = domainsAllowed;
         this.desiredCheckups = desiredCheckups;
+	this.progress = progress;
     }
 
     /**
@@ -66,5 +70,16 @@ public class CheckupEnvelope implements Serializable {
     public List<ChosenOption> getDesiredCheckups() {
         return desiredCheckups;
     }
+
+    /**
+     * <p>
+     * Getter for the field <code>progress</code>.</p>
+     *
+     * @return a {@link org.presentation.kernel.Progress} object.
+     */    
+    public Progress getProgress() {
+	return progress;
+    }
+    
 
 }

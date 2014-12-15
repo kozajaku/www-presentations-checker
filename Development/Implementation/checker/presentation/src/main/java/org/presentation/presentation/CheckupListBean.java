@@ -8,8 +8,14 @@ package org.presentation.presentation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import org.presentation.kernel.CheckRequestReceiver;
+import org.presentation.kernel.Progress;
+import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
 import org.presentation.persistence.model.User;
 import org.presentation.presentation.exception.UserAuthorizationException;
@@ -28,6 +34,10 @@ import org.primefaces.model.SortOrder;
 public class CheckupListBean extends ProtectedBean {
 
     protected LazyDataModel<CheckupEnvelope> lazyCheckupList;
+    
+    @EJB
+    protected CheckRequestReceiver checkRequestReceiver;
+
 
     // old un-paginated crap
     /*
@@ -59,6 +69,7 @@ public class CheckupListBean extends ProtectedBean {
      * org.presentation.presentation.exception.UserAuthorizationException if
      * any.
      */
+    
     public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {
         if (lazyCheckupList != null) {
             return lazyCheckupList;
@@ -73,20 +84,35 @@ public class CheckupListBean extends ProtectedBean {
                 List<Checkup> checkups;
                 List<CheckupEnvelope> checkupList = new ArrayList<>();
 
-                lazyCheckupList.setRowCount(persistance.findUserCheckings(loggedUser).size());	// todo replace by .countUserCheckings(user)
+		lazyCheckupList.setRowCount(persistance.countUserCheckups(loggedUser));
 
                 checkups = persistance.findUserCheckings(loggedUser, first, pageSize);
 
                 for (Checkup checkup : checkups) {
+		    
+		    Progress progress = null;
+		    int percentDone = -1;
+		    if(checkRequestReceiver != null && checkup.getState() == CheckState.CHECKING) {			
+			try {
+			    progress = checkRequestReceiver.getPagesCrawled(checkup.getIdCheckup());
+			    if(progress != null) {
+				percentDone = (int) progress.percentDone();
+			    }
+			} catch (NoSuchFieldException ex) {
+			    LOG.log(Level.WARNING, ex.toString(), ex);
+			}
+		    }
+
                     checkup.setOptionList(persistance.findCheckupOptions(checkup));
 
                     checkupList.add(new CheckupEnvelope(
                             checkup,
                             persistance.findCheckupDomains(checkup),
-                            checkup.getOptionList()
+                            checkup.getOptionList(),
+			    progress
                     ));
                 }
-
+		
                 return checkupList;
 
             }

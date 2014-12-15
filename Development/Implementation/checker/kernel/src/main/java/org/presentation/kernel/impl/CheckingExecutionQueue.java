@@ -24,6 +24,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import org.presentation.kernel.Progress;
 import org.presentation.persistence.business.PersistenceFacade;
 import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
@@ -195,12 +196,16 @@ public class CheckingExecutionQueue {
                 } finally {
                     stoppingLock.unlock();
                 }
-                executor.startChecking(checkup);//this method block until end of checking
+                boolean success = executor.startChecking(checkup);//this method blocks until end of checking
                 try {
                     stoppingLock.lock();
                     checkup = persistenceFacade.findCheckup(checkup.getIdCheckup());
                     if (checkup.getState().equals(CheckState.CHECKING)) {
-                        checkup.setState(CheckState.FINISHED);
+                        if (success) {
+                            checkup.setState(CheckState.FINISHED);
+                        } else {
+                            checkup.setState(CheckState.ERROR);
+                        }
                         checkup.setCheckingFinished(new Date());
                         persistenceFacade.updateCheckup(checkup);
                     }
@@ -236,5 +241,15 @@ public class CheckingExecutionQueue {
         } finally {
             stoppingLock.unlock();
         }
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
+    public Progress getCheckupProgress(Checkup checkup){
+        CheckingExecutor executor = runningCheckings.get(checkup.getIdCheckup());
+        if (executor == null){
+            //seems that run has been finished
+            return new Progress(checkup.getPageLimit(), checkup.getPageLimit());
+        }
+        return executor.getCheckupProgress();
     }
 }

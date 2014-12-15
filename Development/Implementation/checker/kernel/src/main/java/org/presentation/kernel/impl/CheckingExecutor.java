@@ -11,6 +11,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import org.presentation.graphgenerator.GraphGeneratorQueue;
 import org.presentation.graphgenerator.GraphResult;
+import org.presentation.kernel.Progress;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
@@ -77,9 +78,11 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
      * @param checkup A {@link org.presentation.persistence.model.Checkup}
      * object representing information about check that should be executed by
      * this {@link org.presentation.kernel.impl.CheckingExecutor}
+     * @return {@code true} if checking ended successfully, {@code false} if
+     * ended with error
      */
     @SuppressWarnings("UseSpecificCatch")
-    public void startChecking(Checkup checkup) {
+    public boolean startChecking(Checkup checkup) {
         this.checkup = checkup;
         try {
             LOG.info("Starting new checking");
@@ -124,7 +127,9 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
             persistenceFacade.addGraphsToCheckup(checkup, graphs);
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     /**
@@ -159,4 +164,9 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
         crawlerService.stopChecking();
     }
 
+    public Progress getCheckupProgress(){
+        int pageLimit = checkup.getPageLimit();
+        int crawled = crawlerService.getCrawlingState().getPagesCrawled();
+        return new Progress(pageLimit, crawled);
+    }
 }
