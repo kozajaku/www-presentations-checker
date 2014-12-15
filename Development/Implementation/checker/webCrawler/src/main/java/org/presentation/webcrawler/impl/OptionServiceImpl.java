@@ -2,6 +2,7 @@ package org.presentation.webcrawler.impl;
 
 import javax.enterprise.context.Dependent;
 import org.presentation.utils.AllowOptionService;
+import org.presentation.utils.Property;
 
 /**
  * <p>
@@ -26,7 +27,7 @@ public class OptionServiceImpl implements AllowOptionService {
      */
     @Override
     public String getDestription() {
-        return "Check links";//finally this method should not be used in final version
+        return Property.getInstance().getStringPropery("CRAWLER_CHECK_LINKS_DESCRIPTION");//finally this method should not be used in final version
     }
 
 }

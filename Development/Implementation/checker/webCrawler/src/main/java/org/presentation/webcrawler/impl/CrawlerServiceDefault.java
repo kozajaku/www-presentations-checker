@@ -32,6 +32,7 @@ import org.presentation.parser.CSSParserService;
 import org.presentation.parser.HTMLParserService;
 import org.presentation.parser.ParsedLinkResponse;
 import org.presentation.utils.OptionContainer;
+import org.presentation.utils.Property;
 import org.presentation.webcrawler.CompleteCrawlingState;
 import org.presentation.webcrawler.CrawlerService;
 import org.presentation.webcrawler.CrawlingState;
@@ -257,11 +258,12 @@ public class CrawlerServiceDefault implements CrawlerService {
             return false;
         }
     }
-    static final String CHECK_LINKS_OPTION = "check links";
+    static final String CHECK_LINKS_OPTION = Property.getInstance().getStringPropery("CRAWLER_CHECK_LINKS_SERVICE_NAME");
     /**
      * Timeout to head request in ms.
      */
-    private static final int HEAD_TIMEOUT = 500;
+    private static final int HEAD_TIMEOUT = Property.getInstance().getIntProperty("CRAWLER_HEAD_TIMEOUT");
+    
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;

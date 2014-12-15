@@ -39,6 +39,7 @@ import org.presentation.parser.CodeType;
 import org.presentation.parser.HTMLCode;
 import org.presentation.parser.helper.DOMBuilder;
 import org.presentation.utils.HiddenLogger;
+import org.presentation.utils.Property;
 import org.presentation.wholepresentationcontroller.WholePresentationChecker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -55,7 +56,7 @@ import org.w3c.dom.NodeList;
 @Dependent
 public class CSSRedundancyChecker implements WholePresentationChecker {
 
-    static final String SERVICE_NAME = "CSS redundancy checker";
+    static final String SERVICE_NAME = Property.getInstance().getStringPropery("CSS_REDUNDANCY_CHECKER_SERVICE_NAME");
 
     protected Map<LinkURL, List<CRCHtmlCode>> stylesheetDependencies;
     protected Map<LinkURL, CRCCssCode> stylesheetsByURL;

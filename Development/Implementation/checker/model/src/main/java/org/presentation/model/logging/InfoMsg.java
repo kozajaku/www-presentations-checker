@@ -1,5 +1,7 @@
 package org.presentation.model.logging;
 
+import org.presentation.utils.Property;
+
 /**
  * Represents infomation type of abstract class
  * {@link org.presentation.model.logging.Message}.
@@ -14,7 +16,7 @@ public class InfoMsg extends Message {
      */
     @Override
     public int getDefaultPriority() {
-        return 2000;
+        return Property.getInstance().getIntProperty("INFO_MESSAGE_PRIORITY");
     }
 
 }

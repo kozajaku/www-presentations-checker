@@ -20,6 +20,7 @@ import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
 import org.presentation.singlepagecontroller.SinglePageChecker;
+import org.presentation.utils.Property;
 import org.presentation.validatorjaxbutils.ValidatorResponseFetcher;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._07.css_validator.CSSValidationResponse;
@@ -46,9 +47,9 @@ public class CSSValidatorImpl implements SinglePageChecker {
     /**
      * Package friendly constant for option interface.
      */
-    static final String SERVICE_NAME = "CSS validator";
+    static final String SERVICE_NAME = Property.getInstance().getStringPropery("CSS_VALIDATOR_SERVICE_NAME");
     //Constant representing W3C url of validation service for CSS
-    private static final String VALIDATION_SERVICE = "http://jigsaw.w3.org/css-validator/validator";
+    private static final String VALIDATION_SERVICE = Property.getInstance().getStringPropery("CSS_VALIDATOR_ADDRESS");
 
     //Inject logger
     @Inject

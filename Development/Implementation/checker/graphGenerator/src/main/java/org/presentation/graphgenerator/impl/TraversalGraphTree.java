@@ -6,6 +6,7 @@
 package org.presentation.graphgenerator.impl;
 
 import org.presentation.graphgenerator.GraphResult;
+import org.presentation.utils.Property;
 
 /**
  * This class represents traversal graph tree by using HTML tags as nested
@@ -41,7 +42,7 @@ public class TraversalGraphTree extends GraphResult {
      */
     @Override
     public String getResultId() {
-        return "Traversal graph tag tree";
+        return Property.getInstance().getStringPropery("TraversalTreeGraph");
     }
 
 }

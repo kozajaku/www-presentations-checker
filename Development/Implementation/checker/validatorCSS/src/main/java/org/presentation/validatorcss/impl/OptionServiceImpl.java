@@ -2,6 +2,7 @@ package org.presentation.validatorcss.impl;
 
 import javax.enterprise.context.Dependent;
 import org.presentation.utils.AllowOptionService;
+import org.presentation.utils.Property;
 
 /**
  * <p>
@@ -26,7 +27,7 @@ public class OptionServiceImpl implements AllowOptionService {
      */
     @Override
     public String getDestription() {
-        return "Validation of CSS code";
+        return Property.getInstance().getStringPropery("CSS_VALIDATOR_DESCRIPTION");
     }
 
 }

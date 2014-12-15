@@ -20,6 +20,7 @@ import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
 import org.presentation.singlepagecontroller.SinglePageChecker;
+import org.presentation.utils.Property;
 import org.presentation.validatorjaxbutils.ValidatorResponseFetcher;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._10.markup_validator.ErrorList;
@@ -43,9 +44,9 @@ public class HTMLValidatorImpl implements SinglePageChecker {
     /**
      * Package friendly constant for option interface.
      */
-    static final String SERVICE_NAME = "HTML validator";
+    static final String SERVICE_NAME = Property.getInstance().getStringPropery("HTML_VALIDATOR_SERVICE_NAME");
     //Constant representing W3C url of validation service for HTML
-    private static final String VALIDATION_SERVICE = "http://validator.w3.org/check";
+    private static final String VALIDATION_SERVICE = Property.getInstance().getStringPropery("HTML_VALIDATOR_ADDRESS");
 
     //Inject logger
     @Inject
