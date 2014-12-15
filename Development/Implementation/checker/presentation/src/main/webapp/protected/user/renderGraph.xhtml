@@ -14,9 +14,8 @@
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
-
+	    
             <ui:param name="title" value="Checkup graph" />
-
 
             <c:if test="#{not empty renderGraph.checkup}">
                 <ui:define name="subheader">
@@ -29,6 +28,9 @@
             </c:if>
 
             <ui:define name="content">		
+		
+    		<h:outputScript name="js/viz.js" />
+		<h:outputScript name="js/graph_renderer.js" />
 
                 <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
@@ -69,7 +71,7 @@
                                 <c:when test="#{not empty renderGraphBean.selectedGraph}">
                                     <hr />
                                     <div class="graph #{func:normalizeString(renderGraphBean.selectedGraph.graphType)}">										
-                                        <h:outputText value="#{renderGraphBean.selectedGraph.output}" escape="false" /> 
+                                        <h:outputText value="#{renderGraphBean.selectedGraph.output}" escape="#{(renderGraphBean.selectedGraph.graphType.contains('graphviz')) ? 'true' : 'false'}" /> 
                                     </div>
                                 </c:when>
                             </c:choose>
