@@ -20,7 +20,7 @@ public abstract class GraphResult {
      * <p>
      * getResultId.</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return an unique graph type ID.
      */
     public abstract String getResultId();
     

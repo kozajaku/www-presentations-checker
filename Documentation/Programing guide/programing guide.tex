@@ -13,7 +13,7 @@
 
 \section {Introduction}
 This guide schould help programmers that want to continue working on this tool. This tool is build upon
-\href{http://www.oracle.com/technetwork/java/javaee/overview/index.html}{Java EE} technology.
+\href{http://www.oracle.com/technetwork/java/javaee/overview/index.html}{Java EE} technology and uses \href{http://www.mysql.com/}{MySQL} database.
 
 \section {Development environment}
 As a team you schould have the most similar development environment as possible. It's up to you which tools you use, because you can't work with our team these days. But for inspiration we used \textbf{Netbeans} as our programing environment, \textbf{Git} as version control system and \textbf{Redmine} for task distribution and monitoring spent time.
@@ -31,7 +31,7 @@ At first you schould read basic \href{http://www.oracle.com/technetwork/java/cod
 \begin{itemize}
 \item Use the JavaDoc comments for every class and method except setters and getters. You schould comment also unprivate variables.
 \item It is better to comment definitions rather than implementations.
-\item Use link within the comments (\{@link class\#method\}).
+\item Use links within the comments (\{@link class\#method\}).
 \end{itemize}
 
 \section {Used tools and libraries}
@@ -41,6 +41,17 @@ Graphviz is open source graph visualization software. Graph visualization is a w
 CSSBox is a Java library which brings the ability of applying CSS rules on HTML DOM. It is strongly bonded to \href{http://cssbox.sourceforge.net/jstyleparser/}{JStyleParser} which is CSS rules parser. Without using it, it would be much more difficult to implement our famous CSS Redundancy Checker.
 
 \section{Tool extension}
-This tool was designed as easy extendable by using interfaces.
+This tool was designed as easy extendable by using interfaces. Don't forget to add dependencies corectly if you are adding new functionality.
+\subsection{Control extension}
+If you want to add new control you must decide if it schould be "single page control" or "whole presentation control". Be sure that web crawler give you all files you need, because default web crawler gives you just CSS and HTML documents and is skipping  images, etc. If you need to change web crawler read about \nameref{replacing part}. Don't forget to allow control by implementing \textit{AllowOptionService} interface.
+\subsubsection{Single page control}
+Create new package and implement \textit{SinglePageChecker} interface.
+\subsubsection{Whole presentation control}
+Create new package and implement \textit{WholePresentationChecker} interface.
+\subsection{Adding new graph}
+To add new graph you schould create new \textit{GraphGenerator} implementation and \textit{GraphResult} with unique graph type id. You can use GraphvizUtils to work with \textit{Graphviz}.
+
+\subsection{Replacing part} \label{replacing part}
+If you want to replace some part of our tool (for example WebCrawler), you can do it by implementing given interface. But be sure, that your class do everything, what it schould do. Especially be very careful about sending asynchronous messages.
 
 \end{document}
