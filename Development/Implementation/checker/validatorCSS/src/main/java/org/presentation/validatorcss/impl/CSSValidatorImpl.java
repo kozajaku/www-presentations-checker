@@ -2,8 +2,6 @@ package org.presentation.validatorcss.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
@@ -21,7 +19,7 @@ import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
-import org.presentation.singlepagecontroller.SinglePageControllerService;
+import org.presentation.singlepagecontroller.SinglePageChecker;
 import org.presentation.validatorjaxbutils.ValidatorResponseFetcher;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._07.css_validator.CSSValidationResponse;
@@ -43,7 +41,7 @@ import org.w3._2005._07.css_validator.WarningList;
  * @version $Id: $Id
  */
 @Dependent
-public class CSSValidatorImpl implements SinglePageControllerService {
+public class CSSValidatorImpl implements SinglePageChecker {
 
     /**
      * Package friendly constant for option interface.
@@ -69,8 +67,8 @@ public class CSSValidatorImpl implements SinglePageControllerService {
      * @throws IOException If request fails in any way.
      */
     private InputStream getSOAPInputStream(String urlToValidate) throws IOException {
-        URL url = new URL(VALIDATION_SERVICE + "?output=soap12&uri=" + urlToValidate);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+//        URL url = new URL(VALIDATION_SERVICE + "?output=soap12&uri=" + urlToValidate);
+//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         return ValidatorResponseFetcher.fetchSOAPResponse(VALIDATION_SERVICE, urlToValidate);
     }
 

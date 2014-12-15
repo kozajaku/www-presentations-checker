@@ -1,10 +1,12 @@
 package org.presentation.kernel;
 
+import java.io.Serializable;
+
 /**
  *
  * @author radio.koza
  */
-public class Progress {
+public class Progress implements Serializable {
     
     private final int pageLimit;
     private final int pagesCrawled;

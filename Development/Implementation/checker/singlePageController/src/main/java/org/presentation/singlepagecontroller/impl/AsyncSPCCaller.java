@@ -3,7 +3,7 @@ package org.presentation.singlepagecontroller.impl;
 import org.presentation.model.ContentType;
 import org.presentation.model.LinkURL;
 import org.presentation.model.PageContent;
-import org.presentation.singlepagecontroller.SinglePageControllerService;
+import org.presentation.singlepagecontroller.SinglePageChecker;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import org.presentation.singlepagecontroller.SinglePageControllerService;
  */
 public class AsyncSPCCaller implements Runnable {
 
-    private final SinglePageControllerService singlePageControllerService;
+    private final SinglePageChecker singlePageControllerService;
     private final ContentType contentType;
     private final LinkURL linkURL;
     private final PageContent pageContent;
@@ -27,10 +27,10 @@ public class AsyncSPCCaller implements Runnable {
      * @param linkURL a {@link org.presentation.model.LinkURL} object.
      * @param pageContent a {@link org.presentation.model.PageContent} object.
      * @param singlePageControllerService a
-     * {@link org.presentation.singlepagecontroller.SinglePageControllerService}
+     * {@link org.presentation.singlepagecontroller.SinglePageChecker}
      * object.
      */
-    public AsyncSPCCaller(ContentType contentType, LinkURL linkURL, PageContent pageContent, SinglePageControllerService singlePageControllerService) {
+    public AsyncSPCCaller(ContentType contentType, LinkURL linkURL, PageContent pageContent, SinglePageChecker singlePageControllerService) {
         this.singlePageControllerService = singlePageControllerService;
         this.contentType = contentType;
         this.linkURL = linkURL;

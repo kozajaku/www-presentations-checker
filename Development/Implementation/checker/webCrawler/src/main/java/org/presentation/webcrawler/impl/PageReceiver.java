@@ -283,9 +283,7 @@ public class PageReceiver implements MessageProducer {
             LOG.log(Level.INFO, "Finished request on {0}", linkURL.getUrl());
             return new ReceiverResponse(contentType, pageContent, stateCode);
         } finally {
-            if (connection != null) {
-                connection.disconnect();//this will close all connection streams and free connection resources
-            }
+            connection.disconnect();//this will close all connection streams and free connection resources
         }
     }
 

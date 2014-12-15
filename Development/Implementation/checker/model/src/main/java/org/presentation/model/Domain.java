@@ -1,12 +1,14 @@
 package org.presentation.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents web domain.
  *
  * @author Adam Kugler
  * @version 1.0
  */
-public class Domain {
+public class Domain implements Serializable {
 
     private final String domain;
 

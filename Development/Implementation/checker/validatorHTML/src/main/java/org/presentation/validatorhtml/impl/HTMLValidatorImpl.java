@@ -19,7 +19,7 @@ import org.presentation.model.logging.MessageLogger;
 import org.presentation.model.logging.MessageLoggerContainer;
 import org.presentation.model.logging.MsgLocation;
 import org.presentation.model.logging.WarningMsg;
-import org.presentation.singlepagecontroller.SinglePageControllerService;
+import org.presentation.singlepagecontroller.SinglePageChecker;
 import org.presentation.validatorjaxbutils.ValidatorResponseFetcher;
 import org.w3._2003._05.soap_envelope.Envelope;
 import org.w3._2005._10.markup_validator.ErrorList;
@@ -38,7 +38,7 @@ import org.w3._2005._10.markup_validator.WarningList;
  * @version $Id: $Id
  */
 @Dependent
-public class HTMLValidatorImpl implements SinglePageControllerService {
+public class HTMLValidatorImpl implements SinglePageChecker {
 
     /**
      * Package friendly constant for option interface.
@@ -83,7 +83,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
                 msg.setPage(url);
                 msg.setMessage(warning.getMessage().trim());
                 if (warning.getLine() != null && warning.getCol() != null) {
-                    msg.setMsgLocation(new MsgLocation(new Integer(warning.getLine()), new Integer(warning.getCol())));
+                    msg.setMsgLocation(new MsgLocation(Integer.valueOf(warning.getLine()), Integer.valueOf(warning.getCol())));
                 }
                 logger.addMessage(msg);
             }
@@ -94,7 +94,7 @@ public class HTMLValidatorImpl implements SinglePageControllerService {
                 msg.setPage(url);
                 msg.setMessage(error.getMessage().trim());
                 if (error.getLine() != null && error.getCol() != null) {
-                    msg.setMsgLocation(new MsgLocation(new Integer(error.getLine()), new Integer(error.getCol())));
+                    msg.setMsgLocation(new MsgLocation(Integer.valueOf(error.getLine()), Integer.valueOf(error.getCol())));
                 }
                 logger.addMessage(msg);
             }

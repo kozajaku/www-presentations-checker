@@ -73,20 +73,25 @@ public abstract class Node {
         return inputDegree;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode() {
-        return url.hashCode();
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.url);
+        return hash;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals(Object obj) {
-        return url.equals(obj);
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Node other = (Node) obj;
+        return Objects.equals(this.url, other.url);
     }
+
+    
 
 }

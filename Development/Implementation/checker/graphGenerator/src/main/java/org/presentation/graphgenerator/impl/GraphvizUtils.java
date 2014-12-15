@@ -165,93 +165,6 @@ public class GraphvizUtils {
      * of node that belong to nodeEdges.
      */
     private void writeReducedEdges(StringBuilder edges, List<Edge> nodeEdges, int nodeId) {
-        /**
-         * Class that allow working with map of {@link ReducedEdge}.
-         */
-        class EdgeMapper {
-
-            private final int from;
-            private final int nodeTo;
-
-            public EdgeMapper(int from, int nodeTo) {
-                this.from = from;
-                this.nodeTo = nodeTo;
-            }
-
-            @Override
-            public int hashCode() {
-                int hash = 3;
-                hash = 97 * hash + this.from;
-                hash = 97 * hash + this.nodeTo;
-                return hash;
-            }
-
-            @Override
-            public boolean equals(Object obj) {
-                if (obj == null) {
-                    return false;
-                }
-                if (getClass() != obj.getClass()) {
-                    return false;
-                }
-                final EdgeMapper other = (EdgeMapper) obj;
-                if (this.from != other.from) {
-                    return false;
-                }
-                if (this.nodeTo != other.nodeTo) {
-                    return false;
-                }
-                return true;
-            }
-
-        }
-        /**
-         * Class that represent reduced multiedge and is used to create that
-         * {@link Edge} for further usage.
-         */
-        class ReducedEdge {
-
-            private final int from;
-            //private int to;
-            private final Node nodeTo;
-            private int count;
-            private String name;
-
-            public ReducedEdge(int from, Node nodeTo, String name) {
-                this.from = from;
-                //this.to = to;
-                this.nodeTo = nodeTo;
-                this.count = 1;
-                this.name = name;
-            }
-
-            /**
-             * Interagete edge into this {@link ReducedEdge}.
-             *
-             * @param edge {@link Edge} to integrate.
-             */
-            public void integrateEdge(Edge edge) {
-                count++;
-                name = name + "; " + edge.getName();
-            }
-
-            public int getFrom() {
-                return from;
-            }
-
-            public Node getNodeTo() {
-                return nodeTo;
-            }
-
-            public int getCount() {
-                return count;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-        }
         Map<EdgeMapper, ReducedEdge> reducedEdges = new HashMap();
         for (Edge nodeEdge : nodeEdges) {
             Node nodeTo = nodeEdge.getNode();
@@ -406,11 +319,10 @@ public class GraphvizUtils {
         }
         StringBuilder res = new StringBuilder();
         String tmp;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        //create error stream consuming thread - stream must be consumed or waitFor will hang
-        mes.submit(new ErrorStreamConsumer(p.getErrorStream()));
-        boolean writeFlag = false;//unnecessary information could be in the beginning of output
-        try {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+            //create error stream consuming thread - stream must be consumed or waitFor will hang
+            mes.submit(new ErrorStreamConsumer(p.getErrorStream()));
+            boolean writeFlag = false;//unnecessary information could be in the beginning of output
             while ((tmp = reader.readLine()) != null) {
                 if (tmp.matches("^<svg.+")) {//start reading from <svg tag
                     writeFlag = true;
@@ -468,6 +380,92 @@ public class GraphvizUtils {
                     //not necessary to inform
                 }
             }
+        }
+
+    }
+
+    /**
+     * Class that allow working with map of {@link ReducedEdge}.
+     */
+    private static class EdgeMapper {
+
+        private final int from;
+        private final int nodeTo;
+
+        public EdgeMapper(int from, int nodeTo) {
+            this.from = from;
+            this.nodeTo = nodeTo;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 3;
+            hash = 97 * hash + this.from;
+            hash = 97 * hash + this.nodeTo;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final EdgeMapper other = (EdgeMapper) obj;
+            if (this.from != other.from) {
+                return false;
+            }
+            return this.nodeTo == other.nodeTo;
+        }
+
+    }
+
+    /**
+     * Class that represent reduced multiedge and is used to create that
+     * {@link Edge} for further usage.
+     */
+    private static class ReducedEdge {
+
+        private final int from;
+        //private int to;
+        private final Node nodeTo;
+        private int count;
+        private String name;
+
+        public ReducedEdge(int from, Node nodeTo, String name) {
+            this.from = from;
+            //this.to = to;
+            this.nodeTo = nodeTo;
+            this.count = 1;
+            this.name = name;
+        }
+
+        /**
+         * Interagete edge into this {@link ReducedEdge}.
+         *
+         * @param edge {@link Edge} to integrate.
+         */
+        public void integrateEdge(Edge edge) {
+            count++;
+            name = name + "; " + edge.getName();
+        }
+
+        public int getFrom() {
+            return from;
+        }
+
+        public Node getNodeTo() {
+            return nodeTo;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public String getName() {
+            return name;
         }
 
     }

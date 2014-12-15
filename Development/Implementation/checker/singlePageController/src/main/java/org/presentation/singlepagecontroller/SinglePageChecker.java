@@ -15,7 +15,7 @@ import org.presentation.utils.Stoppable;
  * @author radio.koza
  * @version 1.0-SNAPSHOT
  */
-public interface SinglePageControllerService extends MessageProducer, Option, Stoppable {
+public interface SinglePageChecker extends MessageProducer, Option, Stoppable {
 
     /**
      * Request for check page.

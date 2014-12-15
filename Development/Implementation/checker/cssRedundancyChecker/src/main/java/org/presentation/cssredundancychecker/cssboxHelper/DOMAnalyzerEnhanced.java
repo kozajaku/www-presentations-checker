@@ -224,7 +224,7 @@ public class DOMAnalyzerEnhanced {
      * @see <a href="http://www.w3.org/TR/html4/struct/links.html#edef-BASE">the
      * BASE element definition</a>
      */
-    public String getDocumentBase() {
+    public final String getDocumentBase() {
         Element head = getHead();
         if (head != null) {
             NodeList bases = head.getElementsByTagName("base");

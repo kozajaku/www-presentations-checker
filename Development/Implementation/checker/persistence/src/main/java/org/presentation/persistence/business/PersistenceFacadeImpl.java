@@ -333,7 +333,6 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
         Checkup tmp = checkupDAO.find(checkup.getIdCheckup());
         if (tmp == null) {
             //persist new checkup
-            tmp = checkup;
             checkupDAO.create(checkup);
         }
         //persist graphs to database

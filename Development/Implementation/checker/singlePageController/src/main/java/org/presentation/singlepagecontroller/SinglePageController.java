@@ -34,10 +34,10 @@ public class SinglePageController implements MessageProducer, Stoppable {
     ///Instance object for requesting SinglePageControllerService prototypes
     @Inject
     @Any
-    private Instance<SinglePageControllerService> singlePageCheckersPrototype;
+    private Instance<SinglePageChecker> singlePageCheckersPrototype;
 
     ///Real SinglePageControllerService implemented instances created at time of spc initializeControllers calling
-    private List<SinglePageControllerService> singlePageCheckers;
+    private List<SinglePageChecker> singlePageCheckers;
 
     ///ExecutorService for pooling free worker threads
     @Resource
@@ -59,7 +59,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
      */
     public void initializeControllers(OptionContainer options) {
         singlePageCheckers = new ArrayList<>();
-        for (SinglePageControllerService i : singlePageCheckersPrototype) {
+        for (SinglePageChecker i : singlePageCheckersPrototype) {
             if (options.getChosenOptions().contains(i.getID())) {//in future may be implemented effectively by using Set
                 singlePageCheckers.add(i);
             }
@@ -70,7 +70,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
      * Method is called by web crawler (delegated from kernel) for every valid
      * page validation can be applied on. Method must delegate these requests
      * paralelly to chosen implementations of
-     * {@link org.presentation.singlepagecontroller.SinglePageControllerService}
+     * {@link org.presentation.singlepagecontroller.SinglePageChecker}
      * class. Method
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * must be called before this method or IllegalStateException will be
@@ -91,7 +91,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
         }
         List<Future<?>> futures = new ArrayList<>();
         AsyncSPCCaller asyncTask;
-        for (SinglePageControllerService i : singlePageCheckers) {
+        for (SinglePageChecker i : singlePageCheckers) {
             if (i.isApplicable(contentType)) {
                 asyncTask = new AsyncSPCCaller(contentType, linkURL, pageContent, i);
                 futures.add(mes.submit(asyncTask));
@@ -119,7 +119,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
         if (singlePageCheckers == null) {
             throw new IllegalStateException("Method initializeControllers was not called before checkPage!");
         }
-        for (SinglePageControllerService i : singlePageCheckers) {
+        for (SinglePageChecker i : singlePageCheckers) {
             i.offerMsgLoggerContainer(messageLoggerContainer);
         }
     }
@@ -131,7 +131,7 @@ public class SinglePageController implements MessageProducer, Stoppable {
     public void stopChecking() {
         //delegating to spc service implementations
         if (singlePageCheckers != null) {
-            for (SinglePageControllerService i : singlePageCheckers) {
+            for (SinglePageChecker i : singlePageCheckers) {
                 i.stopChecking();
             }
         }
