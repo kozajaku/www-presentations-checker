@@ -10,34 +10,11 @@
             <ui:param name="title" value="User settings" />
 
             <ui:define name="content">
+
+		<h2>Change settings</h2>
                 <h:form styleClass="form-signup form-horizontal" role="form">
 
                     <ui:include src="/WEB-INF/helper/errorList.xhtml" />
-
-                    <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.email']}:" />
-                        <div class="col-sm-8">
-                            <h:inputText styleClass="form-control" value="#{signupBean.email}" label="#{msg['signUp.email']}" validatorMessage="#{msg['validation.email_bf']}">
-                                <f:passThroughAttribute name="autocomplete" value="off" />
-                            </h:inputText>	
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.password']}:" />
-                        <div class="col-sm-8">
-                            <h:inputSecret styleClass="form-control" value="#{signupBean.password}" label="#{msg['signUp.password']}" >
-                                <f:passThroughAttribute name="autocomplete" value="off" />		   
-                            </h:inputSecret>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.password_verify']}:" />
-                        <div class="col-sm-8">
-                            <h:inputSecret styleClass="form-control" value="#{signupBean.passwordVerification}" label="#{msg['signUp.password_verify']}" />
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.name']}:" />
@@ -57,6 +34,32 @@
 
                 </h:form>		
 
+		<h2>Change password</h2>
+		<h:form styleClass="form-signup form-horizontal" role="form">
+
+                    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.password']}:" />
+                        <div class="col-sm-8">
+                            <h:inputSecret styleClass="form-control" value="#{userSettings.password}" label="#{msg['userSettings.password']}" >
+                                <f:passThroughAttribute name="autocomplete" value="off" />		   
+                            </h:inputSecret>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.password_verify']}:" />
+                        <div class="col-sm-8">
+                            <h:inputSecret styleClass="form-control" value="#{userSettings.passwordVerification}" label="#{msg['userSettings.password_verify']}" />
+                        </div>
+                    </div>
+
+                    <h:commandButton styleClass="btn btn-primary" value="#{msg['userSettings.submitChangePassword']}" action="#{userSettings.changePassword}" />			
+
+                </h:form>		
+
+		
             </ui:define>
 
         </ui:composition>
