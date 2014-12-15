@@ -6,6 +6,7 @@
 package org.presentation.graphgenerator.impl;
 
 import org.presentation.graphgenerator.GraphResult;
+import org.presentation.utils.Property;
 
 /**
  * This class represents SVG image from {@link FullGraphGenerator}.
@@ -40,7 +41,7 @@ public class FullGraphImage extends GraphResult {
      */
     @Override
     public String getResultId() {
-        return "Full SVG graph";
+        return Property.getInstance().getStringPropery("FullSVGGraph");
     }
 
 }

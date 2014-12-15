@@ -14,15 +14,13 @@ package org.presentation.cssredundancychecker.model;
  */
 public class DeclarationSource {
 
-    private CSSRuleSet cssRuleSet;
-    private CSSRule cssRule;
+    private final CSSRuleSet cssRuleSet;
+    private final CSSRule cssRule;
 
     /**
      * <p>
      * Constructor for DeclarationSource.</p>
      *
-     * @param cssRuleSet a
-     * {@link org.presentation.cssredundancychecker.model.CSSRuleSet} object.
      * @param cssRuleSet a
      * {@link org.presentation.cssredundancychecker.model.CSSRuleSet} object.
      * @param cssRule a

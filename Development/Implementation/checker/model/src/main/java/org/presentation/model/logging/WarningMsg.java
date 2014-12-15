@@ -1,5 +1,7 @@
 package org.presentation.model.logging;
 
+import org.presentation.utils.Property;
+
 /**
  * Represents warning type of abstract class
  * {@link org.presentation.model.logging.Message}.
@@ -14,7 +16,7 @@ public class WarningMsg extends Message {
      */
     @Override
     public int getDefaultPriority() {
-        return 3000;
+        return Property.getInstance().getIntProperty("WARNING_MESSAGE_PRIORITY");
     }
 
 }

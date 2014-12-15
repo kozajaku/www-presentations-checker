@@ -1,6 +1,7 @@
 package org.presentation.model.logging;
 
 import org.presentation.model.LinkURL;
+import org.presentation.utils.Property;
 
 /**
  * Abstract class representing common composition of messages, which is used for
@@ -15,7 +16,7 @@ public abstract class Message {
     /**
      * Constant <code>MAX_PRIORITY_BOOST=50</code>
      */
-    protected static final int MAX_PRIORITY_BOOST = 50;
+    protected static final int MAX_PRIORITY_BOOST = Property.getInstance().getIntProperty("MAX_PRIORITY_BOOST");
     //Concrete priority of the message
     private Integer priority = null;
     //Text of the message

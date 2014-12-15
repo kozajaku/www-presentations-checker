@@ -28,6 +28,7 @@ import org.presentation.kernel.Progress;
 import org.presentation.persistence.business.PersistenceFacade;
 import org.presentation.persistence.model.CheckState;
 import org.presentation.persistence.model.Checkup;
+import org.presentation.utils.Property;
 
 /**
  * This EJB Singleton class serves as thread manager for execution of checking
@@ -46,7 +47,7 @@ import org.presentation.persistence.model.Checkup;
 public class CheckingExecutionQueue {
 
     ///set constant for max threads count
-    private static final int MAX_WORKING_THREADS = 5;
+    private static final int MAX_WORKING_THREADS = Property.getInstance().getIntProperty("MAX_WORKING_CHECKUPS");
 
     @Inject
     private Instance<CheckingExecutor> checkingExecutorPrototype;

@@ -1,5 +1,7 @@
 package org.presentation.model.logging;
 
+import org.presentation.utils.Property;
+
 /**
  * Represents debug type of abstract class
  * {@link org.presentation.model.logging.Message}.
@@ -14,7 +16,7 @@ public class DebugMsg extends Message {
      */
     @Override
     public int getDefaultPriority() {
-        return 1000;
+        return Property.getInstance().getIntProperty("DEBUG_MESSAGE_PRIORITY");
     }
 
 }
