@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:body>
+
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+
+            <ui:param name="title" value="New checkup" />
+
+            <ui:define name="content">
+
+                <ui:define name="subheader">
+                    <h2><h:outputLabel value="#{msg['userSettings.caption']}" /></h2>
+                </ui:define>
+
+		<c:choose>
+		    <c:if test="#{request.getParameter('type') == 'passwordChange'}">
+			<p class="alert alert-success center-block bold">
+			    #{msg['userSettings.success_message_settings']}
+			</p>
+		    </c:if>
+		    <c:otherwise>
+			<p class="alert alert-success center-block bold">
+			    #{msg['userSettings.success_message_password']}
+			</p>			
+		    </c:otherwise>
+		</c:choose>
+                <h:link outcome="index.html" value="#{msg['navi.back_common']}" />
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+
+</html>

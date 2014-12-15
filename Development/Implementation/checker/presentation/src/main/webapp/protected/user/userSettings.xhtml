@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+
+        <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
+
+            <ui:param name="title" value="User settings" />
+
+            <ui:define name="content">
+                <h:form styleClass="form-signup form-horizontal" role="form">
+
+                    <ui:include src="/WEB-INF/helper/errorList.xhtml" />
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.email']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText styleClass="form-control" value="#{signupBean.email}" label="#{msg['signUp.email']}" validatorMessage="#{msg['validation.email_bf']}">
+                                <f:passThroughAttribute name="autocomplete" value="off" />
+                            </h:inputText>	
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.password']}:" />
+                        <div class="col-sm-8">
+                            <h:inputSecret styleClass="form-control" value="#{signupBean.password}" label="#{msg['signUp.password']}" >
+                                <f:passThroughAttribute name="autocomplete" value="off" />		   
+                            </h:inputSecret>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.password_verify']}:" />
+                        <div class="col-sm-8">
+                            <h:inputSecret styleClass="form-control" value="#{signupBean.passwordVerification}" label="#{msg['signUp.password_verify']}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.name']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText styleClass="form-control" value="#{signupBean.name}" label="#{msg['signUp.name']}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.surname']}:" />
+                        <div class="col-sm-8">
+                            <h:inputText styleClass="form-control" value="#{signupBean.surname}" label="#{msg['signUp.surname']}" />
+                        </div>
+                    </div>
+
+                    <h:commandButton styleClass="btn btn-primary" value="#{msg['signUp.submit']}" action="#{signupBean.signUp}" />			
+
+                </h:form>		
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+
+</html>
