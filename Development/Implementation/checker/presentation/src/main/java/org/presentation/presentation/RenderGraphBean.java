@@ -150,7 +150,13 @@ public class RenderGraphBean extends ProtectedBean {
             ec.responseReset();
             ec.setResponseContentType("application/octet-stream");
             ec.setResponseContentLength(this.selectedGraph.getOutput().length());
-            ec.setResponseHeader("Content-Disposition", "attachment; filename=\"graph" + this.selectedGraph.getIdGraph() + ".html\"");
+            
+	    // very dirty solution, todo: for each graph result, store its content-type
+	    if(this.selectedGraph.getGraphType().contains("graphviz")) {
+		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"graph" + this.selectedGraph.getIdGraph() + ".gv.txt\"");
+	    } else {
+		ec.setResponseHeader("Content-Disposition", "attachment; filename=\"graph" + this.selectedGraph.getIdGraph() + ".html\"");		
+	    }
 
             OutputStream output = ec.getResponseOutputStream();
             output.write(this.selectedGraph.getOutput().getBytes());

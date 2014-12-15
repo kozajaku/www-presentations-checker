@@ -23,5 +23,6 @@ public abstract class GraphResult {
      * @return a {@link java.lang.String} object.
      */
     public abstract String getResultId();
+    
 
 }

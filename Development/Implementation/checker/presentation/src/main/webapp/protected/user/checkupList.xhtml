@@ -48,7 +48,7 @@
                         <p:column>
                             <f:facet name="header">#{msg['checkupList.col_progress']}</f:facet>				
 				<h:outputText value="-" rendered="#{empty o.progress}" />
-				<h:outputText value="#{o.progress.percentDone()}%" rendered="#{not empty o.progress}">
+				<h:outputText value="#{o.progress.percentDone()/100}" rendered="#{not empty o.progress}">
 				    <f:convertNumber type="percent" maxFractionDigits="0" />
 				</h:outputText>
                         </p:column>						
