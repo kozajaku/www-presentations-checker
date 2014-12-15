@@ -19,9 +19,9 @@
    %vyplníme dohromady hlavně podle harmonogramu
     \item Průběžné zobrazování výsledků kontroly
 		\item Programátorská příručka
-		\item Celkové vyhodnocení projektu
 		\item Doplnění o konfigurační soubory
-		\item Debugging a vylepšování projektu
+		\item Debugging a vylepšování aplikace
+		\item Celkové vyhodnocení projektu
    \end{itemize}
 \end{frame}
 
@@ -189,21 +189,15 @@
 
 \begin{frame}[allowframebreaks]\frametitle{Celkové vyhodnocení projektu}
 
-		\begin{block}{Průběh projektu}
-			\begin{itemize}
-				\item Bod průběhu
-			\end{itemize}
-		\end{block}
+	Projekt začal minulý semestr jeho analýzou a návrhem. Bohužel, v tu dobu většina z náš teprve objevovala tyto disciplíny a ještě jsme neměli přesnou představu o výsledné aplikaci. Návrh jsme nakonec udělali pro vybrané technologie (Java OSGi Framework) a ujasnili si tak celkovou představu o projektu. Avšak když jsme se pak před začátkem dalšího semestru k projektu vrátili a přehodnotili ho, rozhodli jsme se pro poměrně radikální změnu technologie (Java EE) a tak i změnu návrhu. Zde také padlo rozhodnutí, že se bude jednat o serverovou aplikaci s webovým rozhraním. Zároveň jsme ale nechtěli zahodit všechnu naši práci z prvního semestru a tak jsme se drželi původní koncepce a tím pak vzniklo i pár věcí, které by se dali ve výsledku navrhnout mnohem lépe (viz. přiložené poznámky). Když byl návrh upraven a byly stanoveny již jasné požadavky na aplikaci, pustili jsme se v rámci druhého semestru do implementace. Zde jsme se setkali s další řadou problémů, ale i elegantních řešení (např. CSSBox). Nakonec se nám podařilo dodržet stanovený harmonogram a úspěšně implementovat ony požadavky. Dovolil bych si tedy projekt prohlásit za úspěšný, ne však bezchybný, ale ve výsledku Vám dnes dodáváme funkční zdokumentovanou aplikaci splňující všechny stanovené požadavky a možná i něco navíc.
 	
 		\begin{block}{Implementované funkce}
 			\begin{itemize}
-				\item Funkce
-			\end{itemize}
-		\end{block}
-
-		\begin{block}{Na co jsme hrdí}
-			\begin{itemize}
-				\item Hrdost
+				\item Kontrola platnosti URL linků.
+				\item Validace HTML stránek podle W3C.
+				\item Validace CSS souborů podle W3C.
+				\item Kontrola redundantních CSS stylů.
+				\item Vypsání nebo vykreslení grafů průchodu stránkou.
 			\end{itemize}
 		\end{block}
    
@@ -211,7 +205,7 @@
 
 \begin{frame}[allowframebreaks]\frametitle{Další vývoj projektu}
 		
-		Ten je zatím ve hvězdách...
+	Další vývoj projektu se v dohledné době neplánuje hlavně proto, že žádný s členů týmu se na něm, po skončení tohoto semestru, neplánuje dále podílet. Avšak už při návrhu se myslelo na jeho rozšiřitelnost a jeho dosavadní průběh je zdokumentován i z programátorského hlediska a vše je také na \href{https://github.com/kozajaku/www-presentations-checker}{\underline{GitHubu}}, takže projekt je možné i nadále rozvíjet a rozšiřovat o další funkčnosti.
 		
 \end{frame}
 
