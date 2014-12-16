@@ -52,7 +52,7 @@ CREATE TABLE `domain`
 CREATE TABLE `graph`
 (
 	`id_graph` INTEGER NOT NULL AUTO_INCREMENT,
-	`output` MEDIUMTEXT NOT NULL,
+	`output` LONGTEXT NOT NULL,
     `graph_type` VARCHAR(50) NOT NULL,
 	`checkup` INTEGER NOT NULL,
 	PRIMARY KEY (`id_graph`),
