@@ -12,6 +12,8 @@ import javax.ejb.Asynchronous;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Singleton;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -26,6 +28,7 @@ import org.presentation.model.graph.TraversalGraph;
  */
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.BEAN)
+@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class GraphGeneratorQueue {
 
     @Inject
