@@ -25,7 +25,7 @@
                         tableStyleClass="table table-hover checkup-table"				 
                         paginator="true"
                         lazy="true"
-                        rows="10"
+                        rows="10"			
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                         paginatorAlwaysVisible="false"
                         >
@@ -59,7 +59,15 @@
                                 <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                             </h:outputText>
                         </p:column>
-
+			
+			<p:column>
+                            <f:facet name="header">#{msg['checkupList.col_date_finished']}</f:facet>
+                            <h:outputText value="#{o.ch.checkingFinished}" rendered="#{not empty o.ch.checkingFinished}">
+                                <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                            </h:outputText>
+			    <h:outputText value="-" rendered="{#empty o.ch.checkingFinished}"></h:outputText>
+                        </p:column>
+			
                         <p:column>
                             <f:facet name="header">#{msg['checkupList.col_desired_checkups']}</f:facet>
                                 #{func:getDesiredCheckupsConcat(msg, o.desiredCheckups)}
@@ -73,7 +81,7 @@
                         <p:column>
                             <f:facet name="header">#{msg['checkupList.col_page_limit']}</f:facet>
                                 #{o.ch.pageLimit}
-                        </p:column>			    
+                        </p:column>		
 
                         <p:column>
                             <f:facet name="header">#{msg['checkupList.col_allowed_domains']}</f:facet>
