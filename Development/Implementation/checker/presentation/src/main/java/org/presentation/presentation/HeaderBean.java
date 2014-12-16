@@ -67,6 +67,7 @@ public class HeaderBean extends ProtectedBean {
             pages.add(new PageLink("/protected/user/checkupList.xhtml", getMenuItemTranslation("checkup_list")));
             pages.add(new PageLink("/protected/user/newCheckup.xhtml", getMenuItemTranslation("new_checkup")));
 	    pages.add(new PageLink("/protected/user/loginHistory.xhtml", getMenuItemTranslation("login_history")));
+	    pages.add(new PageLink("/protected/user/userSettings.xhtml", getMenuItemTranslation("user_settings")));
         } else {
             pages.add(new PageLink("/public/login.xhtml", getMenuItemTranslation("log_in")));
             pages.add(new PageLink("/public/signUp.xhtml", getMenuItemTranslation("sign_up")));

@@ -207,6 +207,7 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
             sha.update(passBytes);
             //create new user
             user.setPassword(bytesToHex(sha.digest()));
+	    user.setSalt(bytesToHex(saltBytes));
             userDAO.update(user);
         } catch (NoSuchAlgorithmException ex) {
             LOG.log(Level.SEVERE, null, ex);

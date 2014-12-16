@@ -6,6 +6,7 @@
 package org.presentation.presentation;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,6 +30,10 @@ public class UserSettingsBean extends ProtectedBean {
     @NotNull
     @ValidPassword
     private String passwordVerification = "";
+    
+    @NotNull
+    @ValidPassword
+    private String currentPassword;
 
     @Size(min = 2)
     @NotNull
@@ -43,7 +48,7 @@ public class UserSettingsBean extends ProtectedBean {
     protected void loadUser() throws UserAuthorizationException {
 	if(user == null) {
 	    user = this.getLoggedUser();
-	}	
+	}
     }
 
     public String getPassword() {
@@ -64,7 +69,7 @@ public class UserSettingsBean extends ProtectedBean {
 
     public String getName() throws UserAuthorizationException {
 	loadUser();	
-	return name;
+	return (this.user == null ? "" : this.user.getName());
     }
 
     public void setName(String name) {
@@ -73,22 +78,38 @@ public class UserSettingsBean extends ProtectedBean {
 
     public String getSurname() throws UserAuthorizationException {
 	loadUser();
-	return surname;
+	return (this.user == null ? "" : this.user.getSurname());
     }
 
     public void setSurname(String surname) {
 	this.surname = surname;
     }
+
+    public String getCurrentPassword() {
+	return currentPassword;
+    }
+
+    public void setCurrentPassword(String currentPassword) {
+	this.currentPassword = currentPassword;
+    }
     
-    public String updateSettings() {
+    
+    
+    public String updateSettings() throws UserAuthorizationException {
+	loadUser();
 	user.setName(name);
 	user.setSurname(surname);
 	this.persistance.editUser(user);
 	return "userSettingsResult?type=settingsChange&faces-redirect=true";
     }
     
-    public String changePassword() {
-	
+    public String changePassword() throws UserAuthorizationException {
+	loadUser();
+	if (!this.password.equals(this.passwordVerification)) {
+            this.addMessage(new FacesMessage(this.msg.getString("userSettings.password_verification_mismatch")));
+            return "";
+        }
+	persistance.changeUserPassword(user, currentPassword, password);
 	return "userSettingsResult?type=passwordChange&faces-redirect=true";
     }
     

@@ -17,20 +17,20 @@
                     <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.name']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.name']}:" />
                         <div class="col-sm-8">
-                            <h:inputText styleClass="form-control" value="#{signupBean.name}" label="#{msg['signUp.name']}" />
+                            <h:inputText styleClass="form-control" value="#{userSettingsBean.name}" label="#{msg['signUp.name']}" />
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['signUp.surname']}:" />
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.surname']}:" />
                         <div class="col-sm-8">
-                            <h:inputText styleClass="form-control" value="#{signupBean.surname}" label="#{msg['signUp.surname']}" />
+                            <h:inputText styleClass="form-control" value="#{userSettingsBean.surname}" label="#{msg['signUp.surname']}" />
                         </div>
                     </div>
 
-                    <h:commandButton styleClass="btn btn-primary" value="#{msg['signUp.submit']}" action="#{signupBean.signUp}" />			
+                    <h:commandButton styleClass="btn btn-primary" value="#{msg['userSettings.submit_update_settings']}" action="#{userSettingsBean.updateSettings}" />			
 
                 </h:form>		
 
@@ -40,9 +40,18 @@
                     <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 
                     <div class="form-group">
+                        <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.current_password']}:" />
+                        <div class="col-sm-8">
+                            <h:inputSecret styleClass="form-control" value="#{userSettingsBean.currentPassword}" label="#{msg['userSettings.current_password']}" >
+                                <f:passThroughAttribute name="autocomplete" value="off" />		   
+                            </h:inputSecret>
+                        </div>
+                    </div>		    
+		    
+                    <div class="form-group">
                         <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.password']}:" />
                         <div class="col-sm-8">
-                            <h:inputSecret styleClass="form-control" value="#{userSettings.password}" label="#{msg['userSettings.password']}" >
+                            <h:inputSecret styleClass="form-control" value="#{userSettingsBean.password}" label="#{msg['userSettings.password']}" >
                                 <f:passThroughAttribute name="autocomplete" value="off" />		   
                             </h:inputSecret>
                         </div>
@@ -51,11 +60,11 @@
                     <div class="form-group">
                         <h:outputLabel styleClass="col-sm-3 control-label" value="#{msg['userSettings.password_verify']}:" />
                         <div class="col-sm-8">
-                            <h:inputSecret styleClass="form-control" value="#{userSettings.passwordVerification}" label="#{msg['userSettings.password_verify']}" />
+                            <h:inputSecret styleClass="form-control" value="#{userSettingsBean.passwordVerification}" label="#{msg['userSettings.password_verify']}" />
                         </div>
                     </div>
 
-                    <h:commandButton styleClass="btn btn-primary" value="#{msg['userSettings.submitChangePassword']}" action="#{userSettings.changePassword}" />			
+                    <h:commandButton styleClass="btn btn-primary" value="#{msg['userSettings.submit_change_password']}" action="#{userSettingsBean.changePassword}" />			
 
                 </h:form>		
 

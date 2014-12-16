@@ -16,14 +16,14 @@
                 </ui:define>
 
 		<c:choose>
-		    <c:if test="#{request.getParameter('type') == 'passwordChange'}">
+		    <c:when test="#{request.getParameter('type') == 'passwordChange'}">
 			<p class="alert alert-success center-block bold">
-			    #{msg['userSettings.success_message_settings']}
+			    #{msg['userSettings.success_message_password']}			    
 			</p>
-		    </c:if>
+		    </c:when>
 		    <c:otherwise>
 			<p class="alert alert-success center-block bold">
-			    #{msg['userSettings.success_message_password']}
+			    #{msg['userSettings.success_message_settings']}
 			</p>			
 		    </c:otherwise>
 		</c:choose>
