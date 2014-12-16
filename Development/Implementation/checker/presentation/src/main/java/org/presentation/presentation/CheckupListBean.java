@@ -34,10 +34,9 @@ import org.primefaces.model.SortOrder;
 public class CheckupListBean extends ProtectedBean {
 
     protected LazyDataModel<CheckupEnvelope> lazyCheckupList;
-    
+
     @EJB
     protected CheckRequestReceiver checkRequestReceiver;
-
 
     // old un-paginated crap
     /*
@@ -65,11 +64,7 @@ public class CheckupListBean extends ProtectedBean {
      * This getter creates a lazydata model for primefaces pagination
      *
      * @return lazy data model
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
-    
     public LazyDataModel<CheckupEnvelope> getLazyCheckupList() throws UserAuthorizationException {
         if (lazyCheckupList != null) {
             return lazyCheckupList;
@@ -84,24 +79,24 @@ public class CheckupListBean extends ProtectedBean {
                 List<Checkup> checkups;
                 List<CheckupEnvelope> checkupList = new ArrayList<>();
 
-		lazyCheckupList.setRowCount(persistance.countUserCheckups(loggedUser));
+                lazyCheckupList.setRowCount(persistance.countUserCheckups(loggedUser));
 
                 checkups = persistance.findUserCheckings(loggedUser, first, pageSize);
 
                 for (Checkup checkup : checkups) {
-		    
-		    Progress progress = null;
-		    int percentDone = -1;
-		    if(checkRequestReceiver != null && checkup.getState() == CheckState.CHECKING) {			
-			try {
-			    progress = checkRequestReceiver.getPagesCrawled(checkup.getIdCheckup());
-			    if(progress != null) {
-				percentDone = (int) progress.percentDone();
-			    }
-			} catch (NoSuchFieldException ex) {
-			    LOG.log(Level.WARNING, ex.toString(), ex);
-			}
-		    }
+
+                    Progress progress = null;
+                    int percentDone = -1;
+                    if (checkRequestReceiver != null && checkup.getState() == CheckState.CHECKING) {
+                        try {
+                            progress = checkRequestReceiver.getPagesCrawled(checkup.getIdCheckup());
+                            if (progress != null) {
+                                percentDone = (int) progress.percentDone();
+                            }
+                        } catch (NoSuchFieldException ex) {
+                            LOG.log(Level.WARNING, ex.toString(), ex);
+                        }
+                    }
 
                     checkup.setOptionList(persistance.findCheckupOptions(checkup));
 
@@ -109,10 +104,10 @@ public class CheckupListBean extends ProtectedBean {
                             checkup,
                             persistance.findCheckupDomains(checkup),
                             checkup.getOptionList(),
-			    progress
+                            progress
                     ));
                 }
-		
+
                 return checkupList;
 
             }

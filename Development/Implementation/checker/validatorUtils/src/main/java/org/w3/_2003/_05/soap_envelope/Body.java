@@ -74,7 +74,7 @@ public class Body {
      *
      * <p>
      * Objects of the following type(s) are allowed in the list null null null
-     * null null     {@link org.w3c.dom.Element}
+     * null null null null     {@link org.w3c.dom.Element}
      * {@link java.lang.Object}
      *
      * @return a {@link java.util.List} object.

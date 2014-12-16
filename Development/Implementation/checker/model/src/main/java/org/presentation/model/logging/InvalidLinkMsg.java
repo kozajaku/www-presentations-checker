@@ -2,7 +2,6 @@ package org.presentation.model.logging;
 
 import org.presentation.utils.Property;
 
-
 /**
  * Represents invalid link type of abstract class
  * {@link org.presentation.model.logging.Message}, which extends class
@@ -59,11 +58,12 @@ public class InvalidLinkMsg extends ErrorMsg {
         mapper.setErrorCode(errorCode);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getDefaultPriority() {
         return Property.getInstance().getIntProperty("INVALID_LINK_MESSAGE_PRIORITY");
     }
-    
-    
 
 }

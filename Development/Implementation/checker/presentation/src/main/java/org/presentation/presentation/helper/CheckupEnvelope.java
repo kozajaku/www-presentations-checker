@@ -24,7 +24,7 @@ public class CheckupEnvelope implements Serializable {
     protected List<Domain> domainsAllowed;
     protected List<ChosenOption> desiredCheckups;
     protected Progress progress;
-    
+
     /**
      * <p>
      * Constructor for CheckupEnvelope.</p>
@@ -38,7 +38,7 @@ public class CheckupEnvelope implements Serializable {
         this.ch = ch;
         this.domainsAllowed = domainsAllowed;
         this.desiredCheckups = desiredCheckups;
-	this.progress = progress;
+        this.progress = progress;
     }
 
     /**
@@ -76,10 +76,9 @@ public class CheckupEnvelope implements Serializable {
      * Getter for the field <code>progress</code>.</p>
      *
      * @return a {@link org.presentation.kernel.Progress} object.
-     */    
+     */
     public Progress getProgress() {
-	return progress;
+        return progress;
     }
-    
 
 }

@@ -32,10 +32,9 @@ import org.w3._2005._07.css_validator.Warning;
 import org.w3._2005._07.css_validator.WarningList;
 
 /**
- * {@link org.presentation.singlepagecontroller.SinglePageControllerService}
- * representing CSS validator service. Sends
- * {@link org.presentation.model.LinkURL} of CSS file to W3C validation service
- * and processes its SOAP response to
+ * {@link org.presentation.singlepagecontroller.SinglePageChecker} representing
+ * CSS validator service. Sends {@link org.presentation.model.LinkURL} of CSS
+ * file to W3C validation service and processes its SOAP response to
  * {@link org.presentation.model.logging.MessageLogger}.
  *
  * @author Jindřich Máca

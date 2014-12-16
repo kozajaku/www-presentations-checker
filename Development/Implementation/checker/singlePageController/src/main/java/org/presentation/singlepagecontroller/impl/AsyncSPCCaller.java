@@ -27,8 +27,7 @@ public class AsyncSPCCaller implements Runnable {
      * @param linkURL a {@link org.presentation.model.LinkURL} object.
      * @param pageContent a {@link org.presentation.model.PageContent} object.
      * @param singlePageControllerService a
-     * {@link org.presentation.singlepagecontroller.SinglePageChecker}
-     * object.
+     * {@link org.presentation.singlepagecontroller.SinglePageChecker} object.
      */
     public AsyncSPCCaller(ContentType contentType, LinkURL linkURL, PageContent pageContent, SinglePageChecker singlePageControllerService) {
         this.singlePageControllerService = singlePageControllerService;

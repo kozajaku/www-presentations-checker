@@ -164,7 +164,13 @@ public class CheckingExecutor implements PageCrawlingObserver, Stoppable {
         crawlerService.stopChecking();
     }
 
-    public Progress getCheckupProgress(){
+    /**
+     * <p>
+     * getCheckupProgress.</p>
+     *
+     * @return a {@link org.presentation.kernel.Progress} object.
+     */
+    public Progress getCheckupProgress() {
         int pageLimit = checkup.getPageLimit();
         int crawled = crawlerService.getCrawlingState().getPagesCrawled();
         return new Progress(pageLimit, crawled);

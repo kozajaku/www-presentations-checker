@@ -32,12 +32,9 @@ public class LoginHistoryBean extends ProtectedBean {
      * This getter creates a lazydata model for primefaces pagination
      *
      * @return lazy data model
-     * @throws
-     * org.presentation.presentation.exception.UserAuthorizationException if
-     * any.
      */
     public LazyDataModel<Login> getLazyLoginHistory() throws UserAuthorizationException {
-		
+
         if (lazyLoginHistory != null) {
             return lazyLoginHistory;
         }
@@ -49,22 +46,22 @@ public class LoginHistoryBean extends ProtectedBean {
             @Override
             public List<Login> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
                 List<Login> allLogins;
-		List<Login> logins;
-		
-		// todo change persistance layer to do this more efficiently
-		allLogins = persistance.findUserLogins(loggedUser);
-		
+                List<Login> logins;
+
+                // todo change persistance layer to do this more efficiently
+                allLogins = persistance.findUserLogins(loggedUser);
+
                 lazyLoginHistory.setRowCount(allLogins.size());
 
-                if(allLogins.size() > first) {
-		    if(allLogins.size() > first + pageSize) {
-			logins = allLogins.subList(first, first + pageSize);
-		    } else {
-			logins = allLogins.subList(first, allLogins.size() - 1);
-		    }
-		} else {
-		    logins = new ArrayList<>();
-		}
+                if (allLogins.size() > first) {
+                    if (allLogins.size() > first + pageSize) {
+                        logins = allLogins.subList(first, first + pageSize);
+                    } else {
+                        logins = allLogins.subList(first, allLogins.size() - 1);
+                    }
+                } else {
+                    logins = new ArrayList<>();
+                }
 
                 return logins;
             }

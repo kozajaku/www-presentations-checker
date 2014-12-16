@@ -38,7 +38,7 @@ public class CSSRule {
         this.value = value;
         this.declarationPosition = declarationPosition;
         this.cssRuleUsages = new ArrayList<>();
-	this.cssRuleDirectUsages = new ArrayList<>();
+        this.cssRuleDirectUsages = new ArrayList<>();
     }
 
     /**
@@ -53,7 +53,7 @@ public class CSSRule {
         this.value = value;
         this.declarationPosition = null;
         this.cssRuleUsages = new ArrayList<>();
-	this.cssRuleDirectUsages = new ArrayList<>();
+        this.cssRuleDirectUsages = new ArrayList<>();
     }
 
     /**
@@ -105,16 +105,17 @@ public class CSSRule {
     public boolean isRedundant() {
         return cssRuleUsages.isEmpty();
     }
-    
+
     /**
      * <p>
-     * Returns true if there are no direct usages of this rule (without inheritance applied)
+     * Returns true if there are no direct usages of this rule (without
+     * inheritance applied)
      * </p>
-     * 
+     *
      * @return a boolean
      */
-    public boolean isUnused(){
-	return cssRuleDirectUsages.isEmpty();
+    public boolean isUnused() {
+        return cssRuleDirectUsages.isEmpty();
     }
 
     /**
@@ -139,7 +140,7 @@ public class CSSRule {
     public void addRuleUsage(CSSRuleUsage usage) {
         this.cssRuleUsages.add(usage);
     }
-    
+
     /**
      * <p>
      * Adds direct rule usage (without inheritance applied).</p>
@@ -149,7 +150,7 @@ public class CSSRule {
      */
     public void addRuleDirectUsage(CSSRuleUsage usage) {
         this.cssRuleDirectUsages.add(usage);
-    }    
+    }
 
     /**
      * <p>
@@ -160,8 +161,8 @@ public class CSSRule {
     public List<CSSRuleUsage> getCssRuleUsages() {
         return cssRuleUsages;
     }
-    
-     /**
+
+    /**
      * <p>
      * Getter for the field <code>cssRuleDirectUsages</code>.</p>
      *
@@ -169,6 +170,6 @@ public class CSSRule {
      */
     public List<CSSRuleUsage> getCssRuleDirectUsages() {
         return cssRuleDirectUsages;
-    }   
+    }
 
 }

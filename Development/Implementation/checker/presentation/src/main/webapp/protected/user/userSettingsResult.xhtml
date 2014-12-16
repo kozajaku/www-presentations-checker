@@ -15,18 +15,18 @@
                     <h2><h:outputLabel value="#{msg['userSettings.caption']}" /></h2>
                 </ui:define>
 
-		<c:choose>
-		    <c:when test="#{request.getParameter('type') == 'passwordChange'}">
-			<p class="alert alert-success center-block bold">
-			    #{msg['userSettings.success_message_password']}			    
-			</p>
-		    </c:when>
-		    <c:otherwise>
-			<p class="alert alert-success center-block bold">
-			    #{msg['userSettings.success_message_settings']}
-			</p>			
-		    </c:otherwise>
-		</c:choose>
+                <c:choose>
+                    <c:when test="#{request.getParameter('type') == 'passwordChange'}">
+                        <p class="alert alert-success center-block bold">
+                            #{msg['userSettings.success_message_password']}			    
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="alert alert-success center-block bold">
+                            #{msg['userSettings.success_message_settings']}
+                        </p>			
+                    </c:otherwise>
+                </c:choose>
                 <h:link outcome="index.html" value="#{msg['navi.back_common']}" />
 
             </ui:define>

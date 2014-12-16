@@ -27,6 +27,7 @@ import org.presentation.utils.Property;
  * This class can work with Graphviz, tool for generating graphs.
  *
  * @version 1.0-SNAPSHOT
+ * @author radio.koza
  */
 @Dependent
 public class GraphvizUtils {
@@ -73,35 +74,43 @@ public class GraphvizUtils {
     /**
      * Constant <code>INVALID_COLOR="\"red\""</code>
      */
-    protected static final String INVALID_COLOR = Property.getInstance().getStringPropery("GVUT_INVALID_COLOR");;
+    protected static final String INVALID_COLOR = Property.getInstance().getStringPropery("GVUT_INVALID_COLOR");
+    ;
     /**
      * Constant <code>LINK_COLOR="\"black\""</code>
      */
-    protected static final String LINK_COLOR = Property.getInstance().getStringPropery("GVUT_LINK_COLOR");;
+    protected static final String LINK_COLOR = Property.getInstance().getStringPropery("GVUT_LINK_COLOR");
+    ;
     /**
      * Constant <code>IMG_COLOR="\"blue\""</code>
      */
-    protected static final String IMG_COLOR = Property.getInstance().getStringPropery("GVUT_IMG_COLOR");;
+    protected static final String IMG_COLOR = Property.getInstance().getStringPropery("GVUT_IMG_COLOR");
+    ;
     /**
      * Constant <code>CSS_COLOR="\"yellow\""</code>
      */
-    protected static final String CSS_COLOR = Property.getInstance().getStringPropery("GVUT_CSS_COLOR");;
+    protected static final String CSS_COLOR = Property.getInstance().getStringPropery("GVUT_CSS_COLOR");
+    ;
     /**
      * Constant <code>FROM_CSS_COLOR="\"orange\""</code>
      */
-    protected static final String FROM_CSS_COLOR = Property.getInstance().getStringPropery("GVUT_FROM_CSS_COLOR");;
+    protected static final String FROM_CSS_COLOR = Property.getInstance().getStringPropery("GVUT_FROM_CSS_COLOR");
+    ;
     /**
      * Constant <code>IMPORT_COLOR="\"deeppink\""</code>
      */
-    protected static final String IMPORT_COLOR = Property.getInstance().getStringPropery("GVUT_IMPORT_COLOR");;
+    protected static final String IMPORT_COLOR = Property.getInstance().getStringPropery("GVUT_IMPORT_COLOR");
+    ;
     /**
      * Constant <code>SCRIPT_COLOR="\"purple\""</code>
      */
-    protected static final String SCRIPT_COLOR = Property.getInstance().getStringPropery("GVUT_SCRIPT_COLOR");;
+    protected static final String SCRIPT_COLOR = Property.getInstance().getStringPropery("GVUT_SCRIPT_COLOR");
+    ;
     /**
      * Constant <code>DEFAULT_COLOR="\"black\""</code>
      */
-    protected static final String DEFAULT_COLOR = Property.getInstance().getStringPropery("GVUT_DEFAULT_COLOR");;
+    protected static final String DEFAULT_COLOR = Property.getInstance().getStringPropery("GVUT_DEFAULT_COLOR");
+    ;
 
     protected Map<Node, Integer> nodeNumbers;
     protected int nodeCounter;

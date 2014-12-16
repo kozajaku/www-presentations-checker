@@ -8,19 +8,30 @@ package org.presentation.graphgenerator.impl;
 import org.presentation.utils.Property;
 
 /**
- * This class represents graphviz source code from {@link FullGraphGVSGenerator}.
- * 
+ * This class represents graphviz source code from
+ * {@link org.presentation.graphgenerator.impl.FullGraphGVSGenerator}.
+ *
  * @author petrof
+ * @version 1.0-SNAPSHOT
  */
 public class FullGraphGVSource extends GraphvizSourceCode {
 
+    /**
+     * <p>
+     * Constructor for FullGraphGVSource.</p>
+     *
+     * @param sourceCode a {@link java.lang.String} object.
+     */
     public FullGraphGVSource(String sourceCode) {
-	super(sourceCode);
+        super(sourceCode);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getResultId() {
-	return Property.getInstance().getStringPropery("FullGraphvizSource");
+        return Property.getInstance().getStringPropery("FullGraphvizSource");
     }
-    
+
 }

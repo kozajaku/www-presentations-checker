@@ -11,6 +11,7 @@ import java.util.logging.Logger;
  * designed for application constants.
  *
  * @author radio.koza
+ * @version 1.0-SNAPSHOT
  */
 public class Property {
 
@@ -26,6 +27,12 @@ public class Property {
         }
     }
 
+    /**
+     * <p>
+     * getInstance.</p>
+     *
+     * @return a {@link org.presentation.utils.Property} object.
+     */
     public static Property getInstance() {
         return PropertyHolder.INSTANCE;
     }
@@ -36,10 +43,11 @@ public class Property {
     }
 
     /**
-     * Query {@link String} property by its name.
+     * Query {@link java.lang.String} property by its name.
      *
      * @param propertyName Key - name of the property
      * @return String representing the result of the query
+     * @throws java.util.NoSuchElementException if any.
      */
     public String getStringPropery(String propertyName) throws NoSuchElementException {
         String res = properties.getProperty(propertyName);
@@ -54,6 +62,7 @@ public class Property {
      *
      * @param propertyName Key - name of the wanted property
      * @return integer value of property
+     * @throws java.util.NoSuchElementException if any.
      */
     public int getIntProperty(String propertyName) throws NoSuchElementException {
         String res = getStringPropery(propertyName);

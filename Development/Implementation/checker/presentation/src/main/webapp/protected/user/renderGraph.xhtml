@@ -14,7 +14,7 @@
     <h:body>
 
         <ui:composition template="/WEB-INF/template/commonLayout.xhtml">
-	    
+
             <ui:param name="title" value="Checkup graph" />
 
             <c:if test="#{not empty renderGraph.checkup}">
@@ -28,9 +28,9 @@
             </c:if>
 
             <ui:define name="content">		
-		
-    		<h:outputScript name="js/viz.js" />
-		<h:outputScript name="js/graph_renderer.js" />
+
+                <h:outputScript name="js/viz.js" />
+                <h:outputScript name="js/graph_renderer.js" />
 
                 <ui:include src="/WEB-INF/helper/errorList.xhtml" />
 

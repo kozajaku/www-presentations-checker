@@ -8,19 +8,30 @@ package org.presentation.graphgenerator.impl;
 import org.presentation.utils.Property;
 
 /**
- * This class represents graphviz source code from {@link ReducedGraphGVSGenerator}.
- * 
+ * This class represents graphviz source code from
+ * {@link org.presentation.graphgenerator.impl.ReducedGraphGVSGenerator}.
+ *
  * @author petrof
+ * @version 1.0-SNAPSHOT
  */
 public class ReducedGraphGVSource extends GraphvizSourceCode {
 
+    /**
+     * <p>
+     * Constructor for ReducedGraphGVSource.</p>
+     *
+     * @param sourceCode a {@link java.lang.String} object.
+     */
     public ReducedGraphGVSource(String sourceCode) {
-	super(sourceCode);
+        super(sourceCode);
     }
-   
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getResultId() {
         return Property.getInstance().getStringPropery("ReducedGraphvizSource");
     }
-    
+
 }

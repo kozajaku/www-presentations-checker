@@ -51,9 +51,22 @@ public class GraphGeneratorQueue {
      * {@link org.presentation.graphgenerator.GraphResult} implementations.
      * @return A {@link java.util.concurrent.Future} object which serves as
      * holder for information about asynchronous method execution. When
-     * rendering is finished, list of {@link GraphResult} is added to the
+     * rendering is finished, list of
+     * {@link org.presentation.graphgenerator.GraphResult} is added to the
      * {@link java.util.concurrent.Future} object and can be retreived by method
      * {@link java.util.concurrent.Future#get()}.
+     * @see Future
+     * @see Future#get()
+     * @see Future
+     * @see Future#get()
+     * @see Future
+     * @see Future#get()
+     * @see Future
+     * @see Future#get()
+     * @see Future
+     * @see Future#get()
+     * @see Future
+     * @see Future#get()
      * @see Future
      * @see Future#get()
      * @see Future

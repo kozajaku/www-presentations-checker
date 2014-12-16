@@ -65,7 +65,7 @@ public class CSSRuleSet {
         }
         return true;
     }
-    
+
     /**
      * <p>
      * isUnused.</p>
@@ -79,7 +79,7 @@ public class CSSRuleSet {
             }
         }
         return true;
-    }    
+    }
 
     /**
      * {@inheritDoc}

@@ -73,6 +73,9 @@ public abstract class Node {
         return inputDegree;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -80,6 +83,9 @@ public abstract class Node {
         return hash;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -91,7 +97,5 @@ public abstract class Node {
         final Node other = (Node) obj;
         return Objects.equals(this.url, other.url);
     }
-
-    
 
 }

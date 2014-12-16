@@ -9,7 +9,8 @@ import org.presentation.graphgenerator.GraphResult;
 import org.presentation.utils.Property;
 
 /**
- * This class represents SVG image from {@link FullGraphGenerator}.
+ * This class represents SVG image from
+ * {@link org.presentation.graphgenerator.impl.FullGraphGenerator}.
  *
  * @author Adam Kugler
  * @version 1.0-SNAPSHOT

@@ -243,11 +243,19 @@ public class CheckingExecutionQueue {
             stoppingLock.unlock();
         }
     }
-    
+
+    /**
+     * <p>
+     * getCheckupProgress.</p>
+     *
+     * @param checkup a {@link org.presentation.persistence.model.Checkup}
+     * object.
+     * @return a {@link org.presentation.kernel.Progress} object.
+     */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public Progress getCheckupProgress(Checkup checkup){
+    public Progress getCheckupProgress(Checkup checkup) {
         CheckingExecutor executor = runningCheckings.get(checkup.getIdCheckup());
-        if (executor == null){
+        if (executor == null) {
             //seems that run has been finished
             return new Progress(checkup.getPageLimit(), checkup.getPageLimit());
         }

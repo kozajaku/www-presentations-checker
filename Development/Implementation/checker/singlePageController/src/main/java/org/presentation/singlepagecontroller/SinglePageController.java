@@ -70,8 +70,8 @@ public class SinglePageController implements MessageProducer, Stoppable {
      * Method is called by web crawler (delegated from kernel) for every valid
      * page validation can be applied on. Method must delegate these requests
      * paralelly to chosen implementations of
-     * {@link org.presentation.singlepagecontroller.SinglePageChecker}
-     * class. Method
+     * {@link org.presentation.singlepagecontroller.SinglePageChecker} class.
+     * Method
      * {@link #initializeControllers(org.presentation.utils.OptionContainer)}
      * must be called before this method or IllegalStateException will be
      * thrown.

@@ -99,17 +99,25 @@ public class CheckRequestReceiver {
             execQueue.stopRunningChecking(checkupId);
         }
     }
-    
+
+    /**
+     * <p>
+     * getPagesCrawled.</p>
+     *
+     * @param checkupId a {@link java.lang.Integer} object.
+     * @return a {@link org.presentation.kernel.Progress} object.
+     * @throws java.lang.NoSuchFieldException if any.
+     */
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public Progress getPagesCrawled(Integer checkupId) throws NoSuchFieldException{
+    public Progress getPagesCrawled(Integer checkupId) throws NoSuchFieldException {
         Checkup checkup = persistenceFacade.findCheckup(checkupId);
-        if (checkup == null){
+        if (checkup == null) {
             throw new NoSuchFieldException("Checkup with specified primary key was not found");
         }
-        if (checkup.getState().isEnded()){
+        if (checkup.getState().isEnded()) {
             return new Progress(checkup.getPageLimit(), checkup.getPageLimit());
         }
-        if (checkup.getState() != CheckState.CHECKING){
+        if (checkup.getState() != CheckState.CHECKING) {
             return new Progress(checkup.getPageLimit(), 0);
         }
         return execQueue.getCheckupProgress(checkup);

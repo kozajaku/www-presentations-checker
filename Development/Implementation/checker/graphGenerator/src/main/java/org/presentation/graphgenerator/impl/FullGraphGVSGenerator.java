@@ -13,19 +13,22 @@ import org.presentation.graphgenerator.GraphResult;
 import org.presentation.model.graph.TraversalGraph;
 
 /**
- * This class can convert graph into graphviz source code (no opossum can do that!)
+ * This class can convert graph into graphviz source code (no opossum can do
+ * that!)
+ *
  * @author petrof
+ * @version 1.0-SNAPSHOT
  */
 @Dependent
-public class FullGraphGVSGenerator extends GraphGenerator  {
+public class FullGraphGVSGenerator extends GraphGenerator {
 
     @Inject
     private GraphvizUtils graphvizUtils;
-    
+
     @Inject
     @SuppressWarnings("NonConstantLogger")
-    private Logger LOG;    
-    
+    private Logger LOG;
+
     /**
      * {@inheritDoc}
      */
@@ -36,8 +39,8 @@ public class FullGraphGVSGenerator extends GraphGenerator  {
             LOG.severe("Generation of graphviz source failed!");
             return null;//no GraphResult will be saved in database
         }
-	
-	return new FullGraphGVSource(graphvizSource);
+
+        return new FullGraphGVSource(graphvizSource);
     }
-    
+
 }

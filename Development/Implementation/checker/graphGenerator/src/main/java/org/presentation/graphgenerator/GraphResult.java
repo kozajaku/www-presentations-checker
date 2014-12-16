@@ -23,6 +23,5 @@ public abstract class GraphResult {
      * @return an unique graph type ID.
      */
     public abstract String getResultId();
-    
 
 }

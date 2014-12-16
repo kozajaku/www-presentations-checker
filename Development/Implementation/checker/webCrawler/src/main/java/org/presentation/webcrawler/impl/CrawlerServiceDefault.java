@@ -263,7 +263,7 @@ public class CrawlerServiceDefault implements CrawlerService {
      * Timeout to head request in ms.
      */
     private static final int HEAD_TIMEOUT = Property.getInstance().getIntProperty("CRAWLER_HEAD_TIMEOUT");
-    
+
     @Inject
     @SuppressWarnings("NonConstantLogger")
     private Logger LOG;
