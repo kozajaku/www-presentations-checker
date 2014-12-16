@@ -101,6 +101,18 @@ public interface PersistenceFacade {
      */
     List<Login> findUserLogins(User user);
 
+    /**
+     * Method changes password of already created user.
+     *
+     * @param user User for whom the new password should be assigned
+     * @param oldPass Old password of the user, which will be checked for
+     * correctness
+     * @param newPass New password to be assigned if old passwords are the same
+     * @return <code>true</code> if password has been successfully changed,
+     * <code>false</code> otherwise (eg. old passwords are not the same)
+     */
+    boolean changeUserPassword(User user, String oldPass, String newPass);
+
     //========================checkup methods===================================
     /**
      * Method creates new checkup by using instance of

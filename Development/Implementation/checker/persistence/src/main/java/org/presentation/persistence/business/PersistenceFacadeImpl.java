@@ -175,6 +175,51 @@ public class PersistenceFacadeImpl implements PersistenceFacade {
      * {@inheritDoc}
      */
     @Override
+    public boolean changeUserPassword(User user, String oldPass, String newPass) {
+        try {
+            user = userDAO.find(user.getEmail());
+            if (user == null) {
+                return false;//user was not found -- should not happen
+            }
+            String salt = user.getSalt();
+            byte[] saltBytes = new byte[salt.length() / 2];
+            for (int i = 0; i < salt.length(); i += 2) {
+                saltBytes[i / 2] = (byte) ((Character.digit(salt.charAt(i), 16) << 4)
+                        + Character.digit(salt.charAt(i + 1), 16));
+            }
+            byte[] passBytes = oldPass.getBytes(Charset.forName("UTF-8"));
+            //setup hashing algorithm
+            MessageDigest sha = MessageDigest.getInstance("SHA-256");
+            sha.update(saltBytes);
+            sha.update(passBytes);
+            if (!bytesToHex(sha.digest()).equals(user.getPassword())) {
+                return false;//old passwords differ
+            }
+            //generate salt and hash for new password
+            SecureRandom random = new SecureRandom();
+            saltBytes = new byte[32];
+            random.nextBytes(saltBytes);
+            //generate byte array from passed password
+            passBytes = newPass.getBytes(Charset.forName("UTF-8"));
+            //setup hashing algorithm
+            sha.reset();
+            sha.update(saltBytes);
+            sha.update(passBytes);
+            //create new user
+            user.setPassword(bytesToHex(sha.digest()));
+            userDAO.update(user);
+        } catch (NoSuchAlgorithmException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            assert false : "Hashing algorithm is not specified correctly";
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Checkup> findUserCheckings(User user) {
         return checkupDAO.findAllUserChecks(user.getEmail());
     }
